@@ -1,3 +1,23 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+/**
+ * Tailwind's base styles, which is a combination of normalize.css
+ * and some thin layer of additional more opinionated styles.
+ * https://unpkg.com/tailwindcss/dist/base.css
+ */
+
+ @tailwind base;
+
+ /**
+  * Tailwind's component styles, which contains component classes.
+  * You must add custom component classes after this import.
+  * https://unpkg.com/tailwindcss/dist/components.css
+  */
+ 
+ @tailwind components;
+ 
+ /**
+  * Tailwind's utility styles, which provides a comprehensive set
+  * of utility classes generated based on your config file.
+  * https://unpkg.com/tailwindcss/dist/utilities.css
+  */
+ 
+ @tailwind utilities;

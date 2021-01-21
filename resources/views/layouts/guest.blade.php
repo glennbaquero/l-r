@@ -3,12 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'L&R Transport') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -16,9 +18,17 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body>
-        <div class="font-sans text-gray-900 antialiased">
+    <body class="text-base">
+        <main id="app" class="min-h-screen flex flex-col justify-center text-gray-50 py-12 sm:px-6 lg:px-8 bg-gradient-to-r from-black to-gray-100">
+
+            <div class="sm:ml-40 sm:w-full sm:max-w-md">
+                <h2 class="mt-6 text-center text-3xl leading-9">
+                  {{ $title }}
+                </h2>
+            </div>
+            
+            <!-- Main Content -->
             {{ $slot }}
-        </div>
+        </main>
     </body>
 </html>
