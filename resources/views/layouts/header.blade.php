@@ -1,387 +1,304 @@
 <!-- Page Heading -->
 <header class="bg-darkblue shadow text-white">
     <nav aria-label="primary" class="flex flex-grow max-w-full space-x-16 mx-8 relative z-20">
-        <div class="relative group">
-            <button class="flex flex-row items-center w-full py-4 text-base font-semibold text-sm focus:outline-none">
-                <span>Dashboard</span>
-            </button>
-        </div>  
+        <x-header-link link="{{route('dashboard')}}">
+            <x-slot name="name">Dashboard</x-slot>
+        </x-header-link>
         
-        <div class="relative group">
-            <!--First level nav-->
-            <button class="flex flex-row items-center w-full py-4 text-base font-semibold text-sm focus:outline-none">
-                <span>Management</span>
-            </button>
-            <div class="absolute hidden z-10 bg-darkblue group-hover:block">
-                <div class="-mx-4 bg-darkblue shadow-lg">
-                    <div class="relative flex w-72 px-8 py-2 group-management hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Management</a>
-                        <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                        </svg>
+        <x-header-link link="{{route('dashboard')}}">
+            <x-slot name="name">Management</x-slot>
+            <x-header-sub-link link="#" :caret="true" class="group-management hover:bg-lightblue">
+                <x-slot name="name">Management</x-slot>
+                    <x-header-absolute-link class="group-management-hover:block bg-lightblue">
+                        <x-header-sub-link link="#" :caret="true" class="group-sales hover:bg-lighterblue">
+                            <x-slot name="name">Sales Management</x-slot>
+                            <x-header-absolute-link class="group-sales group-sales-hover:block bg-lighterblue">
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Expenses & Income</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Coupon Management</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Promotions and Discounts</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Promotion Option</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Open / Close Till</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Open / Close Office</x-slot>
+                                </x-header-sub-link>
+                            </x-header-absolute-link>
+                        </x-header-sub-link>
+                        
+                        <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lighterblue">
+                            <x-slot name="name">Route Management</x-slot>
+                            <x-header-absolute-link class="group-route group-route-hover:block bg-lighterblue">
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Route</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Multiple Route</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Prices</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Interline Price</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Itineraries</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Passenger Boarding</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Daily Itineraries</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Itineraries, Logs & Notifications</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Travel Expense</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Route & Main Driver</x-slot>
+                                </x-header-sub-link>
+                            </x-header-absolute-link>
+                        </x-header-sub-link>
+                        
+                        <x-header-sub-link link="#" :caret="true" class="group-bus hover:bg-lighterblue">
+                            <x-slot name="name">Bus Management</x-slot>
+                            <x-header-absolute-link class="group-bus group-bus-hover:block bg-lighterblue">
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Type of Cell</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Bus Model</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Bus</x-slot>
+                                </x-header-sub-link>
+                            </x-header-absolute-link>
+                        </x-header-sub-link>
 
-                        <!--Second level nav-->
-                        <div class="absolute hidden top-0 left-72 z-10 bg-lightblue group-management-hover:block">
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue group-sales text-base font-normal">
-                                <a href="#">Sales Management</a>
-                                <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                                </svg>
-                                <div class="absolute hidden top-0 left-72 z-10 bg-lighterblue group-sales group-sales-hover:block">
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Expenses & Income</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Coupon Management</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Promotions and Discounts</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Promotion Option</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Open / Close Till</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Open / Close Office</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue group-route text-base font-normal">
-                                <a href="#">Route Management</a>
-                                <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                                </svg>
-                                <div class="absolute hidden top-0 left-72 z-10 bg-lighterblue group-route group-route-hover:block">
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Route</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Multiple Route</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Prices</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Interline Price</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Iteneraries</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Passenger Boarding</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Daily Iteneraries</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Iteneraries, Logs & Notification</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Travel Expense</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Route & Main Driver</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue group-bus text-base font-normal">
-                                <a href="#">Bus Management</a>
-                                <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                                </svg>
-                                <div class="absolute hidden top-0 left-72 z-10 bg-lighterblue group-bus group-bus-hover:block">
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Type of Cell</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Bus Model</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Bus</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">User</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue group-groups text-base font-normal">
-                                <a href="#">Groups</a>
-                                <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                                </svg>
-                                <div class="absolute hidden top-0 left-72 z-10 bg-lighterblue group-groups group-groups-hover:block">
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Group Management</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Grant or Restrict Previleges</a>
-                                    </div>
-                                    <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                        <a href="#">Group Message</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Options</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Cities</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Offices</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Ticket Type</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Base Fares Administration</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Agency Management</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Services</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Driver Management</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Training Videos</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Tracking Messages</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Group Email Management</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative flex w-72 px-8 py-2 group-configuration hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Configuration</a>
-                        <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                        </svg>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">User</x-slot>
+                        </x-header-sub-link>
 
-                        <!--Second level nav-->
-                        <div class="absolute hidden top-0 left-72 z-10 bg-lightblue group-configuration group-configuration-hover:block">
-                            <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Terminal Management</a>
-                            </div>
-                            <div class="w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Printer Management</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <x-header-sub-link link="#" :caret="true" class="group-groups hover:bg-lighterblue">
+                            <x-slot name="name">Groups</x-slot>
+                            <x-header-absolute-link class="group-groups group-groups-hover:block bg-lighterblue">
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Group Management</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Grant or Restrict Previleges</x-slot>
+                                </x-header-sub-link>
+                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Group Message</x-slot>
+                                </x-header-sub-link>
+                            </x-header-absolute-link>
+                        </x-header-sub-link>
 
-        <div class="relative group">
-            <!--First level nav-->
-            <button class="flex flex-row items-center w-full py-4 text-base font-semibold text-sm focus:outline-none">
-                <span>Billings</span>
-            </button>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Options</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Cities</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Offices</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Ticket Type</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Base Fares Administration</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Agency Management</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Services</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Driver Management</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Training Videos</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Tracking Messages</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Group Email Management</x-slot>
+                        </x-header-sub-link>
+                </x-header-absolute-link>
+            </x-header-sub-link>
 
-            <div class="absolute hidden z-10 bg-darkblue group-hover:block">
-                <div class="-mx-4 bg-darkblue shadow-lg">
-                    <div class="relative flex w-72 px-8 py-2 hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Accounts Receivable</a>
-                    </div>
-                    <div class="relative flex w-72 px-8 py-2 hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Accounts Payable</a>
-                    </div>
-                    <div class="relative flex w-72 px-8 py-2 hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Payment Document</a>
-                    </div>
-                    <div class="relative flex w-72 px-8 py-2 hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Authorize.net Transactions</a>
-                    </div>
-                    <div class="relative flex w-72 px-8 py-2 hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Credit Sales</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <x-header-sub-link link="#" :caret="true" class="group-configuration hover:bg-lightblue">
+                <x-slot name="name">Configuration</x-slot>
+                    <x-header-absolute-link class="group-configuration-hover:block bg-lightblue">
+                        <x-header-sub-link link="#" :caret="false" class="group-sales hover:bg-lighterblue">
+                            <x-slot name="name">Terminal Management</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="group-sales hover:bg-lighterblue">
+                            <x-slot name="name">Printer Management</x-slot>
+                        </x-header-sub-link>
+                    </x-header-absolute-link>
+            </x-header-sub-link>
+        </x-header-link>
 
-        <div class="relative group">
-            <!--First level nav-->
-            <button class="flex flex-row items-center w-full py-4 text-base font-semibold text-sm focus:outline-none">
-                <span>Support</span>
-            </button>
+        <x-header-link link="{{route('dashboard')}}">
+            <x-slot name="name">Billing</x-slot>
+            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+                <x-slot name="name">Accounts Receivable</x-slot>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+                <x-slot name="name">Accounts Payable</x-slot>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+                <x-slot name="name">Payment Document</x-slot>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+                <x-slot name="name">Authorize.net Transactions</x-slot>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+                <x-slot name="name">Credit Sales</x-slot>
+            </x-header-sub-link>
+        </x-header-link>
 
-            <div class="absolute hidden z-10 bg-darkblue group-hover:block">
-                <div class="-mx-4 bg-darkblue shadow-lg">
-                    <div class="relative flex w-72 px-8 py-2 hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Information</a>
-                    </div>
-                    <div class="relative flex w-72 px-8 py-2 hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Tickets Support</a>
-                    </div>
-                    <div class="relative flex w-72 px-8 py-2 hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Baggage Support</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <x-header-link link="{{route('dashboard')}}">
+            <x-slot name="name">Support</x-slot>
+            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+                <x-slot name="name">Information</x-slot>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+                <x-slot name="name">Tickets Support</x-slot>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+                <x-slot name="name">Baggage Support</x-slot>
+            </x-header-sub-link>
+        </x-header-link>
 
-        <div class="relative group">
-            <!--First level nav-->
-            <button class="flex flex-row items-center w-full py-4 text-base font-semibold text-sm focus:outline-none">
-                <span>Report</span>
-            </button>
-            <div class="absolute hidden z-10 bg-darkblue group-hover:block">
-                <div class="-mx-4 bg-darkblue shadow-lg">
-                    <div class="relative flex w-72 px-8 py-2 group-accounts hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Accounts</a>
-                        <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                        </svg>
+        <x-header-link link="{{route('dashboard')}}">
+            <x-slot name="name">Report</x-slot>
+            <x-header-sub-link link="#" :caret="true" class="group-account hover:bg-lightblue">
+                <x-slot name="name">Accounts</x-slot>
+                    <x-header-absolute-link class="group-account-hover:block bg-lightblue">
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Checklist</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Receivables</x-slot>
+                        </x-header-sub-link>
+                    </x-header-absolute-link>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="true" class="group-closure hover:bg-lightblue">
+                <x-slot name="name">Closure of Till</x-slot>
+                    <x-header-absolute-link class="group-closure-hover:block bg-lightblue">
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">My Daily Closure</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Daily Till Closure Reports</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Daily Till Report Terminal</x-slot>
+                        </x-header-sub-link>
+                    </x-header-absolute-link>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="true" class="group-reportsale hover:bg-lightblue">
+                <x-slot name="name">Sales</x-slot>
+                    <x-header-absolute-link class="group-reportsale-hover:block bg-lightblue">
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sales by Users</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sales by Credit Card</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sales by Web & Mobile</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sales by Agency</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sales by Travel</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sales by Ticket</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sales by State</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sales by Departure - Arrival</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sales by Voucher</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sasles by Coupons</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Sales by Trip Type</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Unified Sales</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Unified Sales Grouped</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Unified Sales Simplified</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Total Sales</x-slot>
+                        </x-header-sub-link>
+                    </x-header-absolute-link>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="true" class="group-passenger hover:bg-lightblue">
+                <x-slot name="name">Passenger</x-slot>
+                    <x-header-absolute-link class="group-passenger-hover:block bg-lightblue">
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Passengers</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Passengers Transferred</x-slot>
+                        </x-header-sub-link>
+                    </x-header-absolute-link>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lightblue">
+                <x-slot name="name">Routes</x-slot>
+                    <x-header-absolute-link class="group-route-hover:block bg-lightblue">
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Reservation per Route</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Price per Route</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Income by Route</x-slot>
+                        </x-header-sub-link>
+                    </x-header-absolute-link>
+            </x-header-sub-link>
+            <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lightblue">
+                <x-slot name="name">Billings</x-slot>
+                    <x-header-absolute-link class="group-route-hover:block bg-lightblue">
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Billing by Transaction</x-slot>
+                        </x-header-sub-link>
+                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Billing by Tickets</x-slot>
+                        </x-header-sub-link>
+                    </x-header-absolute-link>
+            </x-header-sub-link>
+        </x-header-link>
 
-                        <!--Second level nav-->
-                        <div class="absolute hidden top-0 left-72 z-10 bg-lightblue group-accounts-hover:block">
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">User</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Receivables</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="relative flex w-72 px-8 py-2 group-closure hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Closure of Till</a>
-                        <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                        </svg>
-
-                        <!--Second level nav-->
-                        <div class="absolute hidden top-0 left-72 z-10 bg-lightblue group-closure-hover:block">
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">My Daily Closure</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Daily Till Closure Reports</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Daily Till Report Terminal</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="relative flex w-72 px-8 py-2 group-closure hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Sales</a>
-                        <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                        </svg>
-
-                        <!--Second level nav-->
-                        <div class="absolute hidden top-0 left-72 z-10 bg-lightblue group-closure-hover:block">
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by Users</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by Credit Card</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by Web and Mobile</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by Agency</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by Travel</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by Ticket</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by State</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by Departure - Arrival</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by Voucher</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by Coupons</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Sales by Trip Type</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Unified Sales</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Unified Sales Grouped</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Unified Sales Simplified</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Total Sales</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="relative flex w-72 px-8 py-2 group-closure hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Passengers</a>
-                        <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                        </svg>
-
-                        <!--Second level nav-->
-                        <div class="absolute hidden top-0 left-72 z-10 bg-lightblue group-closure-hover:block">
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Passengers</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Passengers Transferred</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="relative flex w-72 px-8 py-2 group-closure hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Routes</a>
-                        <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                        </svg>
-
-                        <!--Second level nav-->
-                        <div class="absolute hidden top-0 left-72 z-10 bg-lightblue group-closure-hover:block">
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Reservations per Route</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Price per Route</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Income by Route</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="relative flex w-72 px-8 py-2 group-closure hover:bg-lightblue text-base font-normal">
-                        <a href="#" class="mr-auto">Billing</a>
-                        <svg class="ml-auto inline-flex w-4 h-4" fill="none" stroke="currentColor" viewBox="-10 -8 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 6L-1.33513e-07 0.803848L-9.58579e-09 11.1962L9 6Z" fill="#F9F9F9"/>
-                        </svg>
-
-                        <!--Second level nav-->
-                        <div class="absolute hidden top-0 left-72 z-10 bg-lightblue group-closure-hover:block">
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Billing by Transaction</a>
-                            </div>
-                            <div class="relative flex w-72 px-8 py-2 hover:bg-lighterblue text-base font-normal">
-                                <a href="#">Billing by Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
       </nav>
 </header>

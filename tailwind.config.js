@@ -36,6 +36,6 @@ module.exports = {
          * https://github.com/ErickTamayo/tailwindcss-named-groups
          * Group names difened on headers
          */
-        namedGroups: ['management', 'sales', 'route', 'bus', 'groups', 'configuration', 'accounts', 'closure', 'reportsale']
+        namedGroups: ['management', 'sales', 'route', 'bus', 'groups', 'configuration', 'account', 'closure', 'reportsale', 'passenger', 'route', 'billing']
     },
 };
