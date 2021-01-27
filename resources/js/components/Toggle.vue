@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: 'toggle-password',
+    name: 'toggle',
 
     data: () => ({
         display: false,
@@ -9,13 +9,18 @@ export default {
     render() {
         return this.$scopedSlots.default({
             display: this.display,
-            toggle: this.toggle
+            toggled: this.toggled,
+            toggleFalse: this.toggleFalse,
         });
     },
 
     methods: {
-        toggle() {
+        toggled() {
             this.display = !this.display;
+        },
+
+        toggleFalse() {
+            setTimeout(() => { this.display = false; }, 200)
         }
     }
 }

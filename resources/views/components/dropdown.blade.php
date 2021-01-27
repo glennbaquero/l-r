@@ -1,43 +1,22 @@
-@props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white'])
+<toggle>
+    <div slot-scope="{ display, toggled, toggleFalse }" class="relative" tabindex="0" @focusout="toggleFalse">
+        <div @click.prevent="toggled">
+            {{ $trigger }}
+        </div>
 
-@php
-switch ($align) {
-    case 'left':
-        $alignmentClasses = 'origin-top-left left-0';
-        break;
-    case 'top':
-        $alignmentClasses = 'origin-top';
-        break;
-    case 'right':
-    default:
-        $alignmentClasses = 'origin-top-right right-0';
-        break;
-}
-
-switch ($width) {
-    case '48':
-        $width = 'w-48';
-        break;
-}
-@endphp
-
-<div class="relative" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false">
-    <div @click="open = ! open">
-        {{ $trigger }}
-    </div>
-
-    <div x-show="open"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="transform opacity-0 scale-95"
-            x-transition:enter-end="transform opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-75"
-            x-transition:leave-start="transform opacity-100 scale-100"
-            x-transition:leave-end="transform opacity-0 scale-95"
-            class="absolute z-50 mt-2 {{ $width }} rounded-md shadow-lg {{ $alignmentClasses }}"
-            style="display: none;"
-            @click="open = false">
-        <div class="rounded-md ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">
-            {{ $content }}
+        <div v-show="display" class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right right-0"
+        style="display: none;">
+            <transition enter-active-class="transition ease-out duration-200"
+                        enter-class="transform opacity-0 scale-95"
+                        enter-to-class="transform opacity-100 scale-100"
+                        leave-active-class="transition ease-in duration-75"
+                        leave-class="transform opacity-100 scale-100"
+                        leave-to-class="transform opacity-0 scale-95"
+            >
+                <div class="rounded-md ring-1 ring-black ring-opacity-5 p-3 bg-lightgray">
+                    {{ $content }}
+                </div>
+            </transition>
         </div>
     </div>
-</div>
+</toggle>
