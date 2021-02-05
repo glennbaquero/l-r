@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,5 @@ Route::get('/', function () { return redirect('/login'); });
 Route::middleware(['auth'])->group(function() {
     Route::post('/locale', LocaleController::class)->name('locale');
 
-    Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

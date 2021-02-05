@@ -1,5 +1,5 @@
 <toggle>
-    <div slot-scope="{ display, toggled, toggleFalse }" class="relative" tabindex="0" @focusout="toggleFalse">
+    <div slot-scope="{ display, toggled, toggleFalse }" tabindex="0" @focusout="toggleFalse" {{ $attributes->merge(['class' => 'relative'])}}>
         <div @click.prevent="toggled">
             {{ $trigger }}
         </div>

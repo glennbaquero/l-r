@@ -12,5 +12,8 @@
     "Dashboard": "Tablero",
     "Management": "Administración",
     "Billing": "Facturación",
-    "Report": "Reporte"
+    "Report": "Reporte",
+
+    "Welcome": "Bienvenidos",
+    "Your Office": "Tu Oficina"
 }

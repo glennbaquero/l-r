@@ -97,7 +97,7 @@
                         <form method="POST" action="{{ route('locale') }}">
                             @csrf
                             <input type="hidden" name="locale" value="es">
-                            <button type="submit" class="flex items-center text-medium font-semi-bold text-gray-700 hover:opacity-75 hover:text-gray-500 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out mt-3">
+                            <button type="submit" class="flex w-full items-center text-medium font-semi-bold text-gray-700 hover:opacity-75 hover:text-gray-500 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out mt-3">
                                 <img class="relative block h-5 w-auto mr-5" src="{{asset('/images/mexican_flag.jpg')}}" alt="Español" />
                                 <div>{{ __('Español') }}</div>
                             </button>
