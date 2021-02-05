@@ -2,11 +2,11 @@
 <header class="bg-darkblue shadow text-white">
     <nav aria-label="primary" class="flex flex-grow max-w-full space-x-16 mx-8 relative z-20">
         <x-header-link link="{{route('dashboard')}}">
-            <x-slot name="name">Dashboard</x-slot>
+            <x-slot name="name">{{__('Dashboard')}}</x-slot>
         </x-header-link>
         
         <x-header-link link="{{route('dashboard')}}">
-            <x-slot name="name">Management</x-slot>
+            <x-slot name="name">{{__('Management')}}</x-slot>
             <x-header-sub-link link="#" :caret="true" class="group-management hover:bg-lightblue">
                 <x-slot name="name">Management</x-slot>
                     <x-header-absolute-link class="group-management-hover:block bg-lightblue">
@@ -154,7 +154,7 @@
         </x-header-link>
 
         <x-header-link link="{{route('dashboard')}}">
-            <x-slot name="name">Billing</x-slot>
+            <x-slot name="name">{{__('Billing')}}</x-slot>
             <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">Accounts Receivable</x-slot>
             </x-header-sub-link>
@@ -173,7 +173,7 @@
         </x-header-link>
 
         <x-header-link link="{{route('dashboard')}}">
-            <x-slot name="name">Support</x-slot>
+            <x-slot name="name">{{__('Support')}}</x-slot>
             <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">Information</x-slot>
             </x-header-sub-link>
@@ -186,7 +186,7 @@
         </x-header-link>
 
         <x-header-link link="{{route('dashboard')}}">
-            <x-slot name="name">Report</x-slot>
+            <x-slot name="name">{{__('Report')}}</x-slot>
             <x-header-sub-link link="#" :caret="true" class="group-account hover:bg-lightblue">
                 <x-slot name="name">Accounts</x-slot>
                     <x-header-absolute-link class="group-account-hover:block bg-lightblue">

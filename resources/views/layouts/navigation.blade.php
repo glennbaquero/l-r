@@ -68,8 +68,13 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-medium font-semi-bold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <img class="block h-5 w-auto mr-3" src="{{asset('/images/american_flag.png')}}" alt="English" />
-                            <div>{{ __('English') }}</div>
+                            @if(session()->get('locale') != 'es')
+                                <img class="block h-5 w-auto mr-3" src="{{asset('/images/american_flag.png')}}" alt="English" />
+                                <div>{{ __('English') }}</div>
+                            @else
+                                <img class="block h-5 w-auto mr-3" src="{{asset('/images/mexican_flag.jpg')}}" alt="English" />
+                                <div>{{ __('Español') }}</div>
+                            @endif
 
                             <div class="ml-1">
                                 <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -80,16 +85,20 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <form action="">
-                            <button class="flex w-full items-center text-medium font-semi-bold text-gray-700 hover:opacity-75 hover:text-gray-500 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                        <form method="POST" action="{{ route('locale') }}">
+                            @csrf
+                            <input type="hidden" name="locale" value="en">
+                            <button type="submit" class="flex w-full items-center text-medium font-semi-bold text-gray-700 hover:opacity-75 hover:text-gray-500 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                                 <img class="block h-5 w-auto mr-5" src="{{asset('/images/american_flag.png')}}" alt="English" />
                                 <div>{{ __('English') }}</div>
                             </button>
                         </form>
 
-                        <form action="">
-                            <button class="flex items-center text-medium font-semi-bold text-gray-700 hover:opacity-75 hover:text-gray-500 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out mt-3">
-                                <img class="relative block h-5 w-auto mr-5" src="{{asset('/images/mexican_flag.jpg')}}" alt="English" />
+                        <form method="POST" action="{{ route('locale') }}">
+                            @csrf
+                            <input type="hidden" name="locale" value="es">
+                            <button type="submit" class="flex items-center text-medium font-semi-bold text-gray-700 hover:opacity-75 hover:text-gray-500 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out mt-3">
+                                <img class="relative block h-5 w-auto mr-5" src="{{asset('/images/mexican_flag.jpg')}}" alt="Español" />
                                 <div>{{ __('Español') }}</div>
                             </button>
                         </form>
@@ -102,7 +111,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-medium font-semi-bold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <img class="block h-12 w-12 mr-3 rounded-full" src="{{asset('/images/sample_user.png')}}" alt="English" />
+                            <img class="block h-12 w-12 mr-3 rounded-full" src="{{asset('/images/sample_user.png')}}" alt="User Avatar" />
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">
