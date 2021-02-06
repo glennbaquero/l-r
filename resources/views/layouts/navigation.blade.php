@@ -112,7 +112,7 @@
                     <x-slot name="trigger">
                         <button class="flex items-center text-medium font-semi-bold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             <img class="block h-12 w-12 mr-3 rounded-full" src="{{asset('/images/sample_user.png')}}" alt="User Avatar" />
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>{{ auth()->user()->fullname }}</div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

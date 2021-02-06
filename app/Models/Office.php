@@ -35,4 +35,14 @@ class Office extends Model
     {
         return $this->belongsTo(Terminal::class);
     }
+
+    /**
+     * Office has many users
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

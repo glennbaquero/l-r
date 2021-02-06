@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TerminalTableSeeder::class);
         $this->call(OfficeTypeTableSeeder::class);
         $this->call(OfficeTableSeeder::class);
+        $this->call(UserTableSeeder::class);
     }
 }

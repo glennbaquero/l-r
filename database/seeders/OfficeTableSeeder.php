@@ -20,9 +20,7 @@ class OfficeTableSeeder extends Seeder
                 'code' => bin2hex(random_bytes(3)),
                 'phone_number' => '(323) 587-5233',
                 'office_type_id' => 2,
-                'office_type_name' => 'Terminal / Punto de Venta',
                 'terminal_id' => 2,
-                'terminal_name' => 'FDN - Huntington Pk.'
             ]
         ];
 

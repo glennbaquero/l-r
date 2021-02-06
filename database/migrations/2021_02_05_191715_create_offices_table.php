@@ -21,11 +21,9 @@ class CreateOfficesTable extends Migration
 
             $table->bigInteger('office_type_id')->unsigned()->nullable();
             $table->foreign('office_type_id')->references('id')->on('office_types')->onDelete('cascade');
-            $table->string('office_type_name');
 
             $table->bigInteger('terminal_id')->unsigned()->nullable();
             $table->foreign('terminal_id')->references('id')->on('terminals')->onDelete('cascade');
-            $table->string('terminal_name');
             
             $table->boolean('main_stop_office')->default(false);
             $table->boolean('boarding_landing')->default(false);
