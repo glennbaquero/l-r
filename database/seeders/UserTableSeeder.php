@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
                 'email' => 'jerome@diversifiedrobotic.com',
                 'username' => 'jerome',
                 'password' => \Hash::make('password'),
-                'office_id' => 1,
+                'office_id' => 2,
             ]
         ];
 

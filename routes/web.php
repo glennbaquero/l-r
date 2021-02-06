@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\OfficeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +23,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/locale', LocaleController::class)->name('locale');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/office', [OfficeController::class, 'index'])->name('office.index');
+    Route::get('/office/fetch', [OfficeController::class, 'fetch'])->name('office.fetch');
 });

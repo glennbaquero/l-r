@@ -12,7 +12,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="space-x-8 ml-5 sm:space-x-6 sm:-my-px lg:ml-10 sm:flex text-sm">
+                <div class="2xl:space-x-6 xl:space-x-3 sm:-my-px ml-3 sm:flex text-sm text-center">
                     <x-nav-link>
                         <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 -5 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.77778 4H20.2222V12H5.77778V4ZM23.8333 8C23.8333 9.10458 24.8034 10 26 10V14C26 15.1046 25.03 16 23.8333 16H2.16667C0.970035 16 0 15.1046 0 14V10C1.19663 10 2.16667 9.10458 2.16667 8C2.16667 6.89542 1.19663 6 0 6V2C0 0.895416 0.970035 0 2.16667 0H23.8333C25.03 0 26 0.895416 26 2V6C24.8034 6 23.8333 6.89542 23.8333 8ZM21.6667 3.66667C21.6667 3.11437 21.1816 2.66667 20.5833 2.66667H5.41667C4.81835 2.66667 4.33333 3.11437 4.33333 3.66667V12.3333C4.33333 12.8856 4.81835 13.3333 5.41667 13.3333H20.5833C21.1816 13.3333 21.6667 12.8856 21.6667 12.3333V3.66667Z" fill="#001943"/>
@@ -67,7 +67,7 @@
             <div class="hidden mr-6 sm:flex sm:items-center sm:mr-0">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex items-center text-medium font-semi-bold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                        <button class="flex items-center text-sm font-semi-bold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             @if(session()->get('locale') != 'es')
                                 <img class="block h-5 w-auto mr-3" src="{{asset('/images/american_flag.png')}}" alt="English" />
                                 <div>{{ __('English') }}</div>
@@ -107,12 +107,12 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="hidden sm:flex sm:items-center sm:ml-3">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex items-center text-medium font-semi-bold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                        <button class="flex items-center text-sm font-semi-bold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             <img class="block h-12 w-12 mr-3 rounded-full" src="{{asset('/images/sample_user.png')}}" alt="User Avatar" />
-                            <div>{{ auth()->user()->fullname }}</div>
+                            <div>{{ auth()->user()->firstname }}</div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

@@ -15,5 +15,19 @@
     "Report": "Reporte",
 
     "Welcome": "Bienvenidos",
-    "Your Office": "Tu Oficina"
+    "Your Office": "Tu Oficina",
+
+    "Offices": "Oficinas",
+    "Office Management": "Gestión de Oficina",
+    "New Office": "Nueva Oficina",
+    "Allocation of Manual Tickets": "Asignación de tickets manuales",
+    "Office No.": "Oficina No.",
+    "Name": "Nomber", 
+    "Address": "Habla A",
+    "Phone": "Teléfono", 
+    "City": "Ciudad", 
+    "State": "Estado", 
+    "Office Type": "Tipo de Oficina",
+    "Office Status": "Estado de la oficina",
+    "Actions": "Acción"
 }

@@ -1,15 +1,15 @@
 <x-app-layout>
-    <div class="mx-auto sm:px-6 lg:px-8 py-12">
+    <div class="mx-auto sm:px-6 lg:px-8 py-6 text-sm">
         <div class="flex items-center">
-            <div class="text-xl mr-auto">
+            <div class="text-base mr-auto">
                 <span class="mr-3">{{__('Welcome')}}</span>
-                <span class="font-semibold">{{auth()->user()->name}}</span>,
+                <span class="font-semibold">{{auth()->user()->fullname}}</span>,
             </div>
-            <div class="flex text-xl items-center">
+            <div class="flex text-base items-center">
                 <span class="mr-3">{{__('Your Office')}}</span>
                 <x-dropdown align="right" width="48" class="bg-gray-200 p-2 rounded">
                     <x-slot name="trigger">
-                        <button class="flex text-medium font-semi-bold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                        <button class="flex text-base font-semi-bold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             <div>Huntington Pk.</div>
 
                             <div class="ml-1">

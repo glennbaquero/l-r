@@ -16,7 +16,7 @@ class CreateOfficesTable extends Migration
         Schema::create('offices', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code');
+            $table->string('office_no');
             $table->string('phone_number');
 
             $table->bigInteger('office_type_id')->unsigned()->nullable();
@@ -35,6 +35,8 @@ class CreateOfficesTable extends Migration
             $table->string('zip')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
+
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

@@ -16,12 +16,55 @@ class OfficeTableSeeder extends Seeder
     {
         $offices = [
             [
+                'name' => 'FDN - Compton',
+                'office_no' => bin2hex(random_bytes(3)),
+                'phone_number' => '(323) 587-5233',
+                'office_type_id' => 2,
+                'terminal_id' => 2,
+            ],
+            [
                 'name' => 'FDN - Huntington Pk.',
-                'code' => bin2hex(random_bytes(3)),
+                'office_no' => bin2hex(random_bytes(3)),
+                'phone_number' => '(323) 587-5233',
+                'office_type_id' => 2,
+                'terminal_id' => 2,
+            ],
+            [
+                'name' => 'FDN - Pasco',
+                'office_no' => bin2hex(random_bytes(3)),
+                'phone_number' => '(323) 587-5233',
+                'office_type_id' => 2,
+                'terminal_id' => 2,
+            ],
+            [
+                'name' => 'FDN - San Fernando',
+                'office_no' => bin2hex(random_bytes(3)),
+                'phone_number' => '(323) 587-5233',
+                'office_type_id' => 2,
+                'terminal_id' => 2,
+            ],
+            [
+                'name' => 'FDN - San Ysidro',
+                'office_no' => bin2hex(random_bytes(3)),
+                'phone_number' => '(323) 587-5233',
+                'office_type_id' => 2,
+                'terminal_id' => 2,
+            ],
+            [
+                'name' => 'FDN - Sunnyside',
+                'office_no' => bin2hex(random_bytes(3)),
+                'phone_number' => '(323) 587-5233',
+                'office_type_id' => 2,
+                'terminal_id' => 2,
+            ],
+            [
+                'name' => 'FDN - Yakima',
+                'office_no' => bin2hex(random_bytes(3)),
                 'phone_number' => '(323) 587-5233',
                 'office_type_id' => 2,
                 'terminal_id' => 2,
             ]
+
         ];
 
         foreach($offices as $office) {

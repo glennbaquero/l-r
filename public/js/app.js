@@ -1899,6 +1899,98 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DataTable.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DataTable.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'DataTable',
+  props: {
+    searches: {
+      type: Array
+    },
+    url: {
+      type: String
+    }
+  },
+  data: function data() {
+    return {
+      params: {},
+      page: 1,
+      data: [],
+      links: {},
+      meta: {},
+      baseUrl: null
+    };
+  },
+  mounted: function mounted() {
+    this.mapParams();
+  },
+  render: function render() {
+    return this.$scopedSlots["default"]({
+      params: this.params,
+      setParam: this.setParam,
+      data: this.data,
+      links: this.links,
+      meta: this.meta,
+      prev: this.prev,
+      next: this.next
+    });
+  },
+  methods: {
+    setParam: _.debounce(function (key, value) {
+      this.params[key] = value;
+      this.createUrl();
+    }, 1000),
+    mapParams: function mapParams() {
+      var _this = this;
+
+      _.forEach(this.searches, function (value, index) {
+        _this.params[value] = null;
+      });
+
+      this.createUrl();
+    },
+    createUrl: function createUrl() {
+      var _this2 = this;
+
+      this.baseUrl = this.url + '?' + 'page=' + this.page;
+
+      _.forEach(this.params, function (value, index) {
+        _this2.baseUrl += '&' + index + '=' + value;
+      });
+
+      this.fetch();
+    },
+    fetch: function fetch() {
+      var _this3 = this;
+
+      axios.get(this.baseUrl).then(function (response) {
+        _this3.data = response.data.data;
+        _this3.links = response.data.links;
+        _this3.meta = response.data.meta;
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
+    },
+    prev: function prev() {
+      this.page--;
+      this.createUrl();
+    },
+    next: function next() {
+      this.page++;
+      this.createUrl();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Toggle.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Toggle.vue?vue&type=script&lang=js& ***!
@@ -31824,6 +31916,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./DataTable.vue": "./resources/js/components/DataTable.vue",
 	"./Toggle.vue": "./resources/js/components/Toggle.vue"
 };
 
@@ -31881,6 +31974,56 @@ requireComponent.keys().forEach(function (fileName) {
     vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(component.name, component);
   }
 });
+
+/***/ }),
+
+/***/ "./resources/js/components/DataTable.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/DataTable.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DataTable.vue?vue&type=script&lang=js& */ "./resources/js/components/DataTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _DataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/DataTable.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/DataTable.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/DataTable.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DataTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DataTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

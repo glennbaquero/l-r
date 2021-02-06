@@ -110,8 +110,8 @@
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Cities</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Offices</x-slot>
+                        <x-header-sub-link link="{{route('office.index')}}" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">{{__('Offices')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Ticket Type</x-slot>
