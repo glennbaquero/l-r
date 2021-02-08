@@ -8,7 +8,7 @@
         <x-header-link link="{{route('dashboard')}}">
             <x-slot name="name">{{__('Management')}}</x-slot>
             <x-header-sub-link link="#" :caret="true" class="group-management hover:bg-lightblue">
-                <x-slot name="name">Management</x-slot>
+                <x-slot name="name">{{__('Management')}}</x-slot>
                     <x-header-absolute-link class="group-management-hover:block bg-lightblue">
                         <x-header-sub-link link="#" :caret="true" class="group-sales hover:bg-lighterblue">
                             <x-slot name="name">Sales Management</x-slot>
@@ -85,8 +85,8 @@
                             </x-header-absolute-link>
                         </x-header-sub-link>
 
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">User</x-slot>
+                        <x-header-sub-link link="{{route('user.index')}}" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">{{__('Users')}}</x-slot>
                         </x-header-sub-link>
 
                         <x-header-sub-link link="#" :caret="true" class="group-groups hover:bg-lighterblue">
@@ -141,7 +141,7 @@
             </x-header-sub-link>
 
             <x-header-sub-link link="#" :caret="true" class="group-configuration hover:bg-lightblue">
-                <x-slot name="name">Configuration</x-slot>
+                <x-slot name="name">{{__('Configuration')}}</x-slot>
                     <x-header-absolute-link class="group-configuration-hover:block bg-lightblue">
                         <x-header-sub-link link="#" :caret="false" class="group-sales hover:bg-lighterblue">
                             <x-slot name="name">Terminal Management</x-slot>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\QueryLike;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, QueryLike;
 
     /**
      * The attributes that are mass assignable.
@@ -52,5 +53,25 @@ class User extends Authenticatable
     public function getFullnameAttribute()
     {
         return "{$this->firstname} {$this->lastname}";
+    }
+
+    /**
+    * User belongs to office
+    * 
+    * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
+   public function office()
+   {
+       return $this->belongsTo(Office::class);
+   }
+
+   /**
+    * User belongs to group
+    * 
+    * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
     }
 }

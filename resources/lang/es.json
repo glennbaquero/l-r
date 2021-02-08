@@ -17,6 +17,9 @@
     "Welcome": "Bienvenidos",
     "Your Office": "Tu Oficina",
 
+    "Configuration": "Configuración",
+
+    "Office": "Oficina",
     "Offices": "Oficinas",
     "Office Management": "Gestión de Oficina",
     "New Office": "Nueva Oficina",
@@ -29,5 +32,12 @@
     "State": "Estado", 
     "Office Type": "Tipo de Oficina",
     "Office Status": "Estado de la oficina",
-    "Actions": "Acción"
+    "Actions": "Acción",
+
+    "Users": "Usuarios",
+    "Users Management": "Gestión de Usuarios",
+    "New User": "Nuevo Usuario",
+    "Username": "Nombre de Usuario",
+    "Group": "Grupo",
+    "User Status": "Estatus de usuario"
 }

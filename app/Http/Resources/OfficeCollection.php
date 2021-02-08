@@ -32,16 +32,16 @@ class OfficeCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return $this->collection->map(function($collection) {
+        return $this->collection->map(function($office) {
             return [
-                'office_no' => $collection->office_no,
-                'name' => $collection->name,
-                'address_line_1' => $collection->address_line_1,
-                'phone_number' => $collection->phone_number,
-                'city' => $collection->city,
-                'state' => $collection->state,
-                'office_type' => $collection->officeType->name,
-                'status' => $collection->status,
+                'office_no' => $office->office_no,
+                'name' => $office->name,
+                'address_line_1' => $office->address_line_1,
+                'phone_number' => $office->phone_number,
+                'city' => $office->city,
+                'state' => $office->state,
+                'office_type' => $office->officeType->name,
+                'status' => $office->status,
             ];
         });
     }

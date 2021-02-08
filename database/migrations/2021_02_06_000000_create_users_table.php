@@ -26,6 +26,10 @@ class CreateUsersTable extends Migration
             $table->bigInteger('office_id')->unsigned();
             $table->foreign('office_id')->references('id')->on('offices')->onDelete('cascade');
             
+            $table->bigInteger('group_id')->unsigned();
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
+            
+            $table->boolean('status')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

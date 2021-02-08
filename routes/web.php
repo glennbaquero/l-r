@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,7 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/office', [OfficeController::class, 'index'])->name('office.index');
     Route::get('/office/fetch', [OfficeController::class, 'fetch'])->name('office.fetch');
+
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/user/fetch', [UserController::class, 'fetch'])->name('user.fetch');
 });

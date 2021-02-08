@@ -22,6 +22,7 @@ class UserTableSeeder extends Seeder
                 'username' => 'jerome',
                 'password' => \Hash::make('password'),
                 'office_id' => 2,
+                'group_id' => 1,
             ]
         ];
 
