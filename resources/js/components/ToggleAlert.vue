@@ -1,14 +1,9 @@
 <script>
 export default {
-    name: 'toggle',
-
-    props: {
-        item: Object,
-        toggleableData: String
-    },
+    name: 'toggle-alert',
 
     data: () => ({
-        display: false,
+        display: true,
     }),
 
     render() {
@@ -19,11 +14,6 @@ export default {
         });
     },
 
-    mounted() {
-        if(!_.isEmpty(this.item)) {
-            this.display = this.item[this.toggleableData]
-        }
-    },
 
     methods: {
         toggled() {

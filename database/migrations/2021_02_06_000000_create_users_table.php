@@ -30,6 +30,24 @@ class CreateUsersTable extends Migration
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
             
             $table->boolean('status')->default(true);
+
+            $table->string('address_line_1');
+            $table->string('address_line_2')->nullable();
+            $table->string('city');
+            $table->string('country');
+            $table->string('zip_code');
+            $table->string('phone_number');
+            $table->string('cellphone_number');
+            $table->string('commission')->nullable();
+            $table->string('gender')->default('Male');
+            $table->boolean('record_sales')->default(false);
+            $table->boolean('can_print_ticket')->default(false);
+            $table->boolean('auto_create_driver')->default(false);
+            $table->boolean('restrict_hours')->default(false);
+
+            $table->string('image_path')->nullable();
+
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

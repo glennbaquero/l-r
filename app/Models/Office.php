@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Traits\QueryLike;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Office extends Model
 {
-    use HasFactory, QueryLike;
+    use HasFactory, QueryLike, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

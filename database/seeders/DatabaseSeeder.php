@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(OfficeTableSeeder::class);
         $this->call(GroupTableSeeder::class);
         $this->call(UserTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
     }
 }

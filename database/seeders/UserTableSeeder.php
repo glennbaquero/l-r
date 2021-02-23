@@ -23,6 +23,13 @@ class UserTableSeeder extends Seeder
                 'password' => \Hash::make('password'),
                 'office_id' => 2,
                 'group_id' => 1,
+                'address_line_1' => 'address_line_1',
+                'city' => 'city',
+                'country' => 'country',
+                'zip_code' => 'zip_code',
+                'phone_number' => 'phone_number',
+                'phone_number' => '0000000',
+                'cellphone_number' => '0000000',
             ]
         ];
 

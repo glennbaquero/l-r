@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOfficeTypesTable extends Migration
+class CreateCountriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateOfficeTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('office_types', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code');
+            $table->char('iso', 2);
+            $table->string('name', 80);
+            $table->string('nicename', 80);
+            $table->char('iso3', 3  )->nullable();
+            $table->smallinteger('numcode')->nullable();
+            $table->integer('phonecode');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +33,6 @@ class CreateOfficeTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('office_types');
+        Schema::dropIfExists('countries');
     }
 }

@@ -37,6 +37,7 @@ class CreateOfficesTable extends Migration
             $table->string('longitude')->nullable();
 
             $table->boolean('status')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
