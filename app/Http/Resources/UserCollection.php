@@ -38,7 +38,9 @@ class UserCollection extends ResourceCollection
                 'name' => $user->fullname,
                 'group' => $user->group->name,
                 'office' => $user->office->name,
-                'status' => $user->status
+                'status' => $user->status,
+                'showUrl' => route('user.show', $user->id),
+                'deleteUrl' => route('user.destroy', $user->id),
             ];
         });
     }

@@ -19,6 +19,7 @@ class CreateTerminalsTable extends Migration
             $table->string('operating_system');
             $table->string('web_browser');
             $table->string('printer');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
