@@ -92,13 +92,13 @@
                         <x-header-sub-link link="#" :caret="true" class="group-groups hover:bg-lighterblue">
                             <x-slot name="name">Groups</x-slot>
                             <x-header-absolute-link class="group-groups group-groups-hover:block bg-lighterblue">
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('group.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Group Management</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{ route('group-privilege.index') }}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Grant or Restrict Previleges</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('group-message.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Group Message</x-slot>
                                 </x-header-sub-link>
                             </x-header-absolute-link>

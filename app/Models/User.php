@@ -82,4 +82,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Group::class);
     }
+
+    /**
+     * User belongs to many group messages
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function group_messages()
+    {
+        return $this->belongsToMany(GroupMessage::class);
+    }
 }

@@ -1,10 +1,10 @@
 <script>
 export default {
-    name: 'toggle',
+    name: 'toggle-select',
 
     props: {
-        item: Object,
-        toggleableData: String
+        items: Array,
+        selectedValue: Number,
     },
 
     data: () => ({
@@ -16,13 +16,13 @@ export default {
             display: this.display,
             toggled: this.toggled,
             toggleFalse: this.toggleFalse,
-            update: this.update
+            selectChanged: this.selectChanged,
         });
     },
 
     mounted() {
-        if(!_.isEmpty(this.item)) {
-            this.display = this.item[this.toggleableData]
+        if(!_.isEmpty(this.items)) {
+            this.selectChanged(this.items, this.selectedValue)
         }
     },
 
@@ -35,14 +35,12 @@ export default {
             setTimeout(() => { this.display = false; }, 200)
         },
 
-        update(url) {
-            axios.post(url)
-                .then(response => {
-                    this.$parent.fetch();
-                }).catch(errors => {
+        selectChanged(groups, value) {
+            var group = _.find(groups, function(o) { return o.id == value });
 
-                })
-        }
+            if(group.has_commission) this.display = true;
+            else this.display = false;
+        },
     }
 }
 </script>

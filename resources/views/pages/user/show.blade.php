@@ -13,7 +13,7 @@
         </div>
         @if(Session::has('success'))
             <x-alert message="{{ Session::get('success') }}" />
-        @else
+        @elseif(Session::has('errors'))
             <x-alert message="Error encountered" type="error" >
                 @if ($errors->any())
                     <ul class="list-inside list-disc text-sm">
@@ -73,10 +73,24 @@
                                 <x-select :lists="$offices" name="office_id"  value="{{ $user->office_id }}" />
                             </div>
 
-                            <div class="col-span-4 sm:col-span-3">
+                            {{-- <div class="col-span-4 sm:col-span-3">
                                 <x-label for="group" class="font-semibold">Group</x-label>
                                 <x-select :lists="$groups" name="group_id" :selected="$user->group_id"/>
-                            </div>
+                            </div> --}}
+
+                            <toggle-select v-slot="{ display, toggle, toggleFalse,selectChanged }" :items="{{$groups}}" :selected-value="{{ $user->group_id }}">
+                                <div class="col-span-4 sm:col-span-3">
+                                    <div class="col-span-4 sm:col-span-3">
+                                        <x-label for="group" class="font-semibold">Group</x-label>
+                                        <x-select :lists="$groups" name="group_id" @change="selectChanged({{$groups}}, $event.target.value)" :selected="$user->group_id"/>
+                                    </div>
+
+                                    <div class="col-span-4 sm:col-span-3" v-if="display">
+                                        <x-label for="commission" class="font-semibold">Commission</x-label>
+                                        <x-form-input type="text" name="commission" id="commission" value="{{ $user->commission }}" />
+                                    </div>
+                                </div>
+                            </toggle-select>
 
 
                             <div class="col-span-4 sm:col-span-3">

@@ -48,11 +48,19 @@
                                 <x-select :lists="$offices" name="office_id" />
                             </div>
 
-                            <div class="col-span-4 sm:col-span-3">
-                                <x-label for="group" class="font-semibold">Group</x-label>
-                                <x-select :lists="$groups" name="group_id"/>
-                            </div>
+                            <toggle-select v-slot="{ display, toggle, toggleFalse,selectChanged }">
+                                <div class="col-span-4 sm:col-span-3">
+                                    <div class="col-span-4 sm:col-span-3">
+                                        <x-label for="group" class="font-semibold">Group</x-label>
+                                        <x-select :lists="$groups" name="group_id" @change="selectChanged({{$groups}}, $event.target.value)"/>
+                                    </div>
 
+                                    <div class="col-span-4 sm:col-span-3" v-if="display">
+                                        <x-label for="commission" class="font-semibold">Commission</x-label>
+                                        <x-form-input type="text" name="commission" id="commission" value="{{ old('commission') }}" />
+                                    </div>
+                                </div>
+                            </toggle-select>
 
                             <div class="col-span-4 sm:col-span-3">
                                 <x-label for="phone_number" class="font-semibold">Phone number</x-label>
