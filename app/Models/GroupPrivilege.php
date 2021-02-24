@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Traits\QueryLike;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\QueryLike;
 
-class Group extends Model
+class GroupPrivilege extends Model
 {
     use HasFactory, QueryLike, SoftDeletes;
 
@@ -19,23 +19,12 @@ class Group extends Model
     protected $guarded = [];
 
     /**
-     * Group has many users
+     * Group Privilege belongs to many groups
      * 
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function groups()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(Group::class);
     }
-
-    /**
-     * Group belongs to many privileges
-     * 
-     * @return Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function privileges()
-    {
-        return $this->belongsToMany(GroupPrivilege::class);
-    }
-
 }
