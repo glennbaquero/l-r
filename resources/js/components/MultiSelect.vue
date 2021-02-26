@@ -8,7 +8,7 @@
 		    :label="label"
 		    >
 		</v-select>
-		<input type="text" name="userIds" :value="selected" hidden>
+		<input type="text" :name="name" :value="selected" hidden>
 	</div>
 </template>
 <script>
@@ -24,6 +24,10 @@
 			label: String,
 			value: String,
 			selectedValue: Array,
+			name: {
+				default: 'userIds',
+				type: String
+			}
 		},
 
 		render() {

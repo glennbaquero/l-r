@@ -13,6 +13,12 @@ use App\Http\Controllers\Currencies\CurrencyCreateController;
 use App\Http\Controllers\Currencies\CurrencyUpdateController;
 use App\Http\Controllers\Currencies\CurrencyDeleteController;
 
+
+use App\Http\Controllers\TicketTypeController;
+use App\Http\Controllers\TicketTypes\TicketTypeCreateController;
+use App\Http\Controllers\TicketTypes\TicketTypeUpdateController;
+use App\Http\Controllers\TicketTypes\TicketTypeDeleteController;
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Users\UserCreateController;
 use App\Http\Controllers\Users\UserUpdateController;
@@ -66,6 +72,14 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/currency/show/{id}', [CurrencyController::class, 'show'])->name('currency.show');
     Route::post('/currency/update/{id}', CurrencyUpdateController::class)->name('currency.update');
     Route::post('/currency/destroy/{id}', CurrencyDeleteController::class)->name('currency.destroy');
+
+    Route::get('/ticket-type', [TicketTypeController::class, 'index'])->name('ticket-type.index');
+    Route::get('/ticket-type/fetch', [TicketTypeController::class, 'fetch'])->name('ticket-type.fetch');
+    Route::get('/ticket-type/create', [TicketTypeController::class, 'create'])->name('ticket-type.create');
+    Route::post('/ticket-type/store', TicketTypeCreateController::class)->name('ticket-type.store');
+    Route::get('/ticket-type/show/{id}', [TicketTypeController::class, 'show'])->name('ticket-type.show');
+    Route::post('/ticket-type/update/{id}', TicketTypeUpdateController::class)->name('ticket-type.update');
+    Route::post('/ticket-type/destroy/{id}', TicketTypeDeleteController::class)->name('ticket-type.destroy');
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::get('/user/fetch', [UserController::class, 'fetch'])->name('user.fetch');
