@@ -8,6 +8,10 @@ use App\Http\Controllers\Offices\OfficeCreateController;
 use App\Http\Controllers\Offices\OfficeUpdateController;
 use App\Http\Controllers\Offices\OfficeDeleteController;
 
+use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\Currencies\CurrencyCreateController;
+use App\Http\Controllers\Currencies\CurrencyUpdateController;
+use App\Http\Controllers\Currencies\CurrencyDeleteController;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Users\UserCreateController;
@@ -54,6 +58,14 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/office/show/{id}', [OfficeController::class, 'show'])->name('office.show');
     Route::post('/office/update/{id}', OfficeUpdateController::class)->name('office.update');
     Route::post('/office/destroy/{id}', OfficeDeleteController::class)->name('office.destroy');
+
+    Route::get('/currency', [CurrencyController::class, 'index'])->name('currency.index');
+    Route::get('/currency/fetch', [CurrencyController::class, 'fetch'])->name('currency.fetch');
+    Route::get('/currency/create', [CurrencyController::class, 'create'])->name('currency.create');
+    Route::post('/currency/store', CurrencyCreateController::class)->name('currency.store');
+    Route::get('/currency/show/{id}', [CurrencyController::class, 'show'])->name('currency.show');
+    Route::post('/currency/update/{id}', CurrencyUpdateController::class)->name('currency.update');
+    Route::post('/currency/destroy/{id}', CurrencyDeleteController::class)->name('currency.destroy');
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::get('/user/fetch', [UserController::class, 'fetch'])->name('user.fetch');
