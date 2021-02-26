@@ -2,7 +2,13 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LocaleController;
+
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\Offices\OfficeCreateController;
+use App\Http\Controllers\Offices\OfficeUpdateController;
+use App\Http\Controllers\Offices\OfficeDeleteController;
+
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Users\UserCreateController;
 use App\Http\Controllers\Users\UserUpdateController;
@@ -43,6 +49,11 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/office', [OfficeController::class, 'index'])->name('office.index');
     Route::get('/office/fetch', [OfficeController::class, 'fetch'])->name('office.fetch');
+    Route::get('/office/create', [OfficeController::class, 'create'])->name('office.create');
+    Route::post('/office/store', OfficeCreateController::class)->name('office.store');
+    Route::get('/office/show/{id}', [OfficeController::class, 'show'])->name('office.show');
+    Route::post('/office/update/{id}', OfficeUpdateController::class)->name('office.update');
+    Route::post('/office/destroy/{id}', OfficeDeleteController::class)->name('office.destroy');
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::get('/user/fetch', [UserController::class, 'fetch'])->name('user.fetch');
