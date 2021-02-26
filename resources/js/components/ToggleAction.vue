@@ -15,7 +15,6 @@ export default {
             display: this.display,
             toggled: this.toggled,
             toggleFalse: this.toggleFalse,
-            selectChanged: this.selectChanged,
         });
     },
 
@@ -32,13 +31,6 @@ export default {
 
         toggleFalse() {
             setTimeout(() => { this.display = false; }, 200)
-        },
-
-        selectChanged(groups, value) {
-            var group = _.find(groups, function(o) { return o.id == value });
-
-            if(group.has_commission) this.display = true;
-            else this.display = false;
         },
     }
 }

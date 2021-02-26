@@ -41,7 +41,7 @@ class UserCreateOrUpdateAction
 			} else {
 				$request['status'] = $request->filled('status');
 				$this->user = User::withTrashed()->findOrFail($id);
-				$this->user = $this->user->update($request->all());
+				$this->user->update($request->all());
 			}
 		DB::commit();
 

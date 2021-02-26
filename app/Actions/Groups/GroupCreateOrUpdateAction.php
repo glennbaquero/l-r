@@ -45,7 +45,7 @@ class GroupCreateOrUpdateAction
 				
 			} else {
 				$this->group = Group::withTrashed()->findOrFail($id);
-				$this->group = $this->group->update($request->all());
+				$this->group->update($request->all());
 			}
 		DB::commit();
 

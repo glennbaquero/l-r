@@ -4,7 +4,16 @@ export default {
 
     props: {
         item: Object,
-        toggleableData: String
+        toggleableData: String,
+        hasparenttoggle: {
+            default: 0,
+            type: Number
+        },
+
+        toshowdata: {
+            default: 0,
+            type: Number
+        }
     },
 
     data: () => ({
@@ -24,11 +33,19 @@ export default {
         if(!_.isEmpty(this.item)) {
             this.display = this.item[this.toggleableData]
         }
+
+        if(this.hasparenttoggle && this.$parent && this.toshowdata && !_.isEmpty(this.item)) {
+            this.$parent.display = this.item[this.toggleableData];
+        }
     },
 
     methods: {
         toggled() {
             this.display = !this.display;
+
+            if(this.$parent && this.hasparenttoggle) {
+                this.$parent.display = !this.$parent.display;
+            }
         },
 
         toggleFalse() {

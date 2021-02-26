@@ -35,7 +35,7 @@ class CurrencyCreateOrUpdateAction
 				$this->currency = $this->currency->create($request->all());
 			} else {
 				$this->currency = Currency::withTrashed()->findOrFail($id);
-				$this->currency = $this->currency->update($request->all());
+				$this->currency->update($request->all());
 			}
 		DB::commit();
 
