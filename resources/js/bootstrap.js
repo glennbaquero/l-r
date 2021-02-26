@@ -1,4 +1,8 @@
 window._ = require('lodash');
+window.Vue = require('vue');
+
+import moment from 'moment';
+window.moment = moment;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

@@ -42,6 +42,7 @@ class OfficeCollection extends ResourceCollection
                 'state' => $office->state,
                 'office_type' => $office->officeType->name,
                 'status' => $office->status,
+                'showUrl' => route('office.show', $office->id),
             ];
         });
     }

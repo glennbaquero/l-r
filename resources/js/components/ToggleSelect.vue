@@ -5,15 +5,21 @@ export default {
     props: {
         items: Array,
         selectedValue: Number,
+        type: {
+            default: 'user',
+            type: String
+        }
     },
 
     data: () => ({
         display: false,
+        conditionalFieldToDisplay: false
     }),
 
     render() {
         return this.$scopedSlots.default({
             display: this.display,
+            conditionalFieldToDisplay: this.conditionalFieldToDisplay,
             toggled: this.toggled,
             toggleFalse: this.toggleFalse,
             selectChanged: this.selectChanged,
@@ -22,7 +28,7 @@ export default {
 
     mounted() {
         if(!_.isEmpty(this.items)) {
-            this.selectChanged(this.items, this.selectedValue)
+            this.selectChanged(this.items, this.selectedValue, this.type)
         }
     },
 
@@ -35,11 +41,23 @@ export default {
             setTimeout(() => { this.display = false; }, 200)
         },
 
-        selectChanged(groups, value) {
-            var group = _.find(groups, function(o) { return o.id == value });
+        selectChanged(items, value, type='user') {
+            var item = _.find(items, function(o) { return o.id == value });
 
-            if(group.has_commission) this.display = true;
-            else this.display = false;
+            switch(type) {
+                case 'user':
+                        if(item.has_commission) this.display = true;
+                        else this.display = false;
+                    break;
+                    
+                case 'office':
+                        if(item.has_added_field) this.display = true;
+                        else this.display = false;
+
+                        if(item.has_main_agency) this.conditionalFieldToDisplay = true;
+                        else this.conditionalFieldToDisplay = false
+                    break;
+            }
         },
     }
 }

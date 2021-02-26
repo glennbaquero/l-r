@@ -18,6 +18,17 @@ class OfficeTypeTableSeeder extends Seeder
             [
                 'name' => 'Agencia',
                 'code' => 'agencia',
+                'has_added_field' => true,
+                'has_main_agency' => true,
+            ],
+            [
+                'name' => 'Super Agencia',
+                'code' => 'super_agencia',
+                'has_added_field' => true,
+            ],
+            [
+                'name' => 'Oficina - Administrative',
+                'code' => 'oficina',
             ],
             [
                 'name' => 'Terminal / Punto de Venta',
@@ -26,6 +37,10 @@ class OfficeTypeTableSeeder extends Seeder
             [
                 'name' => 'Bus',
                 'code' => 'bus'
+            ],
+            [
+                'name' => 'Ruta',
+                'code' => 'ruta'
             ]
         ];
 
