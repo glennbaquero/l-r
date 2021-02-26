@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Currencies;
+namespace App\Http\Controllers\TicketTypes;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Actions\Currencies\CurrencyDeleteAction;
+use App\Actions\TicketTypes\TicketTypeDeleteAction;
 
-class CurrencyDeleteController extends Controller
+class TicketTypeDeleteController extends Controller
 {
     protected $action;
 
@@ -17,7 +17,7 @@ class CurrencyDeleteController extends Controller
      * @return void
      */
     
-    public function __construct(CurrencyDeleteAction $action)
+    public function __construct(TicketTypeDeleteAction $action)
     {
     	$this->action = $action;
     }
@@ -31,7 +31,7 @@ class CurrencyDeleteController extends Controller
     
     public function __invoke(Request $request, $id)
     {
-    	$currency = $this->action->execute($id);
+    	$ticket_type = $this->action->execute($id);
 
     	return response()->json([
     		'message' => 'Update success'

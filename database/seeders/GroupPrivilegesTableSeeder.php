@@ -29,8 +29,6 @@ class GroupPrivilegesTableSeeder extends Seeder
 
         foreach ($privileges as $privilege) {
         	$item = GroupPrivilege::create($privilege);
-
-        	$item->
         }
     }
 }
