@@ -70,7 +70,7 @@
 
                             <div class="col-span-4 sm:col-span-3">
                                 <x-label for="office" class="font-semibold">Office</x-label>
-                                <x-select :lists="$offices" name="office_id"  value="{{ $user->office_id }}" />
+                                <x-select :lists="$offices" name="office_id" :selected="$user->office_id" />
                             </div>
 
                             {{-- <div class="col-span-4 sm:col-span-3">

@@ -65,7 +65,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        $group = group::find($id);
+        $group = Group::withTrashed()->findOrFail($id);
 
         return view('pages.group.show', [
             'group' => $group
