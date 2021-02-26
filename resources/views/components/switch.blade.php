@@ -1,7 +1,7 @@
-@props(['label' => null, 'name' => '', 'type' => 'default', 'rightLabel' => null, 'leftLabel' => null, 'item'])
+@props(['label' => null, 'name' => '', 'type' => 'default', 'rightLabel' => null, 'leftLabel' => null, 'item', 'hasParentToggle' => 0, 'toshowdata' => 0])
 
 <x-label for="{{ $name }}" class="font-semibold">{{ $label }}</x-label>
-<toggle :item="{{ $item ?? auth()->user() }}" toggleable-data="{{ $name }}">
+<toggle :item="{{ $item ?? auth()->user() }}" toggleable-data="{{ $name }}" :hasParentToggle="{{ $hasParentToggle }}" :toshowdata="{{ $toshowdata }}" >
     <div slot-scope="{ display, toggled }" class="flex items-center space-x-3 mt-4">
         <span id="toggleLabel">
             <span class="text-sm leading-5 font-medium text-gray-900">{{ $type === 'default' ? 'No' : $rightLabel }} </span>

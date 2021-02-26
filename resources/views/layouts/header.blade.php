@@ -119,6 +119,9 @@
                         <x-header-sub-link link="{{route('ticket-type.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Ticket Type</x-slot>
                         </x-header-sub-link>
+                        <x-header-sub-link link="{{route('company.index')}}" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Company</x-slot>
+                        </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Base Fares Administration</x-slot>
                         </x-header-sub-link>

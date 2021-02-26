@@ -13,6 +13,10 @@ use App\Http\Controllers\Currencies\CurrencyCreateController;
 use App\Http\Controllers\Currencies\CurrencyUpdateController;
 use App\Http\Controllers\Currencies\CurrencyDeleteController;
 
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\Companies\CompanyCreateController;
+use App\Http\Controllers\Companies\CompanyUpdateController;
+use App\Http\Controllers\Companies\CompanyDeleteController;
 
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\TicketTypes\TicketTypeCreateController;
@@ -80,6 +84,14 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/ticket-type/show/{id}', [TicketTypeController::class, 'show'])->name('ticket-type.show');
     Route::post('/ticket-type/update/{id}', TicketTypeUpdateController::class)->name('ticket-type.update');
     Route::post('/ticket-type/destroy/{id}', TicketTypeDeleteController::class)->name('ticket-type.destroy');
+
+    Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
+    Route::get('/company/fetch', [CompanyController::class, 'fetch'])->name('company.fetch');
+    Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
+    Route::post('/company/store', CompanyCreateController::class)->name('company.store');
+    Route::get('/company/show/{id}', [CompanyController::class, 'show'])->name('company.show');
+    Route::post('/company/update/{id}', CompanyUpdateController::class)->name('company.update');
+    Route::post('/company/destroy/{id}', CompanyDeleteController::class)->name('company.destroy');
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::get('/user/fetch', [UserController::class, 'fetch'])->name('user.fetch');

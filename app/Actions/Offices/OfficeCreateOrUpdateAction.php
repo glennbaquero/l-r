@@ -43,7 +43,7 @@ class OfficeCreateOrUpdateAction
 				$this->office = $this->office->create($request->all());
 			} else {
 				$this->office = Office::withTrashed()->findOrFail($id);
-				$this->office = $this->office->update($request->all());
+				$this->office->update($request->all());
 			}
 		DB::commit();
 
