@@ -22,7 +22,7 @@ class CompanyDeleteAction
 	}
 
 	/**
-	 * Handles creating or updating of Company
+	 * Handles archiving of Company
 	 */
 	
 	public function execute($id)

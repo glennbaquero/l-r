@@ -22,7 +22,7 @@ class OfficeDeleteAction
 	}
 
 	/**
-	 * Handles creating or updating of Office
+	 * Handles archiving of Office
 	 */
 	
 	public function execute($id)

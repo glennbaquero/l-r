@@ -22,7 +22,7 @@ class TicketTypeDeleteAction
 	}
 
 	/**
-	 * Handles creating or updating of TicketType
+	 * Handles archiving of TicketType
 	 */
 	
 	public function execute($id)

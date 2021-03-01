@@ -23,6 +23,11 @@ use App\Http\Controllers\TicketTypes\TicketTypeCreateController;
 use App\Http\Controllers\TicketTypes\TicketTypeUpdateController;
 use App\Http\Controllers\TicketTypes\TicketTypeDeleteController;
 
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\Services\ServiceCreateController;
+use App\Http\Controllers\Services\ServiceUpdateController;
+use App\Http\Controllers\Services\ServiceDeleteController;
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Users\UserCreateController;
 use App\Http\Controllers\Users\UserUpdateController;
@@ -121,4 +126,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/group-message/show/{id}', [GroupMessageController::class, 'show'])->name('group-message.show');
     Route::post('/group-message/update/{id}', GroupMessageUpdateController::class)->name('group-message.update');
     Route::post('/group-message/destroy/{id}', GroupMessageDeleteController::class)->name('group-message.destroy');
+
+    Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
+    Route::get('/service/fetch', [ServiceController::class, 'fetch'])->name('service.fetch');
+    Route::get('/service/create', [ServiceController::class, 'create'])->name('service.create');
+    Route::post('/service/store', ServiceCreateController::class)->name('service.store');
+    Route::get('/service/show/{id}', [ServiceController::class, 'show'])->name('service.show');
+    Route::post('/service/update/{id}', ServiceUpdateController::class)->name('service.update');
+    Route::post('/service/destroy/{id}', ServiceDeleteController::class)->name('service.destroy');
 });

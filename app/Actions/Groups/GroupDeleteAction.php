@@ -22,7 +22,7 @@ class GroupDeleteAction
 	}
 
 	/**
-	 * Handles creating or updating of Group
+	 * Handles archiving of Group
 	 */
 	
 	public function execute($id)
