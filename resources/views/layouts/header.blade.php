@@ -131,7 +131,7 @@
                         <x-header-sub-link link="{{route('service.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Services</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('driver.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Driver Management</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">

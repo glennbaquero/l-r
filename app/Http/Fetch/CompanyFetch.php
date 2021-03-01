@@ -28,7 +28,7 @@ class CompanyFetch
     {
         $this->company = $this->company
                     ->whereLike('name', $params['name'])
-                    ->whereLike('code', $params['code']);
+                    ->orWhereLike('code', $params['code']);
 
         return $this->company->paginate(20);
     }

@@ -32309,6 +32309,10 @@ select {
           animation: bounce 1s infinite;
 }
 
+.mx-datepicker {
+  width: 100% !important;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
