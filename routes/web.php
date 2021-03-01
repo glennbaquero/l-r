@@ -51,6 +51,11 @@ use App\Http\Controllers\Drivers\DriverCreateController;
 use App\Http\Controllers\Drivers\DriverUpdateController;
 use App\Http\Controllers\Drivers\DriverDeleteController;
 
+use App\Http\Controllers\PrinterController;
+use App\Http\Controllers\Printers\PrinterCreateController;
+use App\Http\Controllers\Printers\PrinterUpdateController;
+use App\Http\Controllers\Printers\PrinterDeleteController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -149,4 +154,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/driver/show/{id}', [DriverController::class, 'show'])->name('driver.show');
     Route::post('/driver/update/{id}', DriverUpdateController::class)->name('driver.update');
     Route::post('/driver/destroy/{id}', DriverDeleteController::class)->name('driver.destroy');
+
+    Route::get('/printer', [PrinterController::class, 'index'])->name('printer.index');
+    Route::get('/printer/fetch', [PrinterController::class, 'fetch'])->name('printer.fetch');
+    Route::get('/printer/create', [PrinterController::class, 'create'])->name('printer.create');
+    Route::post('/printer/store', PrinterCreateController::class)->name('printer.store');
+    Route::get('/printer/show/{id}', [PrinterController::class, 'show'])->name('printer.show');
+    Route::post('/printer/update/{id}', PrinterUpdateController::class)->name('printer.update');
+    Route::post('/printer/destroy/{id}', PrinterDeleteController::class)->name('printer.destroy');
 });
