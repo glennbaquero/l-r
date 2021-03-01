@@ -22,7 +22,7 @@ class UserDeleteAction
 	}
 
 	/**
-	 * Handles creating or updating of user
+	 * Handles archiving of user
 	 */
 	
 	public function execute($id)

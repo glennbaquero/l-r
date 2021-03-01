@@ -22,7 +22,7 @@ class CurrencyDeleteAction
 	}
 
 	/**
-	 * Handles creating or updating of Currency
+	 * Handles archiving of Currency
 	 */
 	
 	public function execute($id)

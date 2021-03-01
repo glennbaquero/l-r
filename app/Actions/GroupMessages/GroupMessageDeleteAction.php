@@ -22,7 +22,7 @@ class GroupMessageDeleteAction
 	}
 
 	/**
-	 * Handles creating or updating of GroupMessage
+	 * Handles archiving of GroupMessage
 	 */
 	
 	public function execute($id)
