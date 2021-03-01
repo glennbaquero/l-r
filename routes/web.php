@@ -56,6 +56,10 @@ use App\Http\Controllers\Printers\PrinterCreateController;
 use App\Http\Controllers\Printers\PrinterUpdateController;
 use App\Http\Controllers\Printers\PrinterDeleteController;
 
+use App\Http\Controllers\GroupEmailController;
+use App\Http\Controllers\GroupEmails\GroupEmailCreateController;
+use App\Http\Controllers\GroupEmails\GroupEmailUpdateController;
+use App\Http\Controllers\GroupEmails\GroupEmailDeleteController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -162,4 +166,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/printer/show/{id}', [PrinterController::class, 'show'])->name('printer.show');
     Route::post('/printer/update/{id}', PrinterUpdateController::class)->name('printer.update');
     Route::post('/printer/destroy/{id}', PrinterDeleteController::class)->name('printer.destroy');
+
+    Route::get('/group-email', [GroupEmailController::class, 'index'])->name('group-email.index');
+    Route::get('/group-email/fetch', [GroupEmailController::class, 'fetch'])->name('group-email.fetch');
+    Route::get('/group-email/create', [GroupEmailController::class, 'create'])->name('group-email.create');
+    Route::post('/group-email/store', GroupEmailCreateController::class)->name('group-email.store');
+    Route::get('/group-email/show/{id}', [GroupEmailController::class, 'show'])->name('group-email.show');
+    Route::post('/group-email/update/{id}', GroupEmailUpdateController::class)->name('group-email.update');
+    Route::post('/group-email/destroy/{id}', GroupEmailDeleteController::class)->name('group-email.destroy');
 });
