@@ -13,7 +13,11 @@ export default {
 
     data: () => ({
         display: false,
-        conditionalFieldToDisplay: false
+        conditionalFieldToDisplay: false,
+
+        item: {
+            printer_models: []
+        }
     }),
 
     render() {
@@ -23,6 +27,7 @@ export default {
             toggled: this.toggled,
             toggleFalse: this.toggleFalse,
             selectChanged: this.selectChanged,
+            item: this.item,
         });
     },
 
@@ -56,6 +61,10 @@ export default {
 
                         if(item.has_main_agency) this.conditionalFieldToDisplay = true;
                         else this.conditionalFieldToDisplay = false
+                    break;
+
+                case 'printer':
+                    this.item = item;
                     break;
             }
         },
