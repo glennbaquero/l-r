@@ -16,6 +16,7 @@
         "cross-env": "^7.0",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.19",
+        "moment": "^2.29.1",
         "portal-vue": "^2.1.7",
         "postcss": "^7.0.35",
         "resolve-url-loader": "^3.1.0",
@@ -23,10 +24,10 @@
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
         "tailwindcss-named-groups": "0.0.5",
         "vue": "^2.6.12",
-        "moment": "^2.24.0",
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "vue-select": "^3.11.2"
+        "vue-select": "^3.11.2",
+        "vue2-datepicker": "^3.9.0"
     }
 }

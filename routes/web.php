@@ -45,6 +45,13 @@ use App\Http\Controllers\GroupMessageController;
 use App\Http\Controllers\GroupMessages\GroupMessageCreateController;
 use App\Http\Controllers\GroupMessages\GroupMessageUpdateController;
 use App\Http\Controllers\GroupMessages\GroupMessageDeleteController;
+
+use App\Http\Controllers\DriverController;
+use App\Http\Controllers\Drivers\DriverCreateController;
+use App\Http\Controllers\Drivers\DriverUpdateController;
+use App\Http\Controllers\Drivers\DriverDeleteController;
+
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -134,4 +141,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/service/show/{id}', [ServiceController::class, 'show'])->name('service.show');
     Route::post('/service/update/{id}', ServiceUpdateController::class)->name('service.update');
     Route::post('/service/destroy/{id}', ServiceDeleteController::class)->name('service.destroy');
+
+    Route::get('/driver', [DriverController::class, 'index'])->name('driver.index');
+    Route::get('/driver/fetch', [DriverController::class, 'fetch'])->name('driver.fetch');
+    Route::get('/driver/create', [DriverController::class, 'create'])->name('driver.create');
+    Route::post('/driver/store', DriverCreateController::class)->name('driver.store');
+    Route::get('/driver/show/{id}', [DriverController::class, 'show'])->name('driver.show');
+    Route::post('/driver/update/{id}', DriverUpdateController::class)->name('driver.update');
+    Route::post('/driver/destroy/{id}', DriverDeleteController::class)->name('driver.destroy');
 });

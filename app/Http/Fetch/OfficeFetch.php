@@ -28,11 +28,11 @@ class OfficeFetch
     {
         $this->office = $this->office
                         ->whereLike('office_no', $params['office_no'])
-                        ->whereLike('name', $params['name'])
-                        ->whereLike('address_line_1', $params['address_line_1'])
-                        ->whereLike('phone_number', $params['phone_number'])
-                        ->whereLike('city', $params['city'])
-                        ->whereLike('state', $params['state']);
+                        ->orWhereLike('name', $params['name'])
+                        ->orWhereLike('address_line_1', $params['address_line_1'])
+                        ->orWhereLike('phone_number', $params['phone_number'])
+                        ->orWhereLike('city', $params['city'])
+                        ->orWhereLike('state', $params['state']);
 
         return $this->office->paginate(20);
     }
