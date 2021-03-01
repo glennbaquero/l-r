@@ -140,7 +140,7 @@
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Tracking Messages</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('group-email.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Group Email Management</x-slot>
                         </x-header-sub-link>
                 </x-header-absolute-link>
@@ -152,7 +152,7 @@
                         <x-header-sub-link link="#" :caret="false" class="group-sales hover:bg-lighterblue">
                             <x-slot name="name">Terminal Management</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="group-sales hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('printer.index')}}" :caret="false" class="group-sales hover:bg-lighterblue">
                             <x-slot name="name">Printer Management</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
