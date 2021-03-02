@@ -61,6 +61,11 @@ use App\Http\Controllers\GroupEmails\GroupEmailCreateController;
 use App\Http\Controllers\GroupEmails\GroupEmailUpdateController;
 use App\Http\Controllers\GroupEmails\GroupEmailDeleteController;
 
+use App\Http\Controllers\TerminalController;
+use App\Http\Controllers\Terminals\TerminalCreateController;
+use App\Http\Controllers\Terminals\TerminalUpdateController;
+use App\Http\Controllers\Terminals\TerminalDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -174,4 +179,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/group-email/show/{id}', [GroupEmailController::class, 'show'])->name('group-email.show');
     Route::post('/group-email/update/{id}', GroupEmailUpdateController::class)->name('group-email.update');
     Route::post('/group-email/destroy/{id}', GroupEmailDeleteController::class)->name('group-email.destroy');
+
+    Route::get('/terminal', [TerminalController::class, 'index'])->name('terminal.index');
+    Route::get('/terminal/fetch', [TerminalController::class, 'fetch'])->name('terminal.fetch');
+    Route::get('/terminal/create', [TerminalController::class, 'create'])->name('terminal.create');
+    Route::post('/terminal/store', TerminalCreateController::class)->name('terminal.store');
+    Route::get('/terminal/show/{id}', [TerminalController::class, 'show'])->name('terminal.show');
+    Route::post('/terminal/update/{id}', TerminalUpdateController::class)->name('terminal.update');
+    Route::post('/terminal/destroy/{id}', TerminalDeleteController::class)->name('terminal.destroy');
 });

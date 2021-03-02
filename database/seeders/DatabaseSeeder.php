@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(USStatesTableSeeder::class);
         $this->call(DocumentTypesTableSeeder::class);
         $this->call(DependenciesTableSeeder::class);
+        $this->call(PrinterBrandAndModelsTableSeeder::class);
+        $this->call(BrowserAndOSTableSeeder::class);
     }
 }
