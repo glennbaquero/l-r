@@ -30,7 +30,7 @@
                 <div class="px-4 py-5 sm:p-6">
                     
                     <toggle-select v-slot="{ item, selectChanged }" :items="{{$brands}}" type="printer" :selected-value="{{ $printer->printer_brand_id }}">
-                        <form action="{{ route('printer.store') }}" method="POST">
+                        <form action="{{ route('printer.update', $printer->id) }}" method="POST">
                             @csrf
                                 <div class="grid grid-cols-6 gap-6" >
 

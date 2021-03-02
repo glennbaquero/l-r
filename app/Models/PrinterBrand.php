@@ -28,4 +28,14 @@ class PrinterBrand extends Model
     {
         return $this->hasMany(PrinterModel::class);
     }
+
+    /**
+     * Print brand has many Printers
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function printers()
+    {
+        return $this->hasMany(Printer::class);
+    }
 }
