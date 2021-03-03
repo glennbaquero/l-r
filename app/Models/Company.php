@@ -19,4 +19,21 @@ class Company extends Model
      * @var array
      */
     protected $guarded = [];
+    
+    /**
+     * Append additional attributes
+     * 
+     * @var array
+     */
+    protected $appends = ['full_image_path'];
+
+    /**
+     * Get user image
+     * 
+     * @return string
+     */
+    public function getFullImagePathAttribute()
+    {
+        return asset('storage/' . $this->image_path);
+    }
 }

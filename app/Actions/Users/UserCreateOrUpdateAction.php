@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 
+use Storage;
+
 class UserCreateOrUpdateAction 
 {
 	protected $user;
@@ -33,15 +35,20 @@ class UserCreateOrUpdateAction
 		$request['auto_create_driver'] = $request->filled('auto_create_driver');
 		$request['restrict_hours'] = $request->filled('restrict_hours');
 
+		if($request->hasFile('file_path')) {
+			$path = $request->file('file_path')->store('users', 'public');
+	        $request['image_path'] = $path;
+		}
+
 		DB::beginTransaction();
 			if(!$id) {
-				$this->user = $this->user->create($request->all());
+				$this->user = $this->user->create($request->except(['file_path']));
                 $broker = $this->user->broker();
                 $broker->sendResetLink($request->only('email'));
 			} else {
 				$request['status'] = $request->filled('status');
 				$this->user = User::withTrashed()->findOrFail($id);
-				$this->user->update($request->all());
+				$this->user->update($request->except(['file_path']));
 			}
 		DB::commit();
 

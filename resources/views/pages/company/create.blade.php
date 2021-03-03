@@ -23,10 +23,15 @@
         <div class="mt-12 mx-auto w-3/4">
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
-                    <toggle v-slot="{ display, toggled, toggleFalse,selectChanged }">
+                    <toggle v-slot="{ display, toggled, toggleFalse,selectChanged }" enctype="multipart/form-data">
                         <form action="{{ route('company.store') }}" method="POST">
                             @csrf
                             <div class="grid grid-cols-6 gap-6">
+
+                                <image-render>
+                                    <x-file-upload divClass="col-span-12 sm:col-span-12"/>
+                                </image-render>
+
                                 <div class="col-span-12 sm:col-span-12">
                                     <x-label for="name" class="font-semibold">Name</x-label>
                                     <x-form-input type="text" name="name" id="name" value="{{ old('name') }}" />

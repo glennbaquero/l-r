@@ -37,12 +37,17 @@ class CompanyCreateOrUpdateAction
 		$request['max_credit_line'] = $request->filled('max_credit_line');
 		$request['print_bill'] = $request->filled('print_bill');
 
+		if($request->hasFile('file_path')) {
+			$path = $request->file('file_path')->store('companies', 'public');
+	        $request['image_path'] = $path;
+		}
+
 		DB::beginTransaction();
 			if(!$id) {
-				$this->company = $this->company->create($request->all());
+				$this->company = $this->company->create($request->except(['file_path']));
 			} else {
 				$this->company = Company::withTrashed()->findOrFail($id);
-				$this->company->update($request->all());
+				$this->company->update($request->except(['file_path']));
 			}
 		DB::commit();
 

@@ -51,7 +51,7 @@ class User extends Authenticatable
      * 
      * @var array
      */
-    protected $appends = ['fullname'];
+    protected $appends = ['fullname', 'full_image_path'];
 
     /**
      * Get user fullname
@@ -61,6 +61,16 @@ class User extends Authenticatable
     public function getFullnameAttribute()
     {
         return "{$this->firstname} {$this->lastname}";
+    }
+
+    /**
+     * Get user image
+     * 
+     * @return string
+     */
+    public function getFullImagePathAttribute()
+    {
+        return asset('storage/' . $this->image_path);
     }
 
     /**
