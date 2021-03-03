@@ -29,9 +29,14 @@
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
                     <toggle v-slot="{ display, toggled, toggleFalse,selectChanged }">
-                        <form action="{{ route('company.update', $company->id) }}" method="POST">
+                        <form action="{{ route('company.update', $company->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="grid grid-cols-6 gap-6">
+
+                                <image-render :item="{{$company}}">
+                                    <x-file-upload divClass="col-span-12 sm:col-span-12"/>
+                                </image-render>
+
                                 <div class="col-span-12 sm:col-span-12">
                                     <x-label for="name" class="font-semibold">Name</x-label>
                                     <x-form-input type="text" name="name" id="name" value="{{ $company->name }}" />

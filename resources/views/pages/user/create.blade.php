@@ -23,9 +23,13 @@
         <div class="mt-12 mx-auto w-3/4">
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
-                    <form action="{{ route('user.store') }}" method="POST">
+                    <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="grid grid-cols-6 gap-6">
+                            <image-render>
+                                <x-file-upload />
+                            </image-render>
+
                             <div class="col-span-4 sm:col-span-3">
                                 <x-label for="firstname" class="font-semibold">First Name</x-label>
                                 <x-form-input type="text" name="firstname" id="firstname" value="{{ old('firstname') }}" />

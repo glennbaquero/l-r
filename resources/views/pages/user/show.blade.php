@@ -29,7 +29,7 @@
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
                     
-                    <form action="{{ route('user.update', $user->id) }}" method="POST">
+                    <form action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                   
                         <div class="mb-3">
@@ -51,6 +51,11 @@
                             </toggle>
                         </div>
                         <div class="grid grid-cols-6 gap-6">
+
+                            <image-render :item="{{$user}}">
+                                <x-file-upload/>
+                            </image-render>
+
                             <div class="col-span-4 sm:col-span-3">
                                 <x-label for="firstname" class="font-semibold">First Name</x-label>
                                 <x-form-input type="text" name="firstname"  value="{{ $user->firstname }}" id="firstname" />
