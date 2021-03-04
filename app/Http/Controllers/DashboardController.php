@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Recommendation;
+
 class DashboardController extends Controller
 {
     /**
@@ -13,6 +15,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+    	$recommendations = Recommendation::get();
+        return view('dashboard', [
+        	'recommendations' => $recommendations
+        ]);
     }
 }

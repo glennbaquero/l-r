@@ -66,6 +66,11 @@ use App\Http\Controllers\Terminals\TerminalCreateController;
 use App\Http\Controllers\Terminals\TerminalUpdateController;
 use App\Http\Controllers\Terminals\TerminalDeleteController;
 
+use App\Http\Controllers\RecommendationController;
+use App\Http\Controllers\Recommendations\RecommendationCreateController;
+use App\Http\Controllers\Recommendations\RecommendationUpdateController;
+use App\Http\Controllers\Recommendations\RecommendationDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -187,4 +192,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/terminal/show/{id}', [TerminalController::class, 'show'])->name('terminal.show');
     Route::post('/terminal/update/{id}', TerminalUpdateController::class)->name('terminal.update');
     Route::post('/terminal/destroy/{id}', TerminalDeleteController::class)->name('terminal.destroy');
+
+    Route::get('/recommendation', [RecommendationController::class, 'index'])->name('recommendation.index');
+    Route::get('/recommendation/fetch', [RecommendationController::class, 'fetch'])->name('recommendation.fetch');
+    Route::get('/recommendation/create', [RecommendationController::class, 'create'])->name('recommendation.create');
+    Route::post('/recommendation/store', RecommendationCreateController::class)->name('recommendation.store');
+    Route::get('/recommendation/show/{id}', [RecommendationController::class, 'show'])->name('recommendation.show');
+    Route::post('/recommendation/update/{id}', RecommendationUpdateController::class)->name('recommendation.update');
+    Route::post('/recommendation/destroy/{id}', RecommendationDeleteController::class)->name('recommendation.destroy');
 });

@@ -76,5 +76,11 @@
                 <span>{{ __('Support') }}</span>
             </a>
         </div>
+
+    </div>
+
+    <div class="">
+        <x-label class="font-semibold mb-4 mt-2 left pl-8">Suggestion and Recommendation</x-label>
+        <slider :items="{{ $recommendations }}"></slider>
     </div>
 </x-app-layout>
