@@ -4,6 +4,9 @@ window.Vue = require('vue');
 import moment from 'moment';
 window.moment = moment;
 
+// import Swiper from 'swiper';
+// window.swiper = Swiper;
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

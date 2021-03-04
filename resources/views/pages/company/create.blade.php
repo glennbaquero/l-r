@@ -23,8 +23,8 @@
         <div class="mt-12 mx-auto w-3/4">
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
-                    <toggle v-slot="{ display, toggled, toggleFalse,selectChanged }" enctype="multipart/form-data">
-                        <form action="{{ route('company.store') }}" method="POST">
+                    <toggle v-slot="{ display, toggled, toggleFalse,selectChanged }" >
+                        <form action="{{ route('company.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="grid grid-cols-6 gap-6">
 

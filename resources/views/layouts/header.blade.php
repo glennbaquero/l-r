@@ -143,6 +143,9 @@
                         <x-header-sub-link link="{{route('group-email.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Group Email Management</x-slot>
                         </x-header-sub-link>
+                        <x-header-sub-link link="{{route('recommendation.index')}}" :caret="false" class="hover:bg-lighterblue">
+                            <x-slot name="name">Recommendation Management</x-slot>
+                        </x-header-sub-link>
                 </x-header-absolute-link>
             </x-header-sub-link>
 
