@@ -203,5 +203,5 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/option', function() {
         return view('pages.option.index');
-    })->name('recommendation.index');
+    })->name('option.index');
 });
