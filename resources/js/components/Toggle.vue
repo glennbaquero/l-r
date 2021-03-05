@@ -25,7 +25,8 @@ export default {
             display: this.display,
             toggled: this.toggled,
             toggleFalse: this.toggleFalse,
-            update: this.update
+            update: this.update,
+            toggledState: this.toggledState
         });
     },
 
@@ -46,6 +47,10 @@ export default {
             if(this.$parent && this.hasparenttoggle) {
                 this.$parent.display = !this.$parent.display;
             }
+        },
+
+        toggledState(state) {
+            this.display = state;
         },
 
         toggleFalse() {

@@ -200,4 +200,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/recommendation/show/{id}', [RecommendationController::class, 'show'])->name('recommendation.show');
     Route::post('/recommendation/update/{id}', RecommendationUpdateController::class)->name('recommendation.update');
     Route::post('/recommendation/destroy/{id}', RecommendationDeleteController::class)->name('recommendation.destroy');
+
+    Route::get('/option', function() {
+        return view('pages.option.index');
+    })->name('recommendation.index');
 });
