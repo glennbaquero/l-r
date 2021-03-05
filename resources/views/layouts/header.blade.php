@@ -104,7 +104,7 @@
                             </x-header-absolute-link>
                         </x-header-sub-link>
 
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('option.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Options</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
