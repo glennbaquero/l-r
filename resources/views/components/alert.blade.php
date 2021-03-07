@@ -3,7 +3,7 @@
 
 <toggle-alert>
     <div slot-scope="{ display, toggled, toggleFalse }" class="grid grid-cols-3 gap-4" v-if="display">
-        <div class="col-start-3 rounded-md {{ $type === 'success' ? 'bg-green-50' : 'bg-red-50'}} p-4">
+        <div class="col-start-2 rounded-md {{ $type === 'success' ? 'bg-green-50' : 'bg-red-50'}} p-4">
             <div class="flex">
                 <div class="flex-shrink-0">
                     @if($type === 'success')

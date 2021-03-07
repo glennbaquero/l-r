@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="state_name" class="font-semibold">State</x-label>
-                                    <x-select :lists="$states" name="state_name" identifierValue="name" v-model="address.state_name" />
+                                    <x-select :lists="$states" name="state_name" identifierValue="name" v-model="address.state_name"/>
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
@@ -139,6 +139,8 @@
                             </toggle-select>
 
                             <div style="width: 100%; height: 50vh">
+                                <input type="hidden" name="latitude" id="latitude" value="{{old('latitude')}}">
+                                <input type="hidden" name="longitude" id="longitude" value="{{old('longitude')}}">
                                 <google-map :origin="address" :destination="address" v-slot="{ directionsURL, hasOrigin }">
                                     <iframe v-if="hasOrigin" style="height: 100%; width: 100%" id="map" :src="directionsURL" frameborder="0"></iframe>
                                 </google-map>

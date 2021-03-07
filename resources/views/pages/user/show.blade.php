@@ -107,13 +107,14 @@
                                 <x-label for="cellphone_number" class="font-semibold">Cellphone Number</x-label>
                                 <x-form-input type="text" name="cellphone_number"  value="{{ $user->cellphone_number }}" id="cellphone_number" />
                             </div>
-                            
+                            <google-auto-complete v-slot="{ address }">
+                                <div class="col-span-4 sm:col-span-3">
+                                    <x-label for="address_line_1" class="font-semibold">Address 1</x-label>
+                                    <x-form-input type="text" name="address_line_1"  value="{{ $user->address_line_1 }}" id="autocomplete" />
+                                </div>
+                            </google-auto-complete>
                             <div class="col-span-4 sm:col-span-3">
-                                <x-label for="address_line_1" class="font-semibold">Adddress 1</x-label>
-                                <x-form-input type="text" name="address_line_1"  value="{{ $user->address_line_1 }}" id="address_line_1" />
-                            </div>
-                            <div class="col-span-4 sm:col-span-3">
-                                <x-label for="address_line_2" class="font-semibold">Adddress 2</x-label>
+                                <x-label for="address_line_2" class="font-semibold">Address 2</x-label>
                                 <x-form-input type="text" name="address_line_2"  value="{{ $user->address_line_2 }}" id="address_line_2" />
                             </div>
                             <div class="col-span-4 sm:col-span-3">

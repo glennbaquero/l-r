@@ -144,8 +144,8 @@
                             </toggle-select>
 
                             <div style="width: 100%; height: 50vh">
-                                <input type="hidden" name="latitude" :value="address.latitude">
-                                <input type="hidden" name="longitude" :value="address.longitude">
+                                <input type="hidden" name="latitude" id="latitude" :value="address.latitude">
+                                <input type="hidden" name="longitude" id="longitude" :value="address.longitude">
                                 <google-map :origin="address" :destination="address" v-slot="{ directionsURL, hasOrigin }">
                                     <iframe v-if="hasOrigin" style="height: 100%; width: 100%" id="map" :src="directionsURL" frameborder="0"></iframe>
                                 </google-map>

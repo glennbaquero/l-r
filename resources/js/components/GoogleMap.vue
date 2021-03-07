@@ -37,7 +37,6 @@
 	        }
 	    },
 
-
 	    mounted() {
 	        if(!this.hasOrigin) {
 	            /* Load only the basic map */

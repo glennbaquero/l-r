@@ -45,7 +45,7 @@
 
                             <div class="col-span-6 sm:col-span-3">
                                 <x-label for="country" class="font-semibold">Country</x-label>
-                                <x-select :lists="$countries" name="country" identifierValue="name"/>
+                                <x-select :lists="$countries" name="country" identifierValue="name" selected="UNITED STATES"/>
                             </div>
 
                             <div class="col-span-2 sm:col-span-2">

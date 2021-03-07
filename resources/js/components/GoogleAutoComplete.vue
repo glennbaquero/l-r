@@ -7,7 +7,7 @@
 	    name: 'google-auto-complete',
 
 	    props: {
-	    	item: Object
+	    	item: Object,
 	    },
 
 		data:() => ({
@@ -39,6 +39,11 @@
  			// Methods from mixins google auto complete places
  			if(!_.isEmpty(this.item)) {
  				this.address = this.item;
+ 			}
+
+ 			if(document.getElementById("latitude") && document.getElementById("longitude")) {
+	 			this.address.latitude = document.getElementById("latitude").value;
+	 			this.address.longitude = document.getElementById("longitude").value;
  			}
  			
  			this.autoCompletePlaces();
