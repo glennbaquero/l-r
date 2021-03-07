@@ -28,13 +28,13 @@ class RecommendationCreateOrUpdateAction
 	
 	public function execute($request, $id = null)
 	{
-		$request['from_youtube'] = $request->filled('from_youtube');
+		$request['from_youtube'] = true;
 
 
-		if($request->hasFile('path')) {
-			$path = $request->file('path')->store('recommendations', 'public');
-	        $request['file_path'] = $path;
-		}
+		// if($request->hasFile('path')) {
+		// 	$path = $request->file('path')->store('recommendations', 'public');
+	 //        $request['file_path'] = $path;
+		// }
 
 		DB::beginTransaction();
 			if(!$id) {

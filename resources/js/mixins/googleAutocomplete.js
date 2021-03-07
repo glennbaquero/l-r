@@ -5,6 +5,8 @@ Vue.mixin({
                 (document.getElementById("autocomplete")),
                 {types: ['geocode']}
             );
+
+
         },
 
         placeChanged(obj, formatted = false) {
@@ -31,6 +33,12 @@ Vue.mixin({
                     obj.postal_code = !_.isEmpty(this.findLocality('postal_code')) ?
                                     this.findLocality('postal_code').short_name : '';
                     this.fetchTimezone(obj);
+
+
+                    if(document.getElementById("latitude") && document.getElementById("longitude")) {
+                        document.getElementById("latitude").value = obj.latitude;
+                        document.getElementById("longitude").value = obj.longitude;
+                    }
                 }
             });
         },

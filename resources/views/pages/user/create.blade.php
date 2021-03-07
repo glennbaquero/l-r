@@ -76,12 +76,15 @@
                                 <x-form-input type="text" name="cellphone_number" id="cellphone_number" value="{{ old('cellphone_number') }}" />
                             </div>
 
+                            <google-auto-complete v-slot="{ address }">
+                                <div class="col-span-4 sm:col-span-3">
+                                    <x-label for="address_line_1" class="font-semibold">Address 1</x-label>
+                                    <x-form-input type="text" id="autocomplete" name="address_line_1" value="{{ old('address_line_1') }}" />
+                                </div>
+                            </google-auto-complete>
+
                             <div class="col-span-4 sm:col-span-3">
-                                <x-label for="address_line_1" class="font-semibold">Adddress 1</x-label>
-                                <x-form-input type="text" name="address_line_1" id="address_line_1" value="{{ old('address_line_1') }}" />
-                            </div>
-                            <div class="col-span-4 sm:col-span-3">
-                                <x-label for="address_line_2" class="font-semibold">Adddress 2</x-label>
+                                <x-label for="address_line_2" class="font-semibold">Address 2</x-label>
                                 <x-form-input type="text" name="address_line_2" id="address_line_2" value="{{ old('address_line_2') }}" />
                             </div>
                             <div class="col-span-4 sm:col-span-3">
@@ -90,7 +93,7 @@
                             </div>
                             <div class="col-span-4 sm:col-span-3">
                                 <x-label for="country" class="font-semibold">Country</x-label>
-                                <x-select :lists="$countries" name="country" identifierValue="name"/>
+                                <x-select :lists="$countries" name="country" identifierValue="name" selected="UNITED STATES"/>
                             </div>
 
                             <div class="col-span-4 sm:col-span-3">

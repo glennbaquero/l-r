@@ -23,8 +23,17 @@ class RecommendationStoreRequest extends FormRequest
      */
     public function rules()
     {
+        $regex = '/^https:\/\/www.youtube.com\/embed\//';
         return [
             'name' => 'required',
+            'source' => 'required|regex:'.$regex
+        ];
+    }
+
+    public function messages() 
+    {
+        return [
+            'source.regex' => 'The source format is invalid. Correct format : https://www.youtube.com/embed/0dTyTy3d7us'
         ];
     }
 }

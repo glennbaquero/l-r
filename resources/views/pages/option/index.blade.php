@@ -341,6 +341,282 @@
                         </div>
                     </div>
                 </div>
+                <div class="px-5 py-5 sm:p-16" v-if="selected === 'Packaging'">
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-full sm:col-span-full">
+                            <x-label for="name" class="font-semibold text-4xl">Individual Options</x-label>
+                        </div>
+                        
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Number of times the document prints"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Cobro de monto libre de impuestos por reimpresión de documentos facturados al cliente" textSize="text-sm" divLabelClass="mt-3 px-11 sm:mt-5 text-center" buttonMarginWithLabel=""></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Option to lose and find package" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Notes on the package sending" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Allows card payment" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Printing of the document of the sending to home" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Activate authorization in the manual price" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Activa o no el registro de paquetes por cobrar" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Guía de Remisión agrupado por oficina de destino" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="DNI obligatorio para el destinatario" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Lector QR de Equipaje" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Allows payment with business credit" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Printing with barcode in package registration" type="modified" textSize="text-sm" divLabelClass="mt-3 px-11 sm:mt-5 text-center" buttonMarginWithLabel="mt-5 sm:mt-6"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Phone number required" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Send mail to sender" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Web tracking of package" type="modified"></x-option-card>
+                        </div>
+
+
+                        <div class="col-span-full sm:col-span-full">
+                            <x-label for="name" class="font-semibold text-4xl">Grouped Options</x-label>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Recipient key rules"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Carrier remission guide"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="General cash send options"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Different price calculation in addition to the manual" buttonMarginWithLabel="mt-5 sm:mt-6" ></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Remission guide emission on package registration" buttonMarginWithLabel="mt-5 sm:mt-6" ></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Referral guide"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Package detail registration"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Package shipping types"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Minimum price in package registration"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="It allows to cancel package sending"></x-option-card>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="px-5 py-5 sm:p-16" v-if="selected === 'Tickets'">
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-full sm:col-span-full">
+                            <x-label for="name" class="font-semibold text-4xl">Individual Options</x-label>
+                        </div>
+                        
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Number of times the document prints"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Cobro de monto libre de impuestos por reimpresión de documentos facturados al cliente" textSize="text-sm" divLabelClass="mt-3 px-11 sm:mt-5 text-center" buttonMarginWithLabel=""></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Option to lose and find package" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Notes on the package sending" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Allows card payment" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Printing of the document of the sending to home" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Activate authorization in the manual price" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Activa o no el registro de paquetes por cobrar" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Guía de Remisión agrupado por oficina de destino" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="DNI obligatorio para el destinatario" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Lector QR de Equipaje" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Allows payment with business credit" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Printing with barcode in package registration" type="modified" textSize="text-sm" divLabelClass="mt-3 px-11 sm:mt-5 text-center" buttonMarginWithLabel="mt-5 sm:mt-6"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Phone number required" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Send mail to sender" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Web tracking of package" type="modified"></x-option-card>
+                        </div>
+
+
+                        <div class="col-span-full sm:col-span-full">
+                            <x-label for="name" class="font-semibold text-4xl">Grouped Options</x-label>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Recipient key rules"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Carrier remission guide"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="General cash send options"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Different price calculation in addition to the manual" buttonMarginWithLabel="mt-5 sm:mt-6" ></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Remission guide emission on package registration" buttonMarginWithLabel="mt-5 sm:mt-6" ></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Referral guide"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Package detail registration"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Package shipping types"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Minimum price in package registration"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="It allows to cancel package sending"></x-option-card>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="px-5 py-5 sm:p-16" v-if="selected === 'Web Sales'">
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-full sm:col-span-full">
+                            <x-label for="name" class="font-semibold text-4xl">Individual Options</x-label>
+                        </div>
+                        
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Number of times the document prints"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Cobro de monto libre de impuestos por reimpresión de documentos facturados al cliente" textSize="text-sm" divLabelClass="mt-3 px-11 sm:mt-5 text-center" buttonMarginWithLabel=""></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Option to lose and find package" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Notes on the package sending" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Allows card payment" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Printing of the document of the sending to home" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Activate authorization in the manual price" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Activa o no el registro de paquetes por cobrar" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Guía de Remisión agrupado por oficina de destino" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="DNI obligatorio para el destinatario" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Lector QR de Equipaje" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Allows payment with business credit" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Printing with barcode in package registration" type="modified" textSize="text-sm" divLabelClass="mt-3 px-11 sm:mt-5 text-center" buttonMarginWithLabel="mt-5 sm:mt-6"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Phone number required" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Send mail to sender" type="modified"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Web tracking of package" type="modified"></x-option-card>
+                        </div>
+
+
+                        <div class="col-span-full sm:col-span-full">
+                            <x-label for="name" class="font-semibold text-4xl">Grouped Options</x-label>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Recipient key rules"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Carrier remission guide"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="General cash send options"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Different price calculation in addition to the manual" buttonMarginWithLabel="mt-5 sm:mt-6" ></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Remission guide emission on package registration" buttonMarginWithLabel="mt-5 sm:mt-6" ></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Referral guide"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Package detail registration"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Package shipping types"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="Minimum price in package registration"></x-option-card>
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <x-option-card label="It allows to cancel package sending"></x-option-card>
+                        </div>
+
+                    </div>
+                </div>
     	    </div>
 
 	    </tab>

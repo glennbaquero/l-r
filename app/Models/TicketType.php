@@ -34,7 +34,7 @@ class TicketType extends Model
      * 
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function created_by()
+    public function created_by_user()
     {
         return $this->belongsTo(User::class, 'created_by', 'id')->withTrashed();
     }
@@ -44,7 +44,7 @@ class TicketType extends Model
      * 
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function updated_by()
+    public function updated_by_user()
     {
         return $this->belongsTo(User::class, 'edited_by', 'id')->withTrashed();
     }
