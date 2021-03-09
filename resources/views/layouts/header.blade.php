@@ -37,7 +37,7 @@
                         <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lighterblue">
                             <x-slot name="name">Route Management</x-slot>
                             <x-header-absolute-link class="group-route group-route-hover:block bg-lighterblue">
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('route.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Route</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
