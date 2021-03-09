@@ -71,6 +71,11 @@ use App\Http\Controllers\Recommendations\RecommendationCreateController;
 use App\Http\Controllers\Recommendations\RecommendationUpdateController;
 use App\Http\Controllers\Recommendations\RecommendationDeleteController;
 
+use App\Http\Controllers\RouteController;
+use App\Http\Controllers\Routes\RouteCreateController;
+use App\Http\Controllers\Routes\RouteUpdateController;
+use App\Http\Controllers\Routes\RouteDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -204,4 +209,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/option', function() {
         return view('pages.option.index');
     })->name('option.index');
+
+    Route::get('/route', [RouteController::class, 'index'])->name('route.index');
+    Route::get('/route/fetch', [RouteController::class, 'fetch'])->name('route.fetch');
+    Route::get('/route/create', [RouteController::class, 'create'])->name('route.create');
+    Route::post('/route/store', RouteCreateController::class)->name('route.store');
+    Route::get('/route/show/{id}', [RouteController::class, 'show'])->name('route.show');
+    Route::post('/route/update/{id}', RouteUpdateController::class)->name('route.update');
+    Route::post('/route/destroy/{id}', RouteDeleteController::class)->name('route.destroy');
 });
