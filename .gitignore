@@ -2,9 +2,16 @@
 /public/hot
 /public/storage
 /public/js
+/public/js/app.js
+/public/js/manifest.js
 /public/css
+/public/css/app.css
+/public/mix-manifest.json
 /storage/*.key
 /vendor
+*.csv
+*.sql
+*.tar.gz
 .env
 .env.backup
 .phpunit.result.cache
@@ -13,3 +20,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+npm-debug.log
+yarn-error.log
+composer.lock
+package-lock.json
