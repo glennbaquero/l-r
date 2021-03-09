@@ -46,7 +46,7 @@ class RouteCreateOrUpdateAction
 				}
 			} else {
 				$this->route = Route::withTrashed()->findOrFail($id);
-				$this->route->update($request->except(['stops']));
+				$this->route->update($request->except(['stops', 'division_point']));
 
 				foreach (json_decode($request->stops) as $stop) {
 					if(isset($stop->new)) {

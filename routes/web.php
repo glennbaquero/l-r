@@ -76,6 +76,11 @@ use App\Http\Controllers\Routes\RouteCreateController;
 use App\Http\Controllers\Routes\RouteUpdateController;
 use App\Http\Controllers\Routes\RouteDeleteController;
 
+use App\Http\Controllers\MultiRouteController;
+use App\Http\Controllers\MultiRoutes\MultiRouteCreateController;
+use App\Http\Controllers\MultiRoutes\MultiRouteUpdateController;
+use App\Http\Controllers\MultiRoutes\MultiRouteDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -217,4 +222,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/route/show/{id}', [RouteController::class, 'show'])->name('route.show');
     Route::post('/route/update/{id}', RouteUpdateController::class)->name('route.update');
     Route::post('/route/destroy/{id}', RouteDeleteController::class)->name('route.destroy');
+
+    Route::get('/multi-route', [MultiRouteController::class, 'index'])->name('multi-route.index');
+    Route::get('/multi-route/fetch', [MultiRouteController::class, 'fetch'])->name('multi-route.fetch');
+    Route::get('/multi-route/create', [MultiRouteController::class, 'create'])->name('multi-route.create');
+    Route::post('/multi-route/store', MultiRouteCreateController::class)->name('multi-route.store');
+    Route::get('/multi-route/show/{id}', [MultiRouteController::class, 'show'])->name('multi-route.show');
+    Route::post('/multi-route/update/{id}', MultiRouteUpdateController::class)->name('multi-route.update');
+    Route::post('/multi-route/destroy/{id}', MultiRouteDeleteController::class)->name('multi-route.destroy');
 });
