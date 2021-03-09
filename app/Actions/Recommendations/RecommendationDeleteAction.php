@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Actions\Groups;
+namespace App\Actions\Recommendations;
 
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Group;
+use App\Models\Recommendation;
 
-class GroupDeleteAction 
+class RecommendationDeleteAction 
 {
-	protected $group;
+	protected $recommendation;
 
 	/**
 	 * Create new action instance
@@ -16,21 +16,21 @@ class GroupDeleteAction
 	 * @return void
 	 */
 	
-	public function __construct(Group $group)
+	public function __construct(Recommendation $recommendation)
 	{
-		$this->group = $group;
+		$this->recommendation = $recommendation;
 	}
 
 	/**
-	 * Handles archiving of Group
+	 * Handles archiving of recommendation
 	 */
 	
 	public function execute($id)
 	{
 
 		DB::beginTransaction();
-				$this->group = Group::withTrashed()->findOrFail($id);
-				$this->group->delete();
+				$this->recommendation = Recommendation::withTrashed()->findOrFail($id);
+				$this->recommendation->delete();
 		DB::commit();
 
 
