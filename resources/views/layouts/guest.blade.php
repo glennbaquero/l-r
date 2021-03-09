@@ -12,11 +12,17 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        @if (config('app.env') == 'production')
+            <!-- Styles -->
+            <link rel="stylesheet" href="{{ asset(mix('css/app.css'), true) }}">
+            <!-- Scripts -->
+            <script src="{{ asset(mix('js/app.js'), true) }}" defer></script>
+        @else
+            <!-- Styles -->
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+            <!-- Scripts -->
+            <script src="{{ asset('js/app.js') }}" defer></script>
+        @endif
     </head>
     <body class="text-base">
         <main id="app" class="min-h-screen flex flex-col justify-center text-gray-50 py-12 sm:px-6 lg:px-8 bg-gradient-to-r from-black to-gray-100">
