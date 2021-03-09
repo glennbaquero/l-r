@@ -23,8 +23,6 @@
 						new: true
 					}
 				],
-
-				date: null
 			}
 		},
 
