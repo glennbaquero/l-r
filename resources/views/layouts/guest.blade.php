@@ -12,7 +12,7 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
 
-        @if (config('app.env') == 'production')
+        @if (config('app.env') == 'production' || config('app.env') == 'staging')
             <!-- Styles -->
             <link rel="stylesheet" href="{{ asset(mix('css/app.css'), true) }}">
             <!-- Scripts -->
