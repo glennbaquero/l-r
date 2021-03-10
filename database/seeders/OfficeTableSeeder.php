@@ -21,6 +21,12 @@ class OfficeTableSeeder extends Seeder
                 'phone_number' => '(323) 587-5233',
                 'office_type_id' => 2,
                 'terminal_id' => 2,
+                'departure_city_id' => 1,
+                'address_line_1' => '4564 Redlands Avenue',
+                'latitude' => 33.8563824,
+                'longitude' => -117.2180643,
+                'state_name' => 'California',
+                'zip' => '92571'
             ],
             [
                 'name' => 'FDN - Huntington Pk.',
@@ -28,6 +34,13 @@ class OfficeTableSeeder extends Seeder
                 'phone_number' => '(323) 587-5233',
                 'office_type_id' => 2,
                 'terminal_id' => 2,
+                'departure_city_id' => 1,
+                'address_line_1' => '4564 Redlands Avenue',
+                'latitude' => 33.8563824,
+                'longitude' => -117.2180643,
+                'state_name' => 'California',
+                'zip' => '92571'
+
             ],
             [
                 'name' => 'FDN - Pasco',
@@ -35,6 +48,13 @@ class OfficeTableSeeder extends Seeder
                 'phone_number' => '(323) 587-5233',
                 'office_type_id' => 2,
                 'terminal_id' => 2,
+                'departure_city_id' => 1,
+                'address_line_1' => '4564 Redlands Avenue',
+                'latitude' => 33.8563824,
+                'longitude' => -117.2180643,
+                'state_name' => 'California',
+                'zip' => '92571'
+
             ],
             [
                 'name' => 'FDN - San Fernando',
@@ -42,6 +62,13 @@ class OfficeTableSeeder extends Seeder
                 'phone_number' => '(323) 587-5233',
                 'office_type_id' => 2,
                 'terminal_id' => 2,
+                'departure_city_id' => 1,
+                'address_line_1' => '4564 Redlands Avenue',
+                'latitude' => 33.8563824,
+                'longitude' => -117.2180643,
+                'state_name' => 'California',
+                'zip' => '92571'
+
             ],
             [
                 'name' => 'FDN - San Ysidro',
@@ -49,6 +76,13 @@ class OfficeTableSeeder extends Seeder
                 'phone_number' => '(323) 587-5233',
                 'office_type_id' => 2,
                 'terminal_id' => 2,
+                'departure_city_id' => 1,
+                'address_line_1' => '4564 Redlands Avenue',
+                'latitude' => 33.8563824,
+                'longitude' => -117.2180643,
+                'state_name' => 'California',
+                'zip' => '92571'
+
             ],
             [
                 'name' => 'FDN - Sunnyside',
@@ -56,6 +90,13 @@ class OfficeTableSeeder extends Seeder
                 'phone_number' => '(323) 587-5233',
                 'office_type_id' => 2,
                 'terminal_id' => 2,
+                'departure_city_id' => 1,
+                'address_line_1' => '4564 Redlands Avenue',
+                'latitude' => 33.8563824,
+                'longitude' => -117.2180643,
+                'state_name' => 'California',
+                'zip' => '92571'
+
             ],
             [
                 'name' => 'FDN - Yakima',
@@ -63,6 +104,13 @@ class OfficeTableSeeder extends Seeder
                 'phone_number' => '(323) 587-5233',
                 'office_type_id' => 2,
                 'terminal_id' => 2,
+                'departure_city_id' => 1,
+                'address_line_1' => '4564 Redlands Avenue',
+                'latitude' => 33.8563824,
+                'longitude' => -117.2180643,
+                'state_name' => 'California',
+                'zip' => '92571'
+
             ]
 
         ];

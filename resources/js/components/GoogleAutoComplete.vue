@@ -41,7 +41,7 @@
  				this.address = this.item;
  			}
 
- 			if(document.getElementById("latitude") && document.getElementById("longitude")) {
+ 			if(document.getElementById("latitude") && document.getElementById("longitude") && _.isEmpty(this.item)) {
 	 			this.address.latitude = document.getElementById("latitude").value;
 	 			this.address.longitude = document.getElementById("longitude").value;
  			}
