@@ -70,7 +70,7 @@ class User extends Authenticatable
      */
     public function getFullImagePathAttribute()
     {
-        return asset('storage/' . $this->image_path);
+        return $this->image_path ? asset('storage/' . $this->image_path) : asset('/storage/images/default-avatar.png');
     }
 
     /**
