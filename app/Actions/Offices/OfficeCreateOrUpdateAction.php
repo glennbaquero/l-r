@@ -40,6 +40,7 @@ class OfficeCreateOrUpdateAction
 
 		DB::beginTransaction();
 			if(!$id) {
+				$request['office_no'] = bin2hex(random_bytes(3));
 				$this->office = $this->office->create($request->all());
 			} else {
 				$this->office = Office::withTrashed()->findOrFail($id);

@@ -3,7 +3,7 @@
         <div class="flex items-center">
             <div class="text-base mr-auto">
 
-                <x-breadcrumb currentModule="{{__('Office Management')}}" route="{{ route('group-message.index') }}"></x-breadcrumb>
+                <x-breadcrumb currentModule="{{__('Office Management')}}" route="{{ route('office.index') }}"></x-breadcrumb>
             </div>
         </div>
 
@@ -33,27 +33,34 @@
                                     <x-label for="name" class="font-semibold">Name</x-label>
                                     <x-form-input type="text" name="name" id="name" value="{{ old('name') }}" />
                                 </div>
-                                <div class="col-span-6 sm:col-span-3">
+                                {{-- <div class="col-span-6 sm:col-span-3">
                                     <x-label for="office_no" class="font-semibold">Office Number</x-label>
                                     <x-form-input type="text" name="office_no" id="office_no" value="{{ old('office_no') }}" />
-                                </div>
+                                </div> --}}
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="ledger_transaction" class="font-semibold">Ledger Transaction</x-label>
                                     <x-form-input type="text" name="ledger_transaction" id="ledger_transaction" value="{{ old('ledger_transaction') }}" />
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-3">
+                                <div class="col-span-full sm:col-span-full">
                                     <x-label for="address_line_1" class="font-semibold">Address</x-label>
-                                    <x-form-input type="text" id="autocomplete" name="address_line_1" value="{{ old('address_line_1') }}" />
+                                    <x-form-input type="text" id="autocomplete" name="address_line_1" v-model="address.address_line_1" />
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
-                                    <x-label for="departure_city_id" class="font-semibold">Departure City</x-label>
-                                    <x-select :lists="$cities" name="departure_city_id" />
+                                    <x-label for="city" class="font-semibold">Departure City</x-label>
+                                    <multi-select :items="{{ $cities }}" label="name" :multiple="false"  name="city" name_2="departure_city_id" :value-name="true" v-slot="{ selected }" :selected-value="address.city"></multi-select>
+                                    {{-- <x-select :lists="$cities" name="departure_city_id" v-model="address.city" :disabled="true"/> --}}
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="arrival_city_id" class="font-semibold">Arrival City</x-label>
-                                    <x-select :lists="$cities" name="arrival_city_id" />
+                                    <multi-select :items="{{ $cities }}" label="name" :multiple="false"  name="arrival_city_id" v-slot="{ selected }"></multi-select>
+                                    {{-- <select name="arrival_city_id" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="address.city">
+                                        @foreach($cities as $city)
+                                            <option value="{{ $city->name }}">{{ $city->name }}</option>
+                                        @endforeach
+                                    </select> --}}
+                                    {{-- <x-select :lists="$cities" name="arrival_city_id" v-model="address.city" :disabled="true"/> --}}
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="state_name" class="font-semibold">State</x-label>
