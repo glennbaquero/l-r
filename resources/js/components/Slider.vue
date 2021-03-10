@@ -45,7 +45,7 @@ export default {
 
 		var options = {};
 
-		if (this.items.length == 1 ) {
+		if (this.items.length > 1 ) {
 		       options = {
 	           	  	// Optional parameters
 	           	  	direction: 'horizontal',
@@ -70,10 +70,7 @@ export default {
 	           	  	direction: 'horizontal',
 		       }
 		   }
-
-		new Swiper('.swiper-container', {
-		  	
-		});
+		new Swiper('.swiper-container', options);
 	}
 }
 
