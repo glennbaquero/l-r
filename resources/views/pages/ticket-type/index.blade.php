@@ -56,7 +56,7 @@
                                     @{{type.updated_at}}
                                 </td>
                                 <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-500">
-                                    <delete-button :url="type.deleteUrl"></delete-button>
+                                    {{-- <delete-button :url="type.deleteUrl"></delete-button> --}}
                                     <a :href="type.showUrl" class="focus:outline-none focus:shadow-outline inline-flex">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                     </a>
