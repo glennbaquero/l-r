@@ -2,13 +2,14 @@
 	<div>
 		<v-select
 			class="my-3"
-			multiple 
+			:multiple="multiple" 
 		    v-model="selectedItem" 
 		    :options="items"
 		    :label="label"
 		    >
 		</v-select>
 		<input type="text" :name="name" :value="selected" hidden>
+		<input type="text" :name="name_2" :value="selectedItem.id" hidden v-if="valueName">
 	</div>
 </template>
 <script>
@@ -23,11 +24,29 @@
 			items: Array,
 			label: String,
 			value: String,
-			selectedValue: Array,
+			selectedValue: {
+				default: null
+			},
 			name: {
 				default: 'userIds',
 				type: String
+			},
+
+			multiple: {
+				default: true,
+				type: Boolean
+			},
+
+			valueName: {
+				default: false,
+				type: Boolean
+			},
+
+			name_2: {
+				default: '',
+				type: String
 			}
+
 		},
 
 		render() {
@@ -49,17 +68,40 @@
 
 		watch: {
 			selectedItem(val) {
-				this.selected = JSON.stringify(_.map(val, 'id'))
+				if(this.multiple) {
+					this.selected = JSON.stringify(_.map(val, 'id'))
+				} else {
+					if(this.valueName) {
+						this.selected = val.name;
+					} else {
+						this.selected = val.id;
+					}
+				}
 			},
+
+			selectedValue(val) {
+				if(this.valueName) {
+					this.selectedItem = _.find(this.items, (item) => { return item.name == val});
+				}
+			}
 		},
 
 		mounted() {
-			if(!_.isEmpty(this.selectedValue)) {
-				_.each(this.selectedValue, (selected) => {
-					var item = _.find(this.items, (item) => { return item.id == selected });
 
-					this.selectedItem.push(item);
-				});
+
+			if(!_.isEmpty(this.selectedValue) || this.selectedValue) {
+
+
+				if(this.multiple) {
+					_.each(this.selectedValue, (selected) => {
+						var item = _.find(this.items, (item) => { return item.id == selected });
+
+						this.selectedItem.push(item);
+					});
+				} else {
+					this.selectedItem = _.find(this.items, (item) => { return item.id == this.selectedValue});
+				}
+				
 			}
 		}
 	}

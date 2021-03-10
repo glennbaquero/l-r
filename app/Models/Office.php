@@ -11,6 +11,8 @@ class Office extends Model
 {
     use HasFactory, QueryLike, SoftDeletes;
 
+    protected $appends = ['postal_code'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,6 +28,26 @@ class Office extends Model
     public function officeType()
     {
         return $this->belongsTo(OfficeType::class);
+    }
+
+    /**
+     * Office belongs to departure city
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function departure()
+    {
+        return $this->belongsTo(City::class, 'departure_city_id', 'id');
+    }
+
+    /**
+     * Office belongs to arrival city
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function arrival()
+    {
+        return $this->belongsTo(City::class, 'arrival_city_id', 'id');
     }
 
     /**
@@ -46,5 +68,15 @@ class Office extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    /**
+     * Get postal code
+     * 
+     * @return string
+     */
+    public function getPostalCodeAttribute()
+    {
+        return $this->zip;
     }
 }
