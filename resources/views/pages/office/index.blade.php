@@ -54,10 +54,10 @@
                                     @{{office.name}}
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                                    @{{office.phone_number}}
+                                    @{{office.address_line_1}}
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                                    @{{office.address_line_1}}
+                                    @{{office.phone_number}}
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                     @{{office.city}}
