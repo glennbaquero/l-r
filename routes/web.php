@@ -86,6 +86,11 @@ use App\Http\Controllers\Prices\PriceCreateController;
 use App\Http\Controllers\Prices\PriceUpdateController;
 use App\Http\Controllers\Prices\PriceDeleteController;
 
+use App\Http\Controllers\InterlinePriceController;
+use App\Http\Controllers\InterlinePrices\InterlinePriceCreateController;
+use App\Http\Controllers\InterlinePrices\InterlinePriceUpdateController;
+use App\Http\Controllers\InterlinePrices\InterlinePriceDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -243,4 +248,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/price/show/{id}', [PriceController::class, 'show'])->name('price.show');
     Route::post('/price/update/{id}', PriceUpdateController::class)->name('price.update');
     Route::post('/price/destroy/{id}', PriceDeleteController::class)->name('price.destroy');
+
+    Route::get('/interline-price', [InterlinePriceController::class, 'index'])->name('interline-price.index');
+    Route::get('/interline-price/fetch', [InterlinePriceController::class, 'fetch'])->name('interline-price.fetch');
+    Route::get('/interline-price/create', [InterlinePriceController::class, 'create'])->name('interline-price.create');
+    Route::post('/interline-price/store', InterlinePriceCreateController::class)->name('interline-price.store');
+    Route::get('/interline-price/show/{id}', [InterlinePriceController::class, 'show'])->name('interline-price.show');
+    Route::post('/interline-price/update/{id}', InterlinePriceUpdateController::class)->name('interline-price.update');
+    Route::post('/interline-price/destroy/{id}', InterlinePriceDeleteController::class)->name('interline-price.destroy');
 });
