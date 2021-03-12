@@ -81,6 +81,11 @@ use App\Http\Controllers\MultiRoutes\MultiRouteCreateController;
 use App\Http\Controllers\MultiRoutes\MultiRouteUpdateController;
 use App\Http\Controllers\MultiRoutes\MultiRouteDeleteController;
 
+use App\Http\Controllers\PriceController;
+use App\Http\Controllers\Prices\PriceCreateController;
+use App\Http\Controllers\Prices\PriceUpdateController;
+use App\Http\Controllers\Prices\PriceDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -230,4 +235,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/multi-route/show/{id}', [MultiRouteController::class, 'show'])->name('multi-route.show');
     Route::post('/multi-route/update/{id}', MultiRouteUpdateController::class)->name('multi-route.update');
     Route::post('/multi-route/destroy/{id}', MultiRouteDeleteController::class)->name('multi-route.destroy');
+
+    Route::get('/price', [PriceController::class, 'index'])->name('price.index');
+    Route::get('/price/fetch', [PriceController::class, 'fetch'])->name('price.fetch');
+    Route::get('/price/create', [PriceController::class, 'create'])->name('price.create');
+    Route::post('/price/store', PriceCreateController::class)->name('price.store');
+    Route::get('/price/show/{id}', [PriceController::class, 'show'])->name('price.show');
+    Route::post('/price/update/{id}', PriceUpdateController::class)->name('price.update');
+    Route::post('/price/destroy/{id}', PriceDeleteController::class)->name('price.destroy');
 });
