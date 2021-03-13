@@ -80,6 +80,26 @@ class TripFetch
             $this->trip = $this->trip->whereIn('route_id', $routeId);
         }
 
+        if($params['date_range'] && $params['date_range'] != 'null') {
+            $range = json_decode($params['date_range']);
+
+            // getting the departure 
+            $this->trip = $this->trip->whereHas('route', function($q) use($params) {
+                $q->where('departure_id', $params['departure_id']);
+            });
+
+            // getting the arrival
+            $cityId = $this->city->whereLike('id', $params['arrival_id'])->pluck('id')->toArray();
+            $routeId = $this->stop->whereIn('arrival_id', $cityId)->pluck('route_id')->toArray();
+            $this->trip = $this->trip->whereIn('route_id', $routeId);
+
+            // getting the route
+            $this->trip = $this->trip->where('route_id', $params['route_id']);
+
+            // getting the date range of the trip
+            $this->trip = $this->trip->where('date', '>=', $range->from)->where('date', '<=', $range->to);
+        }
+
         return $this->trip->paginate(20);
     }
 }
