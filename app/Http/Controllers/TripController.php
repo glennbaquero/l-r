@@ -35,9 +35,12 @@ class TripController extends Controller
      */
     public function index()
     {
+
         return view('pages.trip.index', [
             'headers' => TripCollection::$headers,
             'searches' => TripCollection::$searches,
+            'cities' => City::get(),
+            'routes' => Route::get()
         ]);
     }
 

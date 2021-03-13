@@ -23,7 +23,7 @@ class TripCollection extends ResourceCollection
      * @var array
      */
     public static $searches = [
-        'id', 'route', 'alias', 'bus', 'driver', 'date', 'departure', 'arrival'
+        'id', 'route', 'alias', 'bus', 'driver', 'date', 'departure', 'arrival', 'date_range'
     ];
 
     /**
