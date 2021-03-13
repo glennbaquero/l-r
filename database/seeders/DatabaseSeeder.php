@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DependenciesTableSeeder::class);
         $this->call(PrinterBrandAndModelsTableSeeder::class);
         $this->call(BrowserAndOSTableSeeder::class);
+        $this->call(BusTableSeeder::class);
     }
 }

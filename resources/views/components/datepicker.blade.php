@@ -1,3 +1,3 @@
-@props(['disabled' => false, 'name' => 'date', 'item' => auth()->user()])
+@props(['disabled' => false, 'name' => 'date', 'item' => auth()->user(), 'type' => 'date', 'format' => 'YYYY-MM-DD'])
 
-<date-picker name="{{ $name }}" :item="{{$item}}"></date-picker>
+<date-picker name="{{ $name }}" :item="{{$item}}" type="{{ $type }}" format="{{ $format }}"></date-picker>

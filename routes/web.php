@@ -91,6 +91,11 @@ use App\Http\Controllers\InterlinePrices\InterlinePriceCreateController;
 use App\Http\Controllers\InterlinePrices\InterlinePriceUpdateController;
 use App\Http\Controllers\InterlinePrices\InterlinePriceDeleteController;
 
+use App\Http\Controllers\TripController;
+use App\Http\Controllers\Trips\TripCreateController;
+use App\Http\Controllers\Trips\TripUpdateController;
+use App\Http\Controllers\Trips\TripDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -256,4 +261,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/interline-price/show/{id}', [InterlinePriceController::class, 'show'])->name('interline-price.show');
     Route::post('/interline-price/update/{id}', InterlinePriceUpdateController::class)->name('interline-price.update');
     Route::post('/interline-price/destroy/{id}', InterlinePriceDeleteController::class)->name('interline-price.destroy');
+
+    Route::get('/trip', [TripController::class, 'index'])->name('trip.index');
+    Route::get('/trip/fetch', [TripController::class, 'fetch'])->name('trip.fetch');
+    Route::get('/trip/create', [TripController::class, 'create'])->name('trip.create');
+    Route::post('/trip/store', TripCreateController::class)->name('trip.store');
+    Route::get('/trip/show/{id}', [TripController::class, 'show'])->name('trip.show');
+    Route::post('/trip/update/{id}', TripUpdateController::class)->name('trip.update');
+    Route::post('/trip/destroy/{id}', TripDeleteController::class)->name('trip.destroy');
 });
