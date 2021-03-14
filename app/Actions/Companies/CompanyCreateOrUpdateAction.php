@@ -44,6 +44,7 @@ class CompanyCreateOrUpdateAction
 
 		DB::beginTransaction();
 			if(!$id) {
+				$request['code'] = bin2hex(random_bytes(3));
 				$this->company = $this->company->create($request->except(['file_path']));
 			} else {
 				$this->company = Company::withTrashed()->findOrFail($id);

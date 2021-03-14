@@ -17,14 +17,14 @@ class CreateDriversTable extends Migration
             $table->id();
             $table->string('staff_type')->default('Driver');
             $table->boolean('by_default')->default(false);
-            $table->string('document_type')->default('DNI');
+            $table->string('document_type')->default('CDL');
             $table->string('document_no');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('gender');
             $table->string('phone_number');
             $table->string('email');
-            $table->string('address');
+            $table->string('address_line_1');
             $table->string('latitude');
             $table->string('longitude');
             $table->string('city');

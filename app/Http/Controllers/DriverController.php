@@ -30,9 +30,20 @@ class DriverController extends Controller
      */
     public function index()
     {
+        $drivers = Driver::get();
+        $types = [];
+        foreach ($drivers as $driver) {
+
+            $collection = collect($types);
+            if(!$collection->contains($driver->license_type)) {
+                array_push($types,$driver->license_type);
+            }
+        }
+
         return view('pages.driver.index', [
             'headers' => DriverCollection::$headers,
             'searches' => DriverCollection::$searches,
+            'licenseTypes' => $types
         ]);
     }
 

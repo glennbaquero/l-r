@@ -30,8 +30,9 @@ class OfficeStoreRequest extends FormRequest
             // 'office_no' => 'required',
             'phone_number' => 'required',
             'office_type_id' => 'required',
+            'city' => 'required',
             // 'terminal_id' => 'required',
-            'departure_city_id' => 'required',
+            // 'departure_city_id' => 'required',
             // 'arrival_city_id' => 'required',
             'address_line_1' => 'required',
         ];
@@ -42,7 +43,7 @@ class OfficeStoreRequest extends FormRequest
         return [
             'office_type_id.required' => 'Office type field is required',
             'terminal_id.required' => 'Terminal field is required',
-            'departure_city_id.required' => 'Departure city field is required',
+            // 'departure_city_id.required' => 'Departure city field is required',
             // 'arrival_city_id.required' => 'Arrival city field is required',
             'address_line_1.required' => 'Address field is required'
         ];
