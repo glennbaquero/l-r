@@ -3,7 +3,7 @@
         <div class="flex items-center">
             <div class="text-base mr-auto">
 
-                <x-breadcrumb currentModule="{{__('Company Management')}}" route="{{ route('company.index') }}"></x-breadcrumb>
+                <x-breadcrumb currentModule="{{__('Agency Management')}}" route="{{ route('company.index') }}"></x-breadcrumb>
             </div>
         </div>
 
@@ -37,26 +37,26 @@
                                     <x-form-input type="text" name="name" id="name" value="{{ old('name') }}" />
                                 </div>
                                 <google-auto-complete v-slot="{ address }">
-                                    <div class="col-span-6 sm:col-span-6">
+                                    <div class="col-span-12 sm:col-span-12">
                                         <x-label for="address" class="font-semibold">Address</x-label>
                                         <x-form-input type="text" id="autocomplete" name="address" value="{{ old('address') }}" />
                                     </div>
                                 </google-auto-complete>
-                                <div class="col-span-6 sm:col-span-6">
+                                {{-- <div class="col-span-6 sm:col-span-6">
                                     <x-label for="code" class="font-semibold">Code</x-label>
                                     <x-form-input type="text" name="code" id="code" value="{{ old('code') }}" />
+                                </div> --}}
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-switch label="Agency to Transfer" name="company_to_transfer"   rightLabel="Inactive" leftLabel="Active" type="modified"/>
                                 </div>
                                 <div class="col-span-2 sm:col-span-2">
-                                    <x-switch label="Company to Transfer" name="company_to_transfer"   rightLabel="Inactive" leftLabel="Active" type="modified"/>
-                                </div>
-                                <div class="col-span-2 sm:col-span-2">
-                                    <x-switch label="Company to Transfer" name="company_to_transfer" rightLabel="Inactive" leftLabel="Active" type="modified"/>
+                                    <x-switch label="Agency to Transfer" name="company_to_transfer" rightLabel="Inactive" leftLabel="Active" type="modified"/>
                                 </div>
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-switch label="Shipment of Packages" name="shipment_of_package" rightLabel="Inactive" leftLabel="Active" type="modified"/>
                                 </div>
                                 <div class="col-span-2 sm:col-span-2">
-                                    <x-switch label="Company Interlines" name="company_interlines" rightLabel="Inactive" leftLabel="Active" type="modified"/>
+                                    <x-switch label="Agency Interlines" name="company_interlines" rightLabel="Inactive" leftLabel="Active" type="modified"/>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12">
                                     <x-label for="discount" class="font-semibold">Discount</x-label>

@@ -35,7 +35,7 @@ class TripCollection extends ResourceCollection
     public function toArray($request)
     {
         return $this->collection->map(function($trip) {
-            $date = Carbon::parse($trip->date.' '.$trip->time)->format('m-d-Y H:i A');
+            $date = Carbon::parse($trip->date.' '.$trip->time)->format('m-d-Y h:i A');
             return [
                 'id' => $trip->id,
                 'route' => $trip->route->name,

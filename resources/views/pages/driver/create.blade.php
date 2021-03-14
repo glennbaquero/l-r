@@ -29,18 +29,18 @@
                             @csrf
                             <div class="grid grid-cols-6 gap-6">
 
-                                <div class="col-span-full sm:col-span-full">
+                                <div class="col-span-6 sm:col-span-3">
                                     <x-label for="staff_type" class="font-semibold">Staff Type</x-label>
                                     <x-select :lists="$staff_types" name="staff_type" identifierValue="value" oldValue="{{ old('staff_type') }}"/>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-3">
+                                {{-- <div class="col-span-6 sm:col-span-3">
                                     <x-label for="document_type" class="font-semibold">Document Type</x-label>
                                     <x-select :lists="$document_types" name="document_type" identifierValue="value" oldValue="{{ old('document_type') }}"/>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-span-6 sm:col-span-3">
-                                    <x-label for="document_no" class="font-semibold">Document Number</x-label>
+                                    <x-label for="document_no" class="font-semibold">Commercial Driver License</x-label>
                                     <x-form-input type="text" name="document_no" id="document_no" value="{{ old('document_no') }}" />
                                 </div>
 
@@ -58,11 +58,12 @@
                                     <x-label for="gender" class="font-semibold">Gender</x-label>
                                     <x-select :lists="$genders" name="gender" identifierValue="value" oldValue="{{ old('gender') }}"/>
                                 </div>
-
-                                <div class="col-span-6 sm:col-span-3">
-                                    <x-label for="phone_number" class="font-semibold">Phone Number</x-label>
-                                    <x-form-input type="text" name="phone_number" id="phone_number" value="{{ old('phone_number') }}" />
-                                </div>
+                                <phone-number v-slot="{ handlePhoneFormat }">
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <x-label for="phone_number" class="font-semibold">Phone Number</x-label>
+                                        <x-form-input type="text" name="phone_number" id="phone_number" @input="handlePhoneFormat" value="{{ old('phone_number') }}" />
+                                    </div>
+                                </phone-number>
 
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="email" class="font-semibold">Email</x-label>
@@ -70,15 +71,16 @@
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
-                                    <x-label for="address" class="font-semibold">Address</x-label>
-                                    <x-form-input type="text" id="autocomplete" name="address" value="{{ old('address') }}" />
+                                    <x-label for="address_line_1" class="font-semibold">Address</x-label>
+                                    <x-form-input type="text" id="autocomplete" name="address_line_1" v-model="address.address_line_1" />
                                     <input type="hidden" name="latitude" v-model="address.latitude">
                                     <input type="hidden" name="longitude" v-model="address.longitude">
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="city" class="font-semibold">City</x-label>
-                                    <x-select :lists="$cities" name="city" identifierValue="name"/>
+                                    <x-form-input type="text" name="city" id="city" v-model="address.city" />
+                                    {{-- <x-select :lists="$cities" name="city" identifierValue="name"/> --}}
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
@@ -111,8 +113,8 @@
                                     <x-datepicker name="next_medical_test_date" />
                                 </div>
 
-                                <div class="col-span-1 sm:col-span-1">
-                                    <x-switch label="By Default" name="by_default" />
+                                <div class="col-span-full sm:col-span-full">
+                                    <x-switch label="Send notification for driver license expiration, last medical test date and next medical test date" name="by_default" />
                                 </div>
 
                             </div>

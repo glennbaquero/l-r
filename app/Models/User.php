@@ -51,7 +51,7 @@ class User extends Authenticatable
      * 
      * @var array
      */
-    protected $appends = ['fullname', 'full_image_path'];
+    protected $appends = ['fullname', 'full_image_path', 'postal_code'];
 
     /**
      * Get user fullname
@@ -74,13 +74,23 @@ class User extends Authenticatable
     }
 
     /**
+     * Get postal code
+     * 
+     * @return string
+     */
+    public function getPostalCodeAttribute()
+    {
+        return $this->zip_code;
+    }
+
+    /**
     * User belongs to office
     * 
     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
     */
    public function office()
    {
-       return $this->belongsTo(Office::class);
+       return $this->belongsTo(Office::class)->withTrashed();
    }
 
    /**
@@ -90,7 +100,7 @@ class User extends Authenticatable
     */
     public function group()
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(Group::class)->withTrashed();
     }
 
     /**

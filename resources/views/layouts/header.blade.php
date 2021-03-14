@@ -120,7 +120,7 @@
                             <x-slot name="name">Ticket Type</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('company.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Company</x-slot>
+                            <x-slot name="name">Agency</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Base Fares Administration</x-slot>
@@ -152,9 +152,9 @@
             <x-header-sub-link link="#" :caret="true" class="group-configuration hover:bg-lightblue">
                 <x-slot name="name">{{__('Configuration')}}</x-slot>
                     <x-header-absolute-link class="group-configuration-hover:block bg-lightblue">
-                        <x-header-sub-link link="{{route('terminal.index')}}" :caret="false" class="group-sales hover:bg-lighterblue">
+                        {{-- <x-header-sub-link link="{{route('terminal.index')}}" :caret="false" class="group-sales hover:bg-lighterblue">
                             <x-slot name="name">Terminal Management</x-slot>
-                        </x-header-sub-link>
+                        </x-header-sub-link> --}}
                         <x-header-sub-link link="{{route('printer.index')}}" :caret="false" class="group-sales hover:bg-lighterblue">
                             <x-slot name="name">Printer Management</x-slot>
                         </x-header-sub-link>

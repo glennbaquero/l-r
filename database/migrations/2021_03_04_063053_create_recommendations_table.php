@@ -19,6 +19,7 @@ class CreateRecommendationsTable extends Migration
             $table->boolean('from_youtube')->default(false);
             $table->string('source')->nullable();
             $table->string('file_path')->nullable();
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
