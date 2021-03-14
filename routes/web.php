@@ -96,6 +96,10 @@ use App\Http\Controllers\Trips\TripCreateController;
 use App\Http\Controllers\Trips\TripUpdateController;
 use App\Http\Controllers\Trips\TripDeleteController;
 
+use App\Http\Controllers\TravelScheduleController;
+use App\Http\Controllers\TravelSchedules\TravelScheduleCreateController;
+use App\Http\Controllers\TravelSchedules\TravelScheduleUpdateController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -269,4 +273,9 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/trip/show/{id}', [TripController::class, 'show'])->name('trip.show');
     Route::post('/trip/update/{id}', TripUpdateController::class)->name('trip.update');
     Route::post('/trip/destroy/{id}', TripDeleteController::class)->name('trip.destroy');
+
+    Route::get('/travel-schedule/create', [TravelScheduleController::class, 'create'])->name('travel-schedule.create');
+    Route::post('/travel-schedule/store', TravelScheduleCreateController::class)->name('travel-schedule.store');
+    Route::get('/travel-schedule/show/{id}', [TravelScheduleController::class, 'show'])->name('travel-schedule.show');
+    Route::post('/travel-schedule/update/{id}', TravelScheduleUpdateController::class)->name('travel-schedule.update');
 });

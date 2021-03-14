@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Fetch\TripFetch;
-use App\Http\Resources\TripCollection;
 use Illuminate\Http\Request;
 
 use App\Models\Trip;
@@ -14,48 +12,12 @@ use App\Models\Service;
 use App\Models\Route;
 use App\Models\Company;
 
-class TripController extends Controller
+class TravelScheduleController extends Controller
 {
-    protected $fetch;
+
 
     /**
-     * Create new controller instance
-     * 
-     * @return void
-     */
-    public function __construct(TripFetch $fetch)
-    {
-        $this->fetch = $fetch;
-    }
-
-    /**
-     * Show Trip index page
-     * 
-     * @return Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-        return view('pages.trip.index', [
-            'headers' => TripCollection::$headers,
-            'searches' => TripCollection::$searches,
-            'cities' => City::get(),
-            'routes' => Route::get()
-        ]);
-    }
-
-    /**
-     * Fetch all Trips
-     * 
-     * @return Illuminate\Http\Response
-     */
-    public function fetch()
-    {
-        return new TripCollection($this->fetch->execute(request()->input()));
-    }
-
-    /**
-     * Show Trips create page
+     * Show Travel Schedule create page
      * 
      * @return Illuminate\Http\Response
      */
@@ -67,21 +29,17 @@ class TripController extends Controller
         $routes = Route::get();
         $companies = Company::get();
 
-        $crews = [];
-        $assistants = [];
         $transport_types = [
             [ 'name' => 'Carga'], [ 'name' => 'Tickets']
         ];
 
-        return view('pages.trip.create', [
+        return view('pages.travel-schedule.create', [
             'drivers' => $drivers,
             'services' => $services,
             'buses' => $buses,
             'routes' => $routes,
             'companies' => $companies,
             'transport_types' => $transport_types,
-            'crews' => $crews,
-            'assistants' => $assistants,
         ]);
     }
 
@@ -99,13 +57,11 @@ class TripController extends Controller
         $routes = Route::get();
         $companies = Company::get();
 
-        $crews = [];
-        $assistants = [];
         $transport_types = [
             [ 'name' => 'Carga'], [ 'name' => 'Tickets']
         ];
 
-        return view('pages.trip.show', [
+        return view('pages.travel-schedule.show', [
             'trip' => $trip,
             'drivers' => $drivers,
             'services' => $services,
@@ -113,8 +69,6 @@ class TripController extends Controller
             'routes' => $routes,
             'companies' => $companies,
             'transport_types' => $transport_types,
-            'crews' => $crews,
-            'assistants' => $assistants,
         ]);
     }
 }

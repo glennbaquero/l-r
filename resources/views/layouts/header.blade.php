@@ -49,7 +49,7 @@
                                 <x-header-sub-link link="{{route('interline-price.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Interline Price</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('trip.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Itineraries</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
