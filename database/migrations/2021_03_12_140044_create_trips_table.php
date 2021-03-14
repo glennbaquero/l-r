@@ -29,7 +29,7 @@ class CreateTripsTable extends Migration
             $table->foreign('bus_id')->references('id')->on('buses')->onDelete('cascade');
             $table->bigInteger('driver_id')->unsigned()->index();
             $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
-            $table->bigInteger('main_co_driver_id')->unsigned()->index();
+            $table->bigInteger('main_co_driver_id')->unsigned()->nullable();
             $table->foreign('main_co_driver_id')->references('id')->on('drivers')->onDelete('cascade');
             $table->bigInteger('secondary_co_driver_id')->unsigned()->nullable();
             $table->foreign('secondary_co_driver_id')->references('id')->on('drivers')->onDelete('cascade');

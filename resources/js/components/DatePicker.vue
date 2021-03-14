@@ -1,5 +1,5 @@
 <template>
-	<vue2-datepicker v-model="date" :type="type" :format="format" :input-class="classAttrib" :input-attr="attr" :range="dateRange" @change="datepickerChange"></vue2-datepicker>
+	<vue2-datepicker v-model="date" :type="type" :format="format" :input-class="classAttrib" :input-attr="attr" :range="activateDateRange" @change="datepickerChange"></vue2-datepicker>
 </template>
 <script>
 	import Vue2DatePicker from 'vue2-datepicker';
@@ -30,8 +30,7 @@
 			},
 
 			dateRange: {
-				default: false,
-				type: Boolean
+				default: 0,
 			}
 		},
 
@@ -84,6 +83,10 @@
 				} else {
 					return false;
 				}
+			},
+
+			activateDateRange() {
+				return this.dateRange != 1 ? false : true;
 			}
 		},
 

@@ -4,9 +4,14 @@
             <div class="text-base mr-auto">
                 <span class="font-semibold mr-3">{{__('Trip Management')}}</span>
             </div>
-            <div class="flex text-base items-center">
+            <div class="flex text-base items-center mr-3">
                 <a href="{{ route('trip.create') }}" class="inline-flex font-normal items-center px-4 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue transition ease-in-out duration-150">
                     {{__('New Trip')}}
+                </a>
+            </div>
+            <div class="flex text-base items-center">
+                <a href="{{ route('travel-schedule.create') }}" class="inline-flex font-normal items-center px-4 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue transition ease-in-out duration-150">
+                    {{__('New Travel Schedule')}}
                 </a>
             </div>
         </div>
