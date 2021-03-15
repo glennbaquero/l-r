@@ -30,6 +30,14 @@ module.exports = {
                 lighterblue: '#2051A5',
                 lightgray: '#fafafa'
             },
+            backgroundImage: theme => ({
+                'driver': "url('/icons/driver.png')",
+                'seat_sold': "url('/icons/seat_sold.png')",
+                'seat_selected': "url('/icons/seat_selected.png')",
+                'seat_reserve': "url('/icons/seat_reserve.png')",
+                'seat_available': "url('/icons/seat_available.png')",
+                'seat_double_sold': "url('/icons/seat_double_sold.png')",
+            })
         },
 
         /**
