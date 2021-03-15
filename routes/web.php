@@ -100,6 +100,11 @@ use App\Http\Controllers\TravelScheduleController;
 use App\Http\Controllers\TravelSchedules\TravelScheduleCreateController;
 use App\Http\Controllers\TravelSchedules\TravelScheduleUpdateController;
 
+use App\Http\Controllers\CellController;
+use App\Http\Controllers\Cells\CellCreateController;
+use App\Http\Controllers\Cells\CellUpdateController;
+use App\Http\Controllers\Cells\CellDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -278,4 +283,13 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/travel-schedule/store', TravelScheduleCreateController::class)->name('travel-schedule.store');
     Route::get('/travel-schedule/show/{id}', [TravelScheduleController::class, 'show'])->name('travel-schedule.show');
     Route::post('/travel-schedule/update/{id}', TravelScheduleUpdateController::class)->name('travel-schedule.update');
+
+    Route::get('/cell', [CellController::class, 'index'])->name('cell.index');
+    Route::get('/cell/fetch', [CellController::class, 'fetch'])->name('cell.fetch');
+    Route::get('/cell/create', [CellController::class, 'create'])->name('cell.create');
+    Route::post('/cell/store', CellCreateController::class)->name('cell.store');
+    Route::get('/cell/show/{id}', [CellController::class, 'show'])->name('cell.show');
+    Route::post('/cell/update/{id}', CellUpdateController::class)->name('cell.update');
+    Route::post('/cell/destroy/{id}', CellDeleteController::class)->name('cell.destroy');
+
 });
