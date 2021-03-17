@@ -79,7 +79,7 @@
                                 <x-header-sub-link link="{{route('bus-model.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Bus Model</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('bus.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Bus</x-slot>
                                 </x-header-sub-link>
                             </x-header-absolute-link>

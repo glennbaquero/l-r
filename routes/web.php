@@ -110,6 +110,11 @@ use App\Http\Controllers\BusModels\BusModelCreateController;
 use App\Http\Controllers\BusModels\BusModelUpdateController;
 use App\Http\Controllers\BusModels\BusModelDeleteController;
 
+use App\Http\Controllers\BusController;
+use App\Http\Controllers\Buses\BusCreateController;
+use App\Http\Controllers\Buses\BusUpdateController;
+use App\Http\Controllers\Buses\BusDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -304,5 +309,13 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/bus-model/show/{id}', [BusModelController::class, 'show'])->name('bus-model.show');
     Route::post('/bus-model/update/{id}', BusModelUpdateController::class)->name('bus-model.update');
     Route::post('/bus-model/destroy/{id}', BusModelDeleteController::class)->name('bus-model.destroy');
+
+    Route::get('/bus', [BusController::class, 'index'])->name('bus.index');
+    Route::get('/bus/fetch', [BusController::class, 'fetch'])->name('bus.fetch');
+    Route::get('/bus/create', [BusController::class, 'create'])->name('bus.create');
+    Route::post('/bus/store', BusCreateController::class)->name('bus.store');
+    Route::get('/bus/show/{id}', [BusController::class, 'show'])->name('bus.show');
+    Route::post('/bus/update/{id}', BusUpdateController::class)->name('bus.update');
+    Route::post('/bus/destroy/{id}', BusDeleteController::class)->name('bus.destroy');
 
 });
