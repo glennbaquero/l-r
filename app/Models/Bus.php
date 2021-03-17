@@ -18,4 +18,14 @@ class Bus extends Model
      * @var array
      */
     protected $guarded = [];
+
+	/**
+	 * Bus belongs to bus model
+	 * 
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+    public function bus_model()
+    {
+        return $this->belongsTo(BusModel::class)->withTrashed();
+    }
 }

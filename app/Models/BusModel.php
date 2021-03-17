@@ -38,4 +38,14 @@ class BusModel extends Model
     {
         return $this->hasMany(BusModelRow::class);
     }
+
+    /**
+     * Bus Model has many bus
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function buses()
+    {
+        return $this->hasMany(Bus::class);
+    }
 }

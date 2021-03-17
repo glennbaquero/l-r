@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\models;
+namespace App\Actions\BusModels;
 
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +29,7 @@ class BusModelDeleteAction
 	{
 
 		DB::beginTransaction();
-				$this->model = model::withTrashed()->findOrFail($id);
+				$this->model = BusModel::withTrashed()->findOrFail($id);
 				$this->model->delete();
 		DB::commit();
 
