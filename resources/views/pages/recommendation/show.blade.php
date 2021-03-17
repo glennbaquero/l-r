@@ -39,18 +39,23 @@
                                     <x-form-input type="text" name="name" id="name" value="{{ $recommendation->name }}" />
                                 </div>
 
-                                <div class="col-span-2 sm:col-span-2">
+                                {{-- <div class="col-span-2 sm:col-span-2">
                                     <x-switch label="Source From Youtube" name="from_youtube" :hasParentToggle="1" :toshowdata="1" :item="$recommendation"/>
-                                </div>
-
+                                </div> --}}
+{{-- 
                                 <div class="col-span-full sm:col-span-full" v-if="!display">
                                     <x-label for="path" class="font-semibold">Upload Video</x-label>
                                     <input type="file" name="path" accept="video/mp4" id="file" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
-                                </div>
+                                </div> --}}
 
-                                <div class="col-span-full sm:col-span-full" v-if="display">
+                                <div class="col-span-full sm:col-span-full">
                                     <x-label for="source" class="font-semibold">Youtube Source</x-label>
                                     <x-form-input type="text" name="source" id="source" value="{{ $recommendation->source }}" />
+                                </div>
+
+                                <div class="col-span-full sm:col-span-full">
+                                    <x-label for="description" class="font-semibold">Description</x-label>
+                                    <x-text-area name="description" id="description" value="{{ $recommendation->description }}" />
                                 </div>
                             </div>
                             

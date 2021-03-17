@@ -36,6 +36,11 @@
                                     <x-label for="source" class="font-semibold">Youtube Source</x-label>
                                     <x-form-input type="text" name="source" id="source" value="{{ old('source') }}" />
                                 </div>
+
+                                <div class="col-span-full sm:col-span-full">
+                                    <x-label for="description" class="font-semibold">Description</x-label>
+                                    <x-text-area name="description" id="description"/>
+                                </div>
                             </div>
                             <div class="mt-5 text-right">
                                 <button type="submit" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36">
