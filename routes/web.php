@@ -81,6 +81,35 @@ use App\Http\Controllers\MultiRoutes\MultiRouteCreateController;
 use App\Http\Controllers\MultiRoutes\MultiRouteUpdateController;
 use App\Http\Controllers\MultiRoutes\MultiRouteDeleteController;
 
+use App\Http\Controllers\PriceController;
+use App\Http\Controllers\Prices\PriceCreateController;
+use App\Http\Controllers\Prices\PriceUpdateController;
+use App\Http\Controllers\Prices\PriceDeleteController;
+
+use App\Http\Controllers\InterlinePriceController;
+use App\Http\Controllers\InterlinePrices\InterlinePriceCreateController;
+use App\Http\Controllers\InterlinePrices\InterlinePriceUpdateController;
+use App\Http\Controllers\InterlinePrices\InterlinePriceDeleteController;
+
+use App\Http\Controllers\TripController;
+use App\Http\Controllers\Trips\TripCreateController;
+use App\Http\Controllers\Trips\TripUpdateController;
+use App\Http\Controllers\Trips\TripDeleteController;
+
+use App\Http\Controllers\TravelScheduleController;
+use App\Http\Controllers\TravelSchedules\TravelScheduleCreateController;
+use App\Http\Controllers\TravelSchedules\TravelScheduleUpdateController;
+
+use App\Http\Controllers\CellController;
+use App\Http\Controllers\Cells\CellCreateController;
+use App\Http\Controllers\Cells\CellUpdateController;
+use App\Http\Controllers\Cells\CellDeleteController;
+
+use App\Http\Controllers\BusModelController;
+use App\Http\Controllers\BusModels\BusModelCreateController;
+use App\Http\Controllers\BusModels\BusModelUpdateController;
+use App\Http\Controllers\BusModels\BusModelDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -126,13 +155,13 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/ticket-type/update/{id}', TicketTypeUpdateController::class)->name('ticket-type.update');
     Route::post('/ticket-type/destroy/{id}', TicketTypeDeleteController::class)->name('ticket-type.destroy');
 
-    Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
-    Route::get('/company/fetch', [CompanyController::class, 'fetch'])->name('company.fetch');
-    Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
-    Route::post('/company/store', CompanyCreateController::class)->name('company.store');
-    Route::get('/company/show/{id}', [CompanyController::class, 'show'])->name('company.show');
-    Route::post('/company/update/{id}', CompanyUpdateController::class)->name('company.update');
-    Route::post('/company/destroy/{id}', CompanyDeleteController::class)->name('company.destroy');
+    Route::get('/agency', [CompanyController::class, 'index'])->name('company.index');
+    Route::get('/agency/fetch', [CompanyController::class, 'fetch'])->name('company.fetch');
+    Route::get('/agency/create', [CompanyController::class, 'create'])->name('company.create');
+    Route::post('/agency/store', CompanyCreateController::class)->name('company.store');
+    Route::get('/agency/show/{id}', [CompanyController::class, 'show'])->name('company.show');
+    Route::post('/agency/update/{id}', CompanyUpdateController::class)->name('company.update');
+    Route::post('/agency/destroy/{id}', CompanyDeleteController::class)->name('company.destroy');
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::get('/user/fetch', [UserController::class, 'fetch'])->name('user.fetch');
@@ -230,4 +259,50 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/multi-route/show/{id}', [MultiRouteController::class, 'show'])->name('multi-route.show');
     Route::post('/multi-route/update/{id}', MultiRouteUpdateController::class)->name('multi-route.update');
     Route::post('/multi-route/destroy/{id}', MultiRouteDeleteController::class)->name('multi-route.destroy');
+
+    Route::get('/price', [PriceController::class, 'index'])->name('price.index');
+    Route::get('/price/fetch', [PriceController::class, 'fetch'])->name('price.fetch');
+    Route::get('/price/create', [PriceController::class, 'create'])->name('price.create');
+    Route::post('/price/store', PriceCreateController::class)->name('price.store');
+    Route::get('/price/show/{id}', [PriceController::class, 'show'])->name('price.show');
+    Route::post('/price/update/{id}', PriceUpdateController::class)->name('price.update');
+    Route::post('/price/destroy/{id}', PriceDeleteController::class)->name('price.destroy');
+
+    Route::get('/interline-price', [InterlinePriceController::class, 'index'])->name('interline-price.index');
+    Route::get('/interline-price/fetch', [InterlinePriceController::class, 'fetch'])->name('interline-price.fetch');
+    Route::get('/interline-price/create', [InterlinePriceController::class, 'create'])->name('interline-price.create');
+    Route::post('/interline-price/store', InterlinePriceCreateController::class)->name('interline-price.store');
+    Route::get('/interline-price/show/{id}', [InterlinePriceController::class, 'show'])->name('interline-price.show');
+    Route::post('/interline-price/update/{id}', InterlinePriceUpdateController::class)->name('interline-price.update');
+    Route::post('/interline-price/destroy/{id}', InterlinePriceDeleteController::class)->name('interline-price.destroy');
+
+    Route::get('/trip', [TripController::class, 'index'])->name('trip.index');
+    Route::get('/trip/fetch', [TripController::class, 'fetch'])->name('trip.fetch');
+    Route::get('/trip/create', [TripController::class, 'create'])->name('trip.create');
+    Route::post('/trip/store', TripCreateController::class)->name('trip.store');
+    Route::get('/trip/show/{id}', [TripController::class, 'show'])->name('trip.show');
+    Route::post('/trip/update/{id}', TripUpdateController::class)->name('trip.update');
+    Route::post('/trip/destroy/{id}', TripDeleteController::class)->name('trip.destroy');
+
+    Route::get('/travel-schedule/create', [TravelScheduleController::class, 'create'])->name('travel-schedule.create');
+    Route::post('/travel-schedule/store', TravelScheduleCreateController::class)->name('travel-schedule.store');
+    Route::get('/travel-schedule/show/{id}', [TravelScheduleController::class, 'show'])->name('travel-schedule.show');
+    Route::post('/travel-schedule/update/{id}', TravelScheduleUpdateController::class)->name('travel-schedule.update');
+
+    Route::get('/cell', [CellController::class, 'index'])->name('cell.index');
+    Route::get('/cell/fetch', [CellController::class, 'fetch'])->name('cell.fetch');
+    Route::get('/cell/create', [CellController::class, 'create'])->name('cell.create');
+    Route::post('/cell/store', CellCreateController::class)->name('cell.store');
+    Route::get('/cell/show/{id}', [CellController::class, 'show'])->name('cell.show');
+    Route::post('/cell/update/{id}', CellUpdateController::class)->name('cell.update');
+    Route::post('/cell/destroy/{id}', CellDeleteController::class)->name('cell.destroy');
+
+    Route::get('/bus-model', [BusModelController::class, 'index'])->name('bus-model.index');
+    Route::get('/bus-model/fetch', [BusModelController::class, 'fetch'])->name('bus-model.fetch');
+    Route::get('/bus-model/create', [BusModelController::class, 'create'])->name('bus-model.create');
+    Route::post('/bus-model/store', BusModelCreateController::class)->name('bus-model.store');
+    Route::get('/bus-model/show/{id}', [BusModelController::class, 'show'])->name('bus-model.show');
+    Route::post('/bus-model/update/{id}', BusModelUpdateController::class)->name('bus-model.update');
+    Route::post('/bus-model/destroy/{id}', BusModelDeleteController::class)->name('bus-model.destroy');
+
 });

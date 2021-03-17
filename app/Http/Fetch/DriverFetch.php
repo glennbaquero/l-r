@@ -29,6 +29,8 @@ class DriverFetch
         $this->driver = $this->driver
                     ->whereLike('first_name', $params['name'])
                     ->orWhereLike('last_name', $params['name'])
+                    ->orWhereLike('license_type', $params['license_type'])
+                    ->orWhereLike('phone_number', $params['phone_number'])
                     ->orWhereLike('document_no', $params['document_no'])
                     ->orWhereLike('license_no', $params['license_no']);
 

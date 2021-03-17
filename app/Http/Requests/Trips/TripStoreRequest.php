@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Requests\Trips;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class TripStoreRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'route_id' => 'required',
+            'alias_route' => 'required',
+            'date' => 'required|date',
+            'time' => 'required',
+            'transport_type' => 'required',
+            'bus_id' => 'required',
+            'driver_id' => 'required',
+            'main_co_driver_id' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'route_id.required' => 'The route field is required.',
+            'driver_id.required' => 'The driver field is required.',
+            'bus_id.required' => 'The bus field is required.',
+            'main_co_driver_id.required' => 'The main co driver field is required.',
+        ];
+    }
+}

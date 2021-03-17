@@ -66,6 +66,14 @@ export default {
                 case 'printer':
                     this.item = item;
                     break;
+
+                case 'route':
+                    this.item = item;
+                    break;
+
+                case 'transport_type': 
+                    if(value == 'Carga') this.display = false;
+                    else this.display = true;
             }
         },
     }

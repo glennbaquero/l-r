@@ -3,7 +3,7 @@
         <div class="flex items-center">
             <div class="text-base mr-auto">
 
-                <x-breadcrumb currentModule="{{__('Company Management')}}" currentPage="Show" route="{{ route('company.index') }}"> 
+                <x-breadcrumb currentModule="{{__('Agency Management')}}" currentPage="Show" route="{{ route('company.index') }}"> 
                     <svg class="flex-shrink-0 mx-2 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                     </svg>
@@ -42,26 +42,26 @@
                                     <x-form-input type="text" name="name" id="name" value="{{ $company->name }}" />
                                 </div>
                                 <google-auto-complete v-slot="{ address }">
-                                    <div class="col-span-6 sm:col-span-6">
+                                    <div class="col-span-full sm:col-span-full">
                                         <x-label for="address" class="font-semibold">Address</x-label>
                                         <x-form-input type="text" id="autocomplete" name="address" value="{{ $company->address }}" />
                                     </div>
                                 </google-auto-complete>
-                                <div class="col-span-6 sm:col-span-6">
+                                {{-- <div class="col-span-6 sm:col-span-6">
                                     <x-label for="code" class="font-semibold">Code</x-label>
                                     <x-form-input type="text" name="code" id="code" value="{{ $company->code }}" />
+                                </div> --}}
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-switch label="Agency to Transfer" name="company_to_transfer" rightLabel="Inactive" leftLabel="Active" type="modified" :item="$company"/>
                                 </div>
                                 <div class="col-span-2 sm:col-span-2">
-                                    <x-switch label="Company to Transfer" name="company_to_transfer" rightLabel="Inactive" leftLabel="Active" type="modified" :item="$company"/>
-                                </div>
-                                <div class="col-span-2 sm:col-span-2">
-                                    <x-switch label="Company to Transfer" name="company_to_transfer" rightLabel="Inactive" leftLabel="Active" type="modified"  :item="$company"/>
+                                    <x-switch label="Agency to Transfer" name="company_to_transfer" rightLabel="Inactive" leftLabel="Active" type="modified"  :item="$company"/>
                                 </div>
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-switch label="Shipment of Packages" name="shipment_of_package" rightLabel="Inactive" leftLabel="Active" type="modified"  :item="$company"/>
                                 </div>
                                 <div class="col-span-2 sm:col-span-2">
-                                    <x-switch label="Company Interlines" name="company_interlines" rightLabel="Inactive" leftLabel="Active" type="modified"  :item="$company"/>
+                                    <x-switch label="Agency Interlines" name="company_interlines" rightLabel="Inactive" leftLabel="Active" type="modified"  :item="$company"/>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12">
                                     <x-label for="discount" class="font-semibold">Discount</x-label>

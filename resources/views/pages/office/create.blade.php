@@ -38,30 +38,25 @@
                                     <x-form-input type="text" name="office_no" id="office_no" value="{{ old('office_no') }}" />
                                 </div> --}}
                                 <div class="col-span-6 sm:col-span-3">
-                                    <x-label for="ledger_transaction" class="font-semibold">Ledger Transaction</x-label>
-                                    <x-form-input type="text" name="ledger_transaction" id="ledger_transaction" value="{{ old('ledger_transaction') }}" />
+                                    {{-- <x-label for="ledger_transaction" class="font-semibold">Ledger Transaction</x-label>
+                                    <x-form-input type="text" name="ledger_transaction" id="ledger_transaction" value="{{ old('ledger_transaction') }}" /> --}}
                                 </div>
 
-                                <div class="col-span-full sm:col-span-full">
+                                <div class="col-span-6 sm:col-span-3">
                                     <x-label for="address_line_1" class="font-semibold">Address</x-label>
                                     <x-form-input type="text" id="autocomplete" name="address_line_1" v-model="address.address_line_1" />
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
-                                    <x-label for="city" class="font-semibold">Departure City</x-label>
-                                    <multi-select :items="{{ $cities }}" label="name" :multiple="false"  name="city" name_2="departure_city_id" :value-name="true" v-slot="{ selected }" :selected-value="address.city"></multi-select>
-                                    {{-- <x-select :lists="$cities" name="departure_city_id" v-model="address.city" :disabled="true"/> --}}
+                                    <x-label for="city" class="font-semibold">City</x-label>
+                                    <x-form-input type="text" name="city" id="city" v-model="address.city" />
+
+                                    {{-- <multi-select :items="{{ $cities }}" label="name" :multiple="false"  name="city" name_2="departure_city_id" :value-name="true" v-slot="{ selected }" :selected-value="address.city"></multi-select> --}}
                                 </div>
-                                <div class="col-span-6 sm:col-span-3">
+                                {{-- <div class="col-span-6 sm:col-span-3">
                                     <x-label for="arrival_city_id" class="font-semibold">Arrival City</x-label>
                                     <multi-select :items="{{ $cities }}" label="name" :multiple="false"  name="arrival_city_id" v-slot="{ selected }"></multi-select>
-                                    {{-- <select name="arrival_city_id" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="address.city">
-                                        @foreach($cities as $city)
-                                            <option value="{{ $city->name }}">{{ $city->name }}</option>
-                                        @endforeach
-                                    </select> --}}
-                                    {{-- <x-select :lists="$cities" name="arrival_city_id" v-model="address.city" :disabled="true"/> --}}
-                                </div>
+                                </div> --}}
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="state_name" class="font-semibold">State</x-label>
                                     <x-select :lists="$states" name="state_name" identifierValue="name" v-model="address.state_name"/>
@@ -72,10 +67,12 @@
                                     <x-form-input type="text" name="zip" id="zip" v-model="address.postal_code" />
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-3">
-                                    <x-label for="phone_number" class="font-semibold">Phone Number</x-label>
-                                    <x-form-input type="text" name="phone_number" id="phone_number" value="{{ old('phone_number') }}" />
-                                </div>
+                                <phone-number v-slot="{ handlePhoneFormat }">
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <x-label for="phone_number" class="font-semibold">Phone Number</x-label>
+                                        <x-form-input type="text" name="phone_number" id="phone_number" @input="handlePhoneFormat" value="{{ old('phone_number') }}" />
+                                    </div>
+                                </phone-number>
 
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="ticket_sold_color" class="font-semibold">Tickets sold color</x-label>

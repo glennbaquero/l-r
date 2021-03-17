@@ -22,23 +22,29 @@
                             <td class="text-center border-b-2 border-gray-300 px-3">
                                 <input @input="setParam('name', $event.target.value)" name="name" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                             </td>
-                            <td colspan="1" class="text-center border-b-2 border-gray-300 px-3"></td>
                             <td class="text-center border-b-2 border-gray-300 px-3">
                                 <input @input="setParam('document_no', $event.target.value)" name="document_no" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                             </td>
-                            <td colspan="1" class="text-center border-b-2 border-gray-300 px-3"></td>
+                            <td colspan="1" class="text-center border-b-2 border-gray-300 px-3">
+                                <select @input="setParam('license_type', $event.target.value)" name="license_type" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
+                                    <option></option>
+                                    @foreach($licenseTypes as $type) 
+                                        <option value="{{ $type }}"> {{ $type }} </option>
+                                    @endforeach
+                                </select>
+                            </td>
                             <td class="text-center border-b-2 border-gray-300 px-3">
                                 <input @input="setParam('license_no', $event.target.value)" name="license_no" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                             </td>
-                            <td colspan="3" class="text-center border-b-2 border-gray-300 px-3"></td>
+                            <td class="text-center border-b-2 border-gray-300 px-3">
+                                <input @input="setParam('phone_number', $event.target.value)" name="phone_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
+                            </td>
+                            <td colspan="2" class="text-center border-b-2 border-gray-300 px-3"></td>
                         </tr>
                         <template v-if="data.length > 0">
                             <tr v-for="(driver, key) in data" :key="key" class="hover:bg-gray-100 cursor-pointer">
                                 <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                     @{{driver.fullname}}
-                                </td>
-                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                                    @{{driver.document_type}}
                                 </td>
                                 <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                     @{{driver.document_no}}

@@ -28,7 +28,6 @@ class GroupTableSeeder extends Seeder
                 array('name' => 'Driver'),
                 array('name' => 'Supervisor'),
                 array('name' => 'Dispatcher'),
-                array('name' => 'Super Agent', 'has_commission' => true),
         );
 
         $privileges = array(

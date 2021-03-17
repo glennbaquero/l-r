@@ -43,13 +43,13 @@
                                 <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Multiple Route</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('price.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Prices</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('interline-price.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Interline Price</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('trip.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Itineraries</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
@@ -73,10 +73,10 @@
                         <x-header-sub-link link="#" :caret="true" class="group-bus hover:bg-lighterblue">
                             <x-slot name="name">Bus Management</x-slot>
                             <x-header-absolute-link class="group-bus group-bus-hover:block bg-lighterblue">
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('cell.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Type of Cell</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('bus-model.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Bus Model</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
@@ -120,7 +120,7 @@
                             <x-slot name="name">Ticket Type</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('company.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Company</x-slot>
+                            <x-slot name="name">Agency</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Base Fares Administration</x-slot>
@@ -152,9 +152,9 @@
             <x-header-sub-link link="#" :caret="true" class="group-configuration hover:bg-lightblue">
                 <x-slot name="name">{{__('Configuration')}}</x-slot>
                     <x-header-absolute-link class="group-configuration-hover:block bg-lightblue">
-                        <x-header-sub-link link="{{route('terminal.index')}}" :caret="false" class="group-sales hover:bg-lighterblue">
+                        {{-- <x-header-sub-link link="{{route('terminal.index')}}" :caret="false" class="group-sales hover:bg-lighterblue">
                             <x-slot name="name">Terminal Management</x-slot>
-                        </x-header-sub-link>
+                        </x-header-sub-link> --}}
                         <x-header-sub-link link="{{route('printer.index')}}" :caret="false" class="group-sales hover:bg-lighterblue">
                             <x-slot name="name">Printer Management</x-slot>
                         </x-header-sub-link>
