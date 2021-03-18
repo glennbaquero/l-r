@@ -9,7 +9,7 @@ use App\Models\Driver;
 use App\Models\City;
 use App\Models\Stop;
 
-class TripFetch
+class TravelExpenseFetch
 {
     protected $trip;
     protected $route;
@@ -41,31 +41,9 @@ class TripFetch
      */
     public function execute($params)
     {
-        $this->trip = $this->trip
-                        ->whereLike('id', $params['id'])
-                        ->orWhereLike('date', $params['date']);
 
-        if($params['route'] && $params['route'] != 'null' || $params['alias'] && $params['alias'] != 'null') {
-            $routeId = $this->route
-                        ->whereLike('name', $params['route'])
-                        ->orWhereLike('alias', $params['alias'])
-                        ->pluck('id')->toArray();
-            $this->trip = $this->trip->whereIn('route_id', $routeId);
-        }
-
-        if($params['bus'] && $params['bus'] != 'null') {
-            $busId = $this->bus
-                        ->whereLike('name', $params['bus'])
-                        ->pluck('id')->toArray();
-            $this->trip = $this->trip->whereIn('bus_id', $busId);
-        }
-
-        if($params['driver'] && $params['driver'] != 'null') {
-            $driverId = $this->driver
-                        ->whereLike('first_name', $params['driver'])
-                        ->orWhereLike('last_name', $params['driver'])
-                        ->pluck('id')->toArray();
-            $this->trip = $this->trip->whereIn('driver_id', $driverId);
+        if($params['route_id'] && $params['route_id'] != 'null') {
+            $this->trip = $this->trip->whereLike('route_id', $params['route_id']);
         }
 
         if($params['departure'] && $params['departure'] != 'null') {
@@ -82,25 +60,9 @@ class TripFetch
 
         if($params['date_range'] && $params['date_range'] != 'null') {
             $range = json_decode($params['date_range']);
-
-            // // getting the departure 
-            // $this->trip = $this->trip->whereHas('route', function($q) use($params) {
-            //     $q->where('departure_id', $params['departure_id']);
-            // });
-
-            // // getting the arrival
-            // $cityId = $this->city->whereLike('id', $params['arrival_id'])->pluck('id')->toArray();
-            // $routeId = $this->stop->whereIn('arrival_id', $cityId)->pluck('route_id')->toArray();
-            // $this->trip = $this->trip->whereIn('route_id', $routeId);
-
-            // // getting the route
-            // $this->trip = $this->trip->where('route_id', $params['route_id']);
-
-            // getting the date range of the trip
             $this->trip = $this->trip->where('date', '>=', $range->from)->where('date', '<=', $range->to);
-        }
+        } 
 
-        
         if($params['date'] && $params['date'] != 'null') {
             $this->trip = $this->trip->whereDate('date', $params['date']);
         }

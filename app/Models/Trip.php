@@ -88,4 +88,14 @@ class Trip extends Model
     {
         return $this->belongsTo(Driver::class, 'secondary_co_driver_id', 'id');
     }
+
+    /**
+     * Trip has many expenses
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
 }
