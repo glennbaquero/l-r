@@ -249,6 +249,10 @@ Route::middleware(['auth'])->group(function() {
         return view('pages.option.index');
     })->name('option.index');
 
+    Route::get('/information', function() {
+        return view('pages.support.information');
+    })->name('information.index');
+
     Route::get('/route', [RouteController::class, 'index'])->name('route.index');
     Route::get('/route/fetch', [RouteController::class, 'fetch'])->name('route.fetch');
     Route::get('/route/create', [RouteController::class, 'create'])->name('route.create');
