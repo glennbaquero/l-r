@@ -18,4 +18,24 @@ class City extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * City belongs to Price
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function departure_prices()
+    {
+        return $this->hasMany(Price::class, 'departure_id', 'id');
+    }
+
+    /**
+     * City belongs to Price
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function arrival_prices()
+    {
+        return $this->hasMany(Price::class, 'arrival_id', 'id');
+    }
 }

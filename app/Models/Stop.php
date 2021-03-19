@@ -36,7 +36,7 @@ class Stop extends Model
      */
     public function departure()
     {
-        return $this->belongsTo(City::class, 'departure_id', 'id');
+        return $this->belongsTo(City::class, 'departure_id', 'id')->withTrashed();
     }
 
     /**
@@ -46,6 +46,6 @@ class Stop extends Model
      */
     public function arrival()
     {
-        return $this->belongsTo(City::class, 'arrival_id', 'id');
+        return $this->belongsTo(City::class, 'arrival_id', 'id')->withTrashed();
     }
 }
