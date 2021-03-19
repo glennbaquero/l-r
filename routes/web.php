@@ -120,6 +120,8 @@ use App\Http\Controllers\TravelExpenses\TravelExpenseCreateController;
 use App\Http\Controllers\TravelExpenses\TravelExpenseUpdateController;
 use App\Http\Controllers\TravelExpenses\TravelExpenseDeleteController;
 
+use App\Http\Controllers\DailyItineraryController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -327,10 +329,13 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/bus/update/{id}', BusUpdateController::class)->name('bus.update');
     Route::post('/bus/destroy/{id}', BusDeleteController::class)->name('bus.destroy');
 
-    Route::get('/travel-expense', [TravelExpenseController::class, 'index'])->name('travel-expense.index');
+    Route::get('/daily-itinerary', [TravelExpenseController::class, 'index'])->name('travel-expense.index');
     Route::get('/travel-expense/fetch', [TravelExpenseController::class, 'fetch'])->name('travel-expense.fetch');
     Route::get('/travel-expense/create/{trip}', [TravelExpenseController::class, 'create'])->name('travel-expense.create');
     Route::post('/travel-expense/store', TravelExpenseCreateController::class)->name('travel-expense.store');
     Route::get('/travel-expense/show/{id}', [TravelExpenseController::class, 'show'])->name('travel-expense.show');
     Route::post('/travel-expense/update/{id}', TravelExpenseUpdateController::class)->name('travel-expense.update');
+
+    Route::get('/daily-itinerary', [DailyItineraryController::class, 'index'])->name('daily-itinerary.index');
+    Route::get('/daily-itinerary/fetch', [DailyItineraryController::class, 'fetch'])->name('daily-itinerary.fetch');
 });

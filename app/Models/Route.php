@@ -26,7 +26,7 @@ class Route extends Model
      */
     public function departure()
     {
-        return $this->belongsTo(City::class, 'departure_id', 'id');
+        return $this->belongsTo(City::class, 'departure_id', 'id')->withTrashed();
     }
     
     /**
