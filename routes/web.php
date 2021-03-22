@@ -122,6 +122,9 @@ use App\Http\Controllers\TravelExpenses\TravelExpenseDeleteController;
 
 use App\Http\Controllers\DailyItineraryController;
 
+use App\Http\Controllers\ItineraryUpdateController;
+use App\Http\Controllers\Observations\ObservationCreateController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -338,4 +341,12 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/daily-itinerary', [DailyItineraryController::class, 'index'])->name('daily-itinerary.index');
     Route::get('/daily-itinerary/fetch', [DailyItineraryController::class, 'fetch'])->name('daily-itinerary.fetch');
+
+    Route::get('/itinerary-update', [ItineraryUpdateController::class, 'index'])->name('itinerary-update.index');
+    Route::get('/itinerary-update/fetch', [ItineraryUpdateController::class, 'fetch'])->name('itinerary-update.fetch');
+    Route::get('/itinerary-passenger/fetch/{id}', [ItineraryUpdateController::class, 'fetchPassenger'])->name('itinerary-passenger.fetch');
+    Route::get('/itinerary-observation/fetch/{id}', [ItineraryUpdateController::class, 'fetchObservation'])->name('itinerary-observation.fetch');
+
+    Route::post('/observation/store', ObservationCreateController::class)->name('observation.store');
+
 });
