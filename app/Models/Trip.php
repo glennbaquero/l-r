@@ -98,4 +98,14 @@ class Trip extends Model
     {
         return $this->hasMany(Expense::class);
     }
+
+    /**
+     * Trip has many passengers
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function passengers()
+    {
+        return $this->hasMany(Passenger::class);
+    }
 }
