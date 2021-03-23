@@ -125,6 +125,8 @@ use App\Http\Controllers\DailyItineraryController;
 use App\Http\Controllers\ItineraryUpdateController;
 use App\Http\Controllers\Observations\ObservationCreateController;
 
+use App\Http\Controllers\BoardingManagementController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -332,7 +334,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/bus/update/{id}', BusUpdateController::class)->name('bus.update');
     Route::post('/bus/destroy/{id}', BusDeleteController::class)->name('bus.destroy');
 
-    Route::get('/daily-itinerary', [TravelExpenseController::class, 'index'])->name('travel-expense.index');
+    Route::get('/travel-expense', [TravelExpenseController::class, 'index'])->name('travel-expense.index');
     Route::get('/travel-expense/fetch', [TravelExpenseController::class, 'fetch'])->name('travel-expense.fetch');
     Route::get('/travel-expense/create/{trip}', [TravelExpenseController::class, 'create'])->name('travel-expense.create');
     Route::post('/travel-expense/store', TravelExpenseCreateController::class)->name('travel-expense.store');
@@ -348,5 +350,9 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/itinerary-observation/fetch/{id}', [ItineraryUpdateController::class, 'fetchObservation'])->name('itinerary-observation.fetch');
 
     Route::post('/observation/store', ObservationCreateController::class)->name('observation.store');
+
+    Route::get('/boarding', [BoardingManagementController::class, 'index'])->name('boarding.index');
+    Route::get('/boarding/fetch', [BoardingManagementController::class, 'fetch'])->name('boarding.fetch');
+    Route::post('/boarding/search/ticket', [BoardingManagementController::class, 'search'])->name('boarding-ticket.search');
 
 });

@@ -90,7 +90,7 @@ class User extends Authenticatable
     */
    public function office()
    {
-       return $this->belongsTo(Office::class)->withTrashed();
+       return $this->belongsTo(Office::class, 'office_id', 'id')->withTrashed();
    }
 
    /**
