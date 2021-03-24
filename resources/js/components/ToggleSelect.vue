@@ -71,6 +71,10 @@ export default {
                     this.item = item;
                     break;
 
+                case 'baggage':
+                    this.item = item.passenger;
+                    break;
+
                 case 'transport_type': 
                     if(value == 'Carga') this.display = false;
                     else this.display = true;

@@ -36,7 +36,7 @@
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="route_id" class="font-semibold">Route</x-label>
-                                    <x-select :lists="$routes" name="route_id" oldValue="{{ old('route_id') }}" @change="selectChanged({{$routes}}, $event.target.value, 'route')" selected="none"/>
+                                    <x-select :lists="$routes" name="route_id" oldValue="{{ old('route_id') }}" @change="selectChanged({{$routes}}, $event.target.value, 'route')" :selected="$trip->route_id"/>
                                 </div>
 
                                 <div class="col-span-2 sm:col-span-2">
