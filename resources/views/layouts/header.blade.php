@@ -189,7 +189,7 @@
             <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">Tickets Support</x-slot>
             </x-header-sub-link>
-            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+            <x-header-sub-link link="{{route('baggage.index')}}" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">Baggage Support</x-slot>
             </x-header-sub-link>
         </x-header-link>

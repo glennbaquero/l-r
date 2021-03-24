@@ -127,6 +127,11 @@ use App\Http\Controllers\Observations\ObservationCreateController;
 
 use App\Http\Controllers\BoardingManagementController;
 
+use App\Http\Controllers\BaggageController;
+use App\Http\Controllers\Baggages\BaggageCreateController;
+use App\Http\Controllers\Baggages\BaggageUpdateController;
+use App\Http\Controllers\Baggages\BaggageDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -354,5 +359,13 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/boarding', [BoardingManagementController::class, 'index'])->name('boarding.index');
     Route::get('/boarding/fetch', [BoardingManagementController::class, 'fetch'])->name('boarding.fetch');
     Route::post('/boarding/search/ticket', [BoardingManagementController::class, 'search'])->name('boarding-ticket.search');
+
+    Route::get('/baggage', [BaggageController::class, 'index'])->name('baggage.index');
+    Route::get('/baggage/fetch', [BaggageController::class, 'fetch'])->name('baggage.fetch');
+    Route::get('/baggage/create', [BaggageController::class, 'create'])->name('baggage.create');
+    Route::post('/baggage/store', BaggageCreateController::class)->name('baggage.store');
+    Route::get('/baggage/show/{id}', [BaggageController::class, 'show'])->name('baggage.show');
+    Route::post('/baggage/update/{id}', BaggageUpdateController::class)->name('baggage.update');
+    Route::post('/baggage/destroy/{id}', BaggageDeleteController::class)->name('baggage.destroy');
 
 });
