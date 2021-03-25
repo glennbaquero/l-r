@@ -132,6 +132,8 @@ use App\Http\Controllers\Baggages\BaggageCreateController;
 use App\Http\Controllers\Baggages\BaggageUpdateController;
 use App\Http\Controllers\Baggages\BaggageDeleteController;
 
+use App\Http\Controllers\TicketSupportController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -367,5 +369,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/baggage/show/{id}', [BaggageController::class, 'show'])->name('baggage.show');
     Route::post('/baggage/update/{id}', BaggageUpdateController::class)->name('baggage.update');
     Route::post('/baggage/destroy/{id}', BaggageDeleteController::class)->name('baggage.destroy');
+
+    Route::get('/ticket-support', [TicketSupportController::class, 'index'])->name('ticket-support.index');
+    Route::get('/ticket-support/fetch', [TicketSupportController::class, 'fetch'])->name('ticket-support.fetch');
 
 });

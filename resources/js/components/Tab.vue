@@ -2,9 +2,16 @@
 	export default {
 		name: 'Tab',
 
+		props: {
+			defaultSelected: {
+				default: 'Manual',
+				type: String
+			}
+		},
+
 		data() {
 			return {
-				selected: 'Manual'
+				selected: this.defaultSelected
 			}
 		},
 

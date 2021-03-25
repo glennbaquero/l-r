@@ -38,4 +38,24 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class, 'seller_id', 'id')->withTrashed();
     }
+
+    /**
+     * Ticket belongs to Departure (City)
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function departure()
+    {
+        return $this->belongsTo(City::class, 'departure_id', 'id')->withTrashed();
+    }
+
+    /**
+     * Ticket belongs to Arrival (City)
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function arrival()
+    {
+        return $this->belongsTo(City::class, 'arrival_id', 'id')->withTrashed();
+    }
 }
