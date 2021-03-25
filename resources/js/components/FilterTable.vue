@@ -12,6 +12,7 @@
 		render() {
 		    return this.$scopedSlots.default({
 		        search: this.search,
+		        ticketSupportSearch: this.ticketSupportSearch,
 		        display: this.display,
 		        toggledState: this.toggledState,
 		        field: this.field,
@@ -38,6 +39,11 @@
 
 				this.$parent.params = this.field;
 				console.log(this.field);
+				this.$parent.createUrl();
+			},
+
+			ticketSupportSearch() {
+				this.$parent.params = this.field;
 				this.$parent.createUrl();
 			},
 
