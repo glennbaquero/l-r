@@ -28,6 +28,7 @@ class RouteStoreRequest extends FormRequest
             'alias' => 'required',
             'report_alias' => 'required',
             'departure_id' => 'required',
+            'type_of_route' => 'required',
         ];
     }
 

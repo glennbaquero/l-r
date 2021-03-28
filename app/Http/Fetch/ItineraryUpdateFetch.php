@@ -50,15 +50,22 @@ class ItineraryUpdateFetch
             $this->trip = $this->trip->whereIn('route_id', $routeId);
         }
 
-        if($params['departure'] && $params['departure'] != 'null') {
-            $cityId = $this->city->whereLike('name', $params['departure'])->pluck('id')->toArray();
+        if($params['departure_id'] && $params['departure_id'] != 'null') {
+            $cityId = $this->city->whereLike('id', $params['departure_id'])->pluck('id')->toArray();
             $routeId = $this->route->whereIn('departure_id', $cityId)->pluck('id')->toArray();
             $this->trip = $this->trip->whereIn('route_id', $routeId);
         }
 
-        if($params['arrival'] && $params['arrival'] != 'null') {
-            $cityId = $this->city->whereLike('name', $params['arrival'])->pluck('id')->toArray();
+        if($params['arrival_id'] && $params['arrival_id'] != 'null') {
+            $cityId = $this->city->whereLike('id', $params['arrival_id'])->pluck('id')->toArray();
             $routeId = $this->stop->whereIn('arrival_id', $cityId)->pluck('route_id')->toArray();
+            $this->trip = $this->trip->whereIn('route_id', $routeId);
+        }
+
+        if($params['route_id'] && $params['route_id'] != 'null') {
+            $routeId = $this->route
+                        ->whereLike('id', $params['route_id'])
+                        ->pluck('id')->toArray();
             $this->trip = $this->trip->whereIn('route_id', $routeId);
         }
 

@@ -23,7 +23,7 @@ class TravelExpenseCollection extends ResourceCollection
      * @var array
      */
     public static $searches = [
-        'departure', 'arrival', 'date_range', 'route_id', 'date'
+        'departure', 'arrival', 'date_range', 'route_id', 'date', 'departure_id', 'arrival_id'
     ];
 
     /**

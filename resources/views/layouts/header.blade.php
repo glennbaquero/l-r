@@ -40,7 +40,7 @@
                                 <x-header-sub-link link="{{route('route.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Route</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('multi-route.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Multiple Route</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('price.index')}}" :caret="false" class="hover:bg-lighterblue">
@@ -183,7 +183,7 @@
 
         <x-header-link link="{{route('dashboard')}}">
             <x-slot name="name">{{__('Support')}}</x-slot>
-            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+            <x-header-sub-link link="{{route('information.index')}}" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">Information</x-slot>
             </x-header-sub-link>
             <x-header-sub-link link="{{route('ticket-support.index')}}" :caret="false" class="hover:bg-lightblue">
