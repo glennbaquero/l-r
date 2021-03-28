@@ -17,7 +17,11 @@
 
 		data() {
 			return {
-				time: null
+				time: {
+					HH: '00',
+					mm: '00',
+					ss: '00'
+				}
 			}
 		},
 

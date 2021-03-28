@@ -23,7 +23,7 @@ class ItineraryUpdateCollection extends ResourceCollection
      * @var array
      */
     public static $searches = [
-       'route', 'date', 'departure', 'arrival', 'date_range'
+       'route', 'date', 'departure', 'arrival', 'date_range', 'departure_id', 'arrival_id', 'route_id'
     ];
 
     /**
