@@ -6,6 +6,7 @@
 		    v-model="selectedItem" 
 		    :options="items"
 		    :label="label"
+		    @input="selectedChanged"
 		    >
 		</v-select>
 		<input type="text" :name="name" :value="selected" hidden>
@@ -100,6 +101,17 @@
 					});
 				} else {
 					this.selectedItem = _.find(this.items, (item) => { return item.id == this.selectedValue});
+				}
+				
+			}
+		},
+
+		methods: {
+			selectedChanged() {
+				if(typeof this.$parent.selectChanged == 'function') {
+					setTimeout(() => {
+						this.$parent.selectChanged(this.items, this.selected, 'baggage')
+					}, 500)
 				}
 				
 			}
