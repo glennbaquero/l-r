@@ -26,12 +26,20 @@
                     <toggle-select v-slot="{ display, conditionalFieldToDisplay, toggle, toggleFalse, selectChanged, item }">
                         <form action="{{ route('baggage.store') }}" method="POST">
                             @csrf
+
                             <div class="grid grid-cols-6 gap-6">
-                                <div class="col-span-2 sm:col-span-2">
+                                <div class="col-span-4 sm:col-span-3">
+                                    <x-label for="ticket_id" class="font-semibold">Ticket</x-label>
+                                    <multi-select :items="{{ $tickets }}" name="ticket_id" :multiple="false" label="id" v-slot="{ selected }"></multi-select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-6 gap-6">
+                                {{-- <div class="col-span-2 sm:col-span-2">
                                     <x-label for="ticket_id" class="font-semibold">Ticket</x-label>
                                     <x-select :lists="$tickets" name="ticket_id" display="id" oldValue="{{ old('ticket_id') }}" @change="selectChanged({{$tickets}}, $event.target.value, 'baggage')"/>
-                                </div>
-                                <div class="col-span-4 sm:col-span-4">
+                                </div> --}}
+
+                                <div class="col-span-full sm:col-span-full">
                                     <x-label for="ticket_id" class="font-semibold">Passenger</x-label>
                                     <x-form-input type="text" disabled="true" id="series" v-model="item.fullname" />
                                 </div>
