@@ -62,7 +62,7 @@
 
 		methods: {
 			addNewStop() {
-
+				
 				var stops = this.stops.length;
 				var departure_id = stops >= 1 ? this.stops[stops - 1].arrival_id : null;
 
@@ -81,7 +81,8 @@
 						departure_id: departure_id,
 						arrival_id: null,
 						route_id: 0,
-						new: true
+						new: true,
+						routes: []
 					}
 
 				this.stops.push(stop);
@@ -101,7 +102,7 @@
 				if(this.stops.length > key+1) {
 					this.stops[key+1].departure_id = city.id;
 				}
-
+				console.log(stop);
 				stop.routes = _.reduce(this.availableRoutes, (result, _stop) => {
 						    if(_stop.arrival_id == stop.arrival_id && _stop.departure_id == stop.departure_id) {
 						        result.push(_stop.route)

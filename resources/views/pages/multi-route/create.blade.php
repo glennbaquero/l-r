@@ -68,6 +68,7 @@
                                         </td>
                                         <td class="text-center border-b-2 border-gray-300 px-3">
                                             <select class='form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent' v-model="stop.route_id">
+                                                <option disabled selected v-if="!stop.routes.length">No route match</option>
                                                 <option v-for="route in stop.routes" :value="route.id">@{{ route.name }}</option>
                                             </select>
                                         </td>

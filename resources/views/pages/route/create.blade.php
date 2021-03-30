@@ -50,7 +50,7 @@
                                 <div class="col-span-3 sm:col-span-3">
                                     <x-label for="departure_id" class="font-semibold">Departure</x-label>
                                     <select name="departure_id" class='form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent' @change="departureRouteChanged($event.target.value)">
-                                        <option></option>
+                                        <option disabled selected>Select your option</option>
                                         @foreach($cities as $city)
                                             <option value="{{$city->id}}">{{ $city->name }}</option>
                                         @endforeach
