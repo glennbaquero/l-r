@@ -17,13 +17,19 @@ class BusTableSeeder extends Seeder
     {
         $buses = [
         	[
-        		'name' => 'Bus 1'
+        		'name' => 'Bus 1',
+                'plate' => 'Bus 1',
+                'bus_model_id' => 1,
         	],
         	[
-        		'name' => 'Bus 2'
+        		'name' => 'Bus 2',
+                'plate' => 'Bus 2',
+                'bus_model_id' => 1,
         	],
         	[
-        		'name' => 'Bus 3'
+        		'name' => 'Bus 3',
+                'plate' => 'Bus 3',
+                'bus_model_id' => 1,
         	],
         ];
 

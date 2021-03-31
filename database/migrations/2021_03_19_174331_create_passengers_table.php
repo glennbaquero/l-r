@@ -15,9 +15,9 @@ class CreatePassengersTable extends Migration
     {
         Schema::create('passengers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('trip_id')->unsigned()->index();
+            $table->bigInteger('trip_id')->unsigned()->nullable();
             $table->foreign('trip_id')->references('id')->on('trips')->onDelete('cascade');
-            $table->bigInteger('bus_model_column_id')->unsigned()->index();
+            $table->bigInteger('bus_model_column_id')->unsigned()->nullable();
             $table->foreign('bus_model_column_id')->references('id')->on('bus_model_columns')->onDelete('cascade');
             $table->string('first_name');
             $table->string('last_name');
