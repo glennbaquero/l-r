@@ -30,7 +30,7 @@ class DriverStoreRequest extends FormRequest
             'gender' => 'required',
             'phone_number' => 'required',
             'email' => 'required',
-            'address' => 'required',
+            // 'address' => 'required',
             'city' => 'required',
             'license_type' => 'required',
             'license_no' => 'required',
