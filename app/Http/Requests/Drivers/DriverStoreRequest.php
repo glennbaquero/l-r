@@ -24,7 +24,7 @@ class DriverStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'document_type' => 'required',
+            // 'document_type' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'gender' => 'required',
