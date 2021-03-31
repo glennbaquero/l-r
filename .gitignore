@@ -12,6 +12,7 @@
 *.csv
 *.sql
 *.tar.gz
+*.zip
 .env
 .env.backup
 .phpunit.result.cache
