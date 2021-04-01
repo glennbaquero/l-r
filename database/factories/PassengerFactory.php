@@ -22,8 +22,8 @@ class PassengerFactory extends Factory
     public function definition()
     {
         return [
-            // 'trip_id' => $this->faker->numberBetween(1, 3),
-            // 'bus_model_column_id' => $this->faker->numberBetween(1, 3),
+            'trip_id' => $this->faker->numberBetween(1, 3),
+            'bus_model_column_id' => $this->faker->numberBetween(1, 5),
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'middle_name' => $this->faker->lastName,

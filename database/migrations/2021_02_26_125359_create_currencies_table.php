@@ -19,7 +19,7 @@ class CreateCurrenciesTable extends Migration
             $table->decimal('equivalent_in_dollars_principle_tills', 9, 2)->default(0);
             $table->decimal('equivalent_in_dollars_additional_tills', 9, 2)->default(0);
             $table->string('symbol');
-            $table->boolean('default_currency');
+            $table->boolean('default_currency')->default(false);
             $table->string('country');
             $table->softDeletes();
             $table->timestamps();
