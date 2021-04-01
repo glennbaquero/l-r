@@ -25,6 +25,7 @@ class DriverStoreRequest extends FormRequest
     {
         return [
             // 'document_type' => 'required',
+            'document_no' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'gender' => 'required',
@@ -37,6 +38,14 @@ class DriverStoreRequest extends FormRequest
             'license_expiration_date' => 'required|date',
             'last_medical_test_date' => 'required|date',
             'next_medical_test_date' => 'required|date',
+        ];
+    }
+
+
+    public function messages()
+    {
+        return [
+            'document_no.required' => 'The commercial driver license field is required.'
         ];
     }
 }

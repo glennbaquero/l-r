@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-span-full sm:col-span-6">
                                 <x-label for="discount" class="font-semibold">Discount</x-label>
-                                <x-form-input type="number" name="discount" id="discount" value="{{ old('discount') }}" />
+                                <x-form-input type="number" min="0" name="discount" id="discount" value="{{ old('discount') }}" required/>
                             </div>
                             <div class="col-span-3 sm:col-span-3">
                                 <x-switch label="Return Discount" name="return_discount"/>

@@ -26,7 +26,12 @@ class DatabaseSeeder extends Seeder
         $this->call(DependenciesTableSeeder::class);
         $this->call(PrinterBrandAndModelsTableSeeder::class);
         $this->call(BrowserAndOSTableSeeder::class);
+        $this->call(DriverTableSeeder::class);
+        $this->call(PriceTableSeeder::class);
         $this->call(BusTableSeeder::class);
+        $this->call(ServiceTableSeeder::class);
+        $this->call(TripTableSeeder::class);
+
         $this->call(PassengerTableSeeder::class);
         $this->call(TicketTableSeeder::class);
     }
