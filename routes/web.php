@@ -134,6 +134,12 @@ use App\Http\Controllers\Baggages\BaggageDeleteController;
 
 use App\Http\Controllers\TicketSupportController;
 
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\Cities\CityCreateController;
+use App\Http\Controllers\Cities\CityBatchUploadController;
+use App\Http\Controllers\Cities\CityUpdateController;
+use App\Http\Controllers\Cities\CityDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -372,5 +378,15 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/ticket-support', [TicketSupportController::class, 'index'])->name('ticket-support.index');
     Route::get('/ticket-support/fetch', [TicketSupportController::class, 'fetch'])->name('ticket-support.fetch');
+
+    Route::get('/city', [CityController::class, 'index'])->name('city.index');
+    Route::get('/city/fetch', [CityController::class, 'fetch'])->name('city.fetch');
+    Route::get('/city/create', [CityController::class, 'create'])->name('city.create');
+    Route::get('/city/upload',  [CityController::class, 'upload'])->name('city.upload');
+    Route::post('/city/store', CityCreateController::class)->name('city.store');
+    Route::post('/city/batch/store', CityBatchUploadController::class)->name('city.batch-store');
+    Route::get('/city/show/{id}', [CityController::class, 'show'])->name('city.show');
+    Route::post('/city/update/{id}', CityUpdateController::class)->name('city.update');
+    Route::post('/city/destroy/{id}', CityDeleteController::class)->name('city.destroy');
 
 });

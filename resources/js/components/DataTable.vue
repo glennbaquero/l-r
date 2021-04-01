@@ -35,6 +35,7 @@ export default {
     methods: {
         setParam: _.debounce(function(key, value) {
             this.params[key] = value;
+            this.page = 1;
             this.createUrl();
         }, 1000),
 
