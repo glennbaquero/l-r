@@ -27,7 +27,7 @@ class PassengerFactory extends Factory
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'middle_name' => $this->faker->lastName,
-            'arrival_city_id' => $this->faker->numberBetween(1, 3),
+            'arrival_city_id' => $this->faker->unique(true)->numberBetween(1, 3),
             'email' => $this->faker->email,
             'phone_number' => $this->faker->phoneNumber,
             'state' => 'Sold Out',
