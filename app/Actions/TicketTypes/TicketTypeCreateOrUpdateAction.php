@@ -29,7 +29,7 @@ class TicketTypeCreateOrUpdateAction
 	{
 		$request['available_sale_web'] = $request->filled('available_sale_web');
 		$request['available_to_coupon'] = $request->filled('available_to_coupon');
-		$request['discount_type'] = $request->filled('discount_type') ? 'Discount' : 'Percent';
+		$request['discount_type'] = $request->filled('discount_type') ? 'Decimal' : 'Percent';
 		$request['return_discount'] = $request->filled('return_discount');
 		$request['required_authorization'] = $request->filled('required_authorization');
 		$request['required_email'] = $request->filled('required_email');

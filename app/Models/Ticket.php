@@ -58,4 +58,14 @@ class Ticket extends Model
     {
         return $this->belongsTo(City::class, 'arrival_id', 'id')->withTrashed();
     }
+
+    /**
+     * Ticket belongs to trip
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function trip()
+    {
+        return $this->belongsTo(Trip::class)->withTrashed();
+    }
 }

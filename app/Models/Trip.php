@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Traits\QueryLike;
 
+use Carbon\Carbon;
+
 class Trip extends Model
 {
     use HasFactory, QueryLike, SoftDeletes;
@@ -18,6 +20,13 @@ class Trip extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Append additional attributes
+     * 
+     * @var array
+     */
+    protected $appends = ['display_trip_name'];
 
     /**
      * Trip belongs to route
@@ -107,5 +116,16 @@ class Trip extends Model
     public function passengers()
     {
         return $this->hasMany(Passenger::class);
+    }
+
+
+    /**
+     * Get display trip name
+     * 
+     * @return string
+     */
+    public function getDisplayTripNameAttribute()
+    {
+        return $this->date.'|'.Carbon::parse($this->time)->format('h:i A'). ' '.$this->alias_route;
     }
 }

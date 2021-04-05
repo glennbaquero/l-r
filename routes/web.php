@@ -134,6 +134,9 @@ use App\Http\Controllers\Baggages\BaggageDeleteController;
 
 use App\Http\Controllers\TicketSupportController;
 
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\Tickets\TicketCreateController;
+
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\Cities\CityCreateController;
 use App\Http\Controllers\Cities\CityBatchUploadController;
@@ -378,6 +381,13 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/ticket-support', [TicketSupportController::class, 'index'])->name('ticket-support.index');
     Route::get('/ticket-support/fetch', [TicketSupportController::class, 'fetch'])->name('ticket-support.fetch');
+
+    Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.index');
+    Route::get('/ticket/fetch', [TicketController::class, 'fetch'])->name('ticket.fetch');
+    Route::post('/ticket/find/trip', [TicketController::class, 'findAvailableTrip'])->name('ticket.find-available-trip');
+    Route::post('/ticket/get/bus', [TicketController::class, 'getBus'])->name('ticket.fetch-bus');
+    Route::post('/ticket/get/passengers', [TicketController::class, 'getPassenger'])->name('ticket.fetch-passengers');
+    Route::post('/ticket/store', TicketCreateController::class)->name('ticket.store');
 
     Route::get('/city', [CityController::class, 'index'])->name('city.index');
     Route::get('/city/fetch', [CityController::class, 'fetch'])->name('city.fetch');

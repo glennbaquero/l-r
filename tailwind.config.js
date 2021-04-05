@@ -19,6 +19,10 @@ module.exports = {
         require('tailwindcss-named-groups')
     ],
 
+    corePlugins: {
+        outline: false
+    },
+
     theme: {
         extend: {
             fontFamily: {

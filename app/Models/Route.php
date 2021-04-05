@@ -38,4 +38,14 @@ class Route extends Model
     {
         return $this->hasMany(Stop::class);
     }
+
+    /**
+     * Route has many Trips
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function trips()
+    {
+        return $this->hasMany(Trip::class);
+    }
 }
