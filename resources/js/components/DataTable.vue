@@ -14,6 +14,8 @@ export default {
         links: {},
         meta: {},
         baseUrl: null,
+
+        selectedAll: false
     }),
 
     mounted() {
@@ -28,7 +30,9 @@ export default {
             links: this.links,
             meta: this.meta,
             prev: this.prev,
-            next: this.next
+            next: this.next,
+
+            selectAllHandler: this.selectAllHandler,
         });
     },
 
@@ -79,6 +83,14 @@ export default {
             this.page++;
 
             this.createUrl();
+        },
+
+        selectAllHandler() {
+            this.selectedAll = !this.selectedAll;
+            
+            _.each(this.data, (data) => {
+                data.is_selected = this.selectedAll;
+            })
         }
     }
 }

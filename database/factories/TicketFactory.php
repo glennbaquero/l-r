@@ -27,6 +27,10 @@ class TicketFactory extends Factory
             'departure_id' => $this->faker->unique(true)->numberBetween(1, 15),
             'arrival_id' => $this->faker->unique(true)->numberBetween(1, 15),
             'purchase_date' => now(),
+            'trip_id' => $this->faker->numberBetween(1, 3),
+            'bus_model_column_id' => $this->faker->numberBetween(1, 15),
+            'purchase_date' => now(),
+            'trip_id' => $this->faker->numberBetween(1, 3),
         ];
     }
 }

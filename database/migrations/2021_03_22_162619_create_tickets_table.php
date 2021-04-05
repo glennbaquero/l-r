@@ -23,9 +23,17 @@ class CreateTicketsTable extends Migration
             $table->foreign('arrival_id')->references('id')->on('cities')->onDelete('cascade');
             $table->bigInteger('departure_id')->unsigned()->index();
             $table->foreign('departure_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->bigInteger('trip_id')->unsigned()->index();
+            $table->foreign('trip_id')->references('id')->on('trips')->onDelete('cascade');
+            $table->bigInteger('bus_model_column_id')->unsigned()->index();
+            $table->foreign('bus_model_column_id')->references('id')->on('bus_model_columns')->onDelete('cascade');
             $table->integer('number_of_ticket')->nullable();
             $table->string('reservation_code')->nullable();
+            $table->datetime('reservation_date')->nullable();
             $table->datetime('purchase_date');
+            $table->string('voucher_code')->nullable();
+            $table->string('payment_method')->default('Cash');
+            $table->decimal('total_sale', 9, 2)->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
