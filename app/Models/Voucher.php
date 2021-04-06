@@ -32,12 +32,15 @@ class Voucher extends Model
          return $this->belongsTo(Passenger::class)->withTrashed();
      }
 
-
-     public static function getType() {
+     /**
+      * getting types 
+      * @return array
+      */
+    public static function getType() {
          return [
-             ['value' => static::type_amount, 'label' => static::type_amount],
-             ['value' => static::type_courtesy, 'label' => static::type_courtesy],
-             ['value' => static::type_ticket_discount, 'label' => static::type_ticket_discount],
-         ];
-     }
+            ['value' => static::type_amount, 'label' => static::type_amount],
+            ['value' => static::type_courtesy, 'label' => static::type_courtesy],
+            ['value' => static::type_ticket_discount, 'label' => static::type_ticket_discount],
+        ];
+    }
 }

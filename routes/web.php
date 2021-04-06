@@ -149,6 +149,12 @@ use App\Http\Controllers\Vouchers\VoucherBatchUploadController;
 use App\Http\Controllers\Vouchers\VoucherUpdateController;
 use App\Http\Controllers\Vouchers\VoucherDeleteController;
 
+use App\Http\Controllers\DiscountOptionController;
+use App\Http\Controllers\DiscountOptions\DiscountOptionCreateController;
+use App\Http\Controllers\DiscountOptions\DiscountOptionBatchUploadController;
+use App\Http\Controllers\DiscountOptions\DiscountOptionUpdateController;
+use App\Http\Controllers\DiscountOptions\DiscountOptionDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -412,4 +418,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/voucher/show/{id}', [VoucherController::class, 'show'])->name('voucher.show');
     Route::post('/voucher/update/{id}', VoucherUpdateController::class)->name('voucher.update');
     Route::post('/voucher/destroy/{id}', VoucherDeleteController::class)->name('voucher.destroy');
+
+    Route::get('/discount-option', [DiscountOptionController::class, 'index'])->name('discount-option.index');
+    Route::get('/discount-option/fetch', [DiscountOptionController::class, 'fetch'])->name('discount-option.fetch');
+    Route::get('/discount-option/create', [DiscountOptionController::class, 'create'])->name('discount-option.create');
+    Route::post('/discount-option/store', DiscountOptionCreateController::class)->name('discount-option.store');
+    Route::get('/discount-option/show/{id}', [DiscountOptionController::class, 'show'])->name('discount-option.show');
+    Route::post('/discount-option/update/{id}', DiscountOptionUpdateController::class)->name('discount-option.update');
+    Route::post('/discount-option/destroy/{id}', DiscountOptionDeleteController::class)->name('discount-option.destroy');
 });
