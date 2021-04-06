@@ -18,13 +18,21 @@
 		render() {
 		    return this.$scopedSlots.default({
 		        selected: this.selected,
-		        menuChanged: this.menuChanged
+		        menuChanged: this.menuChanged,
+		        menuChangedVoucherTable: this.menuChangedVoucherTable
 		    });
 		},
 
 		methods: {
 			menuChanged(menu) {
 				this.selected = menu;
+			},
+
+			menuChangedVoucherTable(menu) {
+				this.selected = menu;
+
+				this.$children[0].params['type_of_voucher'] = menu;
+				this.$children[0].createUrl();
 			}
 		}
 	}

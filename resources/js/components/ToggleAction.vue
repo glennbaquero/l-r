@@ -8,6 +8,7 @@ export default {
 
     data: () => ({
         display: false,
+        type: 'Amount'
     }),
 
     render() {
@@ -15,6 +16,7 @@ export default {
             display: this.display,
             toggled: this.toggled,
             toggleFalse: this.toggleFalse,
+            type: this.type,
         });
     },
 
