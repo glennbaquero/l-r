@@ -78,6 +78,16 @@ class Passenger extends Model
         return $this->hasOne(Ticket::class)->withTrashed();
     }
 
+    /**
+     * Passenger has many vouchers
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function vouchers()
+    {
+        return $this->hasMany(Voucher::class);
+    }
+
 
     /**
      * Get user fullname

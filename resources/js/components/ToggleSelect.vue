@@ -5,6 +5,10 @@ export default {
     props: {
         items: Array,
         selectedValue: Number,
+        selectedValueString: {
+            type: String,
+            default: null
+        },
         type: {
             default: 'user',
             type: String
@@ -17,7 +21,9 @@ export default {
 
         item: {
             printer_models: []
-        }
+        },
+
+        voucherType: 'Amount'
     }),
 
     render() {
@@ -28,12 +34,17 @@ export default {
             toggleFalse: this.toggleFalse,
             selectChanged: this.selectChanged,
             item: this.item,
+            voucherType: this.voucherType
         });
     },
 
     mounted() {
         if(!_.isEmpty(this.items)) {
-            this.selectChanged(this.items, this.selectedValue, this.type)
+            if(!_.isEmpty(this.selectedValueString)) {
+                this.selectChanged(this.items, this.selectedValueString, this.type)
+            } else {
+                this.selectChanged(this.items, this.selectedValue, this.type)
+            }
         }
     },
 
@@ -46,7 +57,7 @@ export default {
             setTimeout(() => { this.display = false; }, 200)
         },
 
-        selectChanged(items, value, type='user') {
+        selectChanged(items, value, type='user', oldValue=null) {
             var item = _.find(items, function(o) { return o.id == value });
 
             switch(type) {
@@ -78,6 +89,11 @@ export default {
                 case 'transport_type': 
                     if(value == 'Carga') this.display = false;
                     else this.display = true;
+                    break;
+
+                case 'voucher': 
+                    this.voucherType = value;
+                    break;
             }
         },
     }

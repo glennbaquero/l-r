@@ -143,6 +143,12 @@ use App\Http\Controllers\Cities\CityBatchUploadController;
 use App\Http\Controllers\Cities\CityUpdateController;
 use App\Http\Controllers\Cities\CityDeleteController;
 
+use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\Vouchers\VoucherCreateController;
+use App\Http\Controllers\Vouchers\VoucherBatchUploadController;
+use App\Http\Controllers\Vouchers\VoucherUpdateController;
+use App\Http\Controllers\Vouchers\VoucherDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -399,4 +405,11 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/city/update/{id}', CityUpdateController::class)->name('city.update');
     Route::post('/city/destroy/{id}', CityDeleteController::class)->name('city.destroy');
 
+    Route::get('/voucher', [VoucherController::class, 'index'])->name('voucher.index');
+    Route::get('/voucher/fetch', [VoucherController::class, 'fetch'])->name('voucher.fetch');
+    Route::get('/voucher/create', [VoucherController::class, 'create'])->name('voucher.create');
+    Route::post('/voucher/store', VoucherCreateController::class)->name('voucher.store');
+    Route::get('/voucher/show/{id}', [VoucherController::class, 'show'])->name('voucher.show');
+    Route::post('/voucher/update/{id}', VoucherUpdateController::class)->name('voucher.update');
+    Route::post('/voucher/destroy/{id}', VoucherDeleteController::class)->name('voucher.destroy');
 });
