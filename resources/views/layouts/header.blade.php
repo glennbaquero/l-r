@@ -16,13 +16,16 @@
                                 <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Expenses & Income</x-slot>
                                 </x-header-sub-link>
+                                <x-header-sub-link link="{{route('voucher.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Voucher Management</x-slot>
+                                </x-header-sub-link>
                                 <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Coupon Management</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Promotions and Discounts</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('discount-option.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Promotion Option</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
