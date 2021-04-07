@@ -189,6 +189,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/office/show/{id}', [OfficeController::class, 'show'])->name('office.show');
     Route::post('/office/update/{id}', OfficeUpdateController::class)->name('office.update');
     Route::post('/office/destroy/{id}', OfficeDeleteController::class)->name('office.destroy');
+    Route::get('/office/open-close', [OfficeController::class, 'openClose'])->name('office.open-close');
+    Route::get('/office/open-close/update/{id}', [OfficeController::class, 'officeOpenClose'])->name('office.openclose.update');
 
     Route::get('/currency', [CurrencyController::class, 'index'])->name('currency.index');
     Route::get('/currency/fetch', [CurrencyController::class, 'fetch'])->name('currency.fetch');
