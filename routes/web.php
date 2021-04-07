@@ -155,6 +155,12 @@ use App\Http\Controllers\DiscountOptions\DiscountOptionBatchUploadController;
 use App\Http\Controllers\DiscountOptions\DiscountOptionUpdateController;
 use App\Http\Controllers\DiscountOptions\DiscountOptionDeleteController;
 
+use App\Http\Controllers\ExpenseIncomeController;
+use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeCreateController;
+use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeBatchUploadController;
+use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeUpdateController;
+use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeDeleteController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -426,4 +432,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/discount-option/show/{id}', [DiscountOptionController::class, 'show'])->name('discount-option.show');
     Route::post('/discount-option/update/{id}', DiscountOptionUpdateController::class)->name('discount-option.update');
     Route::post('/discount-option/destroy/{id}', DiscountOptionDeleteController::class)->name('discount-option.destroy');
+
+    Route::get('/expense-income', [ExpenseIncomeController::class, 'index'])->name('expense-income.index');
+    Route::get('/expense-income/fetch', [ExpenseIncomeController::class, 'fetch'])->name('expense-income.fetch');
+    Route::get('/expense-income/create', [ExpenseIncomeController::class, 'create'])->name('expense-income.create');
+    Route::post('/expense-income/store', ExpenseIncomeCreateController::class)->name('expense-income.store');
+    Route::get('/expense-income/show/{id}', [ExpenseIncomeController::class, 'show'])->name('expense-income.show');
+    Route::post('/expense-income/update/{id}', ExpenseIncomeUpdateController::class)->name('expense-income.update');
+    Route::post('/expense-income/destroy/{id}', ExpenseIncomeDeleteController::class)->name('expense-income.destroy');
 });

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Traits\QueryLike;
 
-
 class Expense extends Model
 {
     use HasFactory, QueryLike, SoftDeletes;
