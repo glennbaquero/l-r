@@ -57,8 +57,10 @@ export default {
             setTimeout(() => { this.display = false; }, 200)
         },
 
-        selectChanged(items, value, type='user', oldValue=null) {
-            var item = _.find(items, function(o) { return o.id == value });
+        selectChanged(items = [], value, type='user', oldValue=null) {
+            if(!_.isEmpty(items)) {
+                var item = _.find(items, function(o) { return o.id == value });
+            }
 
             switch(type) {
                 case 'user':

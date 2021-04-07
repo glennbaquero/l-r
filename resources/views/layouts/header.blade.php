@@ -13,7 +13,7 @@
                         <x-header-sub-link link="#" :caret="true" class="group-sales hover:bg-lighterblue">
                             <x-slot name="name">Sales Management</x-slot>
                             <x-header-absolute-link class="group-sales group-sales-hover:block bg-lighterblue">
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('expense-income.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Expenses & Income</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('voucher.index')}}" :caret="false" class="hover:bg-lighterblue">
