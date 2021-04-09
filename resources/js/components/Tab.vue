@@ -19,7 +19,8 @@
 		    return this.$scopedSlots.default({
 		        selected: this.selected,
 		        menuChanged: this.menuChanged,
-		        menuChangedVoucherTable: this.menuChangedVoucherTable
+		        menuChangedVoucherTable: this.menuChangedVoucherTable,
+		        menuChangedFrequentTraveler: this.menuChangedFrequentTraveler,
 		    });
 		},
 
@@ -33,7 +34,14 @@
 
 				this.$children[0].params['type_of_voucher'] = menu;
 				this.$children[0].createUrl();
-			}
+			},
+
+			menuChangedFrequentTraveler(menu) {
+				this.selected = menu;
+
+				this.$parent.$parent.params['type'] = menu;
+				this.$parent.$parent.createUrl();
+			},
 		}
 	}
 </script>
