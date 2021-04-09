@@ -161,6 +161,8 @@ use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeBatchUploadController;
 use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeUpdateController;
 use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeDeleteController;
 
+use App\Http\Controllers\PassengerController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -442,4 +444,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/expense-income/show/{id}', [ExpenseIncomeController::class, 'show'])->name('expense-income.show');
     Route::post('/expense-income/update/{id}', ExpenseIncomeUpdateController::class)->name('expense-income.update');
     Route::post('/expense-income/destroy/{id}', ExpenseIncomeDeleteController::class)->name('expense-income.destroy');
+
+    Route::get('/frequent-traveler', [PassengerController::class, 'index'])->name('frequent-traveler.index');
+    Route::get('/frequent-traveler/fetch', [PassengerController::class, 'fetch'])->name('frequent-traveler.fetch');
 });
