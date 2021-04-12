@@ -12,6 +12,11 @@ export default {
         type: {
             default: 'user',
             type: String
+        },
+
+        displayDefault: {
+            default: 0,
+            type: Number
         }
     },
 
@@ -23,7 +28,11 @@ export default {
             printer_models: []
         },
 
-        voucherType: 'Amount'
+        voucherType: 'Amount',
+
+        // for promotion ApplyTo field
+        show_routes: false,  
+        show_part_of_route: false,  
     }),
 
     render() {
@@ -34,7 +43,9 @@ export default {
             toggleFalse: this.toggleFalse,
             selectChanged: this.selectChanged,
             item: this.item,
-            voucherType: this.voucherType
+            voucherType: this.voucherType,
+            show_routes: this.show_routes,
+            show_part_of_route: this.show_part_of_route,
         });
     },
 
@@ -46,6 +57,8 @@ export default {
                 this.selectChanged(this.items, this.selectedValue, this.type)
             }
         }
+
+        this.display = this.displayDefault;
     },
 
     methods: {
@@ -95,6 +108,30 @@ export default {
 
                 case 'voucher': 
                     this.voucherType = value;
+                    break;
+
+                case 'promotion': 
+                    setTimeout(() => {
+                        if(item.value == 'Personalized') this.display = true;
+                        else this.display = false;
+                    }, 500)
+                    
+
+                    break;
+
+                case 'promotion_apply_to_filter': 
+                    if(item.value == 'Specific Route') {
+                        this.show_routes = true;
+                        this.show_part_of_route = false;
+                    } else if(item.value === 'Part of Route') {
+                        this.show_part_of_route = true;
+                        this.show_routes = false;
+                    }
+                    else { 
+                        this.show_part_of_route = false; 
+                        this.show_routes = false; 
+                    }
+
                     break;
             }
         },

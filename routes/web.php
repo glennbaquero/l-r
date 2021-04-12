@@ -161,6 +161,12 @@ use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeBatchUploadController;
 use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeUpdateController;
 use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeDeleteController;
 
+use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\Promotions\PromotionCreateController;
+use App\Http\Controllers\Promotions\PromotionBatchUploadController;
+use App\Http\Controllers\Promotions\PromotionUpdateController;
+use App\Http\Controllers\Promotions\PromotionDeleteController;
+
 use App\Http\Controllers\PassengerController;
 
 use Illuminate\Support\Facades\Route;
@@ -447,4 +453,12 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/frequent-traveler', [PassengerController::class, 'index'])->name('frequent-traveler.index');
     Route::get('/frequent-traveler/fetch', [PassengerController::class, 'fetch'])->name('frequent-traveler.fetch');
+
+    Route::get('/promotion', [PromotionController::class, 'index'])->name('promotion.index');
+    Route::get('/promotion/fetch', [PromotionController::class, 'fetch'])->name('promotion.fetch');
+    Route::get('/promotion/create', [PromotionController::class, 'create'])->name('promotion.create');
+    Route::post('/promotion/store', PromotionCreateController::class)->name('promotion.store');
+    Route::get('/promotion/show/{id}', [PromotionController::class, 'show'])->name('promotion.show');
+    Route::post('/promotion/update/{id}', PromotionUpdateController::class)->name('promotion.update');
+    Route::post('/promotion/destroy/{id}', PromotionDeleteController::class)->name('promotion.destroy');
 });
