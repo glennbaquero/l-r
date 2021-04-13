@@ -126,8 +126,10 @@ export default {
                     } else if(item.value === 'Part of Route') {
                         this.show_part_of_route = true;
                         this.show_routes = false;
-                    }
-                    else { 
+                    } else if(item.value === 'General Route') {
+                        this.show_part_of_route = true;
+                        this.show_routes = false;
+                    } else { 
                         this.show_part_of_route = false; 
                         this.show_routes = false; 
                     }

@@ -41,7 +41,7 @@
 					name: this.name,
 					value: this.item[this.name],
 
-					id: 'datepicker'
+					id: this.name
 				}
 			}
 		},

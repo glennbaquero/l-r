@@ -167,6 +167,12 @@ use App\Http\Controllers\Promotions\PromotionBatchUploadController;
 use App\Http\Controllers\Promotions\PromotionUpdateController;
 use App\Http\Controllers\Promotions\PromotionDeleteController;
 
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\Coupons\CouponCreateController;
+use App\Http\Controllers\Coupons\CouponBatchUploadController;
+use App\Http\Controllers\Coupons\CouponUpdateController;
+use App\Http\Controllers\Coupons\CouponDeleteController;
+
 use App\Http\Controllers\PassengerController;
 
 use Illuminate\Support\Facades\Route;
@@ -461,4 +467,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/promotion/show/{id}', [PromotionController::class, 'show'])->name('promotion.show');
     Route::post('/promotion/update/{id}', PromotionUpdateController::class)->name('promotion.update');
     Route::post('/promotion/destroy/{id}', PromotionDeleteController::class)->name('promotion.destroy');
+
+    Route::get('/coupon', [CouponController::class, 'index'])->name('coupon.index');
+    Route::get('/coupon/fetch', [CouponController::class, 'fetch'])->name('coupon.fetch');
+    Route::get('/coupon/create', [CouponController::class, 'create'])->name('coupon.create');
+    Route::post('/coupon/store', CouponCreateController::class)->name('coupon.store');
+    Route::get('/coupon/show/{id}', [CouponController::class, 'show'])->name('coupon.show');
+    Route::post('/coupon/update/{id}', CouponUpdateController::class)->name('coupon.update');
+    Route::post('/coupon/destroy/{id}', CouponDeleteController::class)->name('coupon.destroy');
 });

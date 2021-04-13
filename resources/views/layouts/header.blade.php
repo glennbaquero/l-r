@@ -19,7 +19,7 @@
                                 <x-header-sub-link link="{{route('voucher.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Voucher Management</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('coupon.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Coupon Management</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
