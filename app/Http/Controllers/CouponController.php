@@ -109,9 +109,9 @@ class CouponController extends Controller
             [ 'label' => 'System'], [ 'label' => 'Web'], [ 'label' => 'All'], 
         ];
         $coupon['days_selected'] = $coupon->days ? $coupon->days : collect(array());
-        $coupon['service_ids'] = $coupon->services()->pluck('id');
-        $coupon['ticket_type_ids'] = $coupon->ticketTypes()->pluck('id');
-        $coupon['route_ids'] = $coupon->routes()->pluck('id');
+        $coupon['service_ids'] = $coupon->services()->pluck('service_id');
+        $coupon['ticket_type_ids'] = $coupon->ticketTypes()->pluck('ticket_type_id');
+        $coupon['route_ids'] = $coupon->routes()->pluck('route_id');
         $coupon['departureIds'] = $coupon->generalRoutes()->whereNotNull('departure_id')->pluck('departure_id');
         $coupon['arrivalIds'] = $coupon->generalRoutes()->whereNotNull('arrival_id')->pluck('arrival_id');
 
