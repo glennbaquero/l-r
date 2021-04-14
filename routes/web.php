@@ -181,6 +181,8 @@ use App\Http\Controllers\Discounts\DiscountDeleteController;
 
 use App\Http\Controllers\PassengerController;
 
+use App\Http\Controllers\OpenCashController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -489,4 +491,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/discount/show/{id}', [DiscountController::class, 'show'])->name('discount.show');
     Route::post('/discount/update/{id}', DiscountUpdateController::class)->name('discount.update');
     Route::post('/discount/destroy/{id}', DiscountDeleteController::class)->name('discount.destroy');
+
+    Route::get('/open-cash', [OpenCashController::class, 'index'])->name('open-cash.index');
+    Route::post('/open-cash/store', [OpenCashController::class, 'addCash'])->name('open-cash.store');
 });
