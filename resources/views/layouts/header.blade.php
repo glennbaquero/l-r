@@ -28,7 +28,7 @@
                                 <x-header-sub-link link="{{route('discount-option.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Promotion Option</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('open-cash.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Open / Close Till</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('office.open-close')}}" :caret="false" class="hover:bg-lighterblue">

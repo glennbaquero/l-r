@@ -112,4 +112,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(GroupMessage::class);
     }
+
+    /**
+    * User hasMany cash
+    * 
+    * @return Illuminate\Database\Eloquent\Relations\hasMany
+    */
+   public function cashes()
+   {
+       return $this->hasMany(Cash::class);
+   }
 }

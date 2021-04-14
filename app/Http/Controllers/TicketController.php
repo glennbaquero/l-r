@@ -36,6 +36,13 @@ class TicketController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        $existing_cash = $user->cashes()->whereDate('created_at', now())->first();
+
+        if(! $existing_cash) {
+            return redirect()->route('open-cash.index');
+        } 
+
         return view('pages.ticket.index', [
             'headers' => TicketCollection::$headers,
             'searches' => TicketCollection::$searches,
