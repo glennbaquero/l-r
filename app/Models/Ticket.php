@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Traits\QueryLike;
 
+use Carbon\Carbon;
+
 class Ticket extends Model
 {
     use HasFactory, QueryLike, SoftDeletes;
@@ -18,6 +20,13 @@ class Ticket extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Append additional attributes
+     * 
+     * @var array
+     */
+    protected $appends = ['formatted_purchase_date'];
 
 	/**
 	 * Ticket belongs to passenger
@@ -67,5 +76,26 @@ class Ticket extends Model
     public function trip()
     {
         return $this->belongsTo(Trip::class)->withTrashed();
+    }
+
+    /**
+     * Ticket belongs to Bus Column (seat)
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function seat()
+    {
+        return $this->belongsTo(BusModelColumn::class, 'bus_model_column_id', 'id')->withTrashed();
+    }
+
+
+    /**
+     * Get formatted purchase date
+     * 
+     * @return string
+     */
+    public function getFormattedPurchaseDateAttribute()
+    {
+        return Carbon::parse($this->purchase_date)->format('m-d-Y h:i A');
     }
 }
