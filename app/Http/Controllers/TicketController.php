@@ -168,4 +168,13 @@ class TicketController extends Controller
 
     }
 
+    public function printTicket($id) 
+    {
+        $ticket = Ticket::find($id);
+
+        return view('pages.ticket.print', [
+            'ticket' => $ticket
+        ]);
+    }
+
 }

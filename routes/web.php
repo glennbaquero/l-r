@@ -431,6 +431,8 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/ticket/get/passengers', [TicketController::class, 'getPassenger'])->name('ticket.fetch-passengers');
     Route::post('/ticket/store', TicketCreateController::class)->name('ticket.store');
 
+    Route::get('/ticket/print/{id}', [TicketController::class, 'printTicket'])->name('ticket.print');
+
     Route::get('/city', [CityController::class, 'index'])->name('city.index');
     Route::get('/city/fetch', [CityController::class, 'fetch'])->name('city.fetch');
     Route::get('/city/create', [CityController::class, 'create'])->name('city.create');
@@ -494,4 +496,5 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/open-cash', [OpenCashController::class, 'index'])->name('open-cash.index');
     Route::post('/open-cash/store', [OpenCashController::class, 'addCash'])->name('open-cash.store');
+
 });

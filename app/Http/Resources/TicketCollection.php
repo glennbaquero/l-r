@@ -47,6 +47,7 @@ class TicketCollection extends ResourceCollection
                 'price' => $ticket->total_sale,
                 't_des' => '---',
                 't_or' => '---',
+                'printUrl' => route('ticket.print', $ticket->id)
             ];
         });
     }
