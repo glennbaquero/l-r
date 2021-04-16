@@ -179,6 +179,12 @@ use App\Http\Controllers\Discounts\DiscountBatchUploadController;
 use App\Http\Controllers\Discounts\DiscountUpdateController;
 use App\Http\Controllers\Discounts\DiscountDeleteController;
 
+use App\Http\Controllers\RouteAndMainDriverController;
+use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverCreateController;
+use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverBatchUploadController;
+use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverUpdateController;
+use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverDeleteController;
+
 use App\Http\Controllers\PassengerController;
 
 use App\Http\Controllers\OpenCashController;
@@ -502,5 +508,14 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/fetch/origin/trip', [SeatTransferController::class, 'getTrip'])->name('seat-transfer.fetch-trip');
     Route::post('/seat/transfer/generate-bus', [SeatTransferController::class, 'getBus'])->name('seat-transfer.generate-bus');
     Route::post('/seat/transfer/update-bus', [SeatTransferController::class, 'update'])->name('seat-transfer.update');
+
+    Route::get('/route-main-driver', [RouteAndMainDriverController::class, 'index'])->name('route-main-driver.index');
+    Route::get('/route-main-driver/fetch', [RouteAndMainDriverController::class, 'fetch'])->name('route-main-driver.fetch');
+    Route::get('/route-main-driver/create', [RouteAndMainDriverController::class, 'create'])->name('route-main-driver.create');
+    Route::post('/route-main-driver/store', RouteAndMainDriverCreateController::class)->name('route-main-driver.store');
+    Route::get('/route-main-driver/show/{id}', [RouteAndMainDriverController::class, 'show'])->name('route-main-driver.show');
+    Route::post('/route-main-driver/update/{id}', RouteAndMainDriverUpdateController::class)->name('route-main-driver.update');
+    Route::post('/route-main-driver/destroy/{id}', RouteAndMainDriverDeleteController::class)->name('route-main-driver.destroy');
+
 
 });
