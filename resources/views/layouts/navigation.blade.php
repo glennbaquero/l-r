@@ -25,13 +25,13 @@
                         </svg>                                
                         <span>{{ __('Luggage') }}</span>
                     </x-nav-link>
-                    <x-nav-link>
+                    <x-nav-link route="{{route('seat-transfer.index')}}">
                         <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0 21.6667L0 26H4.5L4.5 21.6667L19.5 21.6667V26H24V17.3333L0 17.3333L0 21.6667ZM19.5 14.4444L4.5 14.4444L4.5 2.88889C4.5 1.3 5.85 0 7.5 0L16.5 0C18.15 0 19.5 1.3 19.5 2.88889L19.5 14.4444Z" fill="#001943"/>
                         </svg>                                                       
                         <span>{{ __('Seat Transfer') }}</span>
                     </x-nav-link>
-                    <x-nav-link>
+                    <x-nav-link route="{{route('frequent-traveler.index')}}">
                         <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 5.92105C6 9.18553 8.692 11.8421 12 11.8421C15.308 11.8421 18 9.18553 18 5.92105C18 2.65658 15.308 0 12 0C8.692 0 6 2.65658 6 5.92105ZM22.6667 25H24V23.6842C24 18.6066 19.812 14.4737 14.6667 14.4737H9.33333C4.18667 14.4737 0 18.6066 0 23.6842V25H22.6667Z" fill="#001943"/>
                         </svg>                                                                                 
