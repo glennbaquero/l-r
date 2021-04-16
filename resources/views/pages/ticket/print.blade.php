@@ -214,8 +214,9 @@
 			                       				<x-label>Final Destination</x-label>
 			                       				<x-label class="font-semibold">{{ $ticket->arrival->name }}</x-label>
 			                       			</div>
-			                       			<div class="col-span-1 sm:col-span-1" style="transform: rotate(270deg);">
-					                          	<svg id="code39" class="mx-auto my-auto"></svg>
+			                       			<div class="col-span-1 sm:col-span-1">
+					                          	{{-- <svg id="code39" class="mx-auto my-auto"></svg> --}}
+					                          	<div id="qrCodeHolder"></div>
 			                       			</div>
 				                        </div>
 			                       	</div>
@@ -226,9 +227,18 @@
 			   	</div>
         	</div>
         </div> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.3/JsBarcode.all.min.js" integrity="sha512-TLB7v1Y4YHGy/EHUu5VZ2bl6sC/WvXh/NFdjEZ7JmbpsUG87dirXAOFSAS3O6Tn3rsZljFTcTdMz9PDM4mV26g==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.0.3/qrcode.min.js" integrity="sha512-CwmiQdOoXBchUa3+Eb5brNU8lxeJr7CVjWDwBCr+2wvbTEGzI982TnvGVQtvPKfvSevelLCV2xa7S/pdLKZKag==" crossorigin="anonymous"></script>
         <script type="text/javascript">
-        	JsBarcode("#code39", {{ $ticket->id }}, {format: "code39"});
+        	var typeNumber = 4;
+        	var errorCorrectionLevel = 'L';
+        	var qr = qrcode(typeNumber, errorCorrectionLevel);
+        	qr.addData({{ $ticket->id }});
+        	qr.make();
+        	var qrHolder = document.getElementById('qrCodeHolder');
+        	qrHolder.innerHTML = qr.createImgTag();
+        	var imgTag = qrHolder.childNodes[0];
+        	imgTag.className = 'mx-auto';
+        	
         </script>
         <script type="text/javascript">
 
