@@ -182,6 +182,7 @@ use App\Http\Controllers\Discounts\DiscountDeleteController;
 use App\Http\Controllers\PassengerController;
 
 use App\Http\Controllers\OpenCashController;
+use App\Http\Controllers\SeatTransferController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -496,5 +497,10 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/open-cash', [OpenCashController::class, 'index'])->name('open-cash.index');
     Route::post('/open-cash/store', [OpenCashController::class, 'addCash'])->name('open-cash.store');
+
+    Route::get('/seat/transfer', [SeatTransferController::class, 'index'])->name('seat-transfer.index');
+    Route::post('/fetch/origin/trip', [SeatTransferController::class, 'getTrip'])->name('seat-transfer.fetch-trip');
+    Route::post('/seat/transfer/generate-bus', [SeatTransferController::class, 'getBus'])->name('seat-transfer.generate-bus');
+    Route::post('/seat/transfer/update-bus', [SeatTransferController::class, 'update'])->name('seat-transfer.update');
 
 });

@@ -109,6 +109,16 @@ class Trip extends Model
     }
 
     /**
+     * Trip has many tickets
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    /**
      * Trip has many passengers
      * 
      * @return Illuminate\Database\Eloquent\Relations\HasMany
@@ -147,5 +157,28 @@ class Trip extends Model
     public function getFormattedTimeAttribute()
     {
         return Carbon::parse($this->time)->format('h:i A');
+    }
+
+    /**
+     * Get tickets sold in specific trip
+     */
+    
+    public function getTickets()
+    {
+        $ticket_list = [];
+        foreach ($this->tickets as $key => $ticket) {
+            array_push($ticket_list, [
+                'id' => $ticket->id,
+                'departure' => $ticket->departure->name,                
+                'arrival' => $ticket->arrival->name,                
+                'seat' => $ticket->seat->label,                
+                'ticket_type' => $ticket->passenger->ticketType->name,                
+                'passenger' => $ticket->passenger->fullname,                
+                'seller' => $ticket->seller->fullname,                
+                'office' => $ticket->seller->office->name,                
+            ]);
+        }
+
+        return $ticket_list;
     }
 }
