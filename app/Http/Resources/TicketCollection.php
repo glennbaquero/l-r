@@ -47,7 +47,7 @@ class TicketCollection extends ResourceCollection
                 'price' => $ticket->total_sale,
                 't_des' => '---',
                 't_or' => '---',
-                'printUrl' => route('ticket.print', $ticket->id)
+                'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name])
             ];
         });
     }

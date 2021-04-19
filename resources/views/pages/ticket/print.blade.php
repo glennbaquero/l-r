@@ -232,7 +232,8 @@
         	var typeNumber = 4;
         	var errorCorrectionLevel = 'L';
         	var qr = qrcode(typeNumber, errorCorrectionLevel);
-        	qr.addData({{ $ticket->id }});
+        	var route = '{{ $ticket->updateStatusUrl() }}';
+        	qr.addData(route);
         	qr.make();
         	var qrHolder = document.getElementById('qrCodeHolder');
         	qrHolder.innerHTML = qr.createImgTag();

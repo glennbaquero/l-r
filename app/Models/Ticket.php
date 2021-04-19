@@ -98,4 +98,14 @@ class Ticket extends Model
     {
         return Carbon::parse($this->purchase_date)->format('m-d-Y h:i A');
     }
+
+    /**
+     * Get update status url
+     * 
+     * @return string
+     */
+    public function updateStatusUrl()
+    {
+        return route('ticket.scan-qr', [$this->id, $this->passenger->fullname, $this->arrival->name, $this->departure->name]);
+    }
 }

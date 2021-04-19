@@ -168,13 +168,23 @@ class TicketController extends Controller
 
     }
 
-    public function printTicket($id) 
+    public function printTicket($id, $passenger, $arrival, $departure) 
     {
         $ticket = Ticket::find($id);
 
         return view('pages.ticket.print', [
             'ticket' => $ticket
         ]);
+    }
+
+    public function scanTicketQR($id, $passenger, $arrival, $departure) 
+    {
+        $ticket = Ticket::find($id);
+        $ticket->update([
+            'status' => 'On Board'
+        ]);
+
+        return redirect()->route('dashboard');
     }
 
 }
