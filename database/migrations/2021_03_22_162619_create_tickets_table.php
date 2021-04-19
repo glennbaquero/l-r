@@ -34,6 +34,7 @@ class CreateTicketsTable extends Migration
             $table->string('voucher_code')->nullable();
             $table->string('payment_method')->default('Cash');
             $table->decimal('total_sale', 9, 2)->default(0);
+            $table->string('status')->default('reserved');
             $table->softDeletes();
             $table->timestamps();
         });

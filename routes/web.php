@@ -206,6 +206,9 @@ Route::auth();
 
 Route::get('/', function () { return redirect('/login'); });
 
+Route::get('/ticket/print/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'printTicket'])->name('ticket.print');
+Route::get('/ticket/scan-qr/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'scanTicketQR'])->name('ticket.scan-qr');
+
 Route::middleware(['auth'])->group(function() {
     Route::post('/locale', LocaleController::class)->name('locale');
 
@@ -437,8 +440,6 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/ticket/get/bus', [TicketController::class, 'getBus'])->name('ticket.fetch-bus');
     Route::post('/ticket/get/passengers', [TicketController::class, 'getPassenger'])->name('ticket.fetch-passengers');
     Route::post('/ticket/store', TicketCreateController::class)->name('ticket.store');
-
-    Route::get('/ticket/print/{id}', [TicketController::class, 'printTicket'])->name('ticket.print');
 
     Route::get('/city', [CityController::class, 'index'])->name('city.index');
     Route::get('/city/fetch', [CityController::class, 'fetch'])->name('city.fetch');
