@@ -45,7 +45,7 @@
 				</button>
 			</div>
 			<div class="col-span-1 sm:col-span-1">
-				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="paymentFormHandler">
+				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="nextFormHandler">
 				    Pay
 				</button>
 			</div>
@@ -90,25 +90,35 @@
 		},
 
 		methods: {
-			paymentFormHandler() {
-				var payloads = {
-					passenger: this.$parent.passenger_info,
-					bus_model_column_id: this.$parent.seat_selected.id,
-					trip_id: this.$parent.payloads.trip_id,
-					arrival_id: this.$parent.payloads.arrival_id,
-					departure_id: this.$parent.payloads.departure_id,
-					payment_method: this.payment.payment_method,
-					total_sale: this.totalSale,
-				}
 
-				axios.post(this.$parent.paymentFormUrl, payloads)
-					.then(response => {
-						this.$parent.$parent.toggled();
-						this.$parent.$parent.$parent.$children[3].fetch();
-					}).catch(errors => {
+			nextFormHandler() {
 
-					})
-			}
+				this.$parent.payment = this.payment;
+				this.$parent.totalSale = this.totalSale;
+				
+				this.$emit('nextStep', 6);
+			},
+
+
+			// paymentFormHandler() {
+			// 	var payloads = {
+			// 		passenger: this.$parent.passenger_info,
+			// 		bus_model_column_id: this.$parent.seat_selected.id,
+			// 		trip_id: this.$parent.payloads.trip_id,
+			// 		arrival_id: this.$parent.payloads.arrival_id,
+			// 		departure_id: this.$parent.payloads.departure_id,
+			// 		payment_method: this.payment.payment_method,
+			// 		total_sale: this.totalSale,
+			// 	}
+
+			// 	axios.post(this.$parent.paymentFormUrl, payloads)
+			// 		.then(response => {
+			// 			this.$parent.$parent.toggled();
+			// 			this.$parent.$parent.$parent.$children[3].fetch();
+			// 		}).catch(errors => {
+
+			// 		})
+			// }
 		}
 	}
 </script>

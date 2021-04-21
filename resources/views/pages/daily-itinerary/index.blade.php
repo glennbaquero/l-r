@@ -11,7 +11,7 @@
                         :searches="{{json_encode($searches)}}"
                         url="{{route('daily-itinerary.fetch')}}"
             >
-                <filter-table v-slot="{ toggledState, display, search, field }">
+                <filter-table v-slot="{ toggledState, display, search, field, loading }">
 
                     <x-table :headers="$headers">
                         <x-slot name="body">

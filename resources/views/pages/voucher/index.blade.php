@@ -28,7 +28,7 @@
                         </nav>
 
                     </div>
-                    <data-table v-slot="{ params, setParam, data, links, meta, next, prev }"
+                    <data-table v-slot="{ params, setParam, data, links, meta, next, prev, loading }"
                                 :searches="{{json_encode($searches)}}"
                                 url="{{route('voucher.fetch')}}"
                     >

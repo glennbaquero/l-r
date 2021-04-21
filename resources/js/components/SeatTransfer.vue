@@ -196,6 +196,8 @@
 			:show="showModal"
 			@closeModal="showModal = false"
 		></modal>
+
+		<loading :show="loading"></loading>
 	</div>
 </template>
 
@@ -206,6 +208,7 @@
   	import 'vue2-datepicker/index.css';
 	import Modal from './Modal.vue';
 	import PassengerList from './seat-transfer/PassengerList.vue';
+	import Loading from './Loading.vue';
 
 	export default {
 		name: 'SeatTransfer',
@@ -267,7 +270,9 @@
 				showPassengerList: {
 					origin: false,
 					destination: false
-				}
+				},
+
+				loading: false
 			}
 		},
 
@@ -276,6 +281,7 @@
 		    'vue2-datepicker': Vue2DatePicker,
 		    Modal,
 		    PassengerList,
+		    Loading,
 		},
 
 		computed: {
@@ -345,6 +351,7 @@
 			},
 
 			getOriginTrip() {
+				this.loading = true;
 				var payloads = {
 					'type': 'origin',
 					'id': this.selected.departure.id,
@@ -355,12 +362,14 @@
 					.then(response => {
 						this.show.travelOriginList = !_.isEmpty(response.data.trips);
 						this.travelOrigin.trip = response.data.trips;
+						this.loading = false;
 					}).catch(errors => {
-
+						this.loading = false;
 					})
 			},
 
 			getDestinationTrip() {
+					this.loading = true;
 				var payloads = {
 					'type': 'departure',
 					'id': this.selected.arrival.id,
@@ -371,12 +380,14 @@
 					.then(response => {
 						this.show.travelDestinationList = !_.isEmpty(response.data.trips);
 						this.travelDestination.trip = response.data.trips;
+						this.loading = false;
 					}).catch(errors => {
-
+						this.loading = false;
 					})
 			},
 
 			generateBus(selected_trip, type) {
+				this.loading = true;
 				var payloads = {
 					'trip_id': selected_trip.id
 				}
@@ -384,8 +395,9 @@
 				axios.post(this.generateBusUrl, payloads)
 					.then(response => {
 						this.bus[type] = response.data.bus_model;
+						this.loading = false;
 					}).catch(errors => {
-
+						this.loading = false;
 					})
 			},
 
@@ -395,7 +407,8 @@
 
 
 			transferSeat(from) {
-				console.log(from);
+
+				this.loading = true;
 
 				if(this.selectedSeat.destination.is_reserved && from == 'origin') {
 					this.modalTitle = 'Oooops!';
@@ -432,8 +445,9 @@
 						this.selectedSeat.origin = {}
 						this.generateBus(this.selectedTravel.origin, 'origin');
 						this.generateBus(this.selectedTravel.destination, 'destination');
+						this.loading = false;
 					}).catch(errors => {
-
+						this.loading = false;
 					})
 			},
 

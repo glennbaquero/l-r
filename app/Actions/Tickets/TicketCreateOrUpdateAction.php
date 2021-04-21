@@ -55,10 +55,10 @@ class TicketCreateOrUpdateAction
 			$request['passenger_id'] = $passenger->id;
 
 			if(!$id) {
-				$this->ticket = $this->ticket->create($request->except(['passenger']));
+				$this->ticket = $this->ticket->create($request->except(['passenger', 'action']));
 			} else {
 				$this->ticket = Ticket::withTrashed()->findOrFail($id);
-				$this->ticket->update($request->all());
+				$this->ticket->update($request->except(['passenger', 'action']));
 			}
 
 

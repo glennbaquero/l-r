@@ -79,6 +79,7 @@
 			},
 
 			nextForm() {
+				this.$parent.loading = true;
 				axios.post(this.$parent.findAvailableTripUrl, this.item)
 					.then(response => {
 						
@@ -88,9 +89,10 @@
 						setTimeout(() => {
 							this.$parent.payloads = this.item;
 							this.$emit('nextStep', 2)
+							this.$parent.loading = false;
 						}, 500)
 					}).catch(errors => {
-
+						this.$parent.loading = false;
 					})
 
 			}

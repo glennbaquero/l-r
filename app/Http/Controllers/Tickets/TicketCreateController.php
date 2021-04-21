@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 // use App\Http\Requests\Offices\OfficeStoreRequest;
 
 use App\Actions\Tickets\TicketCreateOrUpdateAction;
+use App\Notifications\TicketNotifyPassenger;
 use Session;
 
 class TicketCreateController extends Controller
@@ -33,7 +34,15 @@ class TicketCreateController extends Controller
     
     public function __invoke(Request $request)
     {
-    	$office = $this->action->execute($request);
+    	$ticket = $this->action->execute($request);
+
+        $ticket->passenger->notify(new TicketNotifyPassenger('sample text'));
+
+        if($request->action === 'Yes') {
+            return response()->json([
+                'print_url' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name])
+            ]);
+        }
 
         return response()->json([
             'success' => true
