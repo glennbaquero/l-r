@@ -35,6 +35,6 @@
                 {{ $slot }}
             </main>
         </div> 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPLv-AF_sX_-ZKx-NAAx3uP_MJYtAzwII&libraries=places"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPLv-AF_sX_-ZKx-NAAx3uP_MJYtAzwII&libraries=places,geometry"></script>
     </body>
 </html>

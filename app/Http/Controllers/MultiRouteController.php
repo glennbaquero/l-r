@@ -77,6 +77,13 @@ class MultiRouteController extends Controller
     public function show($id)
     {
         $route = MultiRoute::withTrashed()->findOrFail($id);
+
+        $route['stops'] = $route->stops;
+
+        foreach ($route->stops as $stop) {
+            $stop['route_per_stop'] = $stop->routes()->pluck('route_id');
+        }
+        // $route['route_per_stop'] = collect($route->getRoutePerStop());
         $cities = City::get();
         $routes = Stop::with('route')->get();
 

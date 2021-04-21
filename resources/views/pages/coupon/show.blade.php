@@ -114,7 +114,7 @@
                                                 </div>
                                                 <div class="col-span-3 sm:col-span-3" v-if="display">
                                                     <x-label for="trip_days" class="font-semibold">Filter Day</x-label>
-                                                    <multi-select :items="{{ $day_list }}" :multiple="true" name="trip_days" :multiple="false" label="label" :selected-value="{{ $coupon->trip_days ?? $coupon->days_selected }}"></multi-select>
+                                                    <multi-select :items="{{ $day_list }}" :multiple="true" name="trip_days" label="label" :selected-value="{{ $coupon->trip_days ?? $coupon->days_selected }}"></multi-select>
                                                 </div>
                                             </div>
                                         </toggle-select>

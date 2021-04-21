@@ -34,6 +34,10 @@
                                              <x-label for="name" class="font-semibold">Name</x-label>
                                              <x-form-input type="text" name="name" id="name" value="{{ old('name') }}" />
                                          </div>
+                                         <div class="col-span-full sm:col-span-full">
+                                             <x-label for="floors" class="font-semibold">Default Cell</x-label>
+                                             <x-select name="default_cell_id" :lists="$cells" oldValue="{{ old('default_cell_id') }}" @change="cellChange($event.target.value)"/>
+                                         </div>
                                          <div class="col-span-1/2 sm:col-span-1/2">
                                              <x-label for="rows" class="font-semibold">Rows</x-label>
                                              <x-form-input type="number" name="rows" id="rows" min="0" v-model="bus.rows" onkeydown="return false"/>
@@ -50,10 +54,6 @@
                                          <div class="col-span-1/2 sm:col-span-1/2">
                                              <x-label for="floors" class="font-semibold">Floor</x-label>
                                              <x-form-input type="number" name="floors" id="floors" value="{{ old('floors') }}" />
-                                         </div>
-                                         <div class="col-span-full sm:col-span-full">
-                                             <x-label for="floors" class="font-semibold">Default Cell</x-label>
-                                             <x-select name="default_cell_id" :lists="$cells" oldValue="{{ old('default_cell_id') }}" @change="cellChange($event.target.value)"/>
                                          </div>
                                         {{--  <div class="col-span-full sm:col-span-full bg-gray-200 rounded-md px-4 py-2">
                                          </div> --}}
@@ -97,7 +97,7 @@
                                         </div>
                                         <div class="col-span-1 sm:col-span-1">
                                             <select class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-if="updateTypeCell == 'cell_type'" @change="changeCellType($event.target.value)">
-                                                <option></option>
+                                                <option selected disabled>Select your option</option>
                                                 @foreach($cells as $cell)
                                                     <option value="{{ $cell->id }}">{{ $cell->name }}</option>
                                                 @endforeach

@@ -8,6 +8,7 @@
 			item: Object,
 			routeStops: Array,
 			availableRoutes: Array,
+			hasError: String
 		},
 
 		data() {
@@ -44,19 +45,45 @@
 			},
 		},
 
+
+		watch: {
+			stops: {
+				handler(value) {
+					localStorage.setItem('multi_route_stops', this.convertToJSON);
+				},
+
+				deep: true
+			}
+		},
+
 		mounted() {
 			if(!_.isEmpty(this.routeStops)) {
 				this.stops = this.routeStops;
 
 				_.each(this.stops, (stop) => {
-					stop.routes = _.reduce(this.availableRoutes, (result, _stop) => {
-						    if(_stop.arrival_id == stop.arrival_id && _stop.departure_id == stop.departure_id) {
-						        result.push(_stop.route)
-						    }
+					
+					stop.routes = [];
 
-						    return result;
-					}, [])
+					_.each(this.availableRoutes, (_stop) => {
+						if(_stop.arrival_id == stop.arrival_id && _stop.departure_id == stop.departure_id && !_.find(stop.routes, _stop.route)) {
+			    		    stop.routes.push(_stop.route)
+					    }
+					})
+
+					// stop.routes = _.reduce(this.availableRoutes, (result, _stop) => {
+					// 	    if(_stop.arrival_id == stop.arrival_id && _stop.departure_id == stop.departure_id) {
+					// 	        result.push(_stop.route)
+					// 	    }
+
+					// 	    return result;
+					// }, [])
 				})
+			}
+
+			if(this.hasError == '1' || parseInt(this.hasError)) {
+				setTimeout(() => {
+					this.stops = JSON.parse(localStorage.getItem('multi_route_stops'));
+				}, 500)
 			}
 		},
 
@@ -102,14 +129,14 @@
 				if(this.stops.length > key+1) {
 					this.stops[key+1].departure_id = city.id;
 				}
-				console.log(stop);
-				stop.routes = _.reduce(this.availableRoutes, (result, _stop) => {
-						    if(_stop.arrival_id == stop.arrival_id && _stop.departure_id == stop.departure_id) {
-						        result.push(_stop.route)
-						    }
 
-						    return result;
-					}, [])
+				stop.routes = [];
+
+				_.each(this.availableRoutes, (_stop) => {
+					if(_stop.arrival_id == stop.arrival_id && _stop.departure_id == stop.departure_id && !_.find(stop.routes, _stop.route)) {
+		    		    stop.routes.push(_stop.route)
+				    }
+				})
 			}
 		}
 	}

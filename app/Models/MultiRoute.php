@@ -27,4 +27,20 @@ class MultiRoute extends Model
     {
         return $this->hasMany(MultiRouteStop::class);
     }
+
+
+    /**
+     * @return  array $items
+     */
+    
+    public function getRoutePerStop()
+    {
+        $stops = $this->stops;
+        $items = [];
+        foreach ($stops as $stop) {
+            array_push($items, $stop->routes()->pluck('route_id'));
+        }
+
+        return $items;
+    }
 }

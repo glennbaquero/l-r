@@ -54,7 +54,7 @@
 
                             <x-table :headers="$headers">
                                 <x-slot name="body">
-                                    <tr v-for="(stop, key) in stops" v-if="!stop.deleted_at">
+                                    <tr v-for="(stop, key) in stops" v-if="!stop.deleted_at" class="h-36">
                                         <td class="text-center border-b-2 border-gray-300 px-3">
                                             <select class='form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent' v-model="stop.departure_id" :disabled="key >= 1">
                                                 @foreach($cities as $city)
@@ -73,10 +73,12 @@
                                             <input type="checkbox"  v-model="stop.auto"/>
                                         </td>
                                         <td class="text-center border-b-2 border-gray-300 px-3">
-                                            <select class='form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent' v-model="stop.route_id">
+                                            <multi-select :items="stop.routes" :multiple="true" label="name" name="selected_items" :stop="stop" :selected-value="stop.route_per_stop"></multi-select>
+                                            <input type="hidden" v-model="stop.route_id">
+                                            {{-- <select class='form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent' v-model="stop.route_id">
                                                 <option disabled selected v-if="!stop.routes.length">No route match</option>
                                                 <option v-for="route in stop.routes" :value="route.id">@{{ route.name }}</option>
-                                            </select>
+                                            </select> --}}
                                         </td>
                                         <td class="text-center border-b-2 border-gray-300 px-3">
                                             <button type="button" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" @click="addNewStop">

@@ -5,6 +5,7 @@
 	    props: {
 	        destination: Object,
 	        origin: Object,
+	        waypoints: String,
 	    },
 
 	    data: () => ({
@@ -29,7 +30,7 @@
 	         */
 	        directionsURL() {
 	        	if(this.hasOrigin) {
-		            return 'https://www.google.com/maps/embed/v1/directions?key=AIzaSyDPLv-AF_sX_-ZKx-NAAx3uP_MJYtAzwII&origin=' + this.origin.latitude + ',' + this.origin.longitude+ '&destination=' + this.destination.latitude + ',' + this.destination.longitude;
+		            return 'https://www.google.com/maps/embed/v1/directions?key=AIzaSyDPLv-AF_sX_-ZKx-NAAx3uP_MJYtAzwII&origin=' + this.origin.latitude + ',' + this.origin.longitude+ '&destination=' + this.destination.latitude + ',' + this.destination.longitude +'&waypoints='+this.waypoints;
 	        	}
 
 	        	return false;

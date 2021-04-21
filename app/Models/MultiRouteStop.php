@@ -27,6 +27,16 @@ class MultiRouteStop extends Model
     {
         return $this->belongsTo(MultiRoute::class)->withTrashed();
     }
+
+    /**
+     * Multi Route Stop belongs to MultiRoute
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function routes()
+    {
+        return $this->belongsToMany(Route::class);
+    }
     
     /**
      * Multi Route Stop belongs to Departure (City)

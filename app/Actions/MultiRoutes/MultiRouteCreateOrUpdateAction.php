@@ -31,7 +31,7 @@ class MultiRouteCreateOrUpdateAction
 	{
 		DB::beginTransaction();
 			if(!$id) {
-				$this->route = $this->route->create($request->except(['stops']));
+				$this->route = $this->route->create($request->except(['stops', 'selected_items']));
 
 				foreach (json_decode($request->stops) as $stop) {
 					if (!$stop->departure_id) {
@@ -50,17 +50,19 @@ class MultiRouteCreateOrUpdateAction
 					    ]);
 					}
 
-					MultiRouteStop::create([
+					$multi_route_stop = MultiRouteStop::create([
 						'multi_route_id' => $this->route->id,
 						'arrival_id' => $stop->arrival_id,
 						'departure_id' => $stop->departure_id,
-						'route_id' => $stop->route_id,
+						// 'route_id' => $stop->route_id,
 						'auto' => $stop->auto,
 					]);
+
+					$multi_route_stop->routes()->sync(json_decode($stop->route_id));
 				}
 			} else {
 				$this->route = MultiRoute::withTrashed()->findOrFail($id);
-				$this->route->update($request->except(['stops']));
+				$this->route->update($request->except(['stops', 'selected_items']));
 
 				foreach (json_decode($request->stops) as $stop) {
 					if (!$stop->departure_id) {
@@ -81,23 +83,25 @@ class MultiRouteCreateOrUpdateAction
 					}
 					
 					if(isset($stop->new)) {
-						MultiRouteStop::create([
+						$multi_route_stop = MultiRouteStop::create([
 							'multi_route_id' => $this->route->id,
 							'arrival_id' => $stop->arrival_id,
 							'departure_id' => $stop->departure_id,
-							'route_id' => $stop->route_id,
+							// 'route_id' => $stop->route_id,
 							'auto' => $stop->auto,
 						]);
 					} else {
-						$existing_stop = MultiRouteStop::withTrashed()->findOrFail($stop->id);
-						$existing_stop->update([
+						$multi_route_stop = MultiRouteStop::withTrashed()->findOrFail($stop->id);
+						$multi_route_stop->update([
 							'deleted_at' => $stop->deleted_at,
 							'arrival_id' => $stop->arrival_id,
 							'departure_id' => $stop->departure_id,
-							'route_id' => $stop->route_id,
+							// 'route_id' => $stop->route_id,
 							'auto' => $stop->auto,
 						]);
 					}
+
+					$multi_route_stop->routes()->sync(json_decode($stop->route_id));
 				}
 			}
 
