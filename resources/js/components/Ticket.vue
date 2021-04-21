@@ -29,7 +29,18 @@
 
 		<form-step-five
 			v-if="step === 5"
+			@backToForm="backToForm(...arguments)"
+			@nextStep="nextStep(...arguments)"
 		></form-step-five>
+
+		<final-form
+			v-if="step === 6"
+			@backToForm="backToForm(...arguments)"
+		></final-form>
+
+		<loading
+			:show="loading"
+		></loading>
 	</div>
 </template>
 <script>
@@ -38,6 +49,8 @@
 	import FormStepThree from './form-step/FormStepThree.vue';
 	import FormStepFour from './form-step/FormStepFour.vue';
 	import FormStepFive from './form-step/FormStepFive.vue';
+	import FinalForm from './form-step/FinalForm.vue';
+	import Loading from './Loading.vue';
 
 	export default {
 		name: 'Ticket',
@@ -53,6 +66,10 @@
 				bus: [],
 				seat_selected: {},
 				passenger_info: {},
+
+				payment:{},
+				totalSale: 0,
+				loading: false
 			}
 		},
 
@@ -77,6 +94,8 @@
 			FormStepThree,
 			FormStepFour,
 			FormStepFive,
+			FinalForm,
+			Loading,
 		},
 
 		methods: {

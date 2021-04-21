@@ -147,11 +147,13 @@
 	        }, 1000),
 
 			searchPassenger(value) {
+				this.$parent.loading = true;
 				axios.post(this.$parent.searchPassengerUrl, { search: value })
 					.then(response => {
 						this.passengers = response.data.passengers;
+						this.$parent.loading = false;
 					}).catch(errors => {
-
+						this.$parent.loading = false;
 					})
 			},
 
