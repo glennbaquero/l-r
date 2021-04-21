@@ -45,10 +45,12 @@ class TicketSupportFetch
             $this->ticket = $this->ticket->where('seller_id', $params['user']);
         }
 
-        if($params['passenger'] && $params['passenger'] != 'null') {
+        if($params['passenger'] && $params['passenger'] != 'null' || $params['email'] && $params['email'] != 'null' || $params['phone_number'] && $params['phone_number'] != 'null') {
             $passengerId = $this->passenger
                         ->whereLike('first_name', $params['passenger'])
                         ->orWhereLike('last_name', $params['passenger'])
+                        ->orWhereLike('email', $params['email'])
+                        ->orWhereLike('phone_number', $params['passenger'])
                         ->pluck('id')->toArray();
 
             $this->ticket = $this->ticket->whereIn('passenger_id', $passengerId);

@@ -26,6 +26,8 @@ class PriceStoreRequest extends FormRequest
         return [
             'departure_id' => 'required',
             'arrival_id' => 'required',
+            'currency_id' => 'required',
+            'price_per_mile' => 'required|numeric',
             'arrival_price' => 'required|numeric',
             'departure_price' => 'required|numeric',
             'round_trip_price' => 'required|numeric',
@@ -39,6 +41,7 @@ class PriceStoreRequest extends FormRequest
         return [
             'departure_id.required' => 'The departure field is required.',
             'arrival_id.required' => 'The arrival field is required.',
+            'currency_id.required' => 'The currency field is required.',
         ];
     }
 }

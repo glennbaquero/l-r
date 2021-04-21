@@ -85,6 +85,7 @@ use App\Http\Controllers\PriceController;
 use App\Http\Controllers\Prices\PriceCreateController;
 use App\Http\Controllers\Prices\PriceUpdateController;
 use App\Http\Controllers\Prices\PriceDeleteController;
+use App\Http\Controllers\Prices\PriceBatchUploadController;
 
 use App\Http\Controllers\InterlinePriceController;
 use App\Http\Controllers\InterlinePrices\InterlinePriceCreateController;
@@ -356,6 +357,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/price/show/{id}', [PriceController::class, 'show'])->name('price.show');
     Route::post('/price/update/{id}', PriceUpdateController::class)->name('price.update');
     Route::post('/price/destroy/{id}', PriceDeleteController::class)->name('price.destroy');
+    Route::get('/price/upload',  [PriceController::class, 'upload'])->name('price.upload');
+    Route::post('/price/batch/store', PriceBatchUploadController::class)->name('price.batch-store');
 
     Route::get('/interline-price', [InterlinePriceController::class, 'index'])->name('interline-price.index');
     Route::get('/interline-price/fetch', [InterlinePriceController::class, 'fetch'])->name('interline-price.fetch');

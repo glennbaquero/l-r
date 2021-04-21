@@ -78,7 +78,7 @@ class TicketController extends Controller
 
         foreach ($stops as $stop) {
             if(!collect($trips)->contains('route', $stop->route)) {
-                $availableTrips = $stop->route->trips()->where('date', '>', now());
+                $availableTrips = $stop->route->trips()->where('date', '>=', now());
                 if($availableTrips->count()) {
                     if(!collect($trips)->contains('trips', $availableTrips->get())) {
                         array_push($trips, [
@@ -181,7 +181,8 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find($id);
         $ticket->update([
-            'status' => 'On Board'
+            'boarding_status' => 'On Board',
+            'payment_status' => 'Paid',
         ]);
 
         return redirect()->route('dashboard');

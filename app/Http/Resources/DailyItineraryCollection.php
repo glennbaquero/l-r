@@ -43,9 +43,9 @@ class DailyItineraryCollection extends ResourceCollection
                 'departure_price' => number_format($trip->route->departure->departure_prices()->first()->departure_price, 2, '.', ','),
                 'arrival_price' => number_format($trip->route->stops()->latest()->orderby('id', 'desc')->first()->arrival->arrival_prices()->first()->arrival_price, 2, '.', ','),
                 'service' => $trip->service->name,
-                'available' => 0,
-                'seat_reserved' => 0,
-                'sold' => 0,
+                'available' => $trip->getAvailableSeat(),
+                'seat_reserved' => $trip->tickets()->where('payment_status', 'Reserved')->count(),
+                'sold' => $trip->tickets()->where('payment_status', 'Paid')->count(),
             ];
         });
     }

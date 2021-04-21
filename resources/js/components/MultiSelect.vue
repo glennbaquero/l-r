@@ -46,7 +46,9 @@
 			name_2: {
 				default: '',
 				type: String
-			}
+			},
+
+			stop: Object
 
 		},
 
@@ -88,22 +90,21 @@
 		},
 
 		mounted() {
+			setTimeout(() => {
+				if(!_.isEmpty(this.selectedValue) || this.selectedValue) {
+					if(this.multiple) {
+						_.each(this.selectedValue, (selected) => {
+							var item = _.find(this.items, (item) => { return item.id == selected });
 
-
-			if(!_.isEmpty(this.selectedValue) || this.selectedValue) {
-
-
-				if(this.multiple) {
-					_.each(this.selectedValue, (selected) => {
-						var item = _.find(this.items, (item) => { return item.id == selected });
-
-						this.selectedItem.push(item);
-					});
-				} else {
-					this.selectedItem = _.find(this.items, (item) => { return item.id == this.selectedValue});
+							this.selectedItem.push(item);
+						});
+					} else {
+						this.selectedItem = _.find(this.items, (item) => { return item.id == this.selectedValue});
+					}
+					
 				}
-				
-			}
+			}, 1000)
+			
 		},
 
 		methods: {
@@ -112,6 +113,12 @@
 					setTimeout(() => {
 						this.$parent.selectChanged(this.items, this.selected, 'baggage')
 					}, 500)
+				}
+
+				if(!_.isEmpty(this.stop)) {
+					setTimeout(() => {
+						this.stop.route_id = this.selected
+					}, 1000)
 				}
 				
 			}

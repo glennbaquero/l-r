@@ -7,6 +7,9 @@
             <div class="flex text-base items-center">
                 <a href="{{ route('price.create') }}" class="inline-flex font-normal items-center px-4 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue transition ease-in-out duration-150">
                     {{__('New Price')}}
+                </a> &nbsp;
+                <a href="{{ route('city.upload') }}" class="inline-flex font-normal items-center px-4 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue transition ease-in-out duration-150">
+                    {{__('Batch Upload')}}
                 </a>
             </div>
         </div>

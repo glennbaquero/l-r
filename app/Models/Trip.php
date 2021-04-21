@@ -181,4 +181,27 @@ class Trip extends Model
 
         return $ticket_list;
     }
+
+    /**
+     * Get bus seat available
+     */
+    
+    public function getAvailableSeat()
+    {
+        $available = 0;
+        foreach ($this->bus->bus_model->bus_rows as $row) {
+            foreach ($row->bus_columns as $column) {
+                foreach($this->passengers as $passenger) {
+                    if($column->label != null || $column->label != '') {
+                        if($passenger->bus_model_column_id != $column->id) {
+                            $available += 1;
+                        }
+                    }
+                }
+            }
+           // array_push($available, $row->bus_columns);
+        }
+
+        return $available;
+    }
 }

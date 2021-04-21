@@ -68,10 +68,10 @@
                                     <x-select :lists="$buses" name="bus_id"  oldValue="{{ old('bus_id') }}"/>
                                 </div>
 
-                                <div class="col-span-2 sm:col-span-2">
+                                {{-- <div class="col-span-2 sm:col-span-2">
                                     <x-label for="crew_id" class="font-semibold">Crew</x-label>
                                     <x-select :lists="$crews" name="crew_id"  oldValue="{{ old('crew_id') }}"/>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="driver_id" class="font-semibold">Driver</x-label>
@@ -83,16 +83,20 @@
                                     <x-select :lists="$drivers" name="main_co_driver_id" display="fullname"  oldValue="{{ old('main_co_driver_id') }}"/>
                                 </div>
 
-                                <div class="col-span-2 sm:col-span-2">
+
+                                {{-- <div class="col-span-2 sm:col-span-2">
                                     <template v-if="display">
                                         <x-label for="secondary_co_driver_id" class="font-semibold">Secondary Co-Driver</x-label>
                                         <x-select :lists="$drivers" name="secondary_co_driver_id" display="fullname"  oldValue="{{ old('secondary_co_driver_id') }}"/>
                                     </template>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="assistant_id" class="font-semibold">Assistant</x-label>
                                     <x-select :lists="$assistants" name="assistant_id" oldValue="{{ old('assistant_id') }}"/>
+                                </div>
+                                
+                                <div class="col-span-2 sm:col-span-2">
                                 </div>
 
                                 <div class="col-span-2 sm:col-span-2">
