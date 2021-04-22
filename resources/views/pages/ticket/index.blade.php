@@ -20,6 +20,7 @@
                             fetch-bus-url="{{ route('ticket.fetch-bus') }}"
                             search-passenger-url="{{ route('ticket.fetch-passengers') }}"
                             payment-form-url="{{ route('ticket.store') }}"
+                            coupon-validate-url="{{ route('ticket.coupon-validate') }}"
                         ></ticket>
                     </x-slot>
 

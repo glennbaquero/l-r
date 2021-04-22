@@ -50,7 +50,9 @@
 					departure_id: this.$parent.payloads.departure_id,
 					payment_method: this.$parent.payment.payment_method,
 					total_sale: this.$parent.totalSale,
-					action: this.action
+					has_coupon: !_.isEmpty(this.$parent.coupon),
+					coupon_used: !_.isEmpty(this.$parent.coupon) ? this.$parent.coupon.id : this.$parent.coupon,
+					action: this.action,
 				}
 
 				axios.post(this.$parent.paymentFormUrl, payloads)

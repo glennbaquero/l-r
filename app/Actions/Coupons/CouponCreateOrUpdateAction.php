@@ -56,7 +56,7 @@ class CouponCreateOrUpdateAction
 				$this->coupon = Coupon::withTrashed()->findOrFail($id);
 				$this->coupon->update($request->except(['route_ids', 'service_ids', 'ticket_type_ids', 'arrival_id', 'departure_id']));
 
-				$this->promotion->generalRoutes()->forceDelete();
+				$this->coupon->generalRoutes()->forceDelete();
 
 			}
 			$this->coupon->services()->sync(json_decode($request->service_ids));

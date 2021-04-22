@@ -41,6 +41,13 @@
 		<loading
 			:show="loading"
 		></loading>
+		
+		<modal
+			:bodyMessage="modalMessage"
+			:headerTitle="modalTitle"
+			:show="showModal"
+			@closeModal="showModal = false"
+		></modal>
 	</div>
 </template>
 <script>
@@ -51,6 +58,7 @@
 	import FormStepFive from './form-step/FormStepFive.vue';
 	import FinalForm from './form-step/FinalForm.vue';
 	import Loading from './Loading.vue';
+	import Modal from './Modal.vue';
 
 	export default {
 		name: 'Ticket',
@@ -68,8 +76,12 @@
 				passenger_info: {},
 
 				payment:{},
+				coupon:{},
 				totalSale: 0,
-				loading: false
+				loading: false,
+				modalMessage: '',
+				modalTitle: '',
+				showModal: false,
 			}
 		},
 
@@ -80,6 +92,7 @@
 			fetchBusUrl: String,
 			searchPassengerUrl: String,
 			paymentFormUrl: String,
+			couponValidateUrl: String,
 		},
 
 		render() {
@@ -96,6 +109,7 @@
 			FormStepFive,
 			FinalForm,
 			Loading,
+		    Modal,
 		},
 
 		methods: {

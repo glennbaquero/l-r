@@ -18,6 +18,11 @@ class Coupon extends Model
      * @var array
      */
     protected $guarded = [];
+    
+    protected $casts = [
+       'trip_days' => 'array',
+    ];
+
 
 	/**
 	 * Trip Type const

@@ -443,6 +443,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/ticket/get/bus', [TicketController::class, 'getBus'])->name('ticket.fetch-bus');
     Route::post('/ticket/get/passengers', [TicketController::class, 'getPassenger'])->name('ticket.fetch-passengers');
     Route::post('/ticket/store', TicketCreateController::class)->name('ticket.store');
+    Route::post('/ticket/coupon/validate', [TicketController::class, 'couponValidate'])->name('ticket.coupon-validate');
 
     Route::get('/city', [CityController::class, 'index'])->name('city.index');
     Route::get('/city/fetch', [CityController::class, 'fetch'])->name('city.fetch');

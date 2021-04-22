@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Ticket;
 use App\Models\Passenger;
+use App\Models\Coupon;
 
 class TicketCreateOrUpdateAction 
 {
@@ -55,14 +56,18 @@ class TicketCreateOrUpdateAction
 			$request['passenger_id'] = $passenger->id;
 
 			if(!$id) {
-				$this->ticket = $this->ticket->create($request->except(['passenger', 'action']));
+				$this->ticket = $this->ticket->create($request->except(['passenger', 'action', 'coupon_used', 'has_coupon']));
 			} else {
 				$this->ticket = Ticket::withTrashed()->findOrFail($id);
-				$this->ticket->update($request->except(['passenger', 'action']));
+				$this->ticket->update($request->except(['passenger', 'action', 'coupon_used', 'has_coupon']));
 			}
 
+			if($request->has_coupon) {
+				$coupon = Coupon::find($request->coupon_used);
+				$coupon->increment('coupon_used');
+				$coupon->decrement('coupon_available');
+			}
 
-			
 		DB::commit();
 
 
