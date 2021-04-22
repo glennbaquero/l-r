@@ -14,6 +14,9 @@ use App\Models\Stop;
 use App\Models\Trip;
 use App\Models\Passenger;
 use App\Models\Price;
+use App\Models\Coupon;
+
+use Carbon\Carbon;
 
 class TicketController extends Controller
 {    
@@ -186,6 +189,50 @@ class TicketController extends Controller
         ]);
 
         return redirect()->route('dashboard');
+    }
+
+    public function couponValidate(Request $request)
+    {
+        $dayOfTrip = Carbon::parse($request->trip_date)->format('l');
+
+        $coupon = Coupon::where('code', $request->code)->where('trip_date', '<=', $request->trip_date)->where('trip_end_date', '>=', $request->trip_date)->whereNotIn('coupon_available', [0])->first();
+
+        if(!$coupon) {
+            return response()->json([
+                'title' => 'Coupon validate failed!',
+                'message' => 'Sorry, the code is not available.',
+                'success' => false
+            ]);
+        }
+
+        $validateRouteisAvailable = $coupon->routes()->where('route_id', $request->route_id)->count();
+
+        if(!$validateRouteisAvailable) {
+            return response()->json([
+                'title' => 'Coupon validate failed!',
+                'message' => 'Sorry, the code is not available.',
+                'success' => false
+            ]);
+        }
+
+        $trip_days = is_array($coupon->trip_days) ? $coupon->trip_days : json_decode($coupon->trip_days);
+
+        foreach ($trip_days as $key => $available_day) {
+            if($dayOfTrip == $available_day) {
+                return response()->json([
+                    'coupon' => $coupon,
+                    'success' => true,
+                    'title' => 'Coupon validate success!',
+                    'message' => 'Coupon applied!'
+                ]);
+            }
+        }
+
+        return response()->json([
+            'title' => 'Coupon validate failed!',
+            'message' => 'Sorry, the code is not available.',
+            'success' => false
+        ]);
     }
 
 }

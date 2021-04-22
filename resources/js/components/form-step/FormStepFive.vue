@@ -27,10 +27,10 @@
 
 				<div class="bg-white gap-1 grid grid-cols-3 mt-4 mx-auto p-1 rounded w-60">
 					<div class="col-span-2 sm:col-span-2">
-						<input type="text" placeholder="Apply Discount" class="rounded border-transparent duration-150 ease-in-out form-input outline-none w-full">
+						<input type="text" placeholder="Apply Discount" class="rounded border-transparent duration-150 ease-in-out form-input outline-none w-full" v-model="coupon_code">
 					</div>
 					<div class="col-span-1 sm:col-span-1">
-						<button tabindex="3" type="button" class="active:bg-lighterblue bg-lightblue border border-transparent flex focus:shadow-outline-lighterblue h-9 hover:bg-lighterblue justify-center mt-0.5 mx-auto my-auto px-4 py-2 rounded text-sm text-white w-full">
+						<button tabindex="3" type="button" class="active:bg-lighterblue bg-lightblue border border-transparent flex focus:shadow-outline-lighterblue h-9 hover:bg-lighterblue justify-center mt-0.5 mx-auto my-auto px-4 py-2 rounded text-sm text-white w-full" @click="validateCoupon">
 						    Apply
 						</button>
 					</div>
@@ -60,7 +60,10 @@
 				payment: {
 					payment_method: 'Cash',
 					cash: this.$parent.price.maximum_price,
-				}
+				},
+				coupon_code: null,
+
+				coupon: {},
 			}
 		},
 
@@ -81,6 +84,20 @@
 					total = this.payment.cash - parseFloat(ticket_type.discount);
 				}
 
+				if(!_.isEmpty(this.coupon)) {
+					var discount = this.coupon.value;
+
+					switch(this.coupon.coupon_type) {
+						case 'Percentage': 
+							discount = discount / 100;
+							total = discount * total;
+							break;
+						default: 
+							total = total - discount;
+							break;
+					}
+				}
+
 				return total;
 			},
 
@@ -95,9 +112,30 @@
 
 				this.$parent.payment = this.payment;
 				this.$parent.totalSale = this.totalSale;
+				this.$parent.coupon = this.coupon;
 				
 				this.$emit('nextStep', 6);
 			},
+
+			validateCoupon() {
+				this.$parent.loading = true;
+
+				var payload = {
+					code: this.coupon_code,
+					trip_date: this.$parent.payloads.trip.date,
+					route_id: this.$parent.payloads.trip.route_id
+				}
+				axios.post(this.$parent.couponValidateUrl, payload)
+					.then(response => {
+						this.$parent.loading = false;
+						this.coupon = response.data.coupon;
+						this.$parent.showModal = true;
+						this.$parent.modalMessage = response.data.message; 
+						this.$parent.modalTitle = response.data.title; 
+					}).catch(errors => {
+						this.$parent.loading = false;
+					})
+			}
 
 
 			// paymentFormHandler() {
