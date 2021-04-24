@@ -76,7 +76,7 @@
 				passenger_info: {},
 
 				payment:{},
-				coupon:{},
+				voucher:{},
 				totalSale: 0,
 				loading: false,
 				modalMessage: '',
@@ -92,7 +92,7 @@
 			fetchBusUrl: String,
 			searchPassengerUrl: String,
 			paymentFormUrl: String,
-			couponValidateUrl: String,
+			voucherValidateUrl: String,
 		},
 
 		render() {

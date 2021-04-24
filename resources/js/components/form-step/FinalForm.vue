@@ -50,8 +50,8 @@
 					departure_id: this.$parent.payloads.departure_id,
 					payment_method: this.$parent.payment.payment_method,
 					total_sale: this.$parent.totalSale,
-					has_coupon: !_.isEmpty(this.$parent.coupon),
-					coupon_used: !_.isEmpty(this.$parent.coupon) ? this.$parent.coupon.id : this.$parent.coupon,
+					has_voucher: !_.isEmpty(this.$parent.voucher),
+					voucher_code: !_.isEmpty(this.$parent.voucher) ? this.$parent.voucher.code : this.$parent.voucher,
 					action: this.action,
 				}
 

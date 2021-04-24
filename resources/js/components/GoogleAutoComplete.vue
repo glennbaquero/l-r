@@ -8,6 +8,8 @@
 
 	    props: {
 	    	item: Object,
+	        modified: Boolean,
+
 	    },
 
 		data:() => ({
@@ -39,6 +41,16 @@
  			// Methods from mixins google auto complete places
  			if(!_.isEmpty(this.item)) {
  				this.address = this.item;
+
+ 				if(this.modified) {
+ 					this.address = {
+ 						address_line_1: this.item.name,
+ 						city: this.item.name,
+ 						/* Get only the timezone for main address */
+ 						latitude: this.item.latitude,
+ 						longitude: this.item.longitude,
+ 					}
+ 				}
  			}
 
  			if(document.getElementById("latitude") && document.getElementById("longitude") && _.isEmpty(this.item)) {

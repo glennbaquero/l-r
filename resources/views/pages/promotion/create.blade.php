@@ -3,7 +3,7 @@
         <div class="flex items-center">
             <div class="text-base mr-auto">
 
-                <x-breadcrumb currentModule="{{__('Frequent Passenger Management')}}" route="{{ route('promotion.index') }}"></x-breadcrumb>
+                <x-breadcrumb currentModule="{{__('Frequent Traveler Management')}}" route="{{ route('promotion.index') }}"></x-breadcrumb>
             </div>
         </div>
 

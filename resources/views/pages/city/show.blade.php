@@ -29,14 +29,14 @@
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
 
-                    <google-auto-complete v-slot="{ address }" :item="{{$city}}">
+                    <google-auto-complete v-slot="{ address }" :item="{{$city}}" :modified="true">
                         <form action="{{ route('city.update', $city->id) }}" method="POST">
                             @csrf
                     
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-12 sm:col-span-12">
                                     <x-label for="name" class="font-semibold">Name</x-label>
-                                    <x-form-input type="text" name="name" id="autocomplete" v-model="address.name" />
+                                    <x-form-input type="text" name="name" id="autocomplete" v-model="address.city" />
                                 </div>
                             </div>
 

@@ -6,7 +6,7 @@
             </div>
         </div>
 
-        <div class="mt-12 mx-auto w-3/4">
+        <div class="mt-12 mx-auto">
             <div class="sm:rounded-lg">
                 <seat-transfer
                     :cities="{{ $cities }}"

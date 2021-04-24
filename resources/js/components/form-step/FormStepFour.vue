@@ -122,7 +122,7 @@
 		computed: {
 			disabledNextButton() {
 				if(!_.isEmpty(this.passenger_info.first_name) && !_.isEmpty(this.passenger_info.last_name) && !_.isEmpty(this.passenger_info.phone_number)
-					&& !_.isEmpty(this.passenger_info.no_of_bags) && !_.isEmpty(this.passenger_info.ticket_type)) {
+					&& !_.isEmpty(this.passenger_info.ticket_type)) {
 					return false;	
 				} 
 
