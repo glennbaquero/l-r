@@ -28,6 +28,9 @@
                                 <x-header-sub-link link="{{route('discount-option.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Promotion Option</x-slot>
                                 </x-header-sub-link>
+                                <x-header-sub-link link="{{route('promotion.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                    <x-slot name="name">Frequent Traveler Management</x-slot>
+                                </x-header-sub-link>
                                 <x-header-sub-link link="{{route('open-cash.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Open / Close Till</x-slot>
                                 </x-header-sub-link>

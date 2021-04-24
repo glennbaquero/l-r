@@ -29,7 +29,7 @@
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-12 sm:col-span-12">
                                     <x-label for="name" class="font-semibold">Name</x-label>
-                                    <x-form-input type="text" name="name" id="autocomplete" v-model="address.address_line_1" />
+                                    <x-form-input type="text" name="name" id="autocomplete" v-model="address.city" />
                                 </div>
                             </div>
 

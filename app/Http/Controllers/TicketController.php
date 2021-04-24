@@ -15,6 +15,7 @@ use App\Models\Trip;
 use App\Models\Passenger;
 use App\Models\Price;
 use App\Models\Coupon;
+use App\Models\Voucher;
 
 use Carbon\Carbon;
 
@@ -191,6 +192,7 @@ class TicketController extends Controller
         return redirect()->route('dashboard');
     }
 
+/*
     public function couponValidate(Request $request)
     {
         $dayOfTrip = Carbon::parse($request->trip_date)->format('l');
@@ -230,6 +232,65 @@ class TicketController extends Controller
 
         return response()->json([
             'title' => 'Coupon validate failed!',
+            'message' => 'Sorry, the code is not available.',
+            'success' => false
+        ]);
+    }
+*/
+
+    public function voucherValidate(Request $request)
+    {
+
+        $voucher = Voucher::where('code', $request->code)->whereDate('expiration_date', '>', $request->trip_date)->first();
+
+        if(!$voucher) {
+            return response()->json([
+                'title' => 'Voucher validate failed!',
+                'message' => 'Sorry, the code is not available.',
+                'success' => false
+            ]);
+        }
+
+        if($voucher->passenger->fullname == $request->passenger) {
+            /**
+             * @ToDo passenger id in ticket model so that we can summarize the voucher used via tickets
+             */
+            $voucher_used_by_passenger = Ticket::where('voucher_code', $request->code)->count();
+
+            if($voucher->type_of_voucher === 'Max. Ticket % Discount') {
+
+                if($voucher_used_by_passenger < $voucher->max_no_of_discount_ticket) {
+                    $discount = $voucher->discount_percent / 100;
+                } else {
+                    return response()->json([
+                        'title' => 'Voucher validate failed!',
+                        'message' => 'Sorry, the code is reached the max usage.',
+                        'success' => false
+                    ]);
+                }
+
+            } else {
+                $discount = $voucher->amount;
+            }
+
+            return response()->json([
+                'voucher' => $voucher,
+                'discount' => $discount,
+                'success' => true,
+                'title' => 'Voucher validate success!',
+                'message' => 'Voucher applied!'
+            ]);
+        } else {
+            return response()->json([
+                'title' => 'Voucher validate failed!',
+                'message' => 'Sorry, the code is not for the passenger.',
+                'success' => false
+            ]);
+        }
+
+
+        return response()->json([
+            'title' => 'Voucher validate failed!',
             'message' => 'Sorry, the code is not available.',
             'success' => false
         ]);
