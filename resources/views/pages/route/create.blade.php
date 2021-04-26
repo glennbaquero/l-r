@@ -23,7 +23,7 @@
         <div class="mt-12 mx-auto w-3/4">
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
-                    <route-table v-slot="{ stops, addNewStop, removeStop, departureRouteChanged, arrivalChanged, convertToJSON, tripLengthTotal, waitTimeTotal, totalDistance, origin, destination, waypoints, firstDeparture, getAllPlaceLocation }" :cities="{{ $cities }}" has-error="{{ $errors->any() ?? 0 }}">
+                    <route-table v-slot="{ stops, addNewStop, removeStop, departureRouteChanged, arrivalChanged, convertToJSON, tripLengthTotal, waitTimeTotal, totalDistance, origin, destination, waypoints, firstDeparture, getAllPlaceLocation, loading }" :cities="{{ $cities }}" has-error="{{ $errors->any() ?? 0 }}">
                         <form action="{{ route('route.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 

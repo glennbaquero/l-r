@@ -29,7 +29,7 @@
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
                     
-                    <multi-route-table v-slot="{ stops, addNewStop, removeStop, arrivalChanged, convertToJSON, routes }" :cities="{{ $cities }}" :available-routes="{{ $routes }}" :item="{{ $route }}" :route-stops="{{ $route->stops }}">
+                    <multi-route-table v-slot="{ stops, addNewStop, removeStop, arrivalChanged, convertToJSON, routes, loading }" :cities="{{ $cities }}" :available-routes="{{ $routes }}" :item="{{ $route }}" :route-stops="{{ $route->stops }}">
                         <form action="{{ route('multi-route.update', $route->id) }}" method="POST">
                             @csrf
                             <div class="grid grid-cols-4 gap-4 mb-2">

@@ -28,7 +28,7 @@
         <div class="mt-12 mx-auto w-3/4">
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
-                    <route-table v-slot="{ stops, addNewStop, removeStop, departureRouteChanged, arrivalChanged, convertToJSON, tripLengthTotal, waitTimeTotal, totalDistance, origin, destination, waypoints }" :cities="{{ $cities }}" :item="{{ $route }}" :route-stops="{{ $route->stops }}">
+                    <route-table v-slot="{ stops, addNewStop, removeStop, departureRouteChanged, arrivalChanged, convertToJSON, tripLengthTotal, waitTimeTotal, totalDistance, origin, destination, waypoints, loading }" :cities="{{ $cities }}" :item="{{ $route }}" :route-stops="{{ $route->stops }}">
                         <form action="{{ route('route.update', $route->id) }}" method="POST">
                             @csrf
 

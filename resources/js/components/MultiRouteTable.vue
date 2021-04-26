@@ -24,7 +24,8 @@
 					}
 				],
 
-				routes: []
+				routes: [],
+				loading: false
 			}
 		},
 
@@ -36,6 +37,7 @@
 		        arrivalChanged: this.arrivalChanged,
 		        convertToJSON: this.convertToJSON,
 		        routes: this.routes,
+		        loading: this.loading,
 		    });
 		},
 

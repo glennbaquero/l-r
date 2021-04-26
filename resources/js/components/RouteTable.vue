@@ -41,6 +41,8 @@
 				},
 
 				waypoints: [],
+
+				loading: false
 			}
 		},
 
@@ -59,6 +61,7 @@
 		        origin: this.origin,
 		        destination: this.destination,
 		        getAllPlaceLocation: this.getAllPlaceLocation,
+	            loading: this.loading,
 		    });
 		},
 
