@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Traits\QueryLike;
 
+use Carbon\Carbon;
+
 class Trip extends Model
 {
     use HasFactory, QueryLike, SoftDeletes;
@@ -18,6 +20,13 @@ class Trip extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Append additional attributes
+     * 
+     * @var array
+     */
+    protected $appends = ['display_trip_name', 'formatted_date', 'formatted_time'];
 
     /**
      * Trip belongs to route
@@ -100,6 +109,16 @@ class Trip extends Model
     }
 
     /**
+     * Trip has many tickets
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    /**
      * Trip has many passengers
      * 
      * @return Illuminate\Database\Eloquent\Relations\HasMany
@@ -107,5 +126,82 @@ class Trip extends Model
     public function passengers()
     {
         return $this->hasMany(Passenger::class);
+    }
+
+
+    /**
+     * Get display trip name
+     * 
+     * @return string
+     */
+    public function getDisplayTripNameAttribute()
+    {
+        return $this->date.'|'.Carbon::parse($this->time)->format('h:i A'). ' '.$this->alias_route;
+    }
+
+    /**
+     * append formatted date
+     * 
+     * @return string
+     */
+    public function getFormattedDateAttribute()
+    {
+        return Carbon::parse($this->date)->format('m-d-Y');
+    }
+
+    /**
+     * append formatted time
+     * 
+     * @return string
+     */
+    public function getFormattedTimeAttribute()
+    {
+        return Carbon::parse($this->time)->format('h:i A');
+    }
+
+    /**
+     * Get tickets sold in specific trip
+     */
+    
+    public function getTickets()
+    {
+        $ticket_list = [];
+        foreach ($this->tickets as $key => $ticket) {
+            array_push($ticket_list, [
+                'id' => $ticket->id,
+                'departure' => $ticket->departure->name,                
+                'arrival' => $ticket->arrival->name,                
+                'seat' => $ticket->seat->label,                
+                'ticket_type' => $ticket->passenger->ticketType->name,                
+                'passenger' => $ticket->passenger->fullname,                
+                'seller' => $ticket->seller->fullname,                
+                'office' => $ticket->seller->office->name,                
+            ]);
+        }
+
+        return $ticket_list;
+    }
+
+    /**
+     * Get bus seat available
+     */
+    
+    public function getAvailableSeat()
+    {
+        $available = 0;
+        foreach ($this->bus->bus_model->bus_rows as $row) {
+            foreach ($row->bus_columns as $column) {
+                foreach($this->passengers as $passenger) {
+                    if($column->label != null || $column->label != '') {
+                        if($passenger->bus_model_column_id != $column->id) {
+                            $available += 1;
+                        }
+                    }
+                }
+            }
+           // array_push($available, $row->bus_columns);
+        }
+
+        return $available;
     }
 }

@@ -1,4 +1,4 @@
-@props(['hasFooter' => true, 'maxWidth' => 'max-w-7xl'])
+@props(['hasFooter' => true, 'maxWidth' => 'max-w-7xl', 'hasHeader' => true])
 
 <toggle v-slot="{ display, toggled, toggleFalse }">
     <div>
@@ -9,14 +9,16 @@
 
                 <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     <!--header-->
-                    <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                        <h3 class="text-3xl font-semibold">
-                            {{ $title ?? '' }}
-                        </h3>
-                        <a href="#" @click="toggled()">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </a>
-                    </div>
+                    @if($hasHeader)
+                        <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                            <h3 class="text-3xl font-semibold">
+                                {{ $title ?? '' }}
+                            </h3>
+                            <a href="#" @click="toggled()">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </a>
+                        </div>
+                    @endif
 
                     <!--body-->
                     <div class="relative p-6 flex-auto">

@@ -84,4 +84,35 @@ class OfficeController extends Controller
             'office' => $office
         ]);
     }
+
+    /**
+     * Show open/close office page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function openClose()
+    {
+        $office = auth()->user()->office;
+        return view('pages.office.openclose', [
+            'office' => $office
+        ]);
+    }
+
+    /**
+     * update to close/open the office
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function officeOpenClose($id)
+    {
+        $office = Office::withTrashed()->findOrFail($id);
+
+        $office_status = $office->close_office;
+
+        $office->update([
+            'close_office' => $office_status ? false : true
+        ]);
+
+        return back();
+    }
 }

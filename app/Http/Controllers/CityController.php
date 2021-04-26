@@ -84,7 +84,4 @@ class CityController extends Controller
             //
         ]);
     }
-
-
-
 }

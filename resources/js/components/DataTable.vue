@@ -1,7 +1,14 @@
 <script>
+
+import Loading from './Loading.vue'
+
 export default {
     name: 'DataTable',
-    
+
+    components: {
+        Loading
+    },
+
     props: {
         searches: {type: Array},
         url: { type: String },
@@ -14,6 +21,10 @@ export default {
         links: {},
         meta: {},
         baseUrl: null,
+
+        selectedAll: false,
+
+        loading: false,
     }),
 
     mounted() {
@@ -28,7 +39,10 @@ export default {
             links: this.links,
             meta: this.meta,
             prev: this.prev,
-            next: this.next
+            next: this.next,
+
+            selectAllHandler: this.selectAllHandler,
+            loading: this.loading,
         });
     },
 
@@ -58,14 +72,17 @@ export default {
         },
 
         fetch() {
+            this.loading = true;
             axios.get(this.baseUrl)
                 .then(response => {
                     this.data = response.data.data;
                     this.links = response.data.links;
                     this.meta = response.data.meta;
+                    this.loading = false;
                 })
                 .catch(error => {
                     console.log(error.response.data);
+                    this.loading = false;
                 })
         },
 
@@ -79,6 +96,14 @@ export default {
             this.page++;
 
             this.createUrl();
+        },
+
+        selectAllHandler() {
+            this.selectedAll = !this.selectedAll;
+            
+            _.each(this.data, (data) => {
+                data.is_selected = this.selectedAll;
+            })
         }
     }
 }

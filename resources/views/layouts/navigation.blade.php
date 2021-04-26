@@ -13,7 +13,7 @@
 
                 <!-- Navigation Links -->
                 <div class="2xl:space-x-6 xl:space-x-3 sm:-my-px ml-3 sm:flex text-sm text-center">
-                    <x-nav-link>
+                    <x-nav-link route="{{route('ticket.index')}}">
                         <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 -5 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.77778 4H20.2222V12H5.77778V4ZM23.8333 8C23.8333 9.10458 24.8034 10 26 10V14C26 15.1046 25.03 16 23.8333 16H2.16667C0.970035 16 0 15.1046 0 14V10C1.19663 10 2.16667 9.10458 2.16667 8C2.16667 6.89542 1.19663 6 0 6V2C0 0.895416 0.970035 0 2.16667 0H23.8333C25.03 0 26 0.895416 26 2V6C24.8034 6 23.8333 6.89542 23.8333 8ZM21.6667 3.66667C21.6667 3.11437 21.1816 2.66667 20.5833 2.66667H5.41667C4.81835 2.66667 4.33333 3.11437 4.33333 3.66667V12.3333C4.33333 12.8856 4.81835 13.3333 5.41667 13.3333H20.5833C21.1816 13.3333 21.6667 12.8856 21.6667 12.3333V3.66667Z" fill="#001943"/>
                         </svg>        
@@ -25,17 +25,21 @@
                         </svg>                                
                         <span>{{ __('Luggage') }}</span>
                     </x-nav-link>
-                    <x-nav-link>
+                    <x-nav-link route="{{route('seat-transfer.index')}}">
                         <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0 21.6667L0 26H4.5L4.5 21.6667L19.5 21.6667V26H24V17.3333L0 17.3333L0 21.6667ZM19.5 14.4444L4.5 14.4444L4.5 2.88889C4.5 1.3 5.85 0 7.5 0L16.5 0C18.15 0 19.5 1.3 19.5 2.88889L19.5 14.4444Z" fill="#001943"/>
                         </svg>                                                       
                         <span>{{ __('Seat Transfer') }}</span>
                     </x-nav-link>
-                    <x-nav-link>
+                    <x-nav-link route="{{route('frequent-traveler.index')}}">
                         <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 5.92105C6 9.18553 8.692 11.8421 12 11.8421C15.308 11.8421 18 9.18553 18 5.92105C18 2.65658 15.308 0 12 0C8.692 0 6 2.65658 6 5.92105ZM22.6667 25H24V23.6842C24 18.6066 19.812 14.4737 14.6667 14.4737H9.33333C4.18667 14.4737 0 18.6066 0 23.6842V25H22.6667Z" fill="#001943"/>
                         </svg>                                                                                 
                         <span>{{ __('Frequent Tr.') }}</span>
+                    </x-nav-link>
+                    <x-nav-link route="{{route('travel-expense.index')}}">
+                        <svg class="mx-auto mb-1 w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span>{{ __('Travel Expenses') }}</span>
                     </x-nav-link>
                     <x-nav-link>
                         <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">

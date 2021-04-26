@@ -1,4 +1,5 @@
 window._ = require('lodash');
+window.haversine = require('haversine-distance');
 window.Vue = require('vue');
 
 import moment from 'moment';

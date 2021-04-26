@@ -1,4 +1,5 @@
 <script>
+
 	export default {
 		name: 'route-table',
 
@@ -7,6 +8,10 @@
 
 			item: Object,
 			routeStops: Array,
+			hasError: {
+				default: 0,
+				type: String
+			}
 		},
 
 		data() {
@@ -23,6 +28,19 @@
 						new: true
 					}
 				],
+
+				firstDeparture: null,
+
+				departure: {
+					longitude: 0,
+					latitude: 0
+				},
+				arrival: {
+					longitude: 0,
+					latitude: 0
+				},
+
+				waypoints: [],
 			}
 		},
 
@@ -37,6 +55,10 @@
 		        tripLengthTotal: this.tripLengthTotal,
 		        waitTimeTotal: this.waitTimeTotal,
 		        totalDistance: this.totalDistance,
+		        waypoints: this.waypoints,
+		        origin: this.origin,
+		        destination: this.destination,
+		        getAllPlaceLocation: this.getAllPlaceLocation,
 		    });
 		},
 
@@ -110,12 +132,61 @@
 
 				return totalDistance;
 
+			},
+
+			origin() {
+				var city = _.find(this.cities, (city) => { return city.id == this.stops[0].departure_id });
+
+				if(_.isEmpty(city)) {
+					city = {
+						longitude: -118.273402,
+						latitude: 34.04441
+					}
+				}
+
+				return city;
+			},
+
+			destination() {
+				var total_stops = this.stops.length;
+				var city = _.find(this.cities, (city) => { return city.id == this.stops[total_stops - 1].arrival_id });
+
+				if(_.isEmpty(city)) {
+					city = {
+						longitude: -118.273402,
+						latitude: 34.04441
+					}
+				}
+
+				return city;
+			}
+		},
+
+		watch: {
+			stops: {
+				handler(value) {
+					this.getAllPlaceLocation();
+					localStorage.setItem('stops', this.convertToJSON);
+				},
+
+				deep: true
 			}
 		},
 
 		mounted() {
 			if(!_.isEmpty(this.routeStops)) {
 				this.stops = this.routeStops;
+				
+				this.getAllPlaceLocation();
+			}
+
+
+			if(this.hasError == '1' || parseInt(this.hasError)) {
+				this.stops = JSON.parse(localStorage.getItem('stops'));
+
+				this.firstDeparture = this.stops.length ? this.stops[0].departure_id : null;
+
+				this.getAllPlaceLocation();
 			}
 		},
 
@@ -160,14 +231,64 @@
 			departureRouteChanged(value) {
 				var city = _.find(this.cities, (city) => { return city.id == value });
 				this.stops[0].departure_id = city.id;
+				this.departure = city;
+				this.firstDeparture = city.id;
+
+
+				// var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(this.departure.latitude, this.departure.longitude), new google.maps.LatLng(this.arrival.latitude, this.departure.longitude, this.arrival.longitude));
+
+				this.stops[0].distance = Math.round(((this.getDistance() / 1000) + Number.EPSILON) * 100) / 100;
 			},
 
 			arrivalChanged(key, value) {
 				var city = _.find(this.cities, (city) => { return city.id == value });
+				this.arrival = city;
+
+				// var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(this.departure.latitude, this.departure.longitude), new google.maps.LatLng(this.arrival.latitude, this.departure.longitude, this.arrival.longitude));
+
+				this.stops[key].distance = Math.round(((this.getDistance() / 1000) + Number.EPSILON) * 100) / 100;
+				
+				this.getAllPlaceLocation();
 
 				if(this.stops.length > key+1) {
 					this.stops[key+1].departure_id = city.id;
 				}
+			},
+
+
+			getDistance() {
+
+				return haversine(this.arrival, this.departure);
+
+				// var R = 6378137;
+				// var dLat = this.rad(this.arrival.latitude - this.departure.latitude);
+				// var dLong = this.rad(this.arrival.longitude - this.departure.longitude);
+				// var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+				//     Math.cos(this.rad(this.departure.latitude)) * Math.cos(this.rad(this.arrival.latitude)) *
+				//     Math.sin(dLong / 2) * Math.sin(dLong / 2);
+				//  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+				//  var d = R * c;
+				//  return d / 1000;
+			},
+
+			rad(latLong) {
+				return latLong * Math.PI / 180;
+			},
+
+			getAllPlaceLocation() {
+				this.waypoints = [];
+				_.each(this.stops, (stop, key) => {
+					if(stop.show) {
+						if(key >= 0 && this.stops.length != (key+1)) {
+							var city = _.find(this.cities, (city) => { return city.id == stop.arrival_id });
+							var waypoints = {
+								location: city.latitude+','+city.longitude,
+								stopover: true
+							}
+							this.waypoints.push(waypoints);
+						}
+					}	
+				})
 			}
 		}
 	}

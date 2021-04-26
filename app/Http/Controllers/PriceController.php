@@ -82,4 +82,16 @@ class PriceController extends Controller
         ]);
     }
 
+    /**
+     * Show batch upload page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function upload()
+    {
+        return view('pages.price.upload', [    
+            //
+        ]);
+    }
+
 }

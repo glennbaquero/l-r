@@ -59,6 +59,37 @@ class Passenger extends Model
     }
 
     /**
+     * Passenger belongs to Ticket Type
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function ticketType()
+    {
+        return $this->belongsTo(TicketType::class)->withTrashed();
+    }
+
+    /**
+     * Passenger has one ticket
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ticket()
+    {
+        return $this->hasOne(Ticket::class)->withTrashed();
+    }
+
+    /**
+     * Passenger has many vouchers
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function vouchers()
+    {
+        return $this->hasMany(Voucher::class);
+    }
+
+
+    /**
      * Get user fullname
      * 
      * @return string

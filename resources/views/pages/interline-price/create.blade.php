@@ -28,7 +28,7 @@
                         <div class="grid grid-cols-6 gap-6">
 
                             <div class="col-span-full sm:col-span-full">
-                                <x-label for="company_id" class="font-semibold">Company</x-label>
+                                <x-label for="company_id" class="font-semibold">Agency</x-label>
                                 <x-select :lists="$companies" name="company_id" oldValue="{{ old('company_id') }}"/>
                             </div>
 

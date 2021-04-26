@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Traits\QueryLike;
 
+use Carbon\Carbon;
+
 class Ticket extends Model
 {
     use HasFactory, QueryLike, SoftDeletes;
@@ -18,6 +20,13 @@ class Ticket extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Append additional attributes
+     * 
+     * @var array
+     */
+    protected $appends = ['formatted_purchase_date'];
 
 	/**
 	 * Ticket belongs to passenger
@@ -57,5 +66,46 @@ class Ticket extends Model
     public function arrival()
     {
         return $this->belongsTo(City::class, 'arrival_id', 'id')->withTrashed();
+    }
+
+    /**
+     * Ticket belongs to trip
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function trip()
+    {
+        return $this->belongsTo(Trip::class)->withTrashed();
+    }
+
+    /**
+     * Ticket belongs to Bus Column (seat)
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function seat()
+    {
+        return $this->belongsTo(BusModelColumn::class, 'bus_model_column_id', 'id')->withTrashed();
+    }
+
+
+    /**
+     * Get formatted purchase date
+     * 
+     * @return string
+     */
+    public function getFormattedPurchaseDateAttribute()
+    {
+        return Carbon::parse($this->purchase_date)->format('m-d-Y h:i A');
+    }
+
+    /**
+     * Get update status url
+     * 
+     * @return string
+     */
+    public function updateStatusUrl()
+    {
+        return route('ticket.scan-qr', [$this->id, $this->passenger->fullname, $this->arrival->name, $this->departure->name]);
     }
 }

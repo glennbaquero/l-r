@@ -7,7 +7,7 @@
         </div>
 
         <div class="mt-12 mx-auto">
-            <data-table v-slot="{ params, setParam, data, links, meta, next, prev }"
+            <data-table v-slot="{ params, setParam, data, links, meta, next, prev, loading }"
                         :searches="{{json_encode($searches)}}"
                         url="{{route('ticket-support.fetch')}}"
             >
@@ -157,6 +157,12 @@
                                     <input @input="setParam('passenger', $event.target.value)" name="passenger" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
+                                    <input @input="setParam('phone_number', $event.target.value)" name="phone_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
+                                </td>
+                                <td class="text-center border-b-2 border-gray-300 px-3">
+                                    <input @input="setParam('email', $event.target.value)" name="email" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
+                                </td>
+                                <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('document', $event.target.value)" name="document" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
@@ -187,6 +193,12 @@
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{ticket.passenger}}
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{ticket.phone_number}}
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{ticket.email}}
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{ticket.document}}
@@ -337,7 +349,7 @@
                                     <td colspan="2" class="px-6 py-2 whitespace-no-wrap text-left border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         Showing @{{meta.from}} to @{{meta.to}} of @{{meta.total}}
                                     </td>
-                                    <td colspan="11" class="px-6 py-2 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    <td colspan="13" class="px-6 py-2 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         <button @click="prev" class="relative inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 disabled:opacity-50" :disabled="!links.prev">
                                             Previous
                                         </button>

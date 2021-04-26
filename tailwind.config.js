@@ -19,6 +19,10 @@ module.exports = {
         require('tailwindcss-named-groups')
     ],
 
+    corePlugins: {
+        outline: false
+    },
+
     theme: {
         extend: {
             fontFamily: {
@@ -37,6 +41,10 @@ module.exports = {
                 'seat_reserve': "url('/icons/seat_reserve.png')",
                 'seat_available': "url('/icons/seat_available.png')",
                 'seat_double_sold': "url('/icons/seat_double_sold.png')",
+                'restroom': "url('/icons/restroom.png')",
+                'pwd_signage': "url('/icons/pwd_signage.png')",
+                'cabin': "url('/icons/cabin.png')",
+                'conductor': "url('/icons/conductor.png')",
             })
         },
 

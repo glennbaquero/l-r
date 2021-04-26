@@ -69,6 +69,18 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-span-2 sm:col-span-2">
+                                            <div class="flex items-stretch">
+                                                <div class="w-8/12">
+                                                    <a href="https://anydesk.com/en/downloads">
+                                                        <img src="{{ asset('icons/anydesk.png') }}" class="w-full">
+                                                    </a>
+                                                </div>
+                                                <div class="m-auto pl-2">
+                                                    <label class="text-sm">AnyDesk is a remote desktop application distributed by AnyDesk Software GmbH. The proprietary software program provides platform independent remote access to personal computers and other devices running the host application. It offers remote control, file transfer, and VPN functionality.</label>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </span>

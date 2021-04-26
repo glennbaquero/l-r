@@ -23,52 +23,59 @@
         <div class="mt-12 mx-auto w-3/4">
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
-                    <form action="{{ route('price.store') }}" method="POST">
-                        @csrf
-                        <div class="grid grid-cols-6 gap-6">
+                    <auto-compute :items="{{ $cities }}" v-slot="{ departurePrice, arrivalPrice, roundtripPrice, cityChange, basePrice, basePriceChangeHandler }" has-error="{{ $errors->any() ?? 0 }}">
+                        <form action="{{ route('price.store') }}" method="POST">
+                            @csrf
+                            <div class="grid grid-cols-6 gap-6">
 
-                            <div class="col-span-2 sm:col-span-2">
-                                <x-label for="departure_id" class="font-semibold">Departure</x-label>
-                                <x-select :lists="$cities" name="departure_id" oldValue="{{ old('departure_id') }}"/>
-                            </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="departure_id" class="font-semibold">Departure</x-label>
+                                    <x-select :lists="$cities" name="departure_id" id="departure_id" oldValue="{{ old('departure_id') }}" @change="cityChange($event.target.value, 'Departure')"/>
+                                </div>
 
-                            <div class="col-span-2 sm:col-span-2">
-                                <x-label for="arrival_id" class="font-semibold">Arrival</x-label>
-                                <x-select :lists="$cities" name="arrival_id" oldValue="{{ old('arrival_id') }}"/>
-                            </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="arrival_id" class="font-semibold">Arrival</x-label>
+                                    <x-select :lists="$cities" name="arrival_id" id="arrival_id" oldValue="{{ old('arrival_id') }}" @change="cityChange($event.target.value, 'Arrival')"/>
+                                </div>
 
-                            <div class="col-span-2 sm:col-span-2">
-                                <x-label for="currency_id" class="font-semibold">Currency</x-label>
-                                <x-select :lists="$currencies" name="currency_id" oldValue="{{ old('currency_id') }}"/>
-                            </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="currency_id" class="font-semibold">Currency</x-label>
+                                    <x-select :lists="$currencies" name="currency_id" oldValue="{{ old('currency_id') }}"/>
+                                </div>
 
-                            <div class="col-span-2 sm:col-span-2">
-                                <x-label for="arrival_price" class="font-semibold">Arrival Price</x-label>
-                                <x-form-input type="number" min="0" name="arrival_price" id="arrival_price" step="any" value="{{ old('arrival_price') }}" />
+                                <div class="col-span-6 sm:col-span-6">
+                                    <x-label for="price_per_mile" class="font-semibold">Price Per Mile</x-label>
+                                     <x-form-input type="number" min="0" name="price_per_mile" id="price_per_mile" step="any" value="{{ old('price_per_mile') }}" @change="basePriceChangeHandler($event.target.value)"/>
+                                </div>
+
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="departure_price" class="font-semibold">Departure Price</x-label>
+                                    <x-form-input type="number" min="0" name="departure_price" id="departure_price" step="any" v-model="departurePrice" />
+                                </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="arrival_price" class="font-semibold">Arrival Price</x-label>
+                                    <x-form-input type="number" min="0" name="arrival_price" id="arrival_price" step="any" v-model="arrivalPrice" />
+                                </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="round_trip_price" class="font-semibold">Round Trip Price</x-label>
+                                    <x-form-input type="number" min="0" name="round_trip_price" id="round_trip_price" step="any" v-model="roundtripPrice" />
+                                </div>
+                                <div class="col-span-4 sm:col-span-3">
+                                    <x-label for="minimum_price" class="font-semibold">Minimum Price</x-label>
+                                    <x-form-input type="number" min="0" name="minimum_price" id="minimum_price" step="any" value="{{ old('minimum_price') }}" />
+                                </div>
+                                <div class="col-span-4 sm:col-span-3">
+                                    <x-label for="maximum_price" class="font-semibold">Maximum Price</x-label>
+                                    <x-form-input type="number" min="0" name="maximum_price" id="maximum_price" step="any" value="{{ old('maximum_price') }}" />
+                                </div>
                             </div>
-                            <div class="col-span-2 sm:col-span-2">
-                                <x-label for="departure_price" class="font-semibold">Departure Price</x-label>
-                                <x-form-input type="number" min="0" name="departure_price" id="departure_price" step="any" value="{{ old('departure_price') }}" />
+                            <div class="mt-5 text-right">
+                                <button type="submit" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36">
+                                    Save
+                                </button>
                             </div>
-                            <div class="col-span-2 sm:col-span-2">
-                                <x-label for="round_trip_price" class="font-semibold">Round Trip Price</x-label>
-                                <x-form-input type="number" min="0" name="round_trip_price" id="round_trip_price" step="any" value="{{ old('round_trip_price') }}" />
-                            </div>
-                            <div class="col-span-4 sm:col-span-3">
-                                <x-label for="minimum_price" class="font-semibold">Minimum Price</x-label>
-                                <x-form-input type="number" min="0" name="minimum_price" id="minimum_price" step="any" value="{{ old('minimum_price') }}" />
-                            </div>
-                            <div class="col-span-4 sm:col-span-3">
-                                <x-label for="maximum_price" class="font-semibold">Maximum Price</x-label>
-                                <x-form-input type="number" min="0" name="maximum_price" id="maximum_price" step="any" value="{{ old('maximum_price') }}" />
-                            </div>
-                        </div>
-                        <div class="mt-5 text-right">
-                            <button type="submit" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36">
-                                Save
-                            </button>
-                        </div>
-                    </form>
+                        </form>
+                    </auto-compute>
                 </div>
             </div>
         </div>

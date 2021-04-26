@@ -85,6 +85,7 @@ use App\Http\Controllers\PriceController;
 use App\Http\Controllers\Prices\PriceCreateController;
 use App\Http\Controllers\Prices\PriceUpdateController;
 use App\Http\Controllers\Prices\PriceDeleteController;
+use App\Http\Controllers\Prices\PriceBatchUploadController;
 
 use App\Http\Controllers\InterlinePriceController;
 use App\Http\Controllers\InterlinePrices\InterlinePriceCreateController;
@@ -134,11 +135,61 @@ use App\Http\Controllers\Baggages\BaggageDeleteController;
 
 use App\Http\Controllers\TicketSupportController;
 
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\Tickets\TicketCreateController;
+
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\Cities\CityCreateController;
 use App\Http\Controllers\Cities\CityBatchUploadController;
 use App\Http\Controllers\Cities\CityUpdateController;
 use App\Http\Controllers\Cities\CityDeleteController;
+
+use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\Vouchers\VoucherCreateController;
+use App\Http\Controllers\Vouchers\VoucherBatchUploadController;
+use App\Http\Controllers\Vouchers\VoucherUpdateController;
+use App\Http\Controllers\Vouchers\VoucherDeleteController;
+
+use App\Http\Controllers\DiscountOptionController;
+use App\Http\Controllers\DiscountOptions\DiscountOptionCreateController;
+use App\Http\Controllers\DiscountOptions\DiscountOptionBatchUploadController;
+use App\Http\Controllers\DiscountOptions\DiscountOptionUpdateController;
+use App\Http\Controllers\DiscountOptions\DiscountOptionDeleteController;
+
+use App\Http\Controllers\ExpenseIncomeController;
+use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeCreateController;
+use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeBatchUploadController;
+use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeUpdateController;
+use App\Http\Controllers\ExpenseIncomes\ExpenseIncomeDeleteController;
+
+use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\Promotions\PromotionCreateController;
+use App\Http\Controllers\Promotions\PromotionBatchUploadController;
+use App\Http\Controllers\Promotions\PromotionUpdateController;
+use App\Http\Controllers\Promotions\PromotionDeleteController;
+
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\Coupons\CouponCreateController;
+use App\Http\Controllers\Coupons\CouponBatchUploadController;
+use App\Http\Controllers\Coupons\CouponUpdateController;
+use App\Http\Controllers\Coupons\CouponDeleteController;
+
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\Discounts\DiscountCreateController;
+use App\Http\Controllers\Discounts\DiscountBatchUploadController;
+use App\Http\Controllers\Discounts\DiscountUpdateController;
+use App\Http\Controllers\Discounts\DiscountDeleteController;
+
+use App\Http\Controllers\RouteAndMainDriverController;
+use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverCreateController;
+use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverBatchUploadController;
+use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverUpdateController;
+use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverDeleteController;
+
+use App\Http\Controllers\PassengerController;
+
+use App\Http\Controllers\OpenCashController;
+use App\Http\Controllers\SeatTransferController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -156,6 +207,9 @@ Route::auth();
 
 Route::get('/', function () { return redirect('/login'); });
 
+Route::get('/ticket/print/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'printTicket'])->name('ticket.print');
+Route::get('/ticket/scan-qr/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'scanTicketQR'])->name('ticket.scan-qr');
+
 Route::middleware(['auth'])->group(function() {
     Route::post('/locale', LocaleController::class)->name('locale');
 
@@ -168,6 +222,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/office/show/{id}', [OfficeController::class, 'show'])->name('office.show');
     Route::post('/office/update/{id}', OfficeUpdateController::class)->name('office.update');
     Route::post('/office/destroy/{id}', OfficeDeleteController::class)->name('office.destroy');
+    Route::get('/office/open-close', [OfficeController::class, 'openClose'])->name('office.open-close');
+    Route::get('/office/open-close/update/{id}', [OfficeController::class, 'officeOpenClose'])->name('office.openclose.update');
 
     Route::get('/currency', [CurrencyController::class, 'index'])->name('currency.index');
     Route::get('/currency/fetch', [CurrencyController::class, 'fetch'])->name('currency.fetch');
@@ -301,6 +357,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/price/show/{id}', [PriceController::class, 'show'])->name('price.show');
     Route::post('/price/update/{id}', PriceUpdateController::class)->name('price.update');
     Route::post('/price/destroy/{id}', PriceDeleteController::class)->name('price.destroy');
+    Route::get('/price/upload',  [PriceController::class, 'upload'])->name('price.upload');
+    Route::post('/price/batch/store', PriceBatchUploadController::class)->name('price.batch-store');
 
     Route::get('/interline-price', [InterlinePriceController::class, 'index'])->name('interline-price.index');
     Route::get('/interline-price/fetch', [InterlinePriceController::class, 'fetch'])->name('interline-price.fetch');
@@ -379,6 +437,14 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/ticket-support', [TicketSupportController::class, 'index'])->name('ticket-support.index');
     Route::get('/ticket-support/fetch', [TicketSupportController::class, 'fetch'])->name('ticket-support.fetch');
 
+    Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.index');
+    Route::get('/ticket/fetch', [TicketController::class, 'fetch'])->name('ticket.fetch');
+    Route::post('/ticket/find/trip', [TicketController::class, 'findAvailableTrip'])->name('ticket.find-available-trip');
+    Route::post('/ticket/get/bus', [TicketController::class, 'getBus'])->name('ticket.fetch-bus');
+    Route::post('/ticket/get/passengers', [TicketController::class, 'getPassenger'])->name('ticket.fetch-passengers');
+    Route::post('/ticket/store', TicketCreateController::class)->name('ticket.store');
+    Route::post('/ticket/voucher/validate', [TicketController::class, 'voucherValidate'])->name('ticket.voucher-validate');
+
     Route::get('/city', [CityController::class, 'index'])->name('city.index');
     Route::get('/city/fetch', [CityController::class, 'fetch'])->name('city.fetch');
     Route::get('/city/create', [CityController::class, 'create'])->name('city.create');
@@ -388,5 +454,73 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/city/show/{id}', [CityController::class, 'show'])->name('city.show');
     Route::post('/city/update/{id}', CityUpdateController::class)->name('city.update');
     Route::post('/city/destroy/{id}', CityDeleteController::class)->name('city.destroy');
+
+    Route::get('/voucher', [VoucherController::class, 'index'])->name('voucher.index');
+    Route::get('/voucher/fetch', [VoucherController::class, 'fetch'])->name('voucher.fetch');
+    Route::get('/voucher/create', [VoucherController::class, 'create'])->name('voucher.create');
+    Route::post('/voucher/store', VoucherCreateController::class)->name('voucher.store');
+    Route::get('/voucher/show/{id}', [VoucherController::class, 'show'])->name('voucher.show');
+    Route::post('/voucher/update/{id}', VoucherUpdateController::class)->name('voucher.update');
+    Route::post('/voucher/destroy/{id}', VoucherDeleteController::class)->name('voucher.destroy');
+
+    Route::get('/discount-option', [DiscountOptionController::class, 'index'])->name('discount-option.index');
+    Route::get('/discount-option/fetch', [DiscountOptionController::class, 'fetch'])->name('discount-option.fetch');
+    Route::get('/discount-option/create', [DiscountOptionController::class, 'create'])->name('discount-option.create');
+    Route::post('/discount-option/store', DiscountOptionCreateController::class)->name('discount-option.store');
+    Route::get('/discount-option/show/{id}', [DiscountOptionController::class, 'show'])->name('discount-option.show');
+    Route::post('/discount-option/update/{id}', DiscountOptionUpdateController::class)->name('discount-option.update');
+    Route::post('/discount-option/destroy/{id}', DiscountOptionDeleteController::class)->name('discount-option.destroy');
+
+    Route::get('/expense-income', [ExpenseIncomeController::class, 'index'])->name('expense-income.index');
+    Route::get('/expense-income/fetch', [ExpenseIncomeController::class, 'fetch'])->name('expense-income.fetch');
+    Route::get('/expense-income/create', [ExpenseIncomeController::class, 'create'])->name('expense-income.create');
+    Route::post('/expense-income/store', ExpenseIncomeCreateController::class)->name('expense-income.store');
+    Route::get('/expense-income/show/{id}', [ExpenseIncomeController::class, 'show'])->name('expense-income.show');
+    Route::post('/expense-income/update/{id}', ExpenseIncomeUpdateController::class)->name('expense-income.update');
+    Route::post('/expense-income/destroy/{id}', ExpenseIncomeDeleteController::class)->name('expense-income.destroy');
+
+    Route::get('/frequent-traveler', [PassengerController::class, 'index'])->name('frequent-traveler.index');
+    Route::get('/frequent-traveler/fetch', [PassengerController::class, 'fetch'])->name('frequent-traveler.fetch');
+
+    Route::get('/promotion', [PromotionController::class, 'index'])->name('promotion.index');
+    Route::get('/promotion/fetch', [PromotionController::class, 'fetch'])->name('promotion.fetch');
+    Route::get('/promotion/create', [PromotionController::class, 'create'])->name('promotion.create');
+    Route::post('/promotion/store', PromotionCreateController::class)->name('promotion.store');
+    Route::get('/promotion/show/{id}', [PromotionController::class, 'show'])->name('promotion.show');
+    Route::post('/promotion/update/{id}', PromotionUpdateController::class)->name('promotion.update');
+    Route::post('/promotion/destroy/{id}', PromotionDeleteController::class)->name('promotion.destroy');
+
+    Route::get('/coupon', [CouponController::class, 'index'])->name('coupon.index');
+    Route::get('/coupon/fetch', [CouponController::class, 'fetch'])->name('coupon.fetch');
+    Route::get('/coupon/create', [CouponController::class, 'create'])->name('coupon.create');
+    Route::post('/coupon/store', CouponCreateController::class)->name('coupon.store');
+    Route::get('/coupon/show/{id}', [CouponController::class, 'show'])->name('coupon.show');
+    Route::post('/coupon/update/{id}', CouponUpdateController::class)->name('coupon.update');
+    Route::post('/coupon/destroy/{id}', CouponDeleteController::class)->name('coupon.destroy');
+
+    Route::get('/discount', [DiscountController::class, 'index'])->name('discount.index');
+    Route::get('/discount/fetch', [DiscountController::class, 'fetch'])->name('discount.fetch');
+    Route::get('/discount/create', [DiscountController::class, 'create'])->name('discount.create');
+    Route::post('/discount/store', DiscountCreateController::class)->name('discount.store');
+    Route::get('/discount/show/{id}', [DiscountController::class, 'show'])->name('discount.show');
+    Route::post('/discount/update/{id}', DiscountUpdateController::class)->name('discount.update');
+    Route::post('/discount/destroy/{id}', DiscountDeleteController::class)->name('discount.destroy');
+
+    Route::get('/open-cash', [OpenCashController::class, 'index'])->name('open-cash.index');
+    Route::post('/open-cash/store', [OpenCashController::class, 'addCash'])->name('open-cash.store');
+
+    Route::get('/seat/transfer', [SeatTransferController::class, 'index'])->name('seat-transfer.index');
+    Route::post('/fetch/origin/trip', [SeatTransferController::class, 'getTrip'])->name('seat-transfer.fetch-trip');
+    Route::post('/seat/transfer/generate-bus', [SeatTransferController::class, 'getBus'])->name('seat-transfer.generate-bus');
+    Route::post('/seat/transfer/update-bus', [SeatTransferController::class, 'update'])->name('seat-transfer.update');
+
+    Route::get('/route-main-driver', [RouteAndMainDriverController::class, 'index'])->name('route-main-driver.index');
+    Route::get('/route-main-driver/fetch', [RouteAndMainDriverController::class, 'fetch'])->name('route-main-driver.fetch');
+    Route::get('/route-main-driver/create', [RouteAndMainDriverController::class, 'create'])->name('route-main-driver.create');
+    Route::post('/route-main-driver/store', RouteAndMainDriverCreateController::class)->name('route-main-driver.store');
+    Route::get('/route-main-driver/show/{id}', [RouteAndMainDriverController::class, 'show'])->name('route-main-driver.show');
+    Route::post('/route-main-driver/update/{id}', RouteAndMainDriverUpdateController::class)->name('route-main-driver.update');
+    Route::post('/route-main-driver/destroy/{id}', RouteAndMainDriverDeleteController::class)->name('route-main-driver.destroy');
+
 
 });

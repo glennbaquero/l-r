@@ -23,7 +23,7 @@
         <div class="mt-12 mx-auto w-3/4">
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
-                    <route-table v-slot="{ stops, addNewStop, removeStop, departureRouteChanged, arrivalChanged, convertToJSON, tripLengthTotal, waitTimeTotal, totalDistance }" :cities="{{ $cities }}">
+                    <route-table v-slot="{ stops, addNewStop, removeStop, departureRouteChanged, arrivalChanged, convertToJSON, tripLengthTotal, waitTimeTotal, totalDistance, origin, destination, waypoints, firstDeparture, getAllPlaceLocation }" :cities="{{ $cities }}" has-error="{{ $errors->any() ?? 0 }}">
                         <form action="{{ route('route.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
@@ -49,10 +49,10 @@
 
                                 <div class="col-span-3 sm:col-span-3">
                                     <x-label for="departure_id" class="font-semibold">Departure</x-label>
-                                    <select name="departure_id" class='form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent' @change="departureRouteChanged($event.target.value)">
+                                    <select name="departure_id" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" @change="departureRouteChanged($event.target.value)">
                                         <option disabled selected>Select your option</option>
                                         @foreach($cities as $city)
-                                            <option value="{{$city->id}}">{{ $city->name }}</option>
+                                            <option value="{{$city->id}}" {{ old('departure_id') == $city->id ? 'selected' : ''}}>{{ $city->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -69,7 +69,7 @@
                                     <x-form-input type="text" name="wait_time" id="wait_time" v-model="waitTimeTotal" :readOnly="true"/>
                                 </div>
                                 <div class="col-span-2 sm:col-span-2">
-                                    <x-label for="distance" class="font-semibold">Distance</x-label>
+                                    <x-label for="distance" class="font-semibold">Distance (KM)</x-label>
                                     <x-form-input type="number" name="distance" id="distance" v-model="totalDistance" :readOnly="true"/>
                                 </div>
                                 <input type="hidden" name="stops" :value="convertToJSON">
@@ -84,11 +84,11 @@
                             <x-table :headers="$headers">
                                 <x-slot name="body">
                                     <tr v-for="(stop, key) in stops">
-                                        <td class="text-center border-b-2 border-gray-300 px-3">
+                                        {{-- <td class="text-center border-b-2 border-gray-300 px-3">
                                             <input type="radio" v-model="stop.division_point" />
-                                        </td>
+                                        </td> --}}
                                         <td class="text-center border-b-2 border-gray-300 px-3">
-                                            <input type="checkbox"  v-model="stop.show"/>
+                                            <input type="checkbox" v-model="stop.show" :disabled="stops.length == (key+1)" @change="getAllPlaceLocation"/>
                                         </td>
                                         <td class="text-center border-b-2 border-gray-300 px-3 w-1/2">
                                             <select class='form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent' v-model="stop.departure_id" disabled>
@@ -105,15 +105,15 @@
                                             </select>
                                         </td>
                                         <td class="text-center border-b-2 border-gray-300 px-3">
-                                            <time-picker :stop="key" object-name="trip_length"></time-picker>
+                                            <time-picker :stop="key" object-name="trip_length" :value="stop.trip_length"></time-picker>
                                             <input type="hidden" step="1" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" v-model="stop.trip_length" />
                                         </td>
                                         <td class="text-center border-b-2 border-gray-300 px-3">
-                                            <time-picker :stop="key" object-name="wait_time"></time-picker>
+                                            <time-picker :stop="key" object-name="wait_time" :value="stop.wait_time"></time-picker>
                                             <input type="hidden" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" v-model="stop.wait_time"/>
                                         </td>
                                         <td class="text-center border-b-2 border-gray-300 px-3">
-                                            <input type="number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" v-model="stop.distance"/>
+                                            <input type="number" step="any" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" v-model="stop.distance"/> 
                                         </td>
                                         <td class="text-center border-b-2 border-gray-300 px-3">
                                             <button type="button" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" @click="addNewStop">
@@ -127,6 +127,10 @@
                                     </tr>
                                 </x-slot>
                             </x-table>
+
+                            <div style="width: 100%; height: 50vh" class="mt-6">
+                                <google-map-direction :origin="origin" :destination="destination" :waypoints="waypoints"></google-map-direction>
+                            </div>
 
 
                             <div class="mt-5 text-right">

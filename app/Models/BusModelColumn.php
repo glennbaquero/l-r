@@ -24,7 +24,7 @@ class BusModelColumn extends Model
      * 
      * @var array
      */
-    protected $appends = ['selected', 'showInputTypeText', 'showSelection'];
+    protected $appends = ['selected', 'showInputTypeText', 'showSelection', 'reservedForSelectedTrip'];
 
 	/**
 	 * Bus Model Column belongs to bus model row
@@ -62,6 +62,16 @@ class BusModelColumn extends Model
      * @return string
      */
     public function getShowSelectionAttribute()
+    {
+        return false;
+    }
+
+    /**
+     * Get reservedForSelectedTrip
+     * 
+     * @return string
+     */
+    public function getReservedForSelectedTripAttribute()
     {
         return false;
     }
