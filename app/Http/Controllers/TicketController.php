@@ -16,6 +16,7 @@ use App\Models\Passenger;
 use App\Models\Price;
 use App\Models\Coupon;
 use App\Models\Voucher;
+use App\Models\Route;
 
 use Carbon\Carbon;
 
@@ -76,23 +77,29 @@ class TicketController extends Controller
         $departure = $request->departure_id;
         $arrival = $request->arrival_id;
 
-        $stops = Stop::where('departure_id', $departure)->where('arrival_id', $arrival)->get();
+        $stops = Stop::where('departure_id', $departure)->get();
 
         $trips = [];
 
-        foreach ($stops as $stop) {
-            if(!collect($trips)->contains('route', $stop->route)) {
-                $availableTrips = $stop->route->trips()->where('date', '>=', now());
-                if($availableTrips->count()) {
-                    if(!collect($trips)->contains('trips', $availableTrips->get())) {
-                        array_push($trips, [
-                            'route' => $stop->route,
-                            'trips' => $availableTrips->orderby('date', 'asc')->get(),
-                        ]);   
-                    }
+        foreach ($stops as $departure_stop) {
+            if($departure_stop->route->stops()->where('arrival_id', $arrival)->count()) {
+                $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->get();
+                foreach ($arrival_stops as $stop) {
+                    if(!collect($trips)->contains('route', $stop->route)) {
+                        $availableTrips = $stop->route->trips()->where('date', '>=', now());
+                        if($availableTrips->count()) {
+                            if(!collect($trips)->contains('trips', $availableTrips->get())) {
+                                array_push($trips, [
+                                    'route' => $stop->route,
+                                    'trips' => $availableTrips->orderby('date', 'asc')->get(),
+                                ]);   
+                            }
 
+                        }
+                    }
                 }
             }
+            
             
         }
 
