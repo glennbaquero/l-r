@@ -76,7 +76,7 @@ class TicketController extends Controller
         $departure = $request->departure_id;
         $arrival = $request->arrival_id;
 
-        $stops = Stop::whereLike('departure_id', $departure)->whereLike('arrival_id', $arrival)->get();
+        $stops = Stop::where('departure_id', $departure)->where('arrival_id', $arrival)->get();
 
         $trips = [];
 
