@@ -51,7 +51,7 @@ class User extends Authenticatable
      * 
      * @var array
      */
-    protected $appends = ['fullname', 'full_image_path', 'postal_code'];
+    protected $appends = ['fullname', 'full_image_path', 'postal_code', 'total_ticket_sold'];
 
     /**
      * Get user fullname
@@ -81,6 +81,16 @@ class User extends Authenticatable
     public function getPostalCodeAttribute()
     {
         return $this->zip_code;
+    }
+
+    /**
+     * Get postal code
+     * 
+     * @return string
+     */
+    public function getTotalTicketSoldAttribute()
+    {
+        return $this->tickets->sum('total_sale');
     }
 
     /**
@@ -121,5 +131,26 @@ class User extends Authenticatable
    public function cashes()
    {
        return $this->hasMany(Cash::class);
+   }
+
+    /**
+    * User hasMany tickets
+    * 
+    * @return Illuminate\Database\Eloquent\Relations\hasMany
+    */
+   public function tickets()
+   {
+       return $this->hasMany(Ticket::class, 'seller_id', 'id');
+   }
+
+
+
+   public function getTotalSoldTickets($start_date, $date_type, $end_date)
+   {
+        if($date_type == 'true') {
+            return $this->tickets->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date)->sum('total_sale');
+        }
+        
+        return $this->tickets->where('created_at', '>=', $start_date)->sum('total_sale');    
    }
 }
