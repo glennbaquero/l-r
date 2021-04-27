@@ -52,13 +52,13 @@
 					this.attr = {
 						name: this.name,
 						value: this.type == 'date' ? this.formattedDate : this.formattedTime,
-						id: 'datepicker'
+						id: this.name
 					}
 				} else {
 					this.attr = {
 						name: this.name,
 						value: this.formattedDate,
-						id: 'datepicker'
+						id: this.name
 					}
 				}
 				

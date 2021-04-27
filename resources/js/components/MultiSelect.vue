@@ -48,7 +48,8 @@
 				type: String
 			},
 
-			stop: Object
+			stop: Object,
+			type: String
 
 		},
 
@@ -121,6 +122,10 @@
 					}, 1000)
 				}
 				
+
+				if(!_.isEmpty(this.type)) {
+					this.$parent.selectChanged(this.selectedItem.id, this.type);
+				}
 			}
 		}
 	}

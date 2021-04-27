@@ -191,6 +191,9 @@ use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\OpenCashController;
 use App\Http\Controllers\SeatTransferController;
 
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\Reports\PrintController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -523,4 +526,6 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/route-main-driver/destroy/{id}', RouteAndMainDriverDeleteController::class)->name('route-main-driver.destroy');
 
 
+    Route::get('/sales-by-user', [ReportController::class, 'salesByUser'])->name('sales-by-user');
+    Route::get('/sales-by-user/print/{seller_ids?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printSalesByUser'])->name('sales-by-user.print');
 });
