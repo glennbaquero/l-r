@@ -229,7 +229,7 @@
         </div> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.0.3/qrcode.min.js" integrity="sha512-CwmiQdOoXBchUa3+Eb5brNU8lxeJr7CVjWDwBCr+2wvbTEGzI982TnvGVQtvPKfvSevelLCV2xa7S/pdLKZKag==" crossorigin="anonymous"></script>
         <script type="text/javascript">
-        	var typeNumber = 4;
+        	var typeNumber = 10;
         	var errorCorrectionLevel = 'L';
         	var qr = qrcode(typeNumber, errorCorrectionLevel);
         	var route = '{{ $ticket->updateStatusUrl() }}';

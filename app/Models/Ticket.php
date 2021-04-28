@@ -26,7 +26,7 @@ class Ticket extends Model
      * 
      * @var array
      */
-    protected $appends = ['formatted_purchase_date'];
+    protected $appends = ['formatted_purchase_date', 'formatted_travel_date'];
 
 	/**
 	 * Ticket belongs to passenger
@@ -97,6 +97,15 @@ class Ticket extends Model
     public function getFormattedPurchaseDateAttribute()
     {
         return Carbon::parse($this->purchase_date)->format('m-d-Y h:i A');
+    }
+    /**
+     * Get formatted purchase date
+     * 
+     * @return string
+     */
+    public function getFormattedTravelDateAttribute()
+    {
+        return Carbon::parse($this->trip->date)->format('m-d-Y').' '.Carbon::parse($this->trip->time)->format('h:i A');
     }
 
     /**

@@ -528,4 +528,6 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/sales-by-user', [ReportController::class, 'salesByUser'])->name('sales-by-user');
     Route::get('/sales-by-user/print/{seller_ids?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printSalesByUser'])->name('sales-by-user.print');
+    Route::get('/daily-till-closure', [ReportController::class, 'dailyTillClosure'])->name('daily-till-closure');
+    Route::get('/daily-till-closure/print/{seller_ids?}/{date_type?}/{start_date?}/{end_date?}/{cash_register?}', [PrintController::class, 'printDailyTillClosure'])->name('daily-till-closure.print');
 });

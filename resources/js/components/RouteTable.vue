@@ -240,7 +240,7 @@
 
 				// var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(this.departure.latitude, this.departure.longitude), new google.maps.LatLng(this.arrival.latitude, this.departure.longitude, this.arrival.longitude));
 
-				this.stops[0].distance = Math.round(((this.getDistance() / 1000) + Number.EPSILON) * 100) / 100;
+				// this.stops[0].distance = Math.round(((this.getDistance() / 1000) + Number.EPSILON) * 100) / 100;
 			},
 
 			arrivalChanged(key, value) {
@@ -249,7 +249,9 @@
 
 				// var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(this.departure.latitude, this.departure.longitude), new google.maps.LatLng(this.arrival.latitude, this.departure.longitude, this.arrival.longitude));
 
-				this.stops[key].distance = Math.round(((this.getDistance() / 1000) + Number.EPSILON) * 100) / 100;
+				var departure = _.find(this.cities, (city) => { return city.id == this.stops[key].departure_id });
+
+				this.stops[key].distance = Math.round(((this.getDistance(this.arrival, departure) / 1000) + Number.EPSILON) * 100) / 100;
 				
 				this.getAllPlaceLocation();
 
@@ -259,9 +261,9 @@
 			},
 
 
-			getDistance() {
+			getDistance(arrival, departure) {
 
-				return haversine(this.arrival, this.departure);
+				return haversine(arrival, departure);
 
 				// var R = 6378137;
 				// var dLat = this.rad(this.arrival.latitude - this.departure.latitude);
