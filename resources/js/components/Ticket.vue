@@ -76,7 +76,7 @@
 				passenger_info: {},
 
 				payment:{},
-				voucher:{},
+				voucher: null,
 				totalSale: 0,
 				loading: false,
 				modalMessage: '',

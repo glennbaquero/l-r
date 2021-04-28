@@ -63,7 +63,7 @@
 				},
 				code: null,
 
-				voucher: {},
+				voucher: null,
 				discount: 0
 			}
 		},
