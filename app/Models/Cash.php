@@ -17,6 +17,13 @@ class Cash extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Append additional attributes
+     * 
+     * @var array
+     */
+    protected $appends = ['date'];
     
     /**
      * Cash belongs to User
@@ -26,5 +33,15 @@ class Cash extends Model
     public function user()
     {
         return $this->belongsTo(User::class)->withTrashed();
+    }
+
+    /**
+     * Get date
+     * 
+     * @return string
+     */
+    public function getDateAttribute()
+    {
+        return $this->created_at->format('h:i A');
     }
 }

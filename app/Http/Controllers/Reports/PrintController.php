@@ -9,6 +9,7 @@ use App\Models\Office;
 use App\Models\OfficeType;
 use App\Models\User;
 use App\Models\Ticket;
+use App\Models\Cash;
 
 use PDF;
 use Storage;
@@ -54,6 +55,53 @@ class PrintController extends Controller
 
         Storage::put('public/report.pdf',$content) ;
 
+        return $pdf->download('report.pdf');
+    }
+
+    /**
+     * Handle the daily till closure print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printDailyTillClosure($seller_id, $date_type, $start_date, $end_date, $cash_box)
+    {
+        $tickets = Ticket::where('seller_id', $seller_id)->get();
+        $cash_register = Cash::where('user_id', $seller_id)->get();
+        $has_many_cash_register = true;
+
+        if($cash_box != 'null') {
+            $cash_register = Cash::findOrFail($cash_box);
+            $tickets = Ticket::whereTime('created_at', $cash_register->created_at)->where('seller_id', $seller_id)->get();
+            $has_many_cash_register = false;
+        }
+
+
+        $seller = User::find($seller_id);
+        $ticket_lists = [];
+
+        // foreach ($tickets as $key => $ticket) {
+        //     if(!in_array($ticket->seller->fullname, $users)) {
+        //         array_push($users, $ticket->seller->fullname);
+        //     }
+
+        //     if(!collect($ticket_lists)->contains('seller_id', $ticket->seller_id)) {
+        //         array_push($ticket_lists, [
+        //             'seller_id' => $ticket->seller_id,
+        //             'ticket' => $ticket
+        //         ]);
+        //     }   
+        // }
+
+        // $tickets = $ticket_lists;
+
+        $pdf = PDF::loadView('pages.reports.pdf.daily-till-closure', compact('tickets', 'seller', 'start_date', 'end_date', 'date_type', 'cash_register', 'has_many_cash_register'));
+        $pdf->setPaper('A4', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
         return $pdf->download('report.pdf');
     }
 }

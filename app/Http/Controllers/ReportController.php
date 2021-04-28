@@ -10,6 +10,7 @@ use App\Models\Office;
 use App\Models\OfficeType;
 use App\Models\User;
 use App\Models\Ticket;
+use App\Models\Cash;
 
 use PDF;
 use Storage;
@@ -28,6 +29,22 @@ class ReportController extends Controller
             'offices' => Office::get(),
             'office_types' => OfficeType::get(),
             'users' => User::get(),
+        ]);
+    }
+
+    /**
+     * Show daily till closure index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function dailyTillClosure()
+    {
+
+        return view('pages.reports.closure-of-till.daily-till-closure', [
+            'offices' => Office::get(),
+            'office_types' => OfficeType::get(),
+            'users' => User::get(),
+            'cash' => Cash::get(),
         ]);
     }
    

@@ -47,6 +47,10 @@
 		  	font-size: 27px;
 		}
 
+		.page-break {
+		    page-break-after: always;
+		}
+
 	</style>
 </head>
 <body >
