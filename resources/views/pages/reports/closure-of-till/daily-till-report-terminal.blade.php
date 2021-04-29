@@ -2,29 +2,18 @@
     <div class="mx-auto sm:px-6 lg:px-8 py-6">
         <div class="flex items-center">
             <div class="text-base mr-auto">
-                <span class="font-semibold mr-3">{{__('Daily Till Closure Reports')}}</span>
+                <span class="font-semibold mr-3">{{__('Daily Till Report Terminal')}}</span>
             </div>
         </div>
 
         <div class="mt-12 mx-auto h-full">
-            <pdf-viewer v-slot="{ src, items, offices, users, cash_registers, getPdfDataDailyTill, viewer_show, loading }" :get-offices="{{ $offices }}" :get-users="{{ $users }}" :get-cash="{{ $cash }}" search-url="{{ route('daily-till-closure.print') }}">
+            <pdf-viewer v-slot="{ src, items, offices, getPdfDataDailyTillReportTerminal, viewer_show, loading }" search-url="{{ route('daily-till-report-terminal.print') }}">
                 <div class="grid grid-cols-3 gap-3">
                     <div class="col-span-1 sm:col-span-1">
                         <div class="grid grid-cols-2 gap-3">
-                            <div class="col-span-full">
-                                <x-switch label="Grouped" name="group"/>
-                            </div>
-                            <div class="col-span-1 sm:col-span-1">
-                                <x-label for="office_type" class="font-semibold">Office Type</x-label>
-                                <multi-select :items="{{ $office_types }}" :multiple="false" label="name" v-slot="{ selected }" name="office_type_id" type="office_type"></multi-select>
-                            </div>
-                            <div class="col-span-1 sm:col-span-1">
-                                <x-label for="office" class="font-semibold">Office</x-label>
-                                <multi-select :items="offices" label="name" :multiple="false" v-slot="{ selected }" name="selectedIds" type="office"></multi-select>
-                            </div>
                             <div class="col-span-full sm:col-span-full">
-                                <x-label for="user" class="font-semibold">User</x-label>
-                                <multi-select :items="users" v-slot="{ selected }" :multiple="false" name="selectedIds" label="fullname" type="user_cash_registry"></multi-select>
+                                <x-label for="office" class="font-semibold">Office</x-label>
+                                <multi-select :items="{{$offices}}" label="name" :multiple="false" v-slot="{ selected }" name="selectedIds" type="office"></multi-select>
                             </div>
                             <toggle v-slot="{ display, toggled }">
                                 <div class="col-span-full sm:col-span-full grid grid-cols-2 gap-3">
@@ -56,14 +45,10 @@
                                     </div>
                                 </div>
                             </toggle>
-                            <div class="col-span-full sm:col-span-full">
-                                <x-label for="cash_register" class="font-semibold">Cash Register</x-label>
-                                <multi-select :items="cash_registers" label="date" :multiple="false" v-slot="{ selected }" name="selectedIds" type="cash_register"></multi-select>
-                            </div>
                             
 
                             <div class="col-span-full sm:col-span-full">
-                                <button class="bg-darkblue border border-transparent duration-150 ease-in-out focus:border-red-300 focus:outline-none focus:shadow-outline-red font-medium inline-flex items-center justify-center p-4 rounded-md sm:leading-5 sm:text-sm text-white transition w-40" @click="getPdfDataDailyTill">
+                                <button class="bg-darkblue border border-transparent duration-150 ease-in-out focus:border-red-300 focus:outline-none focus:shadow-outline-red font-medium inline-flex items-center justify-center p-4 rounded-md sm:leading-5 sm:text-sm text-white transition w-40" @click="getPdfDataDailyTillReportTerminal">
                                     Search
                                 </button>
                             </div>

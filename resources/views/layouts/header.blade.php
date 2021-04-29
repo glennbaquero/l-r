@@ -219,7 +219,7 @@
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">My Daily Closure</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('daily-till-closure')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Daily Till Closure Reports</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
@@ -230,7 +230,7 @@
             <x-header-sub-link link="#" :caret="true" class="group-reportsale hover:bg-lightblue">
                 <x-slot name="name">Sales</x-slot>
                     <x-header-absolute-link class="group-reportsale-hover:block bg-lightblue">
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('sales-by-user')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by Users</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">

@@ -28,7 +28,9 @@
 		    	offices: this.offices,
 		    	users: this.users,
 		    	cash_registers: this.cash_registers,
+		    	getPdfData: this.getPdfData,
 		    	getPdfDataDailyTill: this.getPdfDataDailyTill,
+		    	getPdfDataDailyTillReportTerminal: this.getPdfDataDailyTillReportTerminal,
 		    	viewer_show: this.viewer_show,
 		    	loading: this.loading,
 		    });
@@ -77,6 +79,17 @@
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+user_ids+'/'+date_type+'/'+start_date+'/'+end_date+'/'+cash_register;
+				this.fetch(url);
+			},
+
+			getPdfDataDailyTillReportTerminal() {
+				this.loading = true;
+
+				var office_id = this.$children[0].selected;
+				var date_type = this.$children[1].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var url = this.searchUrl+'/'+office_id+'/'+date_type+'/'+start_date+'/'+end_date;
 				this.fetch(url);
 			},
 
