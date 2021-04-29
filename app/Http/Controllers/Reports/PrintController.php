@@ -104,4 +104,36 @@ class PrintController extends Controller
         // return view('pages.reports.pdf.daily-till-closure');
         return $pdf->download('report.pdf');
     }
+
+    /**
+     * Handle the daily till closure report terminal print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printDailyTillReportTerminal($office_id, $date_type, $start_date, $end_date)
+    {
+        if($date_type == 'false' || !$date_type) {
+            $tickets = Ticket::whereDate('created_at', $start_date)->whereHas('seller', function($seller) use($office_id) {
+                $seller->where('office_id', $office_id);
+            })->get();
+        } else {
+            $tickets = Ticket::where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date)->whereHas('seller', function($seller) use($office_id) {
+                $seller->where('office_id', $office_id);
+            })->get();
+        }
+
+        $office = Office::find($office_id);
+
+        $users = $office->users;
+
+        $pdf = PDF::loadView('pages.reports.pdf.daily-till-report-terminal', compact('tickets', 'start_date', 'end_date', 'date_type', 'office', 'users'));
+        $pdf->setPaper('A4', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
 }

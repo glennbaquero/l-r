@@ -47,5 +47,18 @@ class ReportController extends Controller
             'cash' => Cash::get(),
         ]);
     }
+
+    /**
+     * Show daily till report terminal index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function dailyTillReportTerminal()
+    {
+
+        return view('pages.reports.closure-of-till.daily-till-report-terminal', [
+            'offices' => Office::get(),
+        ]);
+    }
    
 }
