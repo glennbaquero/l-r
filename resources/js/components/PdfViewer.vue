@@ -8,7 +8,9 @@
 			getOffices: Array,
 			getUsers: Array,
 			getCash: Array,
-			searchUrl: String
+			searchUrl: String,
+
+			filteredCashRegister: Boolean
 		},
 
 		data() {
@@ -19,6 +21,9 @@
 				cash_registers: [],
 				viewer_show: false,
 				loading: false,
+				filtered_cash_registers: this.search_cash_registers,
+
+				available: false
 			}
 		},
 
@@ -28,16 +33,45 @@
 		    	offices: this.offices,
 		    	users: this.users,
 		    	cash_registers: this.cash_registers,
+		    	viewer_show: this.viewer_show,
+		    	loading: this.loading,
+		    	filtered_cash_registers: this.filtered_cash_registers,
 		    	getPdfData: this.getPdfData,
 		    	getPdfDataDailyTill: this.getPdfDataDailyTill,
 		    	getPdfDataDailyTillReportTerminal: this.getPdfDataDailyTillReportTerminal,
-		    	viewer_show: this.viewer_show,
-		    	loading: this.loading,
+		    	getPdfMyDailyClosure: this.getPdfMyDailyClosure,
+		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
 
 		components: {
 			Loading
+		},
+
+		computed: {
+			search_cash_registers() {
+				if(this.filteredCashRegister && this.available) {
+					
+					var start_date = this.$children[0].$children[0].attr.value;
+					var end_date = this.$children[0].display ? this.$children[0].$children[1].attr.value : start_date;
+
+					return _.filter(this.getCash, (cash) => {  return moment(cash.created_at).isBetween(start_date, end_date, undefined, '[]') });
+				}
+
+				return [];
+			}
+		},
+
+		watch: {
+			search_cash_registers(val) {
+				this.filtered_cash_registers = val;
+			}
+		},
+
+		mounted() {
+			setTimeout(() => {
+				this.available = true;
+			}, 2000)
 		},
 
 		methods: {
@@ -93,6 +127,17 @@
 				this.fetch(url);
 			},
 
+			getPdfMyDailyClosure() {
+				this.loading = true;
+
+				var date_type = this.$children[0].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var cash_box = this.$children[1].selected;
+				var url = this.searchUrl+'/'+date_type+'/'+start_date+'/'+end_date+'/'+cash_box;
+				this.fetch(url);
+			},
+
 			fetch(url) {
 				axios.get(url)
 					.then(response => {
@@ -105,6 +150,10 @@
 						this.viewer_show = false;
 						this.loading = false;
 					})
+			},
+
+			datePickerHasChangedHandler(payloads) {
+				console.log(payloads)
 			}
 		}
 	}

@@ -60,5 +60,18 @@ class ReportController extends Controller
             'offices' => Office::get(),
         ]);
     }
+
+    /**
+     * Show daily till report terminal index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function myDailyClosure()
+    {   
+        $cash_registers = auth()->user()->cashes;
+        return view('pages.reports.closure-of-till.my-daily-closure', [
+            'cash_registers' => $cash_registers,
+        ]);
+    }
    
 }

@@ -136,4 +136,38 @@ class PrintController extends Controller
         // return view('pages.reports.pdf.daily-till-closure');
         return $pdf->download('report.pdf');
     }
+
+    /**
+     * Handle the my daily till closure report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printMyDailyTillClosure($date_type, $start_date, $end_date, $cash_register)
+    {
+        $tickets = null;
+        $user = auth()->user();
+        $office = $user->office->name;
+        $has_many_cash_register = true;
+
+        if($cash_register != 'null') {
+            $cash_register = Cash::findOrFail($cash_register);
+
+            if($date_type == 'false' || !$date_type) {
+                $tickets = Ticket::whereTime('created_at', $cash_register->created_at)->whereDate('created_at', $start_date)->where('seller_id', $user->id)->get();
+            } else {
+                $tickets = Ticket::whereTime('created_at', $cash_register->created_at)->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date)->where('seller_id', $user->id)->get();
+            }
+            $has_many_cash_register = false;
+        }
+
+        $pdf = PDF::loadView('pages.reports.pdf.my-daily-closure', compact('tickets', 'start_date', 'end_date', 'date_type', 'office', 'user', 'has_many_cash_register', 'cash_register'));
+        $pdf->setPaper('A4', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
 }
