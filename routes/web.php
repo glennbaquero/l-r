@@ -532,4 +532,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/daily-till-closure/print/{seller_ids?}/{date_type?}/{start_date?}/{end_date?}/{cash_register?}', [PrintController::class, 'printDailyTillClosure'])->name('daily-till-closure.print');
     Route::get('/daily-till-report-terminal', [ReportController::class, 'dailyTillReportTerminal'])->name('daily-till-report-terminal');
     Route::get('/daily-till-report-terminal/print/{office_id?}/{date_type?}/{start_date?}/{end_date?}/', [PrintController::class, 'printDailyTillReportTerminal'])->name('daily-till-report-terminal.print');
+    Route::get('/my-daily-closure', [ReportController::class, 'myDailyClosure'])->name('my-daily-closure');
+    Route::get('/my-daily-closure/print/{date_type?}/{start_date?}/{end_date?}/{cash_register?}', [PrintController::class, 'printMyDailyTillClosure'])->name('my-daily-closure.print');
 });
