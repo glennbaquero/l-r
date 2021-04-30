@@ -10,6 +10,7 @@ use App\Models\OfficeType;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Cash;
+use App\Models\Trip;
 
 use PDF;
 use Storage;
@@ -163,6 +164,36 @@ class PrintController extends Controller
         }
 
         $pdf = PDF::loadView('pages.reports.pdf.my-daily-closure', compact('tickets', 'start_date', 'end_date', 'date_type', 'office', 'user', 'has_many_cash_register', 'cash_register'));
+        $pdf->setPaper('A4', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
+
+    /**
+     * Handle the reservation per route report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printReservationPerRoute($date_type, $start_date, $end_date, $trip_ids)
+    {
+        $trip_ids = json_decode($trip_ids);
+        $route_ids = Trip::whereIn('id', $trip_ids)->pluck('route_id');
+        $travels = implode(',', Trip::whereIn('id', $trip_ids)->pluck('alias_route')->toArray());
+        
+        $trip_ids = Trip::whereIn('route_id', $route_ids)->pluck('id');
+
+        if($date_type == 'false' || !$date_type) {
+            $tickets = Ticket::whereDate('created_at', $start_date)->whereIn('trip_id', $trip_ids)->get();
+        } else {
+            $tickets = Ticket::where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date)->whereIn('trip_id', $trip_ids)->get();
+        }
+        
+        $pdf = PDF::loadView('pages.reports.pdf.reservation-per-route', compact('tickets', 'start_date', 'end_date', 'date_type', 'travels'));
         $pdf->setPaper('A4', 'landscape');
         $content = $pdf->download()->getOriginalContent();
 

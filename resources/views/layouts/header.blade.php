@@ -216,13 +216,13 @@
             <x-header-sub-link link="#" :caret="true" class="group-closure hover:bg-lightblue">
                 <x-slot name="name">Closure of Till</x-slot>
                     <x-header-absolute-link class="group-closure-hover:block bg-lightblue">
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('my-daily-closure')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">My Daily Closure</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('daily-till-closure')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Daily Till Closure Reports</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('daily-till-report-terminal')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Daily Till Report Terminal</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
@@ -291,7 +291,7 @@
             <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lightblue">
                 <x-slot name="name">Routes</x-slot>
                     <x-header-absolute-link class="group-route-hover:block bg-lightblue">
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('reservation-per-route')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Reservation per Route</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
