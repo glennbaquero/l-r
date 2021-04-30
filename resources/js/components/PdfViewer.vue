@@ -8,9 +8,12 @@
 			getOffices: Array,
 			getUsers: Array,
 			getCash: Array,
+			getTrips: Array,
+
 			searchUrl: String,
 
-			filteredCashRegister: Boolean
+			filteredCashRegister: Boolean,
+			filteredTrips: Boolean,
 		},
 
 		data() {
@@ -22,6 +25,7 @@
 				viewer_show: false,
 				loading: false,
 				filtered_cash_registers: this.search_cash_registers,
+				filtered_trips: [],
 
 				available: false
 			}
@@ -36,10 +40,13 @@
 		    	viewer_show: this.viewer_show,
 		    	loading: this.loading,
 		    	filtered_cash_registers: this.filtered_cash_registers,
+		    	filtered_trips: this.filtered_trips,
+
 		    	getPdfData: this.getPdfData,
 		    	getPdfDataDailyTill: this.getPdfDataDailyTill,
 		    	getPdfDataDailyTillReportTerminal: this.getPdfDataDailyTillReportTerminal,
 		    	getPdfMyDailyClosure: this.getPdfMyDailyClosure,
+		    	getReservationPerRoutePdfData: this.getReservationPerRoutePdfData,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -59,19 +66,37 @@
 				}
 
 				return [];
+			},
+
+			search_trips() {
+				if(this.filteredTrips && this.available) {
+					
+					var start_date = this.$children[0].$children[0].attr.value;
+					var end_date = this.$children[0].display ? this.$children[0].$children[1].attr.value : start_date;
+					var trips = _.filter(this.getTrips, (trip) => {  return moment(trip.date).isBetween(start_date, end_date, undefined, '[]') });
+					trips = _.uniqBy(trips,'route_id')
+					return trips;
+				}
+
+				return [];
 			}
 		},
 
 		watch: {
 			search_cash_registers(val) {
 				this.filtered_cash_registers = val;
-			}
+			},
+
+			search_trips(val) {
+				console.log(val);
+				this.filtered_trips = val;
+			},
 		},
 
 		mounted() {
 			setTimeout(() => {
 				this.available = true;
-			}, 2000)
+			}, 1000)
 		},
 
 		methods: {
@@ -135,6 +160,29 @@
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var cash_box = this.$children[1].selected;
 				var url = this.searchUrl+'/'+date_type+'/'+start_date+'/'+end_date+'/'+cash_box;
+				this.fetch(url);
+			},
+
+
+			getPdfMyDailyClosure() {
+				this.loading = true;
+
+				var date_type = this.$children[0].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var cash_box = this.$children[1].selected;
+				var url = this.searchUrl+'/'+date_type+'/'+start_date+'/'+end_date+'/'+cash_box;
+				this.fetch(url);
+			},
+
+			getReservationPerRoutePdfData() {
+				this.loading = true;
+
+				var date_type = this.$children[0].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var trip_ids = this.$children[1].selected;
+				var url = this.searchUrl+'/'+date_type+'/'+start_date+'/'+end_date+'/'+trip_ids;
 				this.fetch(url);
 			},
 

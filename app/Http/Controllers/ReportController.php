@@ -11,6 +11,7 @@ use App\Models\OfficeType;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Cash;
+use App\Models\Trip;
 
 use PDF;
 use Storage;
@@ -71,6 +72,19 @@ class ReportController extends Controller
         $cash_registers = auth()->user()->cashes;
         return view('pages.reports.closure-of-till.my-daily-closure', [
             'cash_registers' => $cash_registers,
+        ]);
+    }
+
+    /**
+     * Show reservartion per route index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function reservationPerRoute()
+    {   
+        $trips = Trip::get();
+        return view('pages.reports.route.reservation-per-route', [
+            'trips' => $trips,
         ]);
     }
    

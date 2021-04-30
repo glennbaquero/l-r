@@ -26,7 +26,7 @@ class Trip extends Model
      * 
      * @var array
      */
-    protected $appends = ['display_trip_name', 'formatted_date', 'formatted_time'];
+    protected $appends = ['display_trip_name', 'formatted_date', 'formatted_time', 'route_name'];
 
     /**
      * Trip belongs to route
@@ -157,6 +157,16 @@ class Trip extends Model
     public function getFormattedTimeAttribute()
     {
         return Carbon::parse($this->time)->format('h:i A');
+    }
+
+    /**
+     * append route name
+     * 
+     * @return string
+     */
+    public function getRouteNameAttribute()
+    {
+        return $this->route->alias;
     }
 
     /**

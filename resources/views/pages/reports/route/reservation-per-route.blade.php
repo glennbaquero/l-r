@@ -2,12 +2,12 @@
     <div class="mx-auto sm:px-6 lg:px-8 py-6">
         <div class="flex items-center">
             <div class="text-base mr-auto">
-                <span class="font-semibold mr-3">{{__('Daily Till Closure Reports')}}</span>
+                <span class="font-semibold mr-3">{{__('Reservation Per Route')}}</span>
             </div>
         </div>
 
         <div class="mt-12 mx-auto h-full">
-            <pdf-viewer v-slot="{ src, filtered_cash_registers, getPdfMyDailyClosure, datePickerHasChangedHandler, viewer_show, loading }" :get-cash="{{ $cash_registers }}" search-url="{{ route('my-daily-closure.print') }}" :filtered-cash-register="true" >
+            <pdf-viewer v-slot="{ src, filtered_trips, getReservationPerRoutePdfData, viewer_show, loading }" :get-trips="{{ $trips }}" :filtered-trips="true"  search-url="{{ route('reservation-per-route.print') }}">
                 <div class="grid grid-cols-3 gap-3">
                     <div class="col-span-1 sm:col-span-1">
                         <div class="grid grid-cols-2 gap-3">
@@ -33,22 +33,23 @@
                                     </div>
                                     <div class="col-span-1 sm:col-span-1">
                                         <x-label for="start_date" class="font-semibold">Start Date</x-label>
-                                        <x-datepicker name="start_date" />
+                                        <x-datepicker name="start_date"/>
                                     </div>
                                     <div class="col-span-1 sm:col-span-1" v-show="display">
-                                        <x-label for="end_date" class="font-semibold" :dateRange="0">End Date</x-label>
+                                        <x-label for="end_date" class="font-semibold">End Date</x-label>
                                         <x-datepicker name="end_date"/>
                                     </div>
                                 </div>
                             </toggle>
+
                             <div class="col-span-full sm:col-span-full">
-                                <x-label for="cash_register" class="font-semibold">Cash Register</x-label>
-                                <multi-select :items="filtered_cash_registers" label="date" :multiple="false" v-slot="{ selected }" name="selectedIds" type="cash_register"></multi-select>
+                                <x-label for="trip_id" class="font-semibold">Trips</x-label>
+                                <multi-select :items="filtered_trips" v-slot="{ selected }" name="trip_id" label="alias_route"></multi-select>
                             </div>
                             
 
                             <div class="col-span-full sm:col-span-full">
-                                <button class="bg-darkblue border border-transparent duration-150 ease-in-out focus:border-red-300 focus:outline-none focus:shadow-outline-red font-medium inline-flex items-center justify-center p-4 rounded-md sm:leading-5 sm:text-sm text-white transition w-40" @click="getPdfMyDailyClosure">
+                                <button class="bg-darkblue border border-transparent duration-150 ease-in-out focus:border-red-300 focus:outline-none focus:shadow-outline-red font-medium inline-flex items-center justify-center p-4 rounded-md sm:leading-5 sm:text-sm text-white transition w-40" @click="getReservationPerRoutePdfData">
                                     Search
                                 </button>
                             </div>
