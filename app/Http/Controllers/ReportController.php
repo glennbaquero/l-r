@@ -12,6 +12,8 @@ use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Cash;
 use App\Models\Trip;
+use App\Models\TicketType;
+use App\Models\City;
 
 use PDF;
 use Storage;
@@ -85,6 +87,21 @@ class ReportController extends Controller
         $trips = Trip::get();
         return view('pages.reports.route.reservation-per-route', [
             'trips' => $trips,
+        ]);
+    }
+
+    /**
+     * Show price per route index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function pricePerRoute()
+    {   
+        $types = TicketType::get();
+        $cities = City::get();
+        return view('pages.reports.route.price-per-route', [
+            'types' => $types,
+            'cities' => $cities,
         ]);
     }
    

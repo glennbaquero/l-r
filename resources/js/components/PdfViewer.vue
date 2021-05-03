@@ -47,6 +47,7 @@
 		    	getPdfDataDailyTillReportTerminal: this.getPdfDataDailyTillReportTerminal,
 		    	getPdfMyDailyClosure: this.getPdfMyDailyClosure,
 		    	getReservationPerRoutePdfData: this.getReservationPerRoutePdfData,
+		    	getPricePerRoutePdfData: this.getPricePerRoutePdfData,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -183,6 +184,15 @@
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var trip_ids = this.$children[1].selected;
 				var url = this.searchUrl+'/'+date_type+'/'+start_date+'/'+end_date+'/'+trip_ids;
+				this.fetch(url);
+			},
+
+			getPricePerRoutePdfData() {
+				this.loading = true;
+
+				var type_ids = this.$children[0].selected;
+				var city_id = this.$children[1].selected;
+				var url = this.searchUrl+'/'+city_id+'/'+type_ids;
 				this.fetch(url);
 			},
 
