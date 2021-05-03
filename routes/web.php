@@ -538,4 +538,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/reservation-per-route/print/{date_type?}/{start_date?}/{end_date?}/{trip_ids?}', [PrintController::class, 'printReservationPerRoute'])->name('reservation-per-route.print');
     Route::get('/price-per-route', [ReportController::class, 'pricePerRoute'])->name('price-per-route');
     Route::get('/price-per-route/print/{city_id?}/{type_ids?}', [PrintController::class, 'printPricePerRoute'])->name('price-per-route.print');
+    Route::get('/income-by-route', [ReportController::class, 'incomeByRoute'])->name('income-by-route');
+    Route::get('/income-by-route/print/{route_ids?}/{bus_ids?}/{service_ids?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printIncomeByRoute'])->name('income-by-route.print');
 });

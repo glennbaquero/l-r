@@ -14,6 +14,9 @@ use App\Models\Cash;
 use App\Models\Trip;
 use App\Models\TicketType;
 use App\Models\City;
+use App\Models\Service;
+use App\Models\Bus;
+use App\Models\Route;
 
 use PDF;
 use Storage;
@@ -102,6 +105,23 @@ class ReportController extends Controller
         return view('pages.reports.route.price-per-route', [
             'types' => $types,
             'cities' => $cities,
+        ]);
+    }
+
+    /**
+     * Show income by route index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function incomeByRoute()
+    {   
+        $services = Service::get();
+        $buses = Bus::get();
+        $trips = Route::get();
+        return view('pages.reports.route.income-by-route', [
+            'services' => $services,
+            'buses' => $buses,
+            'trips' => $trips,
         ]);
     }
    
