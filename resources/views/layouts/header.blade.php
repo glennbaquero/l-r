@@ -294,10 +294,10 @@
                         <x-header-sub-link link="{{route('reservation-per-route')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Reservation per Route</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('price-per-route')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Price per Route</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('income-by-route')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Income by Route</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
