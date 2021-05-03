@@ -536,4 +536,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/my-daily-closure/print/{date_type?}/{start_date?}/{end_date?}/{cash_register?}', [PrintController::class, 'printMyDailyTillClosure'])->name('my-daily-closure.print');
     Route::get('/reservation-per-route', [ReportController::class, 'reservationPerRoute'])->name('reservation-per-route');
     Route::get('/reservation-per-route/print/{date_type?}/{start_date?}/{end_date?}/{trip_ids?}', [PrintController::class, 'printReservationPerRoute'])->name('reservation-per-route.print');
+    Route::get('/price-per-route', [ReportController::class, 'pricePerRoute'])->name('price-per-route');
+    Route::get('/price-per-route/print/{city_id?}/{type_ids?}', [PrintController::class, 'printPricePerRoute'])->name('price-per-route.print');
 });

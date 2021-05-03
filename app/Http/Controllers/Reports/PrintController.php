@@ -11,6 +11,9 @@ use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Cash;
 use App\Models\Trip;
+use App\Models\Price;
+use App\Models\TicketType;
+use App\Models\City;
 
 use PDF;
 use Storage;
@@ -194,6 +197,52 @@ class PrintController extends Controller
         }
         
         $pdf = PDF::loadView('pages.reports.pdf.reservation-per-route', compact('tickets', 'start_date', 'end_date', 'date_type', 'travels'));
+        $pdf->setPaper('A4', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
+
+    /**
+     * Handle the price per route report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printPricePerRoute($city_id, $type_ids)
+    {
+        $types = TicketType::whereIn('id', json_decode($type_ids))->get();
+        $headers = TicketType::whereIn('id', json_decode($type_ids))->pluck('name');
+
+        $prices = Price::where('departure_id', $city_id)->get();
+        $city = City::find($city_id)->name;
+
+        foreach ($types as $key => $type) {
+           foreach ($prices as $price) {
+                switch($type->discount_type) {
+                    case 'Percent':
+                        $value = $type->discount / 100; 
+                        $type['arrival_price'] = $value * $price->arrival_price; 
+                        $type['roundtrip_price'] = ($value * $price->round_trip_price) * 2; 
+                        break;
+
+                    default: 
+                        $value = $type->discount; 
+                        $type['arrival_price'] = $price->arrival_price - $value; 
+                        $type['roundtrip_price'] = ($price->round_trip_price - $value) * 2; 
+                        break;
+                }
+                $type['price'] = $price;
+           }
+        }
+        // dd($types);
+        $ticket_type = implode(',', $headers->toArray());
+        
+
+        $pdf = PDF::loadView('pages.reports.pdf.price-per-route', compact('types', 'headers', 'ticket_type', 'city', 'prices'));
         $pdf->setPaper('A4', 'landscape');
         $content = $pdf->download()->getOriginalContent();
 
