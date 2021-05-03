@@ -14,6 +14,9 @@ use App\Models\Trip;
 use App\Models\Price;
 use App\Models\TicketType;
 use App\Models\City;
+use App\Models\Service;
+use App\Models\Bus;
+use App\Models\Route;
 
 use PDF;
 use Storage;
@@ -243,6 +246,45 @@ class PrintController extends Controller
         
 
         $pdf = PDF::loadView('pages.reports.pdf.price-per-route', compact('types', 'headers', 'ticket_type', 'city', 'prices'));
+        $pdf->setPaper('A4', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
+
+    /**
+     * Handle the income by route report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printIncomeByRoute($route_ids, $bus_ids, $service_ids, $date_type, $start_date, $end_date)
+    {
+        if($date_type == 'false' || !$date_type) {
+            $trips = Trip::whereDate('date', $start_date)->whereIn('route_id', json_decode($route_ids))->whereIn('service_id', json_decode($service_ids))->whereIn('bus_id', json_decode($bus_ids))->get();
+        } else {
+            $trips = Trip::where('date', '>=', $start_date)->where('date', '<=', $end_date)->whereIn('route_id', json_decode($route_ids))->whereIn('service_id', json_decode($service_ids))->whereIn('bus_id', json_decode($bus_ids))->get();
+        }
+
+        $bus = Bus::whereIn('id', json_decode($bus_ids))->pluck('name');
+        $bus = implode(',', $bus->toArray());
+        $service = Service::whereIn('id', json_decode($service_ids))->pluck('name');
+        $service = implode(',', $service->toArray());
+        $route = Route::whereIn('id', json_decode($route_ids))->pluck('name');
+        $route = implode(',', $route->toArray());
+
+        $total_passengers = 0;
+        $total_revenue = 0;
+
+        foreach ($trips as $key => $trip) {
+            $total_passengers += $trip->tickets()->count();
+            $total_revenue += $trip->tickets->sum('total_sale');
+        }
+
+        $pdf = PDF::loadView('pages.reports.pdf.income-by-route', compact('trips', 'bus', 'service', 'route', 'date_type', 'start_date', 'end_date', 'total_passengers', 'total_revenue'));
         $pdf->setPaper('A4', 'landscape');
         $content = $pdf->download()->getOriginalContent();
 

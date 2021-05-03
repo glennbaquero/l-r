@@ -48,6 +48,7 @@
 		    	getPdfMyDailyClosure: this.getPdfMyDailyClosure,
 		    	getReservationPerRoutePdfData: this.getReservationPerRoutePdfData,
 		    	getPricePerRoutePdfData: this.getPricePerRoutePdfData,
+		    	getIncomeByRoutePdfData: this.getIncomeByRoutePdfData,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -193,6 +194,19 @@
 				var type_ids = this.$children[0].selected;
 				var city_id = this.$children[1].selected;
 				var url = this.searchUrl+'/'+city_id+'/'+type_ids;
+				this.fetch(url);
+			},
+
+			getIncomeByRoutePdfData() {
+				this.loading = true;
+
+				var trip_ids = this.$children[0].selected;
+				var bus_ids = this.$children[1].selected;
+				var service_ids = this.$children[2].selected;
+				var date_type = this.$children[3].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var url = this.searchUrl+'/'+trip_ids+'/'+bus_ids+'/'+service_ids+'/'+date_type+'/'+start_date+'/'+end_date;
 				this.fetch(url);
 			},
 
