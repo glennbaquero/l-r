@@ -17,6 +17,7 @@ use App\Models\City;
 use App\Models\Service;
 use App\Models\Bus;
 use App\Models\Route;
+use App\Models\Driver;
 
 use PDF;
 use Storage;
@@ -35,6 +36,23 @@ class ReportController extends Controller
             'offices' => Office::get(),
             'office_types' => OfficeType::get(),
             'users' => User::get(),
+        ]);
+    }
+
+    /**
+     * Show sales by departure and arrival index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function salesByDepartureArrival()
+    {   
+        $types = TicketType::get();
+        $cities = City::get();
+        $genders = Driver::getGenderTypes();
+        return view('pages.reports.sales.sales-by-departure-arrival', [
+            'types' => $types,
+            'cities' => $cities,
+            'genders' => collect($genders),
         ]);
     }
 

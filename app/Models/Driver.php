@@ -78,8 +78,8 @@ class Driver extends Model
      */
     public static function getGenderTypes() {
         return [
-            ['value' => static::Male, 'name' => 'Male'],
-            ['value' => static::Female, 'name' => 'Female'],
+            ['value' => static::Male, 'name' => 'Male', 'id' => 'Male'],
+            ['value' => static::Female, 'name' => 'Female', 'id' => 'Female'],
         ];
     }
 }
