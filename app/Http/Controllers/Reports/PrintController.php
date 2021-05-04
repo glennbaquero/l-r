@@ -292,4 +292,81 @@ class PrintController extends Controller
         // return view('pages.reports.pdf.daily-till-closure');
         return $pdf->download('report.pdf');
     }
+
+    /**
+     * Handle the sales by departure arrival report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printSalesByDepartureArrival($departure_ids, $arrival_ids, $type_ids, $genders, $date_type, $start_date, $end_date)
+    {
+        $tickets = Ticket::whereHas('trip', function($trip) use($date_type, $start_date, $end_date) {
+            if($date_type == 'false' || !$date_type) {
+                $trip->whereDate('date', $start_date);
+            } else {
+                $trip->where('date', '>=', $start_date)->where('date', '<=', $end_date);
+            }
+        })->whereIn('departure_id', json_decode($departure_ids))->whereIn('arrival_id', json_decode($arrival_ids))->whereHas('passenger', function($passenger) use($genders) {
+            $passenger->whereIn('gender', json_decode($genders));
+        })->get()->groupBy(['departure_id', 'arrival_id']);
+        
+
+        $new_ticket_list = [];
+        $overall_total = 0;
+
+        foreach($tickets as $departure => $ticketDeparture) {
+            foreach ($ticketDeparture as $arrival => $ticketArrival) {
+                $male = 0;
+                $female = 0;
+                $total_sales = 0;
+                foreach($ticketArrival as $ticket) {
+                    $total_sales += $ticket->total_sale;
+                    $overall_total += $ticket->total_sale;
+
+                    switch($ticket->passenger_gender) {
+                        case 'Male':
+                            if(in_array('Male', json_decode($genders))) {
+                                $male += 1;    
+                            }
+                            break;
+
+                        case 'Female':
+                            if(in_array('Female', json_decode($genders))) {
+                                $female += 1;
+                            }
+                            break;
+                    }
+                }
+
+                array_push($new_ticket_list, [
+                    'departure' => City::find($departure)->name,
+                    'arrival' => City::find($arrival)->name,
+                    'male' => $male,
+                    'female' => $female,
+                    'total' => $male + $female,
+                    'total_sales' => number_format($total_sales, 2, '.', ',')
+                ]);
+            }
+        }
+
+        $overall_total = number_format($overall_total, 2, '.', ',');
+
+        $departure = City::whereIn('id', json_decode($departure_ids))->pluck('name');
+        $departure = implode(',', $departure->toArray());
+        $arrival = City::whereIn('id', json_decode($arrival_ids))->pluck('name');
+        $arrival = implode(',', $arrival->toArray());
+        $type = TicketType::whereIn('id', json_decode($type_ids))->pluck('name');
+        $type = implode(',', $type->toArray());
+        $gender = implode(',', json_decode($genders));
+
+        $pdf = PDF::loadView('pages.reports.pdf.sales-by-departure-arrival', compact('new_ticket_list', 'departure', 'arrival', 'type', 'gender', 'date_type', 'start_date', 'end_date', 'overall_total'));
+        $pdf->setPaper('A4', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
 }
