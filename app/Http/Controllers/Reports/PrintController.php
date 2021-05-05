@@ -369,4 +369,66 @@ class PrintController extends Controller
         // return view('pages.reports.pdf.daily-till-closure');
         return $pdf->download('report.pdf');
     }
+
+    /**
+     * Handle the sales by travel report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printSalesByTravel($trip_ids, $terminal_ids, $service_ids, $date_type, $start_date, $end_date)
+    {
+        if($date_type == 'false' || !$date_type) {
+            $tickets = Ticket::whereDate('created_at', $start_date)->whereHas('seller', function($seller) use($terminal_ids) {
+                $seller->whereIn('office_id', json_decode($terminal_ids));
+            })->whereHas('trip', function($trip) use($service_ids, $trip_ids) {
+                $trip->whereIn('service_id', json_decode($service_ids))->whereIn('route_id', json_decode($trip_ids));
+            })->get()->groupBy('trip_id');
+        } else {
+            $tickets = Ticket::where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date)->whereHas('seller', function($seller) use($terminal_ids) {
+                $seller->whereIn('office_id', json_decode($terminal_ids));
+            })->whereHas('trip', function($trip) use($service_ids, $trip_ids) {
+                $trip->whereIn('service_id', json_decode($service_ids))->whereIn('route_id', json_decode($trip_ids));
+            })->get()->groupBy('trip_id');
+        }
+
+       
+        $lists = [];
+        $total_passenger = 0;
+        $total_seat = 0;
+        $total_revenue = 0;
+
+        foreach ($tickets as $key => $group_by_trip) {
+            $total_passenger += $group_by_trip->count();
+            $bus_rows = $group_by_trip[0]->trip->bus->bus_model->bus_rows;
+            $group_by_trip[0]['total_seats'] = 0;
+            $total_revenue += $group_by_trip->sum('total_sale');
+            foreach ($bus_rows as $row) {
+               $group_by_trip[0]['total_seats'] += $row->bus_columns()->whereNotNull('label')->count();
+               $total_seat += $row->bus_columns()->whereNotNull('label')->count();
+            }
+
+            array_push($lists, $group_by_trip[0]);
+
+        }
+
+        $tickets = $lists;
+
+
+        $service = Service::whereIn('id', json_decode($service_ids))->pluck('name');
+        $service = implode(',', $service->toArray());
+        $trip = Route::whereIn('id', json_decode($trip_ids))->pluck('name');
+        $trip = implode(',', $trip->toArray());
+        $office = Office::whereIn('id', json_decode($terminal_ids))->pluck('name');
+        $office = implode(',', $office->toArray());
+
+        $pdf = PDF::loadView('pages.reports.pdf.sales-by-travel', compact('tickets', 'service', 'trip', 'office', 'date_type', 'start_date', 'end_date', 'total_passenger', 'total_seat', 'total_revenue'));
+        $pdf->setPaper('a3', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
 }
