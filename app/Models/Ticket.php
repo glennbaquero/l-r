@@ -88,6 +88,17 @@ class Ticket extends Model
         return $this->belongsTo(BusModelColumn::class, 'bus_model_column_id', 'id')->withTrashed();
     }
 
+    /**
+     * Ticket belongs to voucher
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+     public function voucher()
+     {
+         return $this->belongsTo(Voucher::class, 'voucher_code', 'code')->withTrashed();
+     }
+
+
 
     /**
      * Get formatted purchase date

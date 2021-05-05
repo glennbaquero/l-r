@@ -160,4 +160,16 @@ class ReportController extends Controller
         ]);
     }
    
+    /**
+     * Show sales by voucher index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function salesByVoucher()
+    {   
+        return view('pages.reports.sales.sales-by-voucher', [
+            //
+        ]);
+    }
+   
 }

@@ -31,6 +31,16 @@ class Voucher extends Model
      {
          return $this->belongsTo(Passenger::class)->withTrashed();
      }
+     
+     /**
+      * Voucher belongs to tickets
+      * 
+      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+      */
+      public function tickets()
+      {
+          return $this->hasMany(Ticket::class, 'voucher_code', 'code');
+      }
 
      /**
       * getting types 
