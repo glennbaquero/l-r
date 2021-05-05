@@ -51,6 +51,7 @@
 		    	getIncomeByRoutePdfData: this.getIncomeByRoutePdfData,
 		    	getSalesByDepartureArrivalPdfData: this.getSalesByDepartureArrivalPdfData,
 		    	getSalesByTravelPdfData: this.getSalesByTravelPdfData,
+		    	getSalesByVoucherPdfData: this.getSalesByVoucherPdfData,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -236,6 +237,14 @@
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+trip_ids+'/'+terminal_ids+'/'+service_ids+'/'+date_type+'/'+start_date+'/'+end_date;
+				this.fetch(url);
+			},
+
+			getSalesByVoucherPdfData() {
+				this.loading = true;
+
+				var is_open = this.$children[0].display;
+				var url = this.searchUrl+'/'+is_open;
 				this.fetch(url);
 			},
 

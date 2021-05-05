@@ -17,6 +17,7 @@ use App\Models\City;
 use App\Models\Service;
 use App\Models\Bus;
 use App\Models\Route;
+use App\Models\Voucher;
 
 use PDF;
 use Storage;
@@ -424,6 +425,31 @@ class PrintController extends Controller
         $office = implode(',', $office->toArray());
 
         $pdf = PDF::loadView('pages.reports.pdf.sales-by-travel', compact('tickets', 'service', 'trip', 'office', 'date_type', 'start_date', 'end_date', 'total_passenger', 'total_seat', 'total_revenue'));
+        $pdf->setPaper('a3', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
+
+
+    /**
+     * Handle the income by route report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printSalesByVoucher($is_open)
+    {
+        $ticket_that_have_voucher = Ticket::whereNotNull('voucher_code')->pluck('voucher_code');
+        if($is_open && $is_open == 'true') {
+            $items = Voucher::whereIn('code', $ticket_that_have_voucher)->get();
+        } else {
+            $items = Ticket::whereNotNull('voucher_code')->get();
+        }
+        $pdf = PDF::loadView('pages.reports.pdf.sales-by-voucher', compact('items', 'is_open'));
         $pdf->setPaper('a3', 'landscape');
         $content = $pdf->download()->getOriginalContent();
 
