@@ -542,4 +542,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/income-by-route/print/{route_ids?}/{bus_ids?}/{service_ids?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printIncomeByRoute'])->name('income-by-route.print');
     Route::get('/sales-by-departure-arrival', [ReportController::class, 'salesByDepartureArrival'])->name('sales-by-departure-arrival');
     Route::get('/sales-by-departure-arrival/print/{departure_ids?}/{arrival_ids?}/{type_ids?}/{genders?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printSalesByDepartureArrival'])->name('sales-by-departure-arrival.print');
+    Route::get('/sales-by-travel', [ReportController::class, 'salesByTravel'])->name('sales-by-travel');
+    Route::get('/sales-by-travel/print/{trip_ids?}/{terminal_ids?}/{service_ids?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printSalesByTravel'])->name('sales-by-travel.print');
 });

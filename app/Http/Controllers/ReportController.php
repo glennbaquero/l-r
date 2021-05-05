@@ -142,5 +142,22 @@ class ReportController extends Controller
             'trips' => $trips,
         ]);
     }
+
+    /**
+     * Show income by route index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function salesByTravel()
+    {   
+        $services = Service::get();
+        $terminals = Office::get();
+        $trips = Route::get();
+        return view('pages.reports.sales.sales-by-travel', [
+            'services' => $services,
+            'terminals' => $terminals,
+            'trips' => $trips,
+        ]);
+    }
    
 }

@@ -50,6 +50,7 @@
 		    	getPricePerRoutePdfData: this.getPricePerRoutePdfData,
 		    	getIncomeByRoutePdfData: this.getIncomeByRoutePdfData,
 		    	getSalesByDepartureArrivalPdfData: this.getSalesByDepartureArrivalPdfData,
+		    	getSalesByTravelPdfData: this.getSalesByTravelPdfData,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -222,6 +223,19 @@
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+departure_ids+'/'+arrival_ids+'/'+ticket_type_ids+'/'+genders+'/'+date_type+'/'+start_date+'/'+end_date;
+				this.fetch(url);
+			},
+
+			getSalesByTravelPdfData() {
+				this.loading = true;
+
+				var trip_ids = this.$children[0].selected;
+				var terminal_ids = this.$children[1].selected;
+				var service_ids = this.$children[2].selected;
+				var date_type = this.$children[3].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var url = this.searchUrl+'/'+trip_ids+'/'+terminal_ids+'/'+service_ids+'/'+date_type+'/'+start_date+'/'+end_date;
 				this.fetch(url);
 			},
 
