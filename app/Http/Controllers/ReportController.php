@@ -199,4 +199,17 @@ class ReportController extends Controller
         ]);
     }
    
+    /**
+     * Show sales by credit card index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function salesByCreditCard()
+    {
+
+        return view('pages.reports.sales.sales-by-credit-card', [
+            'offices' => Office::get(),
+        ]);
+    }
+   
 }

@@ -53,6 +53,7 @@
 		    	getSalesByTravelPdfData: this.getSalesByTravelPdfData,
 		    	getSalesByVoucherPdfData: this.getSalesByVoucherPdfData,
 		    	getSalesByTicketPdfData: this.getSalesByTicketPdfData,
+		    	getSalesByCreditCardPdfData: this.getSalesByCreditCardPdfData,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -272,6 +273,19 @@
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+office_ids+'/'+user_ids+'/'+ticket_type_ids+'/'+ticket_status+'/'+payment_type+'/'+date_type+'/'+start_date+'/'+end_date;
+				this.fetch(url);
+			},
+
+			getSalesByCreditCardPdfData() {
+
+				this.loading = true;
+
+				var is_concept = this.$children[0].display;
+				var office_id = this.$children[0].$children[0].selected;
+				var date_type = this.$children[1].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var url = this.searchUrl+'/'+is_concept+'/'+office_id+'/'+date_type+'/'+start_date+'/'+end_date;
 				this.fetch(url);
 			},
 
