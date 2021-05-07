@@ -212,4 +212,43 @@ class ReportController extends Controller
         ]);
     }
    
+    /**
+     * Show sales by state index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function salesByState()
+    {
+        $offices = Office::get();
+        $states = [];
+        $ticket_statuses = [
+            ['id' => 'Reserved', 'name' => 'Reserved'],
+            ['id' => 'Paid', 'name' => 'Paid'],
+        ];
+
+        $payment_types = [
+            ['id' => 'Cash', 'name' => 'Cash'],
+            ['id' => 'Credit Card', 'name' => 'Credit Card'],
+            ['id' => 'Others', 'name' => 'Others'],
+        ];  
+
+        foreach (Office::get()->groupBy('state_name') as $key => $office) {
+            if($key) {
+                array_push($states, [
+                    'id' => $key,
+                    'name' => $key,
+                ]);
+            }
+        }
+
+        return view('pages.reports.sales.sales-by-state', [
+            'states' => $states,
+            'offices' => $offices,
+            'ticket_types' => TicketType::get(),
+            'states' => collect($states),
+            'ticket_statuses' => collect($ticket_statuses),
+            'payment_types' => collect($payment_types),
+        ]);
+    }
+   
 }

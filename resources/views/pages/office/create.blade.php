@@ -25,7 +25,7 @@
                 <div class="px-4 py-5 sm:p-6">
 
                     <google-auto-complete v-slot="{ address }">
-                        <form action="{{ route('office.store') }}" method="POST">
+                        <form action="{{ route('office.store') }}" method="POST" >
                             @csrf
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-6 sm:col-span-3">

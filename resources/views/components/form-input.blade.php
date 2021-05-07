@@ -1,4 +1,4 @@
 @props(['disabled' => false, 'readOnly' => false, 'id' => null, 'width' => 'w-full', 'classAttrib' => 'form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent'])
 
 {{-- <input id="{{$id}}" {{ $disabled ? 'disabled' : '' }} {{ $readOnly ? 'readonly' : '' }} class="form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent  {{ $width }}"> --}}
-<input id="{{$id}}" {{ $disabled ? 'disabled' : '' }} {{ $readOnly ? 'readonly' : '' }} {!! $attributes->merge(['class' => $classAttrib]) !!}>
+<input id="{{$id}}" {{ $disabled ? 'disabled' : '' }} {{ $readOnly ? 'readonly' : '' }} {!! $attributes->merge(['class' => $classAttrib]) !!} autocomplete="off">

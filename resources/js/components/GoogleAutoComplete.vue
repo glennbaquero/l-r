@@ -8,7 +8,10 @@
 
 	    props: {
 	    	item: Object,
-	        modified: Boolean,
+	        modified: {
+	        	default: false,
+	        	type: Boolean
+	        },
 
 	    },
 
