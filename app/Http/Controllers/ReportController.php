@@ -172,4 +172,31 @@ class ReportController extends Controller
         ]);
     }
    
+    /**
+     * Show sales by ticket index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function salesByTicket()
+    {   
+        $ticket_statuses = [
+            ['id' => 'Reserved', 'name' => 'Reserved'],
+            ['id' => 'Paid', 'name' => 'Paid'],
+        ];
+
+        $payment_types = [
+            ['id' => 'Cash', 'name' => 'Cash'],
+            ['id' => 'Credit Card', 'name' => 'Credit Card'],
+            ['id' => 'Others', 'name' => 'Others'],
+        ];  
+
+        return view('pages.reports.sales.sales-by-ticket', [
+            'offices' => Office::get(),
+            'users' => User::get(),
+            'ticket_types' => TicketType::get(),
+            'ticket_statuses' => collect($ticket_statuses),
+            'payment_types' => collect($payment_types),
+        ]);
+    }
+   
 }
