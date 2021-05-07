@@ -25,6 +25,7 @@
 			items: Array,
 			label: String,
 			value: String,
+			searchBy: String,
 			selectedValue: {
 				default: null
 			},
@@ -126,7 +127,7 @@
 				if(!_.isEmpty(this.type)) {
 					setTimeout(() => {
 						if(!this.multiple) {
-							this.$parent.selectChanged(this.selectedItem.id, this.type);
+							this.$parent.selectChanged(this.selectedItem.id, this.type, this.searchBy);
 						} else {
 							this.$parent.selectChanged(JSON.parse(this.selected), this.type);
 						}

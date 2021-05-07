@@ -233,7 +233,7 @@
                         <x-header-sub-link link="{{route('sales-by-user')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by Users</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('sales-by-credit-card')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by Credit Card</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
@@ -242,19 +242,19 @@
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by Agency</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('sales-by-travel')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by Travel</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('sales-by-ticket')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by Ticket</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('sales-by-state')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by State</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('sales-by-departure-arrival')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by Departure - Arrival</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('sales-by-voucher')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by Voucher</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">

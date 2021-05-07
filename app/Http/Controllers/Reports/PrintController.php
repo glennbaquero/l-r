@@ -542,4 +542,47 @@ class PrintController extends Controller
         // return view('pages.reports.pdf.daily-till-closure');
         return $pdf->download('report.pdf');
     }
+
+
+    /**
+     * Handle the sales by state report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printSalesByState($state, $office_ids, $ticket_type_ids, $ticket_status, $payment_type, $date_type, $start_date, $end_date)
+    {
+        $office_ids = json_decode($office_ids);
+        $ticket_type_ids = json_decode($ticket_type_ids);
+        $ticket_status = json_decode($ticket_status);
+        $payment_type = json_decode($payment_type);
+
+        $users = User::whereIn('office_id', $office_ids)->whereHas('tickets', function($tickets) use($ticket_type_ids, $ticket_status, $payment_type, $date_type, $start_date, $end_date) {
+                $tickets->whereIn('payment_status', $ticket_status)->whereIn('payment_method', $payment_type)->whereHas('passenger', function($passenger) use($ticket_type_ids) {
+                    $passenger->whereIn('ticket_type_id', $ticket_type_ids);
+                })->whereHas('trip', function($trip) use($date_type, $start_date, $end_date) {
+                    if($date_type == 'false' || !$date_type) {
+                        $trip->whereDate('date', $start_date);
+                    } else {
+                        $trip->where('date', '>=', $start_date)->where('date', '<=', $end_date);
+                    }
+                });
+        })->get();      
+
+        $office = Office::whereIn('id', $office_ids)->pluck('name');
+        $office = implode(', ', $office->toArray());
+        $ticket_type = TicketType::whereIn('id', $ticket_type_ids)->pluck('name');
+        $ticket_type = implode(', ', $ticket_type->toArray());
+        $payment_type = implode(', ', $payment_type);
+        $ticket_status = implode(', ', $ticket_status);
+        $pdf = PDF::loadView('pages.reports.pdf.sales-by-state', compact('users', 'state', 'office', 'ticket_type', 'payment_type', 'ticket_status', 'date_type', 'start_date', 'end_date'));
+        $pdf->setPaper('a3', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
+
 }

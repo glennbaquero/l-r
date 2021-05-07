@@ -18,7 +18,6 @@ Vue.mixin({
                 } else {
                     obj.latitude = this.place.geometry.location.lat();
                     obj.longitude = this.place.geometry.location.lng();
-
                     obj.address_line_1 = this.concatAddress();
                     
                     obj.city = !_.isEmpty(this.findLocality('locality')) ?

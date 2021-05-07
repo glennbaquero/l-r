@@ -54,6 +54,7 @@
 		    	getSalesByVoucherPdfData: this.getSalesByVoucherPdfData,
 		    	getSalesByTicketPdfData: this.getSalesByTicketPdfData,
 		    	getSalesByCreditCardPdfData: this.getSalesByCreditCardPdfData,
+		    	getSalesByStatePdfData: this.getSalesByStatePdfData,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -107,7 +108,7 @@
 		},
 
 		methods: {
-			selectChanged(value, type) {
+			selectChanged(value, type, search_by=null) {
 				switch(type) {
 					case 'office_type':
 						this.offices = _.filter(this.getOffices, (office) => { return office.office_type_id == value});
@@ -128,6 +129,10 @@
 						break;
 					case 'user_cash_registry':
 						this.cash_registers = _.filter(this.getCash, (cash) => { return cash.user_id == value});
+						break;
+
+					case 'state': 
+						this.offices = _.filter(this.getOffices, (office) => { return office[search_by] == value});
 						break;
 				}
 			},
@@ -286,6 +291,22 @@
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+is_concept+'/'+office_id+'/'+date_type+'/'+start_date+'/'+end_date;
+				this.fetch(url);
+			},
+
+			getSalesByStatePdfData() {
+
+				this.loading = true;
+
+				var state = this.$children[0].selected;
+				var office_ids = this.$children[1].selected;
+				var ticket_type_ids = this.$children[2].selected;
+				var ticket_status = this.$children[3].selected;
+				var payment_types = this.$children[4].selected;
+				var date_type = this.$children[5].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var url = this.searchUrl+'/'+state+'/'+office_ids+'/'+ticket_type_ids+'/'+ticket_status+'/'+payment_types+'/'+date_type+'/'+start_date+'/'+end_date;
 				this.fetch(url);
 			},
 
