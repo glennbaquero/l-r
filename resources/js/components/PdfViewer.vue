@@ -52,6 +52,7 @@
 		    	getSalesByDepartureArrivalPdfData: this.getSalesByDepartureArrivalPdfData,
 		    	getSalesByTravelPdfData: this.getSalesByTravelPdfData,
 		    	getSalesByVoucherPdfData: this.getSalesByVoucherPdfData,
+		    	getSalesByTicketPdfData: this.getSalesByTicketPdfData,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -111,7 +112,18 @@
 						this.offices = _.filter(this.getOffices, (office) => { return office.office_type_id == value});
 						break;
 					case 'office':
-						this.users = _.filter(this.getUsers, (user) => { return user.office_id == value});
+						if(typeof value == 'object') {
+							this.users = [];
+							_.each(value, (office) => {
+								_.each(this.getUsers, (user) => {
+									if(user.office_id == office) {
+										this.users.push(user)
+									}
+								});
+							});
+						} else {
+							this.users = _.filter(this.getUsers, (user) => { return user.office_id == value});
+						}
 						break;
 					case 'user_cash_registry':
 						this.cash_registers = _.filter(this.getCash, (cash) => { return cash.user_id == value});
@@ -245,6 +257,21 @@
 
 				var is_open = this.$children[0].display;
 				var url = this.searchUrl+'/'+is_open;
+				this.fetch(url);
+			},
+
+			getSalesByTicketPdfData() {
+				this.loading = true;
+
+				var office_ids = this.$children[0].selected;
+				var user_ids = this.$children[1].selected;
+				var ticket_type_ids = this.$children[2].selected;
+				var ticket_status = this.$children[3].selected;
+				var payment_type = this.$children[4].selected;
+				var date_type = this.$children[5].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var url = this.searchUrl+'/'+office_ids+'/'+user_ids+'/'+ticket_type_ids+'/'+ticket_status+'/'+payment_type+'/'+date_type+'/'+start_date+'/'+end_date;
 				this.fetch(url);
 			},
 

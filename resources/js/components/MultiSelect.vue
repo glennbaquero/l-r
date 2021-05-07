@@ -124,7 +124,14 @@
 				
 
 				if(!_.isEmpty(this.type)) {
-					this.$parent.selectChanged(this.selectedItem.id, this.type);
+					setTimeout(() => {
+						if(!this.multiple) {
+							this.$parent.selectChanged(this.selectedItem.id, this.type);
+						} else {
+							this.$parent.selectChanged(JSON.parse(this.selected), this.type);
+						}
+					}, 500)
+					
 				}
 			}
 		}
