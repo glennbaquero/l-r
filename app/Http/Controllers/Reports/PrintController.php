@@ -458,7 +458,6 @@ class PrintController extends Controller
         return $pdf->download('report.pdf');
     }
 
-
     /**
      * Handle the sales by ticket report print
      *
@@ -501,6 +500,41 @@ class PrintController extends Controller
         $ticket_status = implode(', ', $ticket_status);
 
         $pdf = PDF::loadView('pages.reports.pdf.sales-by-ticket', compact('users', 'user', 'office', 'ticket_type', 'payment_type', 'ticket_status', 'date_type', 'start_date', 'end_date'));
+        $pdf->setPaper('a3', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
+
+
+    /**
+     * Handle the sales by credit card report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printSalesByCreditCard($is_concept, $office_id, $date_type, $start_date, $end_date)
+    {
+        if($date_type == 'false' || !$date_type) {
+            $tickets = Ticket::whereDate('purchase_date', $start_date);
+        } else {
+            $tickets = Ticket::where('purchase_date', '>=', $start_date)->where('purchase_date', '<=', $end_date);
+        }
+
+        if($is_concept == 'true' || $is_concept) {
+            $tickets = $tickets->whereHas('seller', function($seller) use($office_id) {
+                $seller->where('office_id', $office_id);
+            })->get();
+
+            $office = Office::find($office_id)->name;
+        } else {
+            $tickets = $tickets->get();
+        }
+
+        $pdf = PDF::loadView('pages.reports.pdf.sales-by-credit-card', compact('is_concept', 'office', 'tickets', 'date_type', 'start_date', 'end_date'));
         $pdf->setPaper('a3', 'landscape');
         $content = $pdf->download()->getOriginalContent();
 
