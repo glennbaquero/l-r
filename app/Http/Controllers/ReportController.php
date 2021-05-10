@@ -251,4 +251,17 @@ class ReportController extends Controller
         ]);
     }
    
+    /**
+     * Show sales by account receivable index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function accountReceivable()
+    {
+
+        return view('pages.reports.account.receivable', [
+            'offices' => Office::get(),
+        ]);
+    }
+   
 }

@@ -55,6 +55,7 @@
 		    	getSalesByTicketPdfData: this.getSalesByTicketPdfData,
 		    	getSalesByCreditCardPdfData: this.getSalesByCreditCardPdfData,
 		    	getSalesByStatePdfData: this.getSalesByStatePdfData,
+		    	getPdfAccountReceivable: this.getPdfAccountReceivable,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -307,6 +308,18 @@
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+state+'/'+office_ids+'/'+ticket_type_ids+'/'+ticket_status+'/'+payment_types+'/'+date_type+'/'+start_date+'/'+end_date;
+				this.fetch(url);
+			},
+
+			getPdfAccountReceivable() {
+
+				this.loading = true;
+
+				var office_id = this.$children[0].selected;
+				var date_type = this.$children[1].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var url = this.searchUrl+'/'+office_id+'/'+date_type+'/'+start_date+'/'+end_date;
 				this.fetch(url);
 			},
 

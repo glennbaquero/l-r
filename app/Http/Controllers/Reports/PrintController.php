@@ -585,4 +585,58 @@ class PrintController extends Controller
         return $pdf->download('report.pdf');
     }
 
+
+    /**
+     * Handle the sales by credit card report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printAccountReceivable($office_id, $date_type, $start_date, $end_date)
+    {
+        // if($date_type == 'false' || !$date_type) {
+        //     $tickets = Ticket::whereDate('purchase_date', $start_date);
+        // } else {
+        //     $tickets = Ticket::where('purchase_date', '>=', $start_date)->where('purchase_date', '<=', $end_date);
+        // }
+
+        // $tickets = $tickets->whereHas('seller', function($seller) use($office_id) {
+        //     $seller->where('office_id', $office_id);
+        // })->get();
+
+        $office = Office::find($office_id)->name;
+
+
+        $users = User::where('office_id', $office_id)->whereHas('tickets', function($tickets) use($date_type, $start_date, $end_date) {
+                if($date_type == 'false' || !$date_type) {
+                    $tickets->whereDate('purchase_date', $start_date);
+                } else {
+                    $tickets->where('purchase_date', '>=', $start_date)->where('purchase_date', '<=', $end_date);
+                }
+        })->get();   
+
+        foreach ($users as $user) {
+            if($date_type == 'false' || !$date_type) {
+                $tickets = $user->tickets->whereDate('purchase_date', $start_date);
+            } else {
+                $tickets = $user->tickets->where('purchase_date', '>=', $start_date)->where('purchase_date', '<=', $end_date);
+            }
+
+            $user['tickets'] = $tickets;
+
+            $user['total'] = $tickets->sum('total_sale');
+        }
+    
+
+        $pdf = PDF::loadView('pages.reports.pdf.receivable', compact('office', 'users', 'date_type', 'start_date', 'end_date'));
+        $pdf->setPaper('a3', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
+
+
 }
