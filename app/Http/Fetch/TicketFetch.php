@@ -5,23 +5,26 @@ namespace App\Http\Fetch;
 use App\Models\Ticket;
 use App\Models\Passenger;
 use App\Models\City;
+use App\Models\Office;
 
 class TicketFetch
 {
     protected $ticket;
     protected $city;
     protected $passenger;
+    protected $office;
 
     /**
      * Create new fetch instance
      * 
      * @return void
      */
-    public function __construct(Ticket $ticket, City $city, Passenger $passenger)
+    public function __construct(Ticket $ticket, City $city, Passenger $passenger, Office $office)
     {
         $this->ticket = $ticket;
         $this->city = $city;
         $this->passenger = $passenger;
+        $this->office = $office;
     }
 
     /**
@@ -35,6 +38,10 @@ class TicketFetch
         $this->ticket = $this->ticket;
 
 
+        if($params['date'] && $params['date'] != 'null') {
+            $this->ticket = $this->ticket->whereDate('purchase_date', $params['date']);
+        }
+        
         if($params['departure'] && $params['departure'] != 'null') {
             $cityId = $this->city->whereLike('name', $params['departure'])->pluck('id')->toArray();
             $this->ticket = $this->ticket->whereIn('departure_id', $cityId);
@@ -48,6 +55,15 @@ class TicketFetch
         if($params['passenger'] && $params['passenger'] != 'null') {
             $passengerId = $this->passenger->whereLike('first_name', $params['passenger'])->orWhereLike('last_name', $params['passenger'])->pluck('id')->toArray();
             $this->ticket = $this->ticket->whereIn('passenger_id', $passengerId);
+        }
+
+        if($params['office_id'] && $params['office_id'] != 'null') {
+            $office_id = $params['office_id'];
+            $seller_ids = $this->ticket->whereHas('seller', function($seller) use($office_id) {
+                $seller->where('office_id', $office_id);
+            })->pluck('id')->toArray();
+
+            $this->ticket = $this->ticket->whereIn('seller_id', $seller_ids);
         }
 
         return $this->ticket->paginate(20);
