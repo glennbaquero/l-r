@@ -192,6 +192,8 @@ use App\Http\Controllers\PaymentDocuments\PaymentDocumentBatchUploadController;
 use App\Http\Controllers\PaymentDocuments\PaymentDocumentUpdateController;
 use App\Http\Controllers\PaymentDocuments\PaymentDocumentDeleteController;
 
+use App\Http\Controllers\AccountReceivableController;
+
 use App\Http\Controllers\PassengerController;
 
 use App\Http\Controllers\OpenCashController;
@@ -538,6 +540,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/payment-document/show/{id}', [PaymentDocumentController::class, 'show'])->name('payment-document.show');
     Route::post('/payment-document/update/{id}', PaymentDocumentUpdateController::class)->name('payment-document.update');
     Route::post('/payment-document/destroy/{id}', PaymentDocumentDeleteController::class)->name('payment-document.destroy');
+
+    Route::get('/account-receivable', [AccountReceivableController::class, 'index'])->name('account-receivable.index');
 
 
     Route::get('/sales-by-user', [ReportController::class, 'salesByUser'])->name('sales-by-user');

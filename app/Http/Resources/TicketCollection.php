@@ -18,12 +18,21 @@ class TicketCollection extends ResourceCollection
     ];
 
     /**
+     * Fields that are used for table headers
+     * 
+     * @var array 
+     */
+    public static $account_receivable_headers = [
+       'Ticket', 'Purchase Date', 'Departure City', 'Arrival City', 'Travel Date', 'Passenger', 'Office', 'Amount', 'Commission', 'Amount Receivable', 'Amount Paid', 'Balance'
+    ];
+
+    /**
      * Fields that are used for searching
      * 
      * @var array
      */
     public static $searches = [
-        'departure', 'arrival', 'passenger'
+        'departure', 'arrival', 'passenger', 'office_id', 'date'
     ];
 
     /**
@@ -47,7 +56,23 @@ class TicketCollection extends ResourceCollection
                 'price' => $ticket->total_sale,
                 't_des' => '---',
                 't_or' => '---',
-                'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name])
+                'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
+
+
+                // ACcount Receivable 
+                
+                'ticket' => $ticket->id,
+                'purchase_date' => Carbon::parse($ticket->purchase_date)->format('Y-m-d h:i A'),
+                'departure' => $ticket->departure ? $ticket->departure->name : '---',
+                'arrival' => $ticket->arrival ? $ticket->arrival->name : '---',
+                'travel_date' => Carbon::parse($ticket->trip->date.' '.$ticket->trip->time)->format('Y-m-d h:i A'),
+                'passenger' => $ticket->passenger ? $ticket->passenger->fullname : '---',
+                'office' => $ticket->seller->office->name,
+                'amount' => number_format($ticket->total_sale, 2, '.', ','),
+                'commssion' => 0.00,
+                'receivable' => number_format($ticket->total_sale, 2, '.', ','),
+                'amount_paid' => number_format($ticket->total_sale, 2, '.', ','),
+                'balance' => 0.00,
             ];
         });
     }

@@ -26,8 +26,10 @@ class PaymentDocumentStoreRequest extends FormRequest
         return [
             'user_id' => 'required',
             'document_number' => 'required',
+            'payment_document' => 'required',
             'payment_type' => 'required',
             'amount' => 'required|numeric',
+            'number_of_voucher' => 'required|numeric',
         ];
     }
 

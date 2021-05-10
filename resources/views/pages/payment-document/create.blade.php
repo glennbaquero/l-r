@@ -37,7 +37,12 @@
                                 <multi-select :items="{{ $users }}" :multiple="false" label="fullname" name="user_id"></multi-select>
                             </div>
 
-                            <div class="col-span-2 sm:col-span-2">
+                            <div class="col-span-3 sm:col-span-3">
+                                <x-label for="payment_document" class="font-semibold">Payment Document</x-label>
+                                <multi-select :items="{{ $payment_documents }}" :multiple="false" label="label" name="payment_document"></multi-select>
+                            </div>
+
+                            <div class="col-span-3 sm:col-span-3">
                                 <x-label for="issued_date" class="font-semibold">Issued Date</x-label>
                                 <x-datepicker name="issued_date"/>
                             </div>
@@ -54,6 +59,11 @@
                             <div class="col-span-2 sm:col-span-2">
                                 <x-label for="amount" class="font-semibold">Amount</x-label>
                                 <x-form-input type="number" step="any" name="amount" id="amount" value="{{ old('amount') }}" min="0" />
+                            </div>
+
+                            <div class="col-span-2 sm:col-span-2">
+                                <x-label for="number_of_voucher" class="font-semibold">Number of Voucher</x-label>
+                                <x-form-input type="number" step="any" name="number_of_voucher" id="number_of_voucher" value="{{ old('number_of_voucher') }}" min="0" />
                             </div>
 
                             <div class="col-span-full sm:col-span-full">
