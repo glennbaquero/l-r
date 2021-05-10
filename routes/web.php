@@ -186,6 +186,12 @@ use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverBatchUploadContro
 use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverUpdateController;
 use App\Http\Controllers\RouteAndMainDrivers\RouteAndMainDriverDeleteController;
 
+use App\Http\Controllers\PaymentDocumentController;
+use App\Http\Controllers\PaymentDocuments\PaymentDocumentCreateController;
+use App\Http\Controllers\PaymentDocuments\PaymentDocumentBatchUploadController;
+use App\Http\Controllers\PaymentDocuments\PaymentDocumentUpdateController;
+use App\Http\Controllers\PaymentDocuments\PaymentDocumentDeleteController;
+
 use App\Http\Controllers\PassengerController;
 
 use App\Http\Controllers\OpenCashController;
@@ -524,6 +530,14 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/route-main-driver/show/{id}', [RouteAndMainDriverController::class, 'show'])->name('route-main-driver.show');
     Route::post('/route-main-driver/update/{id}', RouteAndMainDriverUpdateController::class)->name('route-main-driver.update');
     Route::post('/route-main-driver/destroy/{id}', RouteAndMainDriverDeleteController::class)->name('route-main-driver.destroy');
+
+    Route::get('/payment-document', [PaymentDocumentController::class, 'index'])->name('payment-document.index');
+    Route::get('/payment-document/fetch', [PaymentDocumentController::class, 'fetch'])->name('payment-document.fetch');
+    Route::get('/payment-document/create', [PaymentDocumentController::class, 'create'])->name('payment-document.create');
+    Route::post('/payment-document/store', PaymentDocumentCreateController::class)->name('payment-document.store');
+    Route::get('/payment-document/show/{id}', [PaymentDocumentController::class, 'show'])->name('payment-document.show');
+    Route::post('/payment-document/update/{id}', PaymentDocumentUpdateController::class)->name('payment-document.update');
+    Route::post('/payment-document/destroy/{id}', PaymentDocumentDeleteController::class)->name('payment-document.destroy');
 
 
     Route::get('/sales-by-user', [ReportController::class, 'salesByUser'])->name('sales-by-user');
