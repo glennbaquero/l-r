@@ -176,7 +176,7 @@
             <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">Accounts Payable</x-slot>
             </x-header-sub-link>
-            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+            <x-header-sub-link link="{{route('payment-document.index')}}" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">Payment Document</x-slot>
             </x-header-sub-link>
             <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
