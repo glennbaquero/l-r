@@ -570,4 +570,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/sales-by-credit-card/print/{is_concept?}/{office_id?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printSalesByCreditCard'])->name('sales-by-credit-card.print');
     Route::get('/sales-by-state', [ReportController::class, 'salesByState'])->name('sales-by-state');
     Route::get('/sales-by-state/print/{state?}/{office_ids?}/{ticket_type_ids?}/{ticket_status?}/{payment_type?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printSalesByState'])->name('sales-by-state.print');
+    Route::get('/receivable', [ReportController::class, 'accountReceivable'])->name('receivable');
+    Route::get('/receivable/print/{office_id?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printAccountReceivable'])->name('receivable.print');
 });
