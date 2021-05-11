@@ -299,5 +299,17 @@ class ReportController extends Controller
             //
         ]);
     }
+
+    /**
+     * Show billing by transaction index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function billingByTransaction()
+    {
+        return view('pages.reports.billing.billing-by-transactions', [
+            //
+        ]);
+    }
    
 }

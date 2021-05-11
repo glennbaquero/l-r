@@ -305,7 +305,7 @@
             <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lightblue">
                 <x-slot name="name">Billings</x-slot>
                     <x-header-absolute-link class="group-route-hover:block bg-lightblue">
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('billing-by-transactions')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Billing by Transaction</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('billing-by-tickets')}}" :caret="false" class="hover:bg-lighterblue">
