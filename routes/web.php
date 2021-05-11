@@ -574,4 +574,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/receivable/print/{office_id?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printAccountReceivable'])->name('receivable.print');
     Route::get('/sales-by-agency', [ReportController::class, 'salesByAgency'])->name('sales-by-agency');
     Route::get('/sales-by-agency/print/{terminal_ids?}/{office_ids?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printSalesByAgency'])->name('sales-by-agency.print');
+    Route::get('/billing-by-tickets', [ReportController::class, 'billingByTickets'])->name('billing-by-tickets');
+    Route::get('/billing-by-tickets/print/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printBillingByTickets'])->name('billing-by-tickets.print');
 });

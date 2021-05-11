@@ -283,9 +283,20 @@ class ReportController extends Controller
      */
     public function accountReceivable()
     {
-
         return view('pages.reports.account.receivable', [
             'offices' => Office::get(),
+        ]);
+    }
+
+    /**
+     * Show billing by tickets index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function billingByTickets()
+    {
+        return view('pages.reports.billing.billing-by-tickets', [
+            //
         ]);
     }
    
