@@ -627,7 +627,7 @@ class PrintController extends Controller
     }
 
     /**
-     * Handle the sales by credit card report print
+     * Handle the sales by agency report print
      *
      * @param Illuminate\Http\Request $request
      * @return Illuminate\Http\Response
@@ -658,6 +658,46 @@ class PrintController extends Controller
 
         $pdf = PDF::loadView('pages.reports.pdf.sales-by-agency', compact('agencies', 'terminals', 'tickets', 'date_type', 'start_date', 'end_date'));
         $pdf->setPaper('a2', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
+
+    /**
+     * Handle the sales by credit card report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printBillingByTickets($date_type, $start_date, $end_date)
+    {
+        if($date_type == 'false' || !$date_type) {
+            $tickets = Ticket::whereDate('purchase_date', $start_date);
+        } else {
+            $tickets = Ticket::where('purchase_date', '>=', $start_date)->where('purchase_date', '<=', $end_date);
+        }
+
+        $tickets_by_terminal_unique = $tickets->get()->count();
+        $tickets_by_terminal_by_section = $tickets->get()->count();
+        $tickets_by_terminal_total = $tickets->sum('total_sale') + $tickets->sum('total_sale');
+
+
+        $total_sold_ticket_sold_unique = $tickets->get()->count();
+        $total_sold_ticket_sold_bysection = $tickets->get()->count();
+        $total_sold_unique_and_bysection = $tickets->sum('total_sale') + $tickets->sum('total_sale');
+
+        $total_agency_paid_confirmed_tickets_unique = $tickets->where('payment_status', 'Paid')->get()->count();
+        $total_agency_paid_confirmed_tickets_bysection = $tickets->where('payment_status', 'Paid')->get()->count();
+        $total_agency_paid_confirmed_tickets_total = $tickets->where('payment_status', 'Paid')->sum('total_sale') + $tickets->where('payment_status', 'Paid')->sum('total_sale');
+
+        $total_agent_paid_confirmed_tickets_unique = $tickets->where('payment_status', 'Paid')->get()->count();
+        $total_agent_paid_confirmed_tickets_bysection = $tickets->where('payment_status', 'Paid')->get()->count();
+        $total_agent_paid_confirmed_tickets_total = $tickets->where('payment_status', 'Paid')->sum('total_sale') + $tickets->where('payment_status', 'Paid')->sum('total_sale');
+
+        $pdf = PDF::loadView('pages.reports.pdf.billing-by-tickets', compact('tickets_by_terminal_unique', 'tickets_by_terminal_by_section', 'tickets_by_terminal_total', 'total_sold_ticket_sold_unique', 'total_sold_ticket_sold_bysection', 'total_sold_unique_and_bysection', 'total_agency_paid_confirmed_tickets_unique', 'total_agency_paid_confirmed_tickets_bysection', 'total_agency_paid_confirmed_tickets_total', 'total_agent_paid_confirmed_tickets_unique', 'total_agent_paid_confirmed_tickets_bysection', 'total_agent_paid_confirmed_tickets_total', 'date_type', 'start_date', 'end_date'));
         $content = $pdf->download()->getOriginalContent();
 
         Storage::put('public/report.pdf',$content) ;

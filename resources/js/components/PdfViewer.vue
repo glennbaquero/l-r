@@ -57,6 +57,7 @@
 		    	getSalesByStatePdfData: this.getSalesByStatePdfData,
 		    	getPdfAccountReceivable: this.getPdfAccountReceivable,
 		    	getSalesByAgencyPdfData: this.getSalesByAgencyPdfData,
+		    	getBillingByTicketPdfData: this.getBillingByTicketPdfData,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -345,6 +346,17 @@
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+terminal_ids+'/'+office_ids+'/'+date_type+'/'+start_date+'/'+end_date;
+				this.fetch(url);
+			},
+
+			getBillingByTicketPdfData() {
+
+				this.loading = true;
+
+				var date_type = this.$children[0].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var url = this.searchUrl+'/'+date_type+'/'+start_date+'/'+end_date;
 				this.fetch(url);
 			},
 
