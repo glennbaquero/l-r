@@ -252,6 +252,31 @@ class ReportController extends Controller
     }
    
     /**
+     * Show sales by agency index page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function salesByAgency()
+    {
+        $terminal_lists = [];
+        $terminals = Office::whereIn('office_type_id', [4])->get()->groupBy('departure_city_id');
+
+        foreach ($terminals as $key => $terminal) {
+            array_push($terminal_lists, [
+                'id' => $key,
+                'name' => $terminal[0]->name,
+            ]);
+        }
+
+        $offices = Office::whereNotIn('office_type_id', [4])->get();
+
+        return view('pages.reports.sales.sales-by-agency', [
+            'terminals' => collect($terminal_lists),
+            'offices' => $offices,
+        ]);
+    }
+   
+    /**
      * Show sales by account receivable index page
      * 
      * @return Illuminate\Http\Response

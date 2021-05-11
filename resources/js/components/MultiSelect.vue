@@ -129,7 +129,7 @@
 						if(!this.multiple) {
 							this.$parent.selectChanged(this.selectedItem.id, this.type, this.searchBy);
 						} else {
-							this.$parent.selectChanged(JSON.parse(this.selected), this.type);
+							this.$parent.selectChanged(JSON.parse(this.selected), this.type, this.searchBy);
 						}
 					}, 500)
 					
