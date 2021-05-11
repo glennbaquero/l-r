@@ -585,7 +585,6 @@ class PrintController extends Controller
         return $pdf->download('report.pdf');
     }
 
-
     /**
      * Handle the sales by credit card report print
      *
@@ -595,18 +594,7 @@ class PrintController extends Controller
     
     public function printAccountReceivable($office_id, $date_type, $start_date, $end_date)
     {
-        // if($date_type == 'false' || !$date_type) {
-        //     $tickets = Ticket::whereDate('purchase_date', $start_date);
-        // } else {
-        //     $tickets = Ticket::where('purchase_date', '>=', $start_date)->where('purchase_date', '<=', $end_date);
-        // }
-
-        // $tickets = $tickets->whereHas('seller', function($seller) use($office_id) {
-        //     $seller->where('office_id', $office_id);
-        // })->get();
-
         $office = Office::find($office_id)->name;
-
 
         $users = User::where('office_id', $office_id)->whereHas('tickets', function($tickets) use($date_type, $start_date, $end_date) {
                 if($date_type == 'false' || !$date_type) {
@@ -631,6 +619,45 @@ class PrintController extends Controller
 
         $pdf = PDF::loadView('pages.reports.pdf.receivable', compact('office', 'users', 'date_type', 'start_date', 'end_date'));
         $pdf->setPaper('a3', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
+
+    /**
+     * Handle the sales by credit card report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printSalesByAgency($terminal_ids, $office_ids, $date_type, $start_date, $end_date)
+    {
+        $office_ids = json_decode($office_ids);
+        $terminal_ids = json_decode($terminal_ids);
+
+        if($date_type == 'false' || !$date_type) {
+            $tickets = Ticket::whereDate('purchase_date', $start_date)->whereHas('seller', function($seller) use($office_ids) {
+                $seller->whereIn('office_id', $office_ids);
+            })->get();
+        } else {
+            $tickets = Ticket::where('purchase_date', '>=', $start_date)->where('purchase_date', '<=', $end_date)->whereHas('seller', function($seller) use($office_ids) {
+                $seller->whereIn('office_id', $office_ids);
+            })->get();
+        }
+
+
+
+        $agencies = Office::whereIn('id', $office_ids)->pluck('name');
+        $terminals = Office::whereIn('departure_city_id', $terminal_ids)->pluck('name');
+
+        $agencies = implode(', ', $agencies->toArray());
+        $terminals = implode(', ', $terminals->toArray());
+
+        $pdf = PDF::loadView('pages.reports.pdf.sales-by-agency', compact('agencies', 'terminals', 'tickets', 'date_type', 'start_date', 'end_date'));
+        $pdf->setPaper('a2', 'landscape');
         $content = $pdf->download()->getOriginalContent();
 
         Storage::put('public/report.pdf',$content) ;

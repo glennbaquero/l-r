@@ -56,6 +56,7 @@
 		    	getSalesByCreditCardPdfData: this.getSalesByCreditCardPdfData,
 		    	getSalesByStatePdfData: this.getSalesByStatePdfData,
 		    	getPdfAccountReceivable: this.getPdfAccountReceivable,
+		    	getSalesByAgencyPdfData: this.getSalesByAgencyPdfData,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -132,8 +133,19 @@
 						this.cash_registers = _.filter(this.getCash, (cash) => { return cash.user_id == value});
 						break;
 
-					case 'state': 
-						this.offices = _.filter(this.getOffices, (office) => { return office[search_by] == value});
+					case 'state':
+						if(typeof value == 'object') {
+							this.offices = [];
+							_.each(value, (id) => {
+								_.each(this.getOffices, (office) => {
+									if(office[search_by] == id) {
+										this.offices.push(office)
+									}
+								});
+							});
+						} else {
+							this.offices = _.filter(this.getOffices, (office) => { return office[search_by] == value});
+						} 
 						break;
 				}
 			},
@@ -320,6 +332,19 @@
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+office_id+'/'+date_type+'/'+start_date+'/'+end_date;
+				this.fetch(url);
+			},
+
+			getSalesByAgencyPdfData() {
+
+				this.loading = true;
+
+				var terminal_ids = this.$children[0].selected;
+				var office_ids = this.$children[1].selected;
+				var date_type = this.$children[2].display;
+				var start_date = document.getElementById("start_date").value;
+				var end_date = date_type ? document.getElementById("end_date").value : null;
+				var url = this.searchUrl+'/'+terminal_ids+'/'+office_ids+'/'+date_type+'/'+start_date+'/'+end_date;
 				this.fetch(url);
 			},
 

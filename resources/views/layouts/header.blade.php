@@ -239,7 +239,7 @@
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by Web & Mobile</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('sales-by-agency')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Sales by Agency</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('sales-by-travel')}}" :caret="false" class="hover:bg-lighterblue">
