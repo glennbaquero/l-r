@@ -280,7 +280,7 @@
             <x-header-sub-link link="#" :caret="true" class="group-passenger hover:bg-lightblue">
                 <x-slot name="name">Passenger</x-slot>
                     <x-header-absolute-link class="group-passenger-hover:block bg-lightblue">
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        <x-header-sub-link link="{{route('passenger-report.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">Passengers</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">

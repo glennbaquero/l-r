@@ -28,4 +28,15 @@ class Bus extends Model
     {
         return $this->belongsTo(BusModel::class)->withTrashed();
     }
+
+    public function getTotalSeat() 
+    {
+        $rows = $this->bus_model->bus_rows;
+        $total_seat = 0;
+        foreach($rows as $row) {
+            $total_seat += $row->bus_columns()->whereNotNull('label')->whereNotNull('image_path')->get()->count();
+        }
+
+        return $total_seat;
+    }
 }

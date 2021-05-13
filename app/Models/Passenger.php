@@ -25,7 +25,7 @@ class Passenger extends Model
      * 
      * @var array
      */
-    protected $appends = ['fullname'];
+    protected $appends = ['fullname', 'infant_fullname'];
 
 
 	/**
@@ -97,6 +97,16 @@ class Passenger extends Model
     public function getFullnameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    /**
+     * Get user fullname
+     * 
+     * @return string
+     */
+    public function getInfantFullnameAttribute()
+    {
+        return "{$this->infant_firstname} {$this->infant_lastname}";
     }
 
 }

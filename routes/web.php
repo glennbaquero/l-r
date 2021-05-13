@@ -202,6 +202,8 @@ use App\Http\Controllers\SeatTransferController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Reports\PrintController;
 
+use App\Http\Controllers\PassengerReportController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -543,6 +545,9 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/account-receivable', [AccountReceivableController::class, 'index'])->name('account-receivable.index');
 
+    Route::get('/passenger-report', [PassengerReportController::class, 'index'])->name('passenger-report.index');
+    Route::get('/passenger-report/fetch', [PassengerReportController::class, 'fetch'])->name('passenger-report.fetch');
+    Route::get('/passenger-report/total/fetch/{id}/{type}', [PassengerReportController::class, 'fetchPassenger'])->name('total-passenger.fetch');
 
     Route::get('/sales-by-user', [ReportController::class, 'salesByUser'])->name('sales-by-user');
     Route::get('/sales-by-user/print/{seller_ids?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printSalesByUser'])->name('sales-by-user.print');
@@ -578,4 +583,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/billing-by-tickets/print/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printBillingByTickets'])->name('billing-by-tickets.print');
     Route::get('/billing-by-transactions', [ReportController::class, 'billingByTransaction'])->name('billing-by-transactions');
     Route::get('/billing-by-transactions/print/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printBillingByTransaction'])->name('billing-by-transactions.print');
+
+    Route::get('/passenger/print/{type?}/{trip_id?}/{route_id?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printPassenger'])->name('passenger.print');
 });

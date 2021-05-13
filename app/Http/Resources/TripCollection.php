@@ -17,6 +17,14 @@ class TripCollection extends ResourceCollection
        'ID', 'Route', 'Alias', 'Bus', 'Driver', 'Date', 'Departure', 'Arrival', 'Actions'
     ];
 
+    public static $headers_report = [
+       'Departure Date', 'Route', 'Bus', 'Services', 'Departure', 'Arrival', 'Driver', 'Total', 'Free', 'Sold', 'Boarded', 'Reserved', 'Actions'
+    ];
+
+    public static $passenger_reports_header = [
+       'Passenger', 'Seat'
+    ];
+
     /**
      * Fields that are used for searching
      * 
@@ -47,6 +55,26 @@ class TripCollection extends ResourceCollection
                 'arrival' => $trip->route->stops()->latest()->orderby('id', 'desc')->first()->arrival->name,
                 'showUrl' => route('trip.show', $trip->id),
                 'deleteUrl' => route('trip.destroy', $trip->id),
+
+                // Report 
+                
+                'departure_date' => $trip->formatted_date. ' '. $trip->formatted_time,
+                'route' => $trip->route->name,
+                'route_id' => $trip->route->id,
+                'bus' => $trip->bus->name,
+                'service' => $trip->service->name,
+                'departure' => $trip->route->departure->name,
+                'arrival' => $trip->route->stops()->latest()->orderby('id', 'desc')->first()->arrival->name,
+                'driver' => $trip->driver->fullname,
+                'total' => $trip->bus->getTotalSeat(),
+                'free' => $trip->bus->getTotalSeat() - $trip->tickets()->count(),
+                'sold' => $trip->tickets()->where('payment_status', 'Paid')->get()->count(),
+                'boarded' => $trip->tickets()->where('boarding_status', 'Boarded')->get()->count(),
+                'reserved' => $trip->tickets()->where('payment_status', 'Reserved')->where('boarding_status', 'Not Boarding Yet')->get()->count(),
+                'fetchTotalPassengerUrl' => route('total-passenger.fetch', [$trip->id, 'total']),
+                'fetchSoldPassengerUrl' => route('total-passenger.fetch', [$trip->id, 'sold']),
+                'fetchReservedPassengerUrl' => route('total-passenger.fetch', [$trip->id, 'reserved']),
+                'fetchBoardedPassengerUrl' => route('total-passenger.fetch', [$trip->id, 'boarded']),
             ];
         });
     }

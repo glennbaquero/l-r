@@ -32,7 +32,7 @@ class TicketCollection extends ResourceCollection
      * @var array
      */
     public static $searches = [
-        'departure', 'arrival', 'passenger', 'office_id', 'date'
+        'departure', 'arrival', 'passenger', 'office_id', 'date', 'trip', 'type'
     ];
 
     /**

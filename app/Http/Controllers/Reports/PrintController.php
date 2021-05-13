@@ -744,4 +744,44 @@ class PrintController extends Controller
         // return view('pages.reports.pdf.daily-till-closure');
         return $pdf->download('report.pdf');
     }
+
+    /**
+     * Handle the billing by transaction report print
+     *
+     * @param Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
+     */
+    
+    public function printPassenger($type, $trip_id, $route_id, $date_type, $start_date, $end_date)
+    {
+
+        $trip = Trip::findOrFail($trip_id);
+        $route = Route::findOrFail($route_id);
+        $main_driver = $trip->driver->fullname;
+        $secondary_driver = $trip->main_co_driver ? $trip->main_co_driver->fullname : $trip->driver->fullname;
+
+        $list = [];
+
+        switch ($type) {
+            case 'Operators Manifest':
+                $list = Ticket::where('trip_id', $trip_id)->get();
+                break;
+
+            case 'Boarded Passenger List':
+            $list = Ticket::where('trip_id', $trip_id)->where('boarding_status', 'Boarded')->get()->groupBy('departure.name');
+                break;
+
+            default:
+                $list = Ticket::where('trip_id', $trip_id)->get()->groupBy('departure.name');
+                break;
+        }
+
+        $pdf = PDF::loadView('pages.reports.pdf.passenger', compact('type', 'trip', 'route', 'main_driver', 'secondary_driver', 'list', 'date_type', 'start_date', 'end_date'));
+        $pdf->setPaper('a4', 'landscape');
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('public/report.pdf',$content) ;
+        // return view('pages.reports.pdf.daily-till-closure');
+        return $pdf->download('report.pdf');
+    }
 }
