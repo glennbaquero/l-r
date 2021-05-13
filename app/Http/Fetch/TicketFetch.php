@@ -35,7 +35,22 @@ class TicketFetch
      */
     public function execute($params)
     {
-        $this->ticket = $this->ticket;
+        $this->ticket = $this->ticket->where('trip_id', $params['trip']);
+
+
+        if($params['type'] && $params['type'] != 'null') {
+            if($params['type'] == 'sold') {
+                $this->ticket = $this->ticket->where('payment_status', 'Paid');
+            } 
+
+            if($params['type'] == 'reserved') {
+                $this->ticket = $this->ticket->where('payment_status', 'Reserved');
+            } 
+            
+            if($params['type'] == 'boarded') {
+                $this->ticket = $this->ticket->where('boarding_status', 'Boarded');
+            } 
+        }
 
 
         if($params['date'] && $params['date'] != 'null') {

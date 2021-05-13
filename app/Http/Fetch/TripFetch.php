@@ -42,8 +42,7 @@ class TripFetch
     public function execute($params)
     {
         $this->trip = $this->trip
-                        ->whereLike('id', $params['id'])
-                        ->orWhereLike('date', $params['date']);
+                        ->whereLike('id', $params['id']);
 
         if($params['route'] && $params['route'] != 'null' || $params['alias'] && $params['alias'] != 'null') {
             $routeId = $this->route

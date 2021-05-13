@@ -23,7 +23,7 @@ class PassengerCollection extends ResourceCollection
      * @var array
      */
     public static $searches = [
-       'name', 'email', 'phone_number', 'type'
+       'name', 'email', 'phone_number', 'type', 'trip_id'
     ];
 
     /**

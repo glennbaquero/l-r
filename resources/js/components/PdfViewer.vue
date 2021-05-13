@@ -58,6 +58,7 @@
 		    	getPdfAccountReceivable: this.getPdfAccountReceivable,
 		    	getSalesByAgencyPdfData: this.getSalesByAgencyPdfData,
 		    	getBillingByTicketPdfData: this.getBillingByTicketPdfData,
+		    	getPdfPassenger: this.getPdfPassenger,
 		    	datePickerHasChangedHandler: this.datePickerHasChangedHandler,
 		    });
 		},
@@ -357,6 +358,18 @@
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+date_type+'/'+start_date+'/'+end_date;
+				this.fetch(url);
+			},
+
+			getPdfPassenger(val, trip, route) {
+				this.loading = true;
+				var type = val;
+				var trip = trip;
+				var route = route;
+				var date_type = this.$parent.display;
+				var start_date = date_type ? this.$children[1].attr.value[0] : this.$children[1].attr.value;
+				var end_date = date_type ? this.$children[1].attr.value[1] : null;
+				var url = this.searchUrl+'/'+type+'/'+trip+'/'+route+'/'+date_type+'/'+start_date+'/'+end_date;
 				this.fetch(url);
 			},
 
