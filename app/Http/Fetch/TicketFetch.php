@@ -35,8 +35,12 @@ class TicketFetch
      */
     public function execute($params)
     {
-        $this->ticket = $this->ticket->where('trip_id', $params['trip']);
+        $this->ticket = $this->ticket;
 
+
+        if($params['trip'] && $params['trip'] != 'null') {
+            $this->ticket = $this->ticket->where('trip_id', $params['trip']);
+        }
 
         if($params['type'] && $params['type'] != 'null') {
             if($params['type'] == 'sold') {
