@@ -38,7 +38,7 @@ class OfficeCollection extends ResourceCollection
                 'name' => $office->name,
                 'address_line_1' => $office->address_line_1,
                 'phone_number' => $office->phone_number,
-                'city' => $office->departure->name,
+                'city' => $office->departure ? $office->departure->name : '---',
                 'state' => $office->state_name,
                 'office_type' => $office->officeType->name,
                 'status' => $office->status,

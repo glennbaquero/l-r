@@ -49,9 +49,9 @@
 
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="city" class="font-semibold">City</x-label>
-                                    <x-form-input type="text" name="city" id="city" v-model="address.city" />
+                                    {{-- <x-form-input type="text" name="city" id="city" v-model="address.city" /> --}}
 
-                                    {{-- <multi-select :items="{{ $cities }}" label="name" :multiple="false"  name="city" name_2="departure_city_id" :value-name="true" v-slot="{ selected }" :selected-value="address.city"></multi-select> --}}
+                                    <multi-select :items="{{ $cities }}" label="name" :multiple="false"  name="city" name_2="departure_city_id" :value-name="true" v-slot="{ selected }" :selected-value="address.city" find-value="name"></multi-select>
                                 </div>
                                 {{-- <div class="col-span-6 sm:col-span-3">
                                     <x-label for="arrival_city_id" class="font-semibold">Arrival City</x-label>

@@ -53,7 +53,8 @@
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
                                     <x-label for="city" class="font-semibold">City</x-label>
-                                    <x-form-input type="text" name="city" id="city" v-model="address.city" />
+                                    {{-- <x-form-input type="text" name="city" id="city" v-model="address.city" /> --}}
+                                    <multi-select :items="{{ $cities }}" label="name" :multiple="false" name="city" name_2="departure_city_id" :value-name="true" :selected-value="address.city" v-slot="{ selected }"></multi-select>
                                 </div>
 
                                 {{-- <div class="col-span-6 sm:col-span-3">

@@ -50,7 +50,12 @@
 			},
 
 			stop: Object,
-			type: String
+			type: String,
+
+			findValue:{
+				default: 'id',
+				type: String
+			}
 
 		},
 
@@ -86,7 +91,10 @@
 
 			selectedValue(val) {
 				if(this.valueName) {
-					this.selectedItem = _.find(this.items, (item) => { return item.name == val});
+					var city = _.find(this.items, (item) => { return item.name == val});					
+					if(!_.isEmpty(city)) {
+						this.selectedItem = city;
+					}
 				}
 			}
 		},
@@ -101,7 +109,11 @@
 							this.selectedItem.push(item);
 						});
 					} else {
-						this.selectedItem = _.find(this.items, (item) => { return item.id == this.selectedValue});
+						var city = _.find(this.items, (item) => { return item[this.findValue] == this.selectedValue});
+						if(!_.isEmpty(city)) {
+							this.selectedItem = city;
+						}
+						// this.selectedItem = _.find(this.items, (item) => { return item.id == this.selectedValue});
 					}
 					
 				}

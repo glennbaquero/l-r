@@ -139,7 +139,7 @@
 						{{ $ticket->formatted_travel_date }}
 					</td>
 					<td>
-						{{ $ticket->departure->name }}
+						{{ $ticket->departure ? $ticket->departure->name : '---' }}
 					</td>
 					<td>
 						{{ $ticket->arrival->name }}
@@ -148,7 +148,7 @@
 						{{ $ticket->seat->label }}
 					</td>
 					<td>
-						{{ $ticket->passenger->ticketType->name }}
+						{{ $ticket->passenger->ticketType ? $ticket->passenger->ticketType->name : '---' }}
 					</td>
 					<td>
 						{{ $ticket->payment_method }}
