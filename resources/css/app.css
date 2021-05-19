@@ -36,6 +36,10 @@
   animation: spinner 1.5s linear infinite;
 }
 
+.w-90-percent {
+  width: 90%;
+}
+
 @-webkit-keyframes spinner {
   0% {
     -webkit-transform: rotate(0deg);

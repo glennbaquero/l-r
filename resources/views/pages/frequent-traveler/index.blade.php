@@ -14,7 +14,7 @@
                 <filter-table v-slot="{ toggledState, display, search, field }">
 
                     <x-table :headers="$headers">
-                        <x-slot name="filter">
+                        {{-- <x-slot name="filter">
                             <tab v-slot="{ selected, menuChangedFrequentTraveler }" default-selected="all">
                                 <div class="hidden sm:block mb-3 px-2">
                                     <nav class="flex">
@@ -30,7 +30,7 @@
                                     </nav>
                                 </div>
                             </tab>
-                        </x-slot>
+                        </x-slot> --}}
                         <x-slot name="body">
                             <tr>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
@@ -42,7 +42,7 @@
                                 <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('phone_number', $event.target.value)" name="phone_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
-                                <td colspan="5" class="text-center border-b-2 border-gray-300 px-3"></td>
+                                <td colspan="2" class="text-center border-b-2 border-gray-300 px-3"></td>
                             </tr>
                             <template v-if="data.length > 0">
                                 <tr v-for="(passenger, key) in data" :key="key" class="hover:bg-gray-100 cursor-pointer">
@@ -56,16 +56,7 @@
                                         @{{passenger.phone_number}}
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                                        @{{passenger.code}}
-                                    </td>
-                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                                        @{{passenger.student_card}}
-                                    </td>
-                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{passenger.f_creation}}
-                                    </td>
-                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                                        @{{passenger.f_subscription}}
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         <x-modal :hasFooter="false" maxWidth="max-w-screen-md">

@@ -7,6 +7,7 @@
 		        v-model="item.departure" 
 		        :options="cities"
 		        label="name"
+			    @input="selectedChanged"
 		        >
 		    </v-select>
 		</div>
@@ -17,6 +18,18 @@
 		        v-model="item.arrival" 
 		        :options="cities"
 		        label="name"
+			    @input="selectedChanged"
+		        >
+		    </v-select>
+		</div>
+
+		<div class="col-span-full sm:col-span-full">
+		    <label for="departure" class="font-semibold">Travel Date</label>
+		    <v-select
+		    	class="my-3"
+		        v-model="item.trip" 
+		        :options="availableTrips"
+		        label="display_trip_name"
 		        >
 		    </v-select>
 		</div>
@@ -47,7 +60,12 @@
 
 		data() {
 			return {
-				item: {}
+				item: {
+					trip: {}
+				},
+				trips: [],
+
+				canEdit: false,
 			}
 		},
 
@@ -57,20 +75,47 @@
 
 		watch: {
 			'item.departure'(val) {
-				this.item.departure_id = val.id;
+				if(this.canEdit) {
+					this.item.departure_id = val.id;
+				}
 			},
 
 			'item.arrival'(val) {
-				this.item.arrival_id = val.id;
+				if(this.canEdit) {
+					this.item.arrival_id = val.id;
+				}
 			}
 		},
 
 		computed: {
 			disabledNextButton() {
-				if(!_.isEmpty(this.item) && this.item.arrival_id && this.item.departure_id) return false;
+				if(!_.isEmpty(this.item) && this.item.arrival_id && this.item.departure_id && !_.isEmpty(this.item.trip)) return false;
 
 				return true;
+			},
+
+			availableTrips() {
+				var trips = [];
+
+				_.each(this.trips, (trip) => {
+					_.each(trip.trips, (availableTrips) => {
+						trips.push(availableTrips);
+					})
+				})
+
+				return trips;
 			}
+		},
+
+		mounted() {
+			if(!_.isEmpty(this.$parent.selectedTicket)) {
+				this.item = this.$parent.selectedTicket
+				this.selectedChanged();
+			}
+			
+			setTimeout(() => {
+				this.canEdit = true;
+			}, 500)
 		},
 
 		methods: {
@@ -79,22 +124,64 @@
 			},
 
 			nextForm() {
+				var bus_finder_payloads = {
+					trip: this.item.trip,
+					trip_id: this.item.trip.id
+				}
+
+				// if(_.isEmpty(this.$parent.selectedTicket)) {
+
+					this.$parent.loading = true;
+
+					axios.post(this.$parent.fetchBusUrl, bus_finder_payloads)
+						.then(response => {
+							this.$parent.bus = response.data.bus_model;
+
+							setTimeout(() => {
+								this.$parent.payloads = this.item;
+								this.$parent.payloads.trip = this.item.trip;
+								this.$parent.payloads.trip_id = this.item.trip_id;
+
+								this.$emit('nextStep', 3);
+								this.$parent.loading = false;
+							}, 500)
+						}).catch(error => {
+							this.$parent.loading = false;
+						})
+				// } else {
+				// 	this.$emit('nextStep', 3);
+				// }
+
+				// axios.post(this.$parent.findAvailableTripUrl, this.item)
+				// 	.then(response => {
+						
+				// 		this.$parent.availableTrip = response.data.trips;
+				// 		this.$parent.price = response.data.price;
+						
+				// 		setTimeout(() => {
+				// 			this.$parent.payloads = this.item;
+				// 			this.$emit('nextStep', 2)
+				// 			this.$parent.loading = false;
+				// 		}, 500)
+				// 	}).catch(errors => {
+				// 		this.$parent.loading = false;
+				// 	})
+
+			},
+
+			selectedChanged() {
 				this.$parent.loading = true;
 				axios.post(this.$parent.findAvailableTripUrl, this.item)
 					.then(response => {
 						
+						this.trips = response.data.trips;
 						this.$parent.availableTrip = response.data.trips;
 						this.$parent.price = response.data.price;
+						this.$parent.loading = false;
 						
-						setTimeout(() => {
-							this.$parent.payloads = this.item;
-							this.$emit('nextStep', 2)
-							this.$parent.loading = false;
-						}, 500)
 					}).catch(errors => {
 						this.$parent.loading = false;
 					})
-
 			}
 		}
 	}

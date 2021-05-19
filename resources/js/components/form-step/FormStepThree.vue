@@ -39,7 +39,7 @@
 
 		<div class="gap-4 grid grid-cols-6 pl-4">
 			<div class="col-span-1 sm:col-span-1">
-				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-lighterblue text-sm font-medium rounded text-black bg-transparent hover:bg-lighterblue hover:text-white focus:outline-none focus:border-transparent focus:shadow-outline-transparent active:bg-transparent focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="$emit('backToForm', 2)">
+				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-lighterblue text-sm font-medium rounded text-black bg-transparent hover:bg-lighterblue hover:text-white focus:outline-none focus:border-transparent focus:shadow-outline-transparent active:bg-transparent focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="$emit('backToForm', 1)">
 				    Back
 				</button>
 			</div>
@@ -49,10 +49,21 @@
 				</button>
 			</div>
 		</div>
+
+
+		<passenger-info-modal 
+			:passenger="passenger"
+			:show="showModal"
+			:ticket_types="ticket_types"
+			@closeModal="showModal = false"
+		></passenger-info-modal>
 	</div>
 
 </template>
 <script type="text/javascript">
+
+	import PassengerInfoModal from './PassengerInfoModal.vue'
+	
 	export default {
 		props: {
 			bus: Array
@@ -64,16 +75,29 @@
 				duplicated_bus_model: [],
 				selected_seat: {},
 
-				old_selected_seat: {}
+				old_selected_seat: {},
+				passenger: {},
+				showModal: false,
+				ticket_types: []
 			}
 		},
 
 		computed: {
 			disabledNextButton() {
-				if(!_.isEmpty(this.selected_seat)) return false;
+				if(this.$parent.edit) {
+					return false;
+				}
+
+				if(!_.isEmpty(this.selected_seat)){ return false; }
+
 
 				return true;
 			}
+		},
+
+
+		components: {
+			PassengerInfoModal,
 		},
 
 		mounted() {
@@ -99,11 +123,22 @@
 					this.selected_seat = item;
 					item.image_path = 'icons/seat_selected.png';
 				}
+
+				if(!_.isEmpty(item.passenger)) {
+					this.passenger = item.passenger;
+					this.showModal = true;
+					this.ticket_types = this.$parent.ticket_types
+				}
 				
 			},
 
 			nextFormHandler() {
 				this.$parent.seat_selected = this.selected_seat;
+
+				if(this.$parent.edit) {
+					this.$parent.selectedTicket.seat_id = !_.isEmpty(this.selected_seat) ? this.selected_seat.id : this.$parent.selectedTicket.seat_id;
+				}
+
 				this.$emit('nextStep', 4);
 			}
 		}

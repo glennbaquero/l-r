@@ -137,6 +137,8 @@ use App\Http\Controllers\TicketSupportController;
 
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\Tickets\TicketCreateController;
+use App\Http\Controllers\Tickets\TicketCancelController;
+use App\Http\Controllers\Tickets\TicketUpdateController;
 
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\Cities\CityCreateController;
@@ -442,8 +444,11 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/ticket/find/trip', [TicketController::class, 'findAvailableTrip'])->name('ticket.find-available-trip');
     Route::post('/ticket/get/bus', [TicketController::class, 'getBus'])->name('ticket.fetch-bus');
     Route::post('/ticket/get/passengers', [TicketController::class, 'getPassenger'])->name('ticket.fetch-passengers');
+    Route::post('/ticket/voucher/validate', [TicketController::class, 'couponValidate'])->name('ticket.voucher-validate');
     Route::post('/ticket/store', TicketCreateController::class)->name('ticket.store');
-    Route::post('/ticket/voucher/validate', [TicketController::class, 'voucherValidate'])->name('ticket.voucher-validate');
+    Route::get('/ticket/cancel/{id}', TicketCancelController::class)->name('ticket.cancel');
+    Route::post('/ticket/update/{id}', TicketUpdateController::class)->name('ticket.update');
+    Route::post('/ticket/email/{id}', [TicketController::class, 'passengerEmailSender'])->name('ticket.send-email');
 
     Route::get('/city', [CityController::class, 'index'])->name('city.index');
     Route::get('/city/fetch', [CityController::class, 'fetch'])->name('city.fetch');
@@ -508,6 +513,7 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/open-cash', [OpenCashController::class, 'index'])->name('open-cash.index');
     Route::post('/open-cash/store', [OpenCashController::class, 'addCash'])->name('open-cash.store');
+    Route::get('/open-cash/fetch', [OpenCashController::class, 'fetch'])->name('open-cash.fetch');
 
     Route::get('/seat/transfer', [SeatTransferController::class, 'index'])->name('seat-transfer.index');
     Route::post('/fetch/origin/trip', [SeatTransferController::class, 'getTrip'])->name('seat-transfer.fetch-trip');

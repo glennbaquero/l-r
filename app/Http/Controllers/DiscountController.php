@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Resources\DiscountCollection;
 use App\Http\Fetch\DiscountFetch;
 
+use App\Http\Resources\MostUsedCouponCollection;
+use App\Http\Fetch\MostUsedCouponFetch;
+
 use App\Models\Discount;
 use App\Models\Route;
 use App\Models\MultiRoute;
@@ -24,7 +27,7 @@ class DiscountController extends Controller
      * 
      * @return void
      */
-    public function __construct(DiscountFetch $fetch)
+    public function __construct(MostUsedCouponFetch $fetch)
     {
         $this->fetch = $fetch;
     }
@@ -37,8 +40,8 @@ class DiscountController extends Controller
     public function index()
     {
         return view('pages.discount.index', [
-            'headers' => DiscountCollection::$headers,
-            'searches' => DiscountCollection::$searches,
+            'headers' => MostUsedCouponCollection::$headers,
+            'searches' => MostUsedCouponCollection::$searches,
         ]);
     }
 
@@ -49,7 +52,7 @@ class DiscountController extends Controller
      */
     public function fetch()
     {
-        return new DiscountCollection($this->fetch->execute(request()->input()));
+        return new MostUsedCouponCollection($this->fetch->execute(request()->input()));
     }
 
     /**

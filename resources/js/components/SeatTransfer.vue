@@ -24,6 +24,18 @@
 				</v-select>
 			</div>
 			<div class="col-span-1 sm:col-span-1">
+				<label class="block font-medium text-sm text-gray-700">Arrival:</label>
+				<v-select
+					class="my-3"
+				    v-model="selected.arrival" 
+				    :options="cities"
+				    label="name"
+				    >
+				</v-select>
+
+			</div>
+			<div class="col-start-2 sm:col-start-2">
+				
 				<label class="block font-medium text-sm text-gray-700">Travel Origin:</label>
 
 				<vue2-datepicker v-if="!show.travelOriginList" v-model="travelOrigin.date" type="date" format="YYYY-MM-DD" input-class="form-input w-full mx-auto my-3 py-2 px-3 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-gray-300" @change="getOriginTrip"></vue2-datepicker>
@@ -34,17 +46,6 @@
 				    v-model="selectedTravel.origin" 
 				    :options="travelOrigin.trip"
 				    label="display"
-				    >
-				</v-select>
-
-			</div>
-			<div class="col-start-2 sm:col-start-2">
-				<label class="block font-medium text-sm text-gray-700">Arrival:</label>
-				<v-select
-					class="my-3"
-				    v-model="selected.arrival" 
-				    :options="cities"
-				    label="name"
 				    >
 				</v-select>
 			</div>
