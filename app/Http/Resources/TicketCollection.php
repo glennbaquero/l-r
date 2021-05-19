@@ -14,7 +14,7 @@ class TicketCollection extends ResourceCollection
      * @var array 
      */
     public static $headers = [
-       'Departure', 'Arrival', 'Travel Date', 'Seat', 'Passenger', 'Type', 'Price', 'T. Or.', 'T. Des.', 'Actions'
+       'Departure', 'Arrival', 'Travel Date', 'Seat', 'Passenger', 'Type', 'Price', 'Actions'
     ];
 
     /**
@@ -45,6 +45,8 @@ class TicketCollection extends ResourceCollection
     {
         return $this->collection->map(function($ticket) {
             return [
+                'id' => $ticket->id,
+
                 'is_selected' => false, 
                 'departure' => $ticket->departure ? $ticket->departure->name : '---',
                 'arrival' => $ticket->arrival ? $ticket->arrival->name : '---',
@@ -53,9 +55,6 @@ class TicketCollection extends ResourceCollection
                 'seat' => $ticket->passenger->bus_model_column->label,
                 'passenger' => $ticket->passenger ? $ticket->passenger->fullname : '---',
                 'type' => $ticket->passenger->ticketType ? $ticket->passenger->ticketType->name : '---',
-                'price' => $ticket->total_sale,
-                't_des' => '---',
-                't_or' => '---',
                 'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
 
 
@@ -73,6 +72,25 @@ class TicketCollection extends ResourceCollection
                 'receivable' => number_format($ticket->total_sale, 2, '.', ','),
                 'amount_paid' => number_format($ticket->total_sale, 2, '.', ','),
                 'balance' => 0.00,
+                'price' => number_format($ticket->total_sale, 2, '.', ','),
+
+                'passenger_info' => $ticket->passenger,
+                'trip_id' => $ticket->trip->id,
+                'trip' => $ticket->trip,
+                'departure_id' => $ticket->departure_id,
+                'arrival_id' => $ticket->arrival_id,
+                'payment_method' => $ticket->payment_method,
+                'cash' => $ticket->total_sale,
+                'total_sale' => $ticket->total_sale,
+                'code' => $ticket->voucher_code,
+                'seat_id' => $ticket->bus_model_column_id,
+
+                'is_cancelled' => $ticket->is_cancelled,
+
+                'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
+                'cancelUrl' => route('ticket.cancel', $ticket->id),
+                'updateUrl' => route('ticket.update', $ticket->id),
+                'sendEmailUrl' => route('ticket.send-email', $ticket->passenger->id),
             ];
         });
     }

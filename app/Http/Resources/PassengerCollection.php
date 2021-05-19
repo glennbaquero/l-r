@@ -14,7 +14,7 @@ class PassengerCollection extends ResourceCollection
      * @var array 
      */
     public static $headers = [
-      'Fullname', 'E-mail', 'Phone Number', 'Frequent Traveler Code', 'Student ID Card', 'F. Creation', 'F. Subscription', 'Actions'
+      'Fullname', 'E-mail', 'Phone Number',  'Created', 'Actions'
     ];
 
     /**

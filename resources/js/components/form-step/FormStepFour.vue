@@ -31,7 +31,7 @@
 			</div>
 			<div class="col-span-1 sm:col-span-1">
 				<label for="phone_number" class="block font-medium font-semibold text-gray-500">Phone Number <b class="text-red-500">*</b></label>
-				<input type="text" name="phone_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" ref="phoneNumber" @input="handlePhoneFormat">
+				<input type="text" name="phone_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" ref="phoneNumber" @input="handlePhoneFormat" v-model="passenger_info.phone_number">
 			</div>
 			<div class="col-span-1 sm:col-span-1">
 				<label for="email" class="block font-medium font-semibold text-gray-500">Email</label>
@@ -79,7 +79,7 @@
 
 		<div class="gap-4 grid grid-cols-6 pl-4 mt-5">
 			<div class="col-span-1 sm:col-span-1">
-				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-lighterblue text-sm font-medium rounded text-black bg-transparent hover:bg-lighterblue hover:text-white focus:outline-none focus:border-transparent focus:shadow-outline-transparent active:bg-transparent focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="$emit('backToForm', 2)">
+				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-lighterblue text-sm font-medium rounded text-black bg-transparent hover:bg-lighterblue hover:text-white focus:outline-none focus:border-transparent focus:shadow-outline-transparent active:bg-transparent focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="$emit('backToForm', 1)">
 				    Back
 				</button>
 			</div>
@@ -127,6 +127,16 @@
 				} 
 
 				return true;
+			}
+		},
+
+		mounted() {
+			if(!_.isEmpty(this.$parent.selectedTicket)) {
+				this.passenger_info = this.$parent.selectedTicket.passenger_info
+
+				// setTimeout(() => {
+				// 	this.canEdit = true;
+				// }, 500)
 			}
 		},
 

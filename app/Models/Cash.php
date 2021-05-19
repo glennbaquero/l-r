@@ -44,4 +44,14 @@ class Cash extends Model
     {
         return $this->created_at->format('h:i A');
     }
+        
+    /**
+     * Cash belongs to office
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function office()
+    {
+        return $this->belongsTo(Office::class)->withTrashed();
+    }
 }
