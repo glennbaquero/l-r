@@ -8,7 +8,7 @@
 						<select name="payment_method" v-model="payment.payment_method" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
 							<option value="Cash">Cash</option>
 							<option value="Credit Card">Credit Card</option>
-							<option value="Others">Others</option>
+							<option value="Reservation">Reservation</option>
 						</select>
 					</div>
 					<div class="col-span-full sm:col-span-full">
@@ -46,7 +46,7 @@
 			</div>
 			<div class="col-span-1 sm:col-span-1">
 				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="nextFormHandler">
-				    Pay
+				    {{ edit ? 'Save' : 'Pay' }}
 				</button>
 			</div>
 		</div>
@@ -64,7 +64,9 @@
 				code: null,
 
 				voucher: null,
-				discount: 0
+				discount: 0,
+
+				edit: this.$parent.edit
 			}
 		},
 
@@ -86,8 +88,8 @@
 				}
 
 				if(!_.isEmpty(this.voucher)) {
-					switch(this.voucher.type_of_voucher) {
-						case 'Max. Ticket % Discount': 
+					switch(this.voucher.coupon_type) {
+						case 'Percentage': 
 							total = this.discount * total;
 							break;
 						default: 
@@ -104,15 +106,32 @@
 			}
 		},
 
+		mounted() {
+			if(this.$parent.edit) {
+				this.payment = this.$parent.selectedTicket;
+				this.code = this.$parent.selectedTicket.code;
+			}
+		},
+
 		methods: {
 
 			nextFormHandler() {
 
-				this.$parent.payment = this.payment;
-				this.$parent.totalSale = this.totalSale;
-				this.$parent.voucher = this.voucher;
-				
-				this.$emit('nextStep', 6);
+				if(!this.edit) {
+					this.$parent.payment = this.payment;
+					this.$parent.totalSale = this.totalSale;
+					this.$parent.voucher = this.voucher;
+					
+					this.$emit('nextStep', 6);
+				} else {
+					axios.post(this.$parent.updateUrl, this.$parent.selectedTicket)
+						.then(response => {
+							this.$parent.$parent.toggled();
+							this.$parent.$parent.$parent.fetch();
+						}).catch(errors => {
+							
+						})
+				}
 			},
 
 			validateCoupon() {
@@ -127,7 +146,7 @@
 				axios.post(this.$parent.voucherValidateUrl, payload)
 					.then(response => {
 						this.$parent.loading = false;
-						this.voucher = response.data.voucher;
+						this.voucher = response.data.coupon;
 						this.discount = response.data.discount;
 						this.$parent.showModal = true;
 						this.$parent.modalMessage = response.data.message; 

@@ -1,5 +1,7 @@
 <template>
 	<div>
+        <stepper :step="step"></stepper>
+
 		<form-step-one
 			v-if="step === 1"
 			:cities="cities"
@@ -57,6 +59,7 @@
 	import FormStepFour from './form-step/FormStepFour.vue';
 	import FormStepFive from './form-step/FormStepFive.vue';
 	import FinalForm from './form-step/FinalForm.vue';
+	import Stepper from './form-step/Stepper.vue';
 	import Loading from './Loading.vue';
 	import Modal from './Modal.vue';
 
@@ -93,6 +96,13 @@
 			searchPassengerUrl: String,
 			paymentFormUrl: String,
 			voucherValidateUrl: String,
+			updateUrl: String,
+			selectedTicket: Object,
+
+			edit: {
+				type: Boolean,
+				default: false
+			}
 		},
 
 		render() {
@@ -108,6 +118,7 @@
 			FormStepFour,
 			FormStepFive,
 			FinalForm,
+			Stepper,
 			Loading,
 		    Modal,
 		},

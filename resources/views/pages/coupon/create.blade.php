@@ -87,11 +87,11 @@
                             </div>
                             <div class="col-span-2 sm:col-span-2">
                                 <x-label for="coupon_used" class="font-semibold">Coupon Used</x-label>
-                                <x-form-input type="number" min="0" step="any" name="coupon_used" id="coupon_used" value="{{ old('coupon_used') }}" />
+                                <x-form-input type="number" min="0" step="any" name="coupon_used" id="coupon_used" value="0"  readonly/>
                             </div>
                             <div class="col-span-2 sm:col-span-2">
                                 <x-label for="coupon_available" class="font-semibold">Coupon Available</x-label>
-                                <x-form-input type="number" min="0" step="any" name="coupon_available" id="coupon_available" value="{{ old('coupon_available') }}" />
+                                <x-form-input type="number" min="0" step="any" name="coupon_available" id="coupon_available" value="0" readonly />
                             </div>
                             <div class="col-span-3 sm:col-span-3">
                                 <x-label for="max_purchase_per_client" class="font-semibold">Maximum Purchase per Client</x-label>

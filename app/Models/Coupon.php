@@ -109,6 +109,16 @@ class Coupon extends Model
         return $this->hasMany(CouponGeneralRoute::class)->withTrashed();
     }
 
+    /**
+     * Coupon hasMany tickets
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'voucher_code', 'code');
+    }
+
 	/**
 	  * getting apply to 
 	  * @return array
