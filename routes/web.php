@@ -229,6 +229,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/locale', LocaleController::class)->name('locale');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/user/office/update', [DashboardController::class, 'update'])->name('user-office.update');
 
     Route::get('/office', [OfficeController::class, 'index'])->name('office.index');
     Route::get('/office/fetch', [OfficeController::class, 'fetch'])->name('office.fetch');

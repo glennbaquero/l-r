@@ -13,8 +13,8 @@
                         leave-class="transform opacity-100 scale-100"
                         leave-to-class="transform opacity-0 scale-95"
             >
-                <div class="rounded-md ring-1 ring-black ring-opacity-5 p-3 bg-lightgray">
-                    {{ $content }}
+                <div class="rounded-md ring-1 ring-black ring-opacity-5 p-3 bg-lightgray cursor-pointer">
+                {{ $content }}
                 </div>
             </transition>
         </div>
