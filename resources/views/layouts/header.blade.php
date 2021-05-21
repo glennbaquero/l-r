@@ -316,5 +316,130 @@
             </x-header-sub-link>
         </x-header-link>
 
+        <toggle v-slot="{ display, toggled }">
+            <div class="gap-1 grid grid-cols-5  mx-auto my-auto relative w-full">
+                <div class="col-span-4 sm:col-span-4 text-right">
+                    
+                    <x-modal :hasFooter="false" maxWidth="max-w-4xl text-black">
+                        <x-slot name="button">
+                            <a href="#" @click="toggled" class="align-middle focus:outline-none focus:shadow-outline inline-flex w-5">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path></svg>
+                            </a>
+                        </x-slot>
+
+                        <x-slot name="title">
+                            Create Notification
+                        </x-slot>
+
+                        <x-slot name="body">
+                            <form-data v-slot="{ actionHandler, payload, result }" url="{{ route('notify.users') }}" :for-notification="true">
+                                <div>
+                                    <loading></loading>
+                                    <toggle-select v-slot="{ selectChanged, item, display }">
+                                        <div class="grid grid-cols-6 gap-6 text-left">
+                                            <div class="col-span-3 sm:col-span-3">
+                                                <x-label for="send_to" class="font-semibold">Send To</x-label>
+                                                <x-select :lists="$senders" name="send_to" identifierValue="name" v-model="payload.send_to" @change="selectChanged({{$senders}}, $event.target.value, 'notification')" />
+                                            </div>
+
+                                            <div class="col-span-3 sm:col-span-3">
+                                                <x-label for="send_to" class="font-semibold"  v-if="item != 'All' && display">@{{ item }}</x-label>
+                                                <multi-select v-if="item == 'User' && display" :items="{{ $users }}" label="fullname" name="users" name_2="user_ids"></multi-select>
+                                                <multi-select v-if="item == 'Group' && display" :items="{{ $groups }}" label="name" name="group"></multi-select>
+                                                <multi-select v-if="item == 'Office' && display" :items="{{ $offices }}" label="name" name="office"></multi-select>
+                                                <multi-select v-if="item == 'City' && display" :items="{{ $cities }}" label="name" name="city"></multi-select>
+                                            </div>
+
+                                            <div class="col-span-3 sm:col-span-3">
+                                                <x-label for="subject" class="font-semibold">Subject</x-label>
+                                                <x-form-input type="text" name="subject" id="subject" v-model="payload.subject" />
+                                            </div>
+
+                                            <div class="col-span-full sm:col-span-full">
+                                                <x-label for="message" class="font-semibold">Message</x-label>
+                                                <x-text-area name="message" id="message" v-model="payload.message"/>
+                                            </div>
+                                        </div>
+                                    </toggle-select>
+                                    <div class="mt-5 text-right">
+                                        <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36" @click="actionHandler">
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+                            </form-data>
+                        </x-slot>
+
+                    </x-modal>
+
+                </div>
+
+                <update-notification v-slot="{ updateNotificationHandler, unread }" url="{{ route('notification.read') }}" unread-count="{{ $notifications->whereNull('read_at')->count() }}">
+                    <div class="bg-darkblue col-span-1 group sm:col-span-1 text-center">
+                        <a href="#" @click="toggled(); updateNotificationHandler()">Notifications (@{{ unread }})</a>
+                    </div>
+                </update-notification>
+
+                <div class="absolute bg-darkblue col-start-3 group-hover:block mt-10 w-full z-10" :class="display ? '' : 'hidden'">
+                    <div class="bg-darkblue shadow-lg w-full">
+                        <div class="relative flex w-full px-4 py-2 text-base font-normal group-account hover:bg-lightblue">
+                            <div class="grid grid-cols-10 gap-2">
+                            @foreach($notifications as $notification)
+                                <div class="col-span-1 sm:col-span-1">
+                                    <img src="{{ $notification->data['sender_image'] }}" class="h-10 rounded-full w-10">
+                                </div>
+                                <div class="col-span-4 sm:col-span-4 my-auto">
+                                    {{ $notification->data['sender'] }}
+                                </div>
+                                <div class="col-span-5 sm:col-span-5 my-auto">
+                                     {{ $notification->data['timestamp'] }}
+                                </div>
+
+                                <div class="col-span-full sm:col-span-full pl-5">
+                                    <p><b> {{ !$notification->data['is_reply'] ? '' : 'Reply to' }} {{ $notification->data['title'] }}</b></p>
+                                    {{ $notification->data['message'] }}
+                                </div>
+                                <div class="col-span-full sm:col-span-full">
+                                    <x-modal :hasFooter="false" maxWidth="max-w-4xl text-black">
+                                        <x-slot name="button">
+                                            <a href="#" @click="toggled">Reply</a>
+                                        </x-slot>
+
+                                        <x-slot name="title">
+                                            {{ $notification->data['is_reply'] ? '' : 'Reply to' }}  {{ $notification->data['title'] }}
+                                        </x-slot>
+
+                                        <x-slot name="body">
+                                            <form-data v-slot="{ actionHandler, payload, result }" url="{{ route('reply-to-notification', $notification->id) }}" :for-reply="true">
+                                                <div>
+                                                    <loading></loading>
+                                                    <toggle-select v-slot="{ selectChanged, item, display }">
+                                                        <div class="grid grid-cols-6 gap-6 text-left">
+                                                            <div class="col-span-full sm:col-span-full">
+                                                                <x-label for="message" class="font-semibold">Message</x-label>
+                                                                <x-text-area name="message" id="message" v-model="payload.message"/>
+                                                            </div>
+                                                        </div>
+                                                    </toggle-select>
+                                                    <div class="mt-5 text-right">
+                                                        <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36" @click="actionHandler">
+                                                            Send
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form-data>
+                                        </x-slot>
+
+                                    </x-modal>
+                                </div>
+                            @endforeach
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </toggle>
+
       </nav>
 </header>

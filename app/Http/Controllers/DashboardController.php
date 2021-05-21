@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Models\Recommendation;
 use App\Models\Office;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\City;
+use App\Models\Reply;
+
+use Illuminate\Notifications\DatabaseNotification;
+
+use App\Notifications\NotifyUser;
 
 class DashboardController extends Controller
 {
@@ -22,6 +30,7 @@ class DashboardController extends Controller
         return view('dashboard', [
         	'recommendations' => $recommendations,
             'offices' => $offices,
+
         ]);
     }
 
@@ -39,7 +48,7 @@ class DashboardController extends Controller
             'office_id' => $request->office_id
         ]);
 
-        return Response()->json([
+        return response()->json([
             'message' => 'Office succesfully update',
             'success' => true
         ]);
