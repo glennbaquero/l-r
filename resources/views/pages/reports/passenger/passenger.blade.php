@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="col-span-1/4 sm:col-span-1/4">
                                         <x-label for="route" class="font-semibold">Select Date</x-label>
-                                        <x-datepicker name="datepicker" dateRange="display" class="form-input w-full mx-auto my-2 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent"/>
+                                        <x-datepicker name="date" dateRange="display" class="form-input w-full mx-auto my-2 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent"/>
                                     </div>
                                     <div class="col-span-1/4 sm:col-span-1/4 text-center">
                                         <button type="button" class="bg-lightblue border-transparent h-1/2 hover:bg-lighterblue items-center mt-6 rounded-md text-base text-center text-white w-2/4" @click="search(display)">Search</button>

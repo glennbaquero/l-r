@@ -31,7 +31,7 @@
 
 		watch: {
 			time(val) {
-				console.log(val);
+				// console.log(val);
 				// this.$parent.stops[this.stop][this.objectName] = val['HH']+':'+val['mm']+':'+val['ss'];
 			}
 		},

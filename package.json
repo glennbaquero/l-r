@@ -27,7 +27,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "chart.js": "^3.2.1",
+        "chart.js": "^2.8.0",
         "haversine-distance": "^1.2.1",
         "swiper": "^6.4.15",
         "vue-select": "^3.11.2",

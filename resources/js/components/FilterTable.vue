@@ -21,7 +21,7 @@
 
 		methods: {
 			search(byRange = false) {
-				const datepicker = this.$el.querySelector('#datepicker');
+				const datepicker = this.$el.querySelector('#date');
 
 				if(byRange) {
 					var split = datepicker.value.split(',');

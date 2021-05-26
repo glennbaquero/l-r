@@ -44,7 +44,10 @@
                             <td class="text-center border-b-2 border-gray-300 px-3">
                                 <input @input="setParam('arrival', $event.target.value)" name="arrival" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                             </td>
-                            <td colspan="2" class="text-center border-b-2 border-gray-300 px-3"></td>
+                            <td class="text-center border-b-2 border-gray-300 px-3">
+                                <input type="date" @input="setParam('travel_date', $event.target.value)" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" />
+                            </td>
+                            <td colspan="1" class="text-center border-b-2 border-gray-300 px-3"></td>
                             <td class="text-center border-b-2 border-gray-300 px-3">
                                 <input @input="setParam('passenger', $event.target.value)" name="passenger" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                             </td>

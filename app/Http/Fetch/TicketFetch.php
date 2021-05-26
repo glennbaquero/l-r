@@ -6,6 +6,7 @@ use App\Models\Ticket;
 use App\Models\Passenger;
 use App\Models\City;
 use App\Models\Office;
+use App\Models\Trip;
 
 class TicketFetch
 {
@@ -13,18 +14,20 @@ class TicketFetch
     protected $city;
     protected $passenger;
     protected $office;
+    protected $trip;
 
     /**
      * Create new fetch instance
      * 
      * @return void
      */
-    public function __construct(Ticket $ticket, City $city, Passenger $passenger, Office $office)
+    public function __construct(Ticket $ticket, City $city, Passenger $passenger, Office $office, Trip $trip)
     {
         $this->ticket = $ticket;
         $this->city = $city;
         $this->passenger = $passenger;
         $this->office = $office;
+        $this->trip = $trip;
     }
 
     /**
@@ -59,6 +62,12 @@ class TicketFetch
 
         if($params['date'] && $params['date'] != 'null') {
             $this->ticket = $this->ticket->whereDate('purchase_date', $params['date']);
+        }
+
+
+        if($params['travel_date'] && $params['travel_date'] != 'null') {
+            $trip_ids = $this->trip->whereDate('date', $params['travel_date'])->pluck('id');
+            $this->ticket = $this->ticket->whereIn('trip_id', $trip_ids);
         }
         
         if($params['departure'] && $params['departure'] != 'null') {

@@ -84,7 +84,11 @@
 				if(this.canEdit) {
 					this.item.arrival_id = val.id;
 				}
-			}
+			},
+
+			'item.trip'(val) {
+				this.item.trip_id = val.id;
+			},
 		},
 
 		computed: {
@@ -126,7 +130,9 @@
 			nextForm() {
 				var bus_finder_payloads = {
 					trip: this.item.trip,
-					trip_id: this.item.trip.id
+					trip_id: this.item.trip.id,
+					departure_id: this.item.departure_id,
+					arrival_id: this.item.arrival_id,
 				}
 
 				// if(_.isEmpty(this.$parent.selectedTicket)) {
