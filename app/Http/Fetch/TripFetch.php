@@ -97,16 +97,16 @@ class TripFetch
                         ->pluck('id')->toArray();
             $this->trip = $this->trip->whereIn('route_id', $routeId);
         }
-
-        if($params['date_range'] && $params['date_range'] != 'null') {
-            $range = json_decode($params['date_range']);
-            $this->trip = $this->trip->where('date', '>=', $range->from)->where('date', '<=', $range->to);
-        }
-
         
         if($params['date'] && $params['date'] != 'null') {
             $this->trip = $this->trip->whereDate('date', $params['date']);
         }
+
+        if($params['date_range'] && $params['date_range'] != 'null') {
+            $range = json_decode($params['date_range']);
+            $this->trip = $this->trip->whereDate('date', '>=', $range->from)->whereDate('date', '<=', $range->to);
+        }
+
 
         return $this->trip->paginate(20);
     }

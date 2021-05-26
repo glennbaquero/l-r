@@ -231,6 +231,7 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/user/office/update', [DashboardController::class, 'update'])->name('user-office.update');
+    Route::post('/dashboard/line', [DashboardController::class, 'updateLineGraph'])->name('update-line-graph');
     
     Route::post('/notify/users', [NotificationController::class, 'notification'])->name('notify.users');
     Route::post('/notification/read', [NotificationController::class, 'notificationRead'])->name('notification.read');

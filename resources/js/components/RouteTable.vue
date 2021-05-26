@@ -201,9 +201,8 @@
 
 				if(_.some(this.stops, { 'deleted_at': null })) {
 					var count = _.groupBy(this.stops, 'deleted_at');
-
 					var nullable = count.null.length;
-					var undefine = count.undefined ? count.undefined.length + 1 : 0;
+					var undefine = !_.isEmpty(count.undefined) ? count.undefined.length : 0;
 					count = nullable + undefine;
 
 					departure_id = this.stops[count - 1].arrival_id;
@@ -281,19 +280,23 @@
 			},
 
 			getAllPlaceLocation() {
-				this.waypoints = [];
-				_.each(this.stops, (stop, key) => {
-					if(stop.show) {
-						if(key >= 0 && this.stops.length != (key+1)) {
-							var city = _.find(this.cities, (city) => { return city.id == stop.arrival_id });
-							var waypoints = {
-								location: city.latitude+','+city.longitude,
-								stopover: true
+
+				if(this.stops.length <= 26) {
+					this.waypoints = [];
+					_.each(this.stops, (stop, key) => {
+						if(stop.show) {
+							if(key >= 0 && this.stops.length != (key+1)) {
+								var city = _.find(this.cities, (city) => { return city.id == stop.arrival_id });
+								var waypoints = {
+									location: city.latitude+','+city.longitude,
+									stopover: true
+								}
+								this.waypoints.push(waypoints);
 							}
-							this.waypoints.push(waypoints);
-						}
-					}	
-				})
+						}	
+					})
+				}
+				
 			}
 		}
 	}

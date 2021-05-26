@@ -12,15 +12,17 @@ class TicketNotifyPassenger extends Notification
     use Queueable;
 
     protected $message;
+    protected $route;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, $route)
     {
-        $this->message = 'this is just a sample text';
+        $this->message = $message;
+        $this->route = $route;
     }
 
     /**
@@ -45,7 +47,8 @@ class TicketNotifyPassenger extends Notification
         return (new MailMessage)
                     ->subject(config('app.name') . ': Ticket Information')
                     ->greeting('Hello ' . $notifiable->fullname . ',')
-                    ->line($this->message);
+                    ->line($this->message)
+                    ->action('Print Here', $this->route);
     }
 
     /**

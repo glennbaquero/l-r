@@ -101,4 +101,23 @@
         <x-label class="font-semibold mb-4 mt-2 left pl-8">Suggestion and Recommendation</x-label>
         <slider :items="{{ $recommendations }}"></slider>
     </div>
+
+        <div class="grid grid-cols-2">
+            <chart label="Revenue" :data="{{ $data_total_revenue }}" :bg-color="{{ $data_bgcolor_per_revenue }}" :labels="{{ $data_label_per_revenue }}">
+                <div class="col-md-1 sm:col-md-1 mt-auto">
+                    <canvas id="canvas" class="h-full w-full"></canvas>
+                </div>
+            </chart>
+            <chart v-slot="{ changeHandler }" canvas-id="monthly_revenue" label="Per month revenue" :data="{{ $per_month_revenue }}" :fill="false" :labels="{{ $months }}" type="line" border-color="#001943" update-url="{{ route('update-line-graph') }}">
+                <div class="col-md-1 sm:col-md-1">
+                    <select class="form-input w-2/5 mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" @change="changeHandler($event.target.value)">
+                        <option disabled selected>Select year</option>
+                        @foreach($years as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
+                    </select>
+                    <canvas id="monthly_revenue" class="h-full w-full"></canvas>
+                </div>
+            </chart>
+        </div>
 </x-app-layout>
