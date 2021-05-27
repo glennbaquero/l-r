@@ -32,7 +32,7 @@ class UserFetch
      */
     public function execute($params)
     {
-        $this->user = $this->user
+        $this->user = $this->user->whereNotIn('id', [auth()->user()->id])
                     ->whereLike('username', $params['username'])
                     ->orWhereLike('firstname', $params['name'])
                     ->orWhereLike('lastname', $params['name']);
