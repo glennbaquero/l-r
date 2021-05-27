@@ -24,6 +24,7 @@
 	                <!--footer-->
                     <div class="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b" v-if="hasFooter">
                         {{ footerText }}
+                        <slot name="footerButton"></slot>
                     </div>
 	            </div>
 	        </div>
