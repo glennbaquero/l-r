@@ -36,7 +36,9 @@ class TicketCreateController extends Controller
     {
     	$ticket = $this->action->execute($request);
 
-        $ticket->passenger->notify(new TicketNotifyPassenger('sample text'));
+        $route = route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]);
+
+        $ticket->passenger->notify(new TicketNotifyPassenger('Your reservation is confirmed, you can download here the copy of your ticket.', $route));
 
         if($request->action === 'Yes') {
             return response()->json([

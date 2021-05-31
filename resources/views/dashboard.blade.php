@@ -7,10 +7,24 @@
             </div>
             <div class="flex text-base items-center">
                 <span class="mr-3">{{__('Your Office')}}</span>
-                <x-dropdown align="right" width="48" class="bg-gray-200 p-2 rounded">
+                <update-user-office 
+                    :office_id="{{ auth()->user()->office_id }}" 
+                    url="{{ route('user-office.update') }}"
+                    v-slot="{ actionHandler, payload }">
+
+                    <select class="form-input w-auto mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="payload.office_id" @change="actionHandler" >
+                        @foreach($offices as $office)
+                            <option value="{{ $office->id }}">{{ $office->name }}</option>
+                        @endforeach
+                    </select>    
+               
+                </update-user-office>
+                
+
+                {{-- <x-dropdown align="right" width="48" class="bg-gray-200 p-2 rounded">
                     <x-slot name="trigger">
                         <button class="flex text-base font-semi-bold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>Huntington Pk.</div>
+                            <div>{{ auth()->user()->office->name }}</div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -20,14 +34,18 @@
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        Huntington Pk.
+                        @foreach($offices as $office)
+                        <div class="rounded-md ring-1 ring-black ring-opacity-5 p-3 bg-lightgray cursor-pointer">
+                            {{ $office->name }}
+                        </div>
+                        @endforeach
                     </x-slot>
-                </x-dropdown>
+                </x-dropdown> --}}
             </div>
         </div>
 
         <div class="mt-12 grid gap-8 max-w-lg mx-auto lg:grid-cols-8 lg:max-w-none text-center">    
-            <a href="#" class="flex flex-col bg-white shadow-lg rounded-xl overflow-hidden py-6 px-3">
+            <a href="{{route('ticket.index')}}" class="flex flex-col bg-white shadow-lg rounded-xl overflow-hidden py-6 px-3">
                 <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 -5 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5.77778 4H20.2222V12H5.77778V4ZM23.8333 8C23.8333 9.10458 24.8034 10 26 10V14C26 15.1046 25.03 16 23.8333 16H2.16667C0.970035 16 0 15.1046 0 14V10C1.19663 10 2.16667 9.10458 2.16667 8C2.16667 6.89542 1.19663 6 0 6V2C0 0.895416 0.970035 0 2.16667 0H23.8333C25.03 0 26 0.895416 26 2V6C24.8034 6 23.8333 6.89542 23.8333 8ZM21.6667 3.66667C21.6667 3.11437 21.1816 2.66667 20.5833 2.66667H5.41667C4.81835 2.66667 4.33333 3.11437 4.33333 3.66667V12.3333C4.33333 12.8856 4.81835 13.3333 5.41667 13.3333H20.5833C21.1816 13.3333 21.6667 12.8856 21.6667 12.3333V3.66667Z" fill="#001943"/>
                 </svg>        
@@ -39,13 +57,13 @@
                 </svg>                                
                 <span>{{ __('Luggage') }}</span>
             </a>
-            <a href="#" class="flex flex-col bg-white shadow-lg rounded-xl overflow-hidden py-6 px-3">
+            <a href="{{route('seat-transfer.index')}}" class="flex flex-col bg-white shadow-lg rounded-xl overflow-hidden py-6 px-3">
                 <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 21.6667L0 26H4.5L4.5 21.6667L19.5 21.6667V26H24V17.3333L0 17.3333L0 21.6667ZM19.5 14.4444L4.5 14.4444L4.5 2.88889C4.5 1.3 5.85 0 7.5 0L16.5 0C18.15 0 19.5 1.3 19.5 2.88889L19.5 14.4444Z" fill="#001943"/>
                 </svg>                                                       
                 <span>{{ __('Seat Transfer') }}</span>
             </a>
-            <a href="#" class="flex flex-col bg-white shadow-lg rounded-xl overflow-hidden py-6 px-3">
+            <a href="{{route('frequent-traveler.index')}}" class="flex flex-col bg-white shadow-lg rounded-xl overflow-hidden py-6 px-3">
                 <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 5.92105C6 9.18553 8.692 11.8421 12 11.8421C15.308 11.8421 18 9.18553 18 5.92105C18 2.65658 15.308 0 12 0C8.692 0 6 2.65658 6 5.92105ZM22.6667 25H24V23.6842C24 18.6066 19.812 14.4737 14.6667 14.4737H9.33333C4.18667 14.4737 0 18.6066 0 23.6842V25H22.6667Z" fill="#001943"/>
                 </svg>                                                                                 
@@ -63,13 +81,13 @@
                 </svg>
                 <span>{{ __('Hotel Lodge') }}</span>
             </a>
-            <a href="#" class="flex flex-col bg-white shadow-lg rounded-xl overflow-hidden py-6 px-3">
+            <a href="{{route('open-cash.index')}}" class="flex flex-col bg-white shadow-lg rounded-xl overflow-hidden py-6 px-3">
                 <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M18.5714 0H1.42857C1.04969 0 0.686328 0.152182 0.418419 0.423068C0.15051 0.693954 0 1.06135 0 1.44444V24.5556C0 24.9386 0.15051 25.306 0.418419 25.5769C0.686328 25.8478 1.04969 26 1.42857 26H18.5714C18.9503 26 19.3137 25.8478 19.5816 25.5769C19.8495 25.306 20 24.9386 20 24.5556V1.44444C20 1.06135 19.8495 0.693954 19.5816 0.423068C19.3137 0.152182 18.9503 0 18.5714 0ZM14.2857 20.2222H5.71428V17.3333H14.2857V20.2222ZM14.2857 14.4444H5.71428V11.5556H14.2857V14.4444ZM14.2857 8.66667H5.71428V5.77778H14.2857V8.66667Z" fill="#001943"/>
                 </svg>
                 <span>{{ __('Cash Register') }}</span>
             </a>
-            <a href="#" class="flex flex-col bg-white shadow-lg rounded-xl overflow-hidden py-6 px-3">
+            <a href="{{route('information.index')}}" class="flex flex-col bg-white shadow-lg rounded-xl overflow-hidden py-6 px-3">
                 <svg class="mx-auto mb-1 w-8 h-8" viewBox="-5 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13 0C5.8318 0 0 5.8318 0 13C0 20.1682 5.8318 26 13 26C20.1682 26 26 20.1682 26 13C26 5.8318 20.1682 0 13 0ZM14.3 20.8H11.7V18.2H14.3V20.8ZM15.5688 14.4495C15.314 14.6549 15.0683 14.8512 14.8733 15.0462C14.3429 15.5753 14.3013 16.0563 14.3 16.0771V16.25H11.7V16.0329C11.7 15.8795 11.7377 14.5028 13.0338 13.2067C13.2873 12.9532 13.6019 12.6958 13.9321 12.428C14.8863 11.6545 15.5129 11.0903 15.5129 10.3129C15.4978 9.65616 15.2263 9.03142 14.7564 8.57235C14.2865 8.11328 13.6556 7.85634 12.9987 7.85651C12.3418 7.85668 11.7111 8.11395 11.2414 8.57326C10.7718 9.03258 10.5006 9.65746 10.4858 10.3142H7.8858C7.8858 7.4945 10.1803 5.2 13 5.2C15.8197 5.2 18.1142 7.4945 18.1142 10.3142C18.1142 12.3903 16.5815 13.6292 15.5688 14.4495Z" fill="#001943"/>
                 </svg>
@@ -83,4 +101,23 @@
         <x-label class="font-semibold mb-4 mt-2 left pl-8">Suggestion and Recommendation</x-label>
         <slider :items="{{ $recommendations }}"></slider>
     </div>
+
+        <div class="grid grid-cols-2">
+            <chart label="Revenue" :data="{{ $data_total_revenue }}" :bg-color="{{ $data_bgcolor_per_revenue }}" :labels="{{ $data_label_per_revenue }}">
+                <div class="col-md-1 sm:col-md-1 mt-auto">
+                    <canvas id="canvas" class="h-full w-full"></canvas>
+                </div>
+            </chart>
+            <chart v-slot="{ changeHandler }" canvas-id="monthly_revenue" label="Per month revenue" :data="{{ $per_month_revenue }}" :fill="false" :labels="{{ $months }}" type="line" border-color="#001943" update-url="{{ route('update-line-graph') }}">
+                <div class="col-md-1 sm:col-md-1">
+                    <select class="form-input w-2/5 mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" @change="changeHandler($event.target.value)">
+                        <option disabled selected>Select year</option>
+                        @foreach($years as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
+                    </select>
+                    <canvas id="monthly_revenue" class="h-full w-full"></canvas>
+                </div>
+            </chart>
+        </div>
 </x-app-layout>

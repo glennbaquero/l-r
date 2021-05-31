@@ -205,6 +205,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Reports\PrintController;
 
 use App\Http\Controllers\PassengerReportController;
+use App\Http\Controllers\NotificationController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -229,6 +230,12 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/locale', LocaleController::class)->name('locale');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/user/office/update', [DashboardController::class, 'update'])->name('user-office.update');
+    Route::post('/dashboard/line', [DashboardController::class, 'updateLineGraph'])->name('update-line-graph');
+    
+    Route::post('/notify/users', [NotificationController::class, 'notification'])->name('notify.users');
+    Route::post('/notification/read', [NotificationController::class, 'notificationRead'])->name('notification.read');
+    Route::post('/notification/reply/{id}', [NotificationController::class, 'replyToNotification'])->name('reply-to-notification');
 
     Route::get('/office', [OfficeController::class, 'index'])->name('office.index');
     Route::get('/office/fetch', [OfficeController::class, 'fetch'])->name('office.fetch');

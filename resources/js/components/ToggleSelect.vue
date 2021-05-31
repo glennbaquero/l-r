@@ -135,6 +135,10 @@ export default {
                     }
 
                     break;
+
+                case 'notification': 
+                    this.item = value;
+                    this.display = true;
             }
         },
     }

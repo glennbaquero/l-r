@@ -36,6 +36,27 @@ class BusModelColumn extends Model
         return $this->belongsTo(BusModelRow::class)->withTrashed();
     }
 
+
+    /**
+     * bus model column (seat) has many passengers
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function passengers()
+    {
+        return $this->hasMany(Passenger::class);
+    }
+
+    /**
+     * bus model column (seat) has many tickets
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     /**
      * Get selected
      * 

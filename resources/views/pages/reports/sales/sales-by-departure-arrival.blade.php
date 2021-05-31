@@ -8,28 +8,28 @@
 
         <div class="mt-12 mx-auto h-full">
             <pdf-viewer v-slot="{ src, getSalesByDepartureArrivalPdfData, viewer_show, loading }" search-url="{{ route('sales-by-departure-arrival.print') }}">
-                <div class="grid grid-cols-3 gap-3">
-                    <div class="col-span-1 sm:col-span-1">
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="col-span-full sm:col-span-full">
+                <div class="grid grid-cols-12 gap-3">
+                    {{-- <div class="col-span-1 sm:col-span-1"> --}}
+                        {{-- <div class="grid grid-cols-2 gap-3"> --}}
+                            <div class="col-span-2 sm:col-span-2">
                                 <x-label for="departure_ids" class="font-semibold">Departure City</x-label>
                                 <multi-select :items="{{ $cities }}" label="name" v-slot="{ selected }" name="departure_ids"></multi-select>
                             </div>
-                            <div class="col-span-full sm:col-span-full">
+                            <div class="col-span-2 sm:col-span-2">
                                 <x-label for="arrival" class="font-semibold">Arrival City</x-label>
                                 <multi-select :items="{{ $cities }}" label="name" v-slot="{ selected }" name="arrival_ids"></multi-select>
                             </div>
-                            <div class="col-span-full sm:col-span-full">
+                            <div class="col-span-2 sm:col-span-2">
                                 <x-label for="ticket_type_ids" class="font-semibold">Ticket Type</x-label>
                                 <multi-select :items="{{$types}}" v-slot="{ selected }" label="name"></multi-select>
                             </div>
-                            <div class="col-span-full sm:col-span-full">
+                            <div class="col-span-2 sm:col-span-2">
                                 <x-label for="genders" class="font-semibold">Gender</x-label>
                                 <multi-select :items="{{$genders}}" v-slot="{ selected }" label="name" name="genders"></multi-select>
                             </div>
                             <toggle v-slot="{ display, toggled }">
-                                <div class="col-span-full sm:col-span-full grid grid-cols-2 gap-3">
-                                    <div class="col-span-full">
+                                <div class="col-span-3 sm:col-span-3 grid grid-cols-3 gap-3">
+                                    <div class="col-span-1 sm:col-span-1 mx-auto">
                                         <x-label for="" class="font-semibold">Type</x-label>
                                         <div class="flex items-center space-x-3 mt-3">
                                             <span id="toggleLabel">
@@ -47,7 +47,7 @@
                                             <input type="checkbox" id="type" :checked="display" class="hidden">
                                         </div>
                                     </div>
-                                    <div class="col-span-1 sm:col-span-1">
+                                    <div :class="display ? 'col-span-1 sm:col-span-1' : 'col-span-2 sm:col-span-2'">
                                         <x-label for="start_date" class="font-semibold">Start Date</x-label>
                                         <x-datepicker name="start_date"/>
                                     </div>
@@ -59,17 +59,17 @@
                             </toggle>
                             
 
-                            <div class="col-span-full sm:col-span-full">
+                            <div class="col-span-1 sm:col-span-1 my-auto">
                                 <button class="bg-darkblue border border-transparent duration-150 ease-in-out focus:border-red-300 focus:outline-none focus:shadow-outline-red font-medium inline-flex items-center justify-center p-4 rounded-md sm:leading-5 sm:text-sm text-white transition w-40" @click="getSalesByDepartureArrivalPdfData">
                                     Search
                                 </button>
                             </div>
 
-                        </div>
+                        {{-- </div> --}}
                         {{-- <x-label for="name" class="font-semibold">Grouped: </x-label> --}}
-                    </div>
+                    {{-- </div> --}}
 
-                    <div class="col-span-2 sm:col-span-2">
+                    <div class="col-span-full sm:col-span-full">
                         <iframe src="{{ asset('storage/report.pdf') }}" class="w-full h-screen" id="pdf_viewer" v-show="viewer_show"></iframe>
                     </div>
                     <loading :show="loading"></loading>

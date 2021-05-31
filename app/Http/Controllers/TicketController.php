@@ -129,7 +129,7 @@ class TicketController extends Controller
         $bus_model = [];
 
         foreach ($rows as $row) {
-           $this->renderBusModel($row, $trip);
+           $this->renderBusModel($row, $trip, $request);
            array_push($bus_model, $row->bus_columns);
 
         }
@@ -139,25 +139,120 @@ class TicketController extends Controller
 
     }
 
-    public function renderBusModel($row, $trip) {
+    // public function renderBusModel($row, $trip, $request) {
+
+    //     $response = [];
+
+    //     foreach ($row->bus_columns as $column) {
+    //         foreach($trip->passengers as $key => $passenger) {
+    //             $last_stop = $trip->route->stops()->latest()->orderby('id', 'desc')->first();
+
+    //             if($last_stop->arrival_id === $passenger->arrival_city_id) {
+    //                 if($passenger->bus_model_column_id == $column->id) {
+    //                     $column['passenger'] = $passenger;
+
+    //                     if($passenger->ticket->payment_method == 'Cash' || $passenger->ticket->payment_method == 'Credit Card') {
+    //                         $column->image_path = url('icons/seat_sold.png');
+    //                     } elseif ($passenger->ticket->payment_method == 'Reservation') {
+    //                         $column->image_path = url('icons/seat_reserve.png');
+    //                     }
+
+    //                     // $seat = $passenger->bus_model_column_id;
+    //                     // $checker = $trip->passengers()->where('bus_model_column_id', $seat)->whereNoIn('arrival_city_id', [$request->arrival_id])->count();
+
+    //                     // if($checker) {
+    //                     //     $column->image_path = url('icons/seat_available.png');
+    //                     // }
+                    
+    //                     $column->is_reserved = true;
+    //                 }
+    //             } elseif ($passenger->arrival_city_id == $request->arrival_id) {
+    //                 if($passenger->bus_model_column_id == $column->id) {
+    //                     $column['passenger'] = $passenger;
+
+    //                     if($passenger->ticket->payment_method == 'Cash' || $passenger->ticket->payment_method == 'Credit Card') {
+    //                         $column->image_path = url('icons/seat_sold.png');
+    //                     } elseif ($passenger->ticket->payment_method == 'Reservation') {
+    //                         $column->image_path = url('icons/seat_reserve.png');
+    //                     }
+    //                     $column->is_reserved = true;
+    //                 }
+    //             }
+
+
+    //             if($passenger->ticket->departure_id == $request->departure_id && $passenger->arrival_city_id == $request->arrival_id) {
+    //                 if($passenger->bus_model_column_id == $column->id) {
+    //                     $column['passenger'] = $passenger;
+
+    //                     if($passenger->ticket->payment_method == 'Cash' || $passenger->ticket->payment_method == 'Credit Card') {
+    //                         $column->image_path = url('icons/seat_sold.png');
+    //                     } elseif ($passenger->ticket->payment_method == 'Reservation') {
+    //                         $column->image_path = url('icons/seat_reserve.png');
+    //                     }
+    //                     $column->is_reserved = true;
+    //                 }
+    //             } 
+    //         }
+    //     }
+
+    //     return true;
+    // }
+
+    public function renderBusModel($row, $trip, $request) {
 
         $response = [];
+        $arrival_ids = array_values(array_unique($trip->tickets->pluck('arrival_id')->toArray()));
+        $destination_ids = array_values(array_unique($trip->tickets->pluck('destination_id')->toArray()));
 
         foreach ($row->bus_columns as $column) {
-            foreach($trip->passengers as $passenger) {
-                if($passenger->bus_model_column_id == $column->id) {
-                    $column['passenger'] = $passenger;
-                    if($passenger->ticket->payment_method == 'Cash' || $passenger->ticket->payment_method == 'Credit Card') {
-                        // $column->image_path = url('icons/seat_reserve.png');
-                    // } 
+            foreach($trip->tickets as $key => $ticket) {
+                $last_stop = $trip->route->stops()->latest()->orderby('id', 'desc')->first();
 
-                    // if($passenger->ticket->payment_method == 'Credit Card') {
-                        $column->image_path = url('icons/seat_sold.png');
-                    } elseif ($passenger->ticket->payment_method == 'Reservation') {
-                        $column->image_path = url('icons/seat_reserve.png');
+                if($last_stop->arrival_id === $ticket->arrival_id) {
+                    if($ticket->bus_model_column_id == $column->id) {
+                        $column['passenger'] = $ticket->passenger;
+
+                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card') {
+                            $column->image_path = url('icons/seat_sold.png');
+                        } elseif ($ticket->payment_method == 'Reservation') {
+                            $column->image_path = url('icons/seat_reserve.png');
+                        }
+
+                        $column->is_reserved = true;
                     }
-                    
-                    $column->is_reserved = true;
+                } elseif ($ticket->arrival_id == $request->arrival_id) {
+                    if($ticket->bus_model_column_id == $column->id) {
+                        $column['passenger'] = $ticket->passenger;
+
+                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card') {
+                            $column->image_path = url('icons/seat_sold.png');
+                        } elseif ($ticket->payment_method == 'Reservation') {
+                            $column->image_path = url('icons/seat_reserve.png');
+                        }
+                        $column->is_reserved = true;
+                    }
+                }
+
+
+                if($ticket->departure_id == $request->departure_id && $ticket->arrival_id == $request->arrival_id) {
+                    if($ticket->bus_model_column_id == $column->id) {
+                        $column['passenger'] = $ticket->passenger;
+
+                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card') {
+                            $column->image_path = url('icons/seat_sold.png');
+                        } elseif ($ticket->payment_method == 'Reservation') {
+                            $column->image_path = url('icons/seat_reserve.png');
+                        }
+                        $column->is_reserved = true;
+                    }
+                } 
+
+                if($ticket->arrival_id == $request->departure_id) {
+                    if($ticket->bus_model_column_id == $column->id) {
+                        // $column['passenger'] = $ticket->passenger;
+
+                        $column->image_path = url('icons/seat_double_sold.png');
+                    }
                 }
             }
         }
