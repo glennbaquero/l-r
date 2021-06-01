@@ -97,16 +97,19 @@
                                     </div>
                                 </toggle-select>
 
+                                <phone-number v-slot="{ handlePhoneFormat }">
+                                    <div class="col-span-4 sm:col-span-3">
+                                        <x-label for="phone_number" class="font-semibold">Phone number</x-label>
+                                        <x-form-input type="text" name="phone_number"  value="{{ $user->phone_number }}" id="phone_number" @input="handlePhoneFormat" />
+                                    </div>
+                                </phone-number>
 
-                                <div class="col-span-4 sm:col-span-3">
-                                    <x-label for="phone_number" class="font-semibold">Phone number</x-label>
-                                    <x-form-input type="text" name="phone_number"  value="{{ $user->phone_number }}" id="phone_number" />
-                                </div>
-
-                                <div class="col-span-4 sm:col-span-3">
-                                    <x-label for="cellphone_number" class="font-semibold">Cellphone Number</x-label>
-                                    <x-form-input type="text" name="cellphone_number"  value="{{ $user->cellphone_number }}" id="cellphone_number" />
-                                </div>
+                                <phone-number v-slot="{ handlePhoneFormat }">
+                                    <div class="col-span-4 sm:col-span-3">
+                                        <x-label for="cellphone_number" class="font-semibold">Cellphone Number</x-label>
+                                        <x-form-input type="text" name="cellphone_number"  value="{{ $user->cellphone_number }}" id="cellphone_number" @input="handlePhoneFormat" />
+                                    </div>
+                                </phone-number>
                                 {{-- <google-auto-complete v-slot="{ address }"> --}}
                                     <div class="col-span-4 sm:col-span-3">
                                         <x-label for="address_line_1" class="font-semibold">Address 1</x-label>

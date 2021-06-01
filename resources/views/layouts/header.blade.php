@@ -11,65 +11,65 @@
                 <x-slot name="name">{{__('Management')}}</x-slot>
                     <x-header-absolute-link class="group-management-hover:block bg-lightblue">
                         <x-header-sub-link link="#" :caret="true" class="group-sales hover:bg-lighterblue">
-                            <x-slot name="name">Sales Management</x-slot>
+                            <x-slot name="name">{{__('Sales Management')}}</x-slot>
                             <x-header-absolute-link class="group-sales group-sales-hover:block bg-lighterblue">
                                 <x-header-sub-link link="{{route('expense-income.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Expenses & Income</x-slot>
+                                    <x-slot name="name">{{__('Expenses & Income')}}</x-slot>
                                 </x-header-sub-link>
                                 {{-- <x-header-sub-link link="{{route('voucher.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Voucher Management</x-slot>
                                 </x-header-sub-link> --}}
                                 <x-header-sub-link link="{{route('coupon.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Coupon Management</x-slot>
+                                    <x-slot name="name">{{__('Coupon Management')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('discount.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    {{-- <x-slot name="name">Promotions and Discounts</x-slot> --}}
-                                    <x-slot name="name">Used Coupon</x-slot>
+                                    {{-- <x-slot name="name">{{__('Expenses & Income')}}Promotions and Discounts</x-slot> --}}
+                                    <x-slot name="name">{{__('Used Coupon')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('discount-option.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Promotion Option</x-slot>
+                                    <x-slot name="name">{{__('Promotion Option')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('frequent-traveler.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Frequent Traveler Management</x-slot>
+                                    <x-slot name="name">{{__('Frequent Traveler Management')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('open-cash.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Open / Close Till</x-slot>
+                                    <x-slot name="name">{{__('Open / Close Till')}}</x-slot>
                                 </x-header-sub-link>
                                 {{-- <x-header-sub-link link="{{route('office.open-close')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Open / Close Office</x-slot>
+                                    <x-slot name="name">{{__('Expenses & Income')}}Open / Close Office</x-slot>
                                 </x-header-sub-link> --}}
                             </x-header-absolute-link>
                         </x-header-sub-link>
                         
                         <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lighterblue">
-                            <x-slot name="name">Route Management</x-slot>
+                            <x-slot name="name">{{__('Route Management')}}</x-slot>
                             <x-header-absolute-link class="group-route group-route-hover:block bg-lighterblue">
                                 <x-header-sub-link link="{{route('route.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Route</x-slot>
+                                    <x-slot name="name">{{__('Route')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('multi-route.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Multiple Route</x-slot>
+                                    <x-slot name="name">{{__('Multiple Route')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('price.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Prices</x-slot>
+                                    <x-slot name="name">{{__('Prices')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('interline-price.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Interline Price</x-slot>
+                                    <x-slot name="name">{{__('Interline Price')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('trip.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Itineraries</x-slot>
+                                    <x-slot name="name">{{__('Itineraries')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('boarding.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Passenger Boarding</x-slot>
+                                    <x-slot name="name">{{__('Passenger Boarding')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('daily-itinerary.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Daily Itineraries</x-slot>
+                                    <x-slot name="name">{{__('Daily Itineraries')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('itinerary-update.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Itineraries, Logs & Notifications</x-slot>
+                                    <x-slot name="name">{{__('Itineraries, Logs & Notifications')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('travel-expense.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Travel Expense</x-slot>
+                                    <x-slot name="name">{{__('Travel Expense')}}</x-slot>
                                 </x-header-sub-link>
                                 {{-- <x-header-sub-link link="{{route('route-main-driver.index')}}" :caret="false" class="hover:bg-lighterblue">
                                     <x-slot name="name">Route & Main Driver</x-slot>
@@ -78,16 +78,16 @@
                         </x-header-sub-link>
                         
                         <x-header-sub-link link="#" :caret="true" class="group-bus hover:bg-lighterblue">
-                            <x-slot name="name">Bus Management</x-slot>
+                            <x-slot name="name">{{__('Bus Management')}}</x-slot>
                             <x-header-absolute-link class="group-bus group-bus-hover:block bg-lighterblue">
                                 <x-header-sub-link link="{{route('cell.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Type of Cell</x-slot>
+                                    <x-slot name="name">{{__('Type of Cell')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('bus-model.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Bus Model</x-slot>
+                                    <x-slot name="name">{{__('Bus Model')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('bus.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Bus</x-slot>
+                                    <x-slot name="name">{{__('Bus')}}</x-slot>
                                 </x-header-sub-link>
                             </x-header-absolute-link>
                         </x-header-sub-link>
@@ -97,25 +97,25 @@
                         </x-header-sub-link>
 
                         <x-header-sub-link link="#" :caret="true" class="group-groups hover:bg-lighterblue">
-                            <x-slot name="name">Groups</x-slot>
+                            <x-slot name="name">{{__('Groups')}}</x-slot>
                             <x-header-absolute-link class="group-groups group-groups-hover:block bg-lighterblue">
                                 <x-header-sub-link link="{{route('group.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Group Management</x-slot>
+                                    <x-slot name="name">{{__('Group Management')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{ route('group-privilege.index') }}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Grant or Restrict Previleges</x-slot>
+                                    <x-slot name="name">{{__('Grant or Restrict Previleges')}}</x-slot>
                                 </x-header-sub-link>
                                 <x-header-sub-link link="{{route('group-message.index')}}" :caret="false" class="hover:bg-lighterblue">
-                                    <x-slot name="name">Group Message</x-slot>
+                                    <x-slot name="name">{{__('Group Message')}}</x-slot>
                                 </x-header-sub-link>
                             </x-header-absolute-link>
                         </x-header-sub-link>
 
                         <x-header-sub-link link="{{route('option.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Options</x-slot>
+                            <x-slot name="name">{{__('Options')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('city.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Cities</x-slot>
+                            <x-slot name="name">{{__('Cities')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('office.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">{{__('Offices')}}</x-slot>
@@ -124,34 +124,34 @@
                             <x-slot name="name">{{__('Currency')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('ticket-type.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Ticket Type</x-slot>
+                            <x-slot name="name">{{__('Ticket Type')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('company.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Agency</x-slot>
+                            <x-slot name="name">{{__('Agency')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Base Fares Administration</x-slot>
+                            <x-slot name="name">{{__('Base Fares Administration')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Agency Management</x-slot>
+                            <x-slot name="name">{{__('Agency Management')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('service.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Services</x-slot>
+                            <x-slot name="name">{{__('Services')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('driver.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Driver Management</x-slot>
+                            <x-slot name="name">{{__('Driver Management')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Training Videos</x-slot>
+                            <x-slot name="name">{{__('Training Videos')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Tracking Messages</x-slot>
+                            <x-slot name="name">{{__('Tracking Messages')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('group-email.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Group Email Management</x-slot>
+                            <x-slot name="name">{{__('Group Email Management')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('recommendation.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Recommendation Management</x-slot>
+                            <x-slot name="name">{{__('Recommendation Management')}}</x-slot>
                         </x-header-sub-link>
                 </x-header-absolute-link>
             </x-header-sub-link>
@@ -163,7 +163,7 @@
                             <x-slot name="name">Terminal Management</x-slot>
                         </x-header-sub-link> --}}
                         <x-header-sub-link link="{{route('printer.index')}}" :caret="false" class="group-sales hover:bg-lighterblue">
-                            <x-slot name="name">Printer Management</x-slot>
+                            <x-slot name="name">{{__('Printer Management')}}</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
             </x-header-sub-link>
@@ -172,145 +172,145 @@
         <x-header-link link="{{route('dashboard')}}">
             <x-slot name="name">{{__('Billing')}}</x-slot>
             <x-header-sub-link link="{{route('account-receivable.index')}}" :caret="false" class="hover:bg-lightblue">
-                <x-slot name="name">Accounts Receivable</x-slot>
+                <x-slot name="name">{{__('Accounts Receivable')}}</x-slot>
             </x-header-sub-link>
             <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
-                <x-slot name="name">Accounts Payable</x-slot>
+                <x-slot name="name">{{__('Accounts Payable')}}</x-slot>
             </x-header-sub-link>
             <x-header-sub-link link="{{route('payment-document.index')}}" :caret="false" class="hover:bg-lightblue">
-                <x-slot name="name">Payment Document</x-slot>
+                <x-slot name="name">{{__('Payment Document')}}</x-slot>
             </x-header-sub-link>
             <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
-                <x-slot name="name">Authorize.net Transactions</x-slot>
+                <x-slot name="name">{{__('Authorize.net Transactions')}}</x-slot>
             </x-header-sub-link>
             <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
-                <x-slot name="name">Credit Sales</x-slot>
+                <x-slot name="name">{{__('Credit Sales')}}</x-slot>
             </x-header-sub-link>
         </x-header-link>
 
         <x-header-link link="{{route('dashboard')}}">
             <x-slot name="name">{{__('Support')}}</x-slot>
             <x-header-sub-link link="{{route('information.index')}}" :caret="false" class="hover:bg-lightblue">
-                <x-slot name="name">Information</x-slot>
+                <x-slot name="name">{{__('Information')}}</x-slot>
             </x-header-sub-link>
             <x-header-sub-link link="{{route('ticket-support.index')}}" :caret="false" class="hover:bg-lightblue">
-                <x-slot name="name">Tickets Support</x-slot>
+                <x-slot name="name">{{__('Tickets Support')}}</x-slot>
             </x-header-sub-link>
             <x-header-sub-link link="{{route('baggage.index')}}" :caret="false" class="hover:bg-lightblue">
-                <x-slot name="name">Baggage Support</x-slot>
+                <x-slot name="name">{{__('Baggage Support')}}</x-slot>
             </x-header-sub-link>
         </x-header-link>
 
         <x-header-link link="{{route('dashboard')}}">
             <x-slot name="name">{{__('Report')}}</x-slot>
             <x-header-sub-link link="#" :caret="true" class="group-account hover:bg-lightblue">
-                <x-slot name="name">Accounts</x-slot>
+                <x-slot name="name">{{__('Accounts')}}</x-slot>
                     <x-header-absolute-link class="group-account-hover:block bg-lightblue">
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Checklist</x-slot>
+                            <x-slot name="name">{{__('Checklist')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('receivable')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Receivables</x-slot>
+                            <x-slot name="name">{{__('Receivables')}}</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
             </x-header-sub-link>
             <x-header-sub-link link="#" :caret="true" class="group-closure hover:bg-lightblue">
-                <x-slot name="name">Closure of Till</x-slot>
+                <x-slot name="name">{{__('Closure of Till')}}</x-slot>
                     <x-header-absolute-link class="group-closure-hover:block bg-lightblue">
                         <x-header-sub-link link="{{route('my-daily-closure')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">My Daily Closure</x-slot>
+                            <x-slot name="name">{{__('My Daily Closure')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('daily-till-closure')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Daily Till Closure Reports</x-slot>
+                            <x-slot name="name">{{__('Daily Till Closure Reports')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('daily-till-report-terminal')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Daily Till Report Terminal</x-slot>
+                            <x-slot name="name">{{__('Daily Till Report Terminal')}}</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
             </x-header-sub-link>
             <x-header-sub-link link="#" :caret="true" class="group-reportsale hover:bg-lightblue">
-                <x-slot name="name">Sales</x-slot>
+                <x-slot name="name">{{__('Sales')}}</x-slot>
                     <x-header-absolute-link class="group-reportsale-hover:block bg-lightblue">
                         <x-header-sub-link link="{{route('sales-by-user')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sales by Users</x-slot>
+                            <x-slot name="name">{{__('Sales by Users')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('sales-by-credit-card')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sales by Credit Card</x-slot>
+                            <x-slot name="name">{{__('Sales by Credit Card')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sales by Web & Mobile</x-slot>
+                            <x-slot name="name">{{__('Sales by Web & Mobile')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('sales-by-agency')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sales by Agency</x-slot>
+                            <x-slot name="name">{{__('Sales by Agency')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('sales-by-travel')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sales by Travel</x-slot>
+                            <x-slot name="name">{{__('Sales by Travel')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('sales-by-ticket')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sales by Ticket</x-slot>
+                            <x-slot name="name">{{__('Sales by Ticket')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('sales-by-state')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sales by State</x-slot>
+                            <x-slot name="name">{{__('Sales by State')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('sales-by-departure-arrival')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sales by Departure - Arrival</x-slot>
+                            <x-slot name="name">{{__('Sales by Departure - Arrival')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('sales-by-voucher')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sales by Voucher</x-slot>
+                            <x-slot name="name">{{__('Sales by Voucher')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sasles by Coupons</x-slot>
+                            <x-slot name="name">{{__('Sales by Coupons')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Sales by Trip Type</x-slot>
+                            <x-slot name="name">{{__('Sales by Trip Type')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Unified Sales</x-slot>
+                            <x-slot name="name">{{__('Unified Sales')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Unified Sales Grouped</x-slot>
+                            <x-slot name="name">{{__('Unified Sales Grouped')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Unified Sales Simplified</x-slot>
+                            <x-slot name="name">{{__('Unified Sales Simplified')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Total Sales</x-slot>
+                            <x-slot name="name">{{__('Total Sales')}}</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
             </x-header-sub-link>
             <x-header-sub-link link="#" :caret="true" class="group-passenger hover:bg-lightblue">
-                <x-slot name="name">Passenger</x-slot>
+                <x-slot name="name">{{__('Passenger')}}</x-slot>
                     <x-header-absolute-link class="group-passenger-hover:block bg-lightblue">
                         <x-header-sub-link link="{{route('passenger-report.index')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Passengers</x-slot>
+                            <x-slot name="name">{{__('Passengers')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Passengers Transferred</x-slot>
+                            <x-slot name="name">{{__('Passengers Transferred')}}</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
             </x-header-sub-link>
             <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lightblue">
-                <x-slot name="name">Routes</x-slot>
+                <x-slot name="name">{{__('Routes')}}</x-slot>
                     <x-header-absolute-link class="group-route-hover:block bg-lightblue">
                         <x-header-sub-link link="{{route('reservation-per-route')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Reservation per Route</x-slot>
+                            <x-slot name="name">{{__('Reservation per Route')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('price-per-route')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Price per Route</x-slot>
+                            <x-slot name="name">{{__('Price per Route')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('income-by-route')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Income by Route</x-slot>
+                            <x-slot name="name">{{__('Income by Route')}}</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
             </x-header-sub-link>
             <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lightblue">
-                <x-slot name="name">Billings</x-slot>
+                <x-slot name="name">{{__('Billings')}}</x-slot>
                     <x-header-absolute-link class="group-route-hover:block bg-lightblue">
                         <x-header-sub-link link="{{route('billing-by-transactions')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Billing by Transaction</x-slot>
+                            <x-slot name="name">{{__('Billing by Transaction')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="{{route('billing-by-tickets')}}" :caret="false" class="hover:bg-lighterblue">
-                            <x-slot name="name">Billing by Tickets</x-slot>
+                            <x-slot name="name">{{__('Billing by Tickets')}}</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
             </x-header-sub-link>
@@ -328,7 +328,7 @@
                         </x-slot>
 
                         <x-slot name="title">
-                            Create Notification
+                            {{__('Create Notification')}}
                         </x-slot>
 
                         <x-slot name="body">
@@ -338,7 +338,7 @@
                                     <toggle-select v-slot="{ selectChanged, item, display }">
                                         <div class="grid grid-cols-6 gap-6 text-left">
                                             <div class="col-span-3 sm:col-span-3">
-                                                <x-label for="send_to" class="font-semibold">Send To</x-label>
+                                                <x-label for="send_to" class="font-semibold">{{__('Send To')}}</x-label>
                                                 <x-select :lists="$senders" name="send_to" identifierValue="name" v-model="payload.send_to" @change="selectChanged({{$senders}}, $event.target.value, 'notification')" />
                                             </div>
 
@@ -351,19 +351,19 @@
                                             </div>
 
                                             <div class="col-span-3 sm:col-span-3">
-                                                <x-label for="subject" class="font-semibold">Subject</x-label>
+                                                <x-label for="subject" class="font-semibold">{{__('Subject')}}</x-label>
                                                 <x-form-input type="text" name="subject" id="subject" v-model="payload.subject" />
                                             </div>
 
                                             <div class="col-span-full sm:col-span-full">
-                                                <x-label for="message" class="font-semibold">Message</x-label>
+                                                <x-label for="message" class="font-semibold">{{__('Message')}}</x-label>
                                                 <x-text-area name="message" id="message" v-model="payload.message"/>
                                             </div>
                                         </div>
                                     </toggle-select>
                                     <div class="mt-5 text-right">
                                         <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36" @click="actionHandler">
-                                            Send
+                                            {{__('Send')}}
                                         </button>
                                     </div>
                                 </div>
@@ -402,7 +402,7 @@
                                 <div class="col-span-full sm:col-span-full">
                                     <x-modal :hasFooter="false" maxWidth="max-w-4xl text-black">
                                         <x-slot name="button">
-                                            <a href="#" @click="toggled">Reply</a>
+                                            <a href="#" @click="toggled">{{__('Reply')}}</a>
                                         </x-slot>
 
                                         <x-slot name="title">
@@ -416,14 +416,14 @@
                                                     <toggle-select v-slot="{ selectChanged, item, display }">
                                                         <div class="grid grid-cols-6 gap-6 text-left">
                                                             <div class="col-span-full sm:col-span-full">
-                                                                <x-label for="message" class="font-semibold">Message</x-label>
+                                                                <x-label for="message" class="font-semibold">{{__('Message')}}</x-label>
                                                                 <x-text-area name="message" id="message" v-model="payload.message"/>
                                                             </div>
                                                         </div>
                                                     </toggle-select>
                                                     <div class="mt-5 text-right">
                                                         <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36" @click="actionHandler">
-                                                            Send
+                                                            {{__('Send')}}
                                                         </button>
                                                     </div>
                                                 </div>

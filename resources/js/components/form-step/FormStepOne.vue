@@ -66,6 +66,7 @@
 				trips: [],
 
 				canEdit: false,
+				disabled: false
 			}
 		},
 
@@ -187,6 +188,9 @@
 						
 					}).catch(errors => {
 						this.$parent.loading = false;
+						this.$parent.modalMessage = errors.response.data.errors.error[0];
+						this.$parent.modalTitle = 'Ooops! Something went wrong.';
+						this.$parent.showModal = true;
 					})
 			}
 		}

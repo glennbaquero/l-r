@@ -16,11 +16,11 @@
                 <div class="mt-12 mx-auto w-3/4">
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-1/4 sm:col-span-1/4">
-                            <x-label for="state" class="font-semibold">State</x-label>
+                            <x-label for="state" class="font-semibold">{{__('State')}}</x-label>
                             <multi-select :items="{{$states}}" :multiple="false" v-slot="{ selected }" name="selectedIds" label="name" type="state" search-by="state_name"></multi-select>
                         </div>
                         <div class="col-span-1/4 sm:col-span-1/4">
-                            <x-label for="office" class="font-semibold">Office</x-label>
+                            <x-label for="office" class="font-semibold">{{__('Office')}}</x-label>
                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="field.office_id">
                                 <option disabled selected>Select your option</option>
                                 <option  v-for="office in list_office" :value="office.id">@{{ office.name }}</option>
@@ -29,12 +29,12 @@
                         </div>
 
                         <div class="col-span-1/4 sm:col-span-1/4">
-                            <x-label for="route" class="font-semibold">Select Date</x-label>
+                            <x-label for="route" class="font-semibold">{{__('Select Date')}}</x-label>
                             <input type="date" v-model="field.date" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" />
                         </div>
 
                         <div class="col-span-1/4 sm:col-span-1/4 text-center">
-                            <button type="button" class="bg-lightblue border-transparent h-1/2 hover:bg-lighterblue items-center mt-6 rounded-md text-base text-center text-white w-2/4" @click="search">Search</button>
+                            <button type="button" class="bg-lightblue border-transparent h-1/2 hover:bg-lighterblue items-center mt-6 rounded-md text-base text-center text-white w-2/4" @click="search">{{__('Search')}}</button>
                         </div>
                     </div>
                 </div>
@@ -63,25 +63,25 @@
                                     <div class="col-span-1 sm:col-span-1">
                                         <div class="grid grid-cols-2 gap-2" >
                                             <div class="col-span-1 sm:col-span-1 text-right">
-                                                <x-label class="font-semibold">Office/Agent: </x-label>
+                                                <x-label class="font-semibold">{{__('Office/Agent')}}: </x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label class="font-semibold">@{{ office.name }}</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1 text-right">
-                                                <x-label class="font-semibold">Sales Pending Receipt:</x-label>
+                                                <x-label class="font-semibold">{{__('Sales Pending Receipt')}}:</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label class="font-semibold">0.00</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1 text-right">
-                                                <x-label class="font-semibold">Commission Agent:</x-label>
+                                                <x-label class="font-semibold">{{__('Commission Agent')}}:</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label class="font-semibold">0.00</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1 text-right">
-                                                <x-label class="font-semibold">Net Amount Receivable:</x-label>
+                                                <x-label class="font-semibold">{{__('Net Amount Receivable')}}:</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label class="font-semibold">0.00</x-label>
@@ -93,30 +93,30 @@
                                     <div class="col-start-2 sm:col-start-2">
                                         <div class="grid grid-cols-2 gap-2" >
                                             <div class="col-span-full sm:col-span-full">
-                                                <x-label for="payment_document_id" class="font-semibold">Payment Document</x-label>
+                                                <x-label for="payment_document_id" class="font-semibold">{{__('Payment Document')}}</x-label>
                                                 <multi-select :items="{{ $payment_documents }}" :multiple="false" label="payment_document" name="payment_document_id"></multi-select>
                                             </div>
 
                                             <div class="col-span-1 sm:col-span-1 text-right">
-                                                <x-label class="font-semibold">Value of Payment Document:</x-label>
+                                                <x-label class="font-semibold">{{__('Value of Payment Document')}}:</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label class="font-semibold">0.00</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1 text-right">
-                                                <x-label class="font-semibold">Amount Paid:</x-label>
+                                                <x-label class="font-semibold">{{__('Amount Paid')}}:</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label class="font-semibold">0.00</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1 text-right">
-                                                <x-label class="font-semibold">Receivables:</x-label>
+                                                <x-label class="font-semibold">{{__('Receivables')}}:</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label class="font-semibold">0.00</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1 text-right">
-                                                <x-label class="font-semibold">Credit:</x-label>
+                                                <x-label class="font-semibold">{{__('Credit')}}:</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label class="font-semibold">0.00</x-label>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="mt-5 text-center">
                                     <button type="submit" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                                        Register Payment
+                                        {{__('Register Payment')}}
                                     </button>
                                 </div>
                             </form>

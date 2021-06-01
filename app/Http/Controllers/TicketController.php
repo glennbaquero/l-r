@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Resources\TicketCollection;
 use App\Http\Fetch\TicketFetch;
+use Illuminate\Validation\ValidationException;
 
 use App\Notifications\NotifyPassenger;
 
@@ -107,6 +108,12 @@ class TicketController extends Controller
 
 
         $price = Price::where('departure_id', $departure)->where('arrival_id', $arrival)->first();
+
+        if(!$price && $request->filled('departure_id') && $request->filled('arrival_id')) {
+            throw ValidationException::withMessages([
+                'error' => ['No available price for the selected departure to arrival.']
+            ]);
+        }
 
         return response()->json([
             'trips' => $trips,

@@ -47,15 +47,17 @@ class RouteCreateOrUpdateAction
 					}
 
 					if (!$stop->trip_length) {
-					    throw ValidationException::withMessages([
-					        'trip_length' => ['The trip length field is required for the stops.']
-					    ]);
+						$stop->trip_length = '00:00:00';
+					    // throw ValidationException::withMessages([
+					    //     'trip_length' => ['The trip length field is required for the stops.']
+					    // ]);
 					}
 
 					if (!$stop->wait_time) {
-					    throw ValidationException::withMessages([
-					        'wait_time' => ['The wait time field is required for the stops.']
-					    ]);
+						$stop->wait_time = '00:00:00';
+					    // throw ValidationException::withMessages([
+					    //     'wait_time' => ['The wait time field is required for the stops.']
+					    // ]);
 					}
 
 					Stop::create([
@@ -88,15 +90,17 @@ class RouteCreateOrUpdateAction
 					}
 
 					if (!$stop->trip_length) {
-					    throw ValidationException::withMessages([
-					        'trip_length' => ['The trip length field is required for the stops.']
-					    ]);
+						$stop->trip_length = '00:00:00';
+					    // throw ValidationException::withMessages([
+					    //     'trip_length' => ['The trip length field is required for the stops.']
+					    // ]);
 					}
 
 					if (!$stop->wait_time) {
-					    throw ValidationException::withMessages([
-					        'wait_time' => ['The wait time field is required for the stops.']
-					    ]);
+						$stop->wait_time = '00:00:00';
+					    // throw ValidationException::withMessages([
+					    //     'wait_time' => ['The wait time field is required for the stops.']
+					    // ]);
 					}
 					
 					if(isset($stop->new)) {
