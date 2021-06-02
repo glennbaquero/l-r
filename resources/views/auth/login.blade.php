@@ -6,7 +6,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="mt-8 sm:ml-40 sm:w-50 sm:max-w-md">
+    <div class="mt-8 sm:ml-40 sm:w-full sm:max-w-md">
         <div class="py-8 px-4 sm:rounded-lg sm:px-10">
             <form action="{{ route('login') }}" method="POST" method="POST">
                 @csrf
