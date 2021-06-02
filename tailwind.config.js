@@ -1,5 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-
+const plugin = require('tailwindcss/plugin');
 module.exports = {
     purge: [
         './resources/**/*.blade.php',
@@ -16,7 +16,16 @@ module.exports = {
 
     plugins: [
         require('@tailwindcss/forms'),
-        require('tailwindcss-named-groups')
+        require('tailwindcss-named-groups'),
+        plugin(function ({ addUtilities }) {
+          addUtilities({
+            '.bg-overlay': {
+              'background': 'linear-gradient(var(--overlay-angle, 270deg), var(--overlay-colors)), var(--overlay-image)',
+              'background-position': 'right',
+              'background-repeat': 'no-repeat',
+            },
+          });
+        }),
     ],
 
     corePlugins: {
@@ -45,6 +54,7 @@ module.exports = {
                 'pwd_signage': "url('/icons/pwd_signage.png')",
                 'cabin': "url('/icons/cabin.png')",
                 'conductor': "url('/icons/conductor.png')",
+                'login_bg': "url('/login_bg_image.jpg')",
             })
         },
 

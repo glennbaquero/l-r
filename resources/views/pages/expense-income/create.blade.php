@@ -38,7 +38,7 @@
                                 </div>
 
                                 <div class="col-span-3 sm:col-span-3">
-                                    <x-label for="income_expense_type" class="font-semibold">Type of Expense/Income{{__('Income')}}</x-label>
+                                    <x-label for="income_expense_type" class="font-semibold">{{__('Type of Expense/Income')}}</x-label>
                                     <select name="income_expense_type" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
                                         <option disabled selected>{{__('Income')}}Select your option</option>
 

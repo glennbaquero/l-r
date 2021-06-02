@@ -25,7 +25,7 @@
         @endif
     </head>
     <body class="text-base">
-        <main id="app" class="min-h-screen flex flex-col justify-center text-gray-50 py-12 sm:px-6 lg:px-8 bg-gradient-to-r from-black to-gray-100">
+        <main id="app" class="min-h-screen flex flex-col justify-center text-gray-50 py-12 sm:px-6 lg:px-8 bg-gradient-to-r from-black to-gray-100 bg-overlay" style="--overlay-image: url({{ url('login_bg_image.jpg')  }}); --overlay-colors: rgb(0 0 0 / 0%), rgb(0 0 0);">
 
             <div class="sm:ml-40 sm:w-full sm:max-w-md">
                 <h2 class="mt-6 text-center text-3xl leading-9">
