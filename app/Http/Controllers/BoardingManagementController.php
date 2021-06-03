@@ -74,10 +74,10 @@ class BoardingManagementController extends Controller
         $result['phone_number'] = $result->passenger->phone_number;
         $result['passenger_fullname'] = $result->passenger->fullname;
         $result['purchase_date'] = Carbon::parse($result->purchase_date)->format('F j, Y g:i A');
-        $result['state'] = 'sold';
-        $result['arrival'] = 'sample';
+        $result['state'] = $result->payment_status.'/'.$result->boarding_status;
+        $result['arrival'] = $result->passenger->arrival->name;
         $result['observations'] = null;
-        $result['price'] = '19.00';
+        $result['price'] = number_format($result->total_sale, 2, '.', ',');
 
         return response()->json([
             'result' => $result
