@@ -44,12 +44,17 @@ class TicketSupportCollection extends ResourceCollection
                 'email' => $ticket->passenger->email,
                 'departure' => $ticket->departure->name,
                 'arrival' => $ticket->arrival->name,
-                'price' => 0,
+                'price' => number_format($ticket->total_sale, 2, '.', ','),
                 'seat' => $ticket->passenger->bus_model_column->label,
                 'travel_date' => Carbon::parse($ticket->passenger->trip->date.' '.$ticket->passenger->trip->time)->format('m-d-Y g:i A'),
                 'state' => $ticket->passenger->state,
                 'seller' => $ticket->seller->fullname,
                 'office' => $ticket->seller->office->name,
+                'ticket_type' => $ticket->passenger->ticketType->name,
+                'payment_method' => $ticket->payment_method,
+                'status' => $ticket->payment_status.'/'.$ticket->boarding_status,
+                'reservation_date' => $ticket->trip->formatted_date.' '.$ticket->trip->formatted_time,
+                'total_sale' => number_format($ticket->total_sale, 2, '.', ','),
             ];
         });
     }

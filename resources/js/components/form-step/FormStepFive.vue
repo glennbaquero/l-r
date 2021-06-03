@@ -59,7 +59,7 @@
 			return {
 				payment: {
 					payment_method: 'Cash',
-					cash: this.$parent.price.maximum_price,
+					cash: this.$parent.price.arrival_price,
 				},
 				code: null,
 

@@ -244,7 +244,7 @@
                                                             <x-label class="font-semibold">Price</x-label>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-form-input type="text" v-model="ticket.price" />
+                                                            <x-form-input type="text" v-model="ticket.total_sale" />
                                                         </div>
                                                         <div class="col-span-1 my-auto sm:col-span-1 text-right">
                                                             <x-label class="font-semibold">Passenger</x-label>
@@ -256,19 +256,19 @@
                                                             <x-label class="font-semibold">Method Of Payment</x-label>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-form-input type="text" v-model="ticket.state" />
+                                                            <x-form-input type="text" v-model="ticket.payment_method" />
                                                         </div>
                                                         <div class="col-span-1 my-auto sm:col-span-1 text-right">
                                                             <x-label class="font-semibold">Status of Ticket</x-label>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-form-input type="text" v-model="ticket.state" />
+                                                            <x-form-input type="text" v-model="ticket.status" />
                                                         </div>
                                                         <div class="col-span-1 my-auto sm:col-span-1 text-right">
                                                             <x-label class="font-semibold">Ticket Type</x-label>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-form-input type="text" v-model="ticket.state" />
+                                                            <x-form-input type="text" v-model="ticket.ticket_type" />
                                                         </div>
                                                         <div class="col-span-1 my-auto sm:col-span-1 text-right">
                                                             <x-label class="font-semibold">User Registration</x-label>
@@ -304,7 +304,7 @@
                                                             <x-label class="font-semibold">Reservation Date</x-label>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-form-input type="text" v-model="ticket.state" />
+                                                            <x-form-input type="text" v-model="ticket.reservation_date" />
                                                         </div>
                                                         <div class="col-span-1 my-auto sm:col-span-1 text-right">
                                                             <x-label class="font-semibold">Sale Type</x-label>
