@@ -129,12 +129,12 @@
                         <x-header-sub-link link="{{route('company.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">{{__('Agency')}}</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        {{-- <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">{{__('Base Fares Administration')}}</x-slot>
                         </x-header-sub-link>
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">{{__('Agency Management')}}</x-slot>
-                        </x-header-sub-link>
+                        </x-header-sub-link> --}}
                         <x-header-sub-link link="{{route('service.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">{{__('Services')}}</x-slot>
                         </x-header-sub-link>
@@ -144,9 +144,9 @@
                         <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">{{__('Training Videos')}}</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        {{-- <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">{{__('Tracking Messages')}}</x-slot>
-                        </x-header-sub-link>
+                        </x-header-sub-link> --}}
                         <x-header-sub-link link="{{route('group-email.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">{{__('Group Email Management')}}</x-slot>
                         </x-header-sub-link>
