@@ -42,7 +42,7 @@
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label for="name" class="font-semibold">Username</x-label>
                                                 <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="field.user">
-                                                    <option></option>
+                                                    <option disabled selected>Select your option</option>
                                                     @foreach($users as $user)
                                                         <option value="{{ $user->id }}">{{ $user->fullname }}</option>
                                                     @endforeach
@@ -59,6 +59,7 @@
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label for="name" class="font-semibold">Ticket State</x-label>
                                                 <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="field.state">
+                                                    <option disabled selected>Select your option</option>
                                                     <option value="Todos">Todos</option>
                                                     <option value="Normal">Normal</option>
                                                     <option value="Cancelled">Cancelled</option>
@@ -109,6 +110,7 @@
                                             <div class="col-span-1 sm:col-span-1" v-if="selected === 'Document # or Name'">
                                                 <x-label for="name" class="font-semibold">Ticket State</x-label>
                                                 <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="field.state">
+                                                    <option disabled selected>Select your option</option>
                                                     <option value="Todos">Todos</option>
                                                     <option value="Normal">Normal</option>
                                                     <option value="Cancelled">Cancelled</option>
