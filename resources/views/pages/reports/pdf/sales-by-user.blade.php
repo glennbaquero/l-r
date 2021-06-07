@@ -66,7 +66,7 @@
 					<h4><b>SALES BY USER REPORT</b></h4>
 					<h5 style="color: red;"><b>Report Information</b></h5>
 					<p>
-						Office: {{ $tickets[0] ? $tickets[0]['ticket']->seller->office->name : 'All' }}
+						Office: {{ $tickets ? $tickets[0]['ticket']->seller->office->name : 'All' }}
 					</p>
 					<p>
 						User: {{ implode(", ", $users) }}

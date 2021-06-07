@@ -155,10 +155,10 @@
 			getPdfData() {
 				this.loading = true;
 
-				var date_type = this.$children[4].display;
-				var office_type_id = this.$children[1].selectedItem.id;
-				var office_id = this.$children[2].selectedItem.id;
-				var user_ids = this.$children[3].selected;
+				var date_type = this.$children[3].display;
+				var office_type_id = this.$children[0].selectedItem.id;
+				var office_id = this.$children[1].selected;
+				var user_ids = this.$children[2].selected
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+user_ids+'/'+date_type+'/'+start_date+'/'+end_date;
