@@ -19,8 +19,7 @@ class DashboardController extends Controller
     public function index()
     {
     	$recommendations = Recommendation::get();
-        $offices = Office::whereIn('office_type_id', [1, 2])->get();
-
+        $offices = Office::where('office_type_id', 4)->get();
         $routes = Route::get();
         $data_total_revenue = [];
         $data_label_per_revenue = [];
