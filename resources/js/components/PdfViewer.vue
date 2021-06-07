@@ -168,11 +168,11 @@
 			getPdfDataDailyTill() {
 				this.loading = true;
 
-				var office_type_id = this.$children[1].selectedItem.id;
-				var office_id = this.$children[2].selectedItem.id;
-				var user_ids = this.$children[3].selected;
-				var date_type = this.$children[4].display;
-				var cash_register = _.isEmpty(this.$children[5].selectedItem) ? null : this.$children[5].selected;
+				var office_type_id = this.$children[0].selectedItem.id;
+				var office_id = this.$children[1].selectedItem.id;
+				var user_ids = this.$children[2].selected;
+				var date_type = this.$children[3].display;
+				var cash_register = _.isEmpty(this.$children[4].selectedItem) ? null : this.$children[4].selected;
 				var start_date = document.getElementById("start_date").value;
 				var end_date = date_type ? document.getElementById("end_date").value : null;
 				var url = this.searchUrl+'/'+user_ids+'/'+date_type+'/'+start_date+'/'+end_date+'/'+cash_register;
