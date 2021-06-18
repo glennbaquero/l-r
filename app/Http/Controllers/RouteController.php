@@ -65,7 +65,7 @@ class RouteController extends Controller
         ];
 
         $headers = [
-           'Show', 'Departure City', 'Arrival City', 'Trip Length', 'Wait Time', 'Distance (KM)', 'Options'
+           'Show', 'Departure City', 'Arrival City', 'Available From', 'Available To', 'Trip Length', 'Wait Time', 'Distance (KM)', 'Options'
         ];
 
         return view('pages.route.create', [
@@ -94,7 +94,7 @@ class RouteController extends Controller
         ];
 
         $headers = [
-           'Show', 'Departure City', 'Arrival City', 'Trip Length', 'Wait Time', 'Distance', 'Options'
+           'Show', 'Departure City', 'Arrival City', 'Available From', 'Available To', 'Trip Length', 'Wait Time', 'Distance', 'Options'
         ];
         
         return view('pages.route.show', [

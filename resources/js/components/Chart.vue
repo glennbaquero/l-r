@@ -31,13 +31,21 @@
 
 		data() {
 			return {
-				updatedData: this.data
+				updatedData: this.data,
+
+				filter: null,
+
+				filter_value: {}
 			}
 		},
 
 		render() {
 		    return this.$scopedSlots.default({
-		        changeHandler: this.changeHandler
+		        changeHandler: this.changeHandler,
+		        filter: this.filter,
+		        filter_value: this.filter_value,
+		        filterChangeHandler: this.filterChangeHandler,
+		        dateRangeHandler: this.dateRangeHandler,
 		    });
 		},
 
@@ -76,11 +84,30 @@
 				var myChart = new Chart(ctx, config);
 			},
 
-
+			// yearly
 			changeHandler(value) {
 				var params = {
-					year: value
+					year: value,
+					type: 'yearly'
 				}
+				this.fetch(params)
+			},
+
+			// date range
+			dateRangeHandler() {
+				var params = {
+					from: this.filter_value.from,
+					to: this.filter_value.to,
+					type: 'date_range'
+				}
+
+				if(!_.isEmpty(this.filter_value.from) && !_.isEmpty(this.filter_value.to)) {
+					this.fetch(params)
+				}
+
+			},
+
+			fetch(params) {
 
 				axios.post(this.updateUrl, params)
 					.then(response => {
@@ -89,6 +116,10 @@
 					}).catch(errors => {	
 
 					})
+			},
+
+			filterChangeHandler(value) {
+				this.filter = value;
 			}
 		}
 

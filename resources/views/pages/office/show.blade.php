@@ -169,5 +169,81 @@
                 </div>
             </div>
         </div>
+
+        <div class="mt-12 mx-auto">
+            <data-table v-slot="{ params, setParam, data, links, meta, next, prev, selectAllHandler, loading }"
+                        :searches="{{json_encode($searches)}}"
+                        url="{{route('ticket.fetch', [$office->id, 'office_view'])}}"
+            >
+                <x-table :headers="$headers">
+                    <x-slot name="body">
+                        <tr>
+                            <td colspan="13" class="text-center border-b-2 border-gray-300 px-3"></td>
+                        </tr>
+                        <template v-if="data.length > 0">
+                            <tr v-for="(ticket, key) in data" :key="key" class="hover:bg-gray-100 cursor-pointer">
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.ticket}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.purchase_date}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.departure}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.arrival}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.travel_date}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.passenger}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.office}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.amount}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.commssion}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.receivable}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.amount_paid}}
+                                </td>
+                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    @{{ticket.balance}}
+                                </td>
+                            </tr>
+                            <!--Pagination-->
+                            <tr>
+                                <td colspan="2" class="px-6 py-2 whitespace-no-wrap text-left border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    Showing @{{meta.from}} to @{{meta.to}} of @{{meta.total}}
+                                </td>
+                                <td colspan="11" class="px-6 py-2 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    <button @click="prev" class="relative inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 disabled:opacity-50" :disabled="!links.prev">
+                                        Previous
+                                    </button>
+                                    <button @click="next" class="ml-3 relative inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 disabled:opacity-50" :disabled="!links.next">
+                                        Next
+                                    </button>
+                                </td>
+                            </tr>
+                        </template>
+                        <template v-else>
+                            <tr>
+                                <td colspan="13" class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    No Record . . .
+                                </td>
+                            </tr>
+                        </template>
+                    </x-slot>
+                </x-table>
+            </data-table>
+        </div>
     </div>
 </x-app-layout>

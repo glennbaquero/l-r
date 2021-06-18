@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Fetch\OfficeFetch;
 use App\Http\Resources\OfficeCollection;
+
+use App\Http\Resources\TicketCollection;
+use App\Http\Fetch\TicketFetch;
+
 use Illuminate\Http\Request;
 
 use App\Models\Office;
@@ -81,7 +85,10 @@ class OfficeController extends Controller
             'terminals' => Terminal::get(),
             'agencies' => [],
 
-            'office' => $office
+            'office' => $office,
+            
+            'headers' => TicketCollection::$account_receivable_headers,
+            'searches' => TicketCollection::$searches,
         ]);
     }
 

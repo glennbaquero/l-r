@@ -194,6 +194,12 @@ use App\Http\Controllers\PaymentDocuments\PaymentDocumentBatchUploadController;
 use App\Http\Controllers\PaymentDocuments\PaymentDocumentUpdateController;
 use App\Http\Controllers\PaymentDocuments\PaymentDocumentDeleteController;
 
+use App\Http\Controllers\AccountPayableController;
+use App\Http\Controllers\AccountPayables\AccountPayableCreateController;
+use App\Http\Controllers\AccountPayables\AccountPayableBatchUploadController;
+use App\Http\Controllers\AccountPayables\AccountPayableUpdateController;
+use App\Http\Controllers\AccountPayables\AccountPayableDeleteController;
+
 use App\Http\Controllers\AccountReceivableController;
 
 use App\Http\Controllers\PassengerController;
@@ -460,7 +466,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/ticket-support/fetch', [TicketSupportController::class, 'fetch'])->name('ticket-support.fetch');
 
     Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.index');
-    Route::get('/ticket/fetch', [TicketController::class, 'fetch'])->name('ticket.fetch');
+    Route::get('/ticket/fetch/{office_id?}/{office_view?}', [TicketController::class, 'fetch'])->name('ticket.fetch');
     Route::post('/ticket/find/trip', [TicketController::class, 'findAvailableTrip'])->name('ticket.find-available-trip');
     Route::post('/ticket/get/bus', [TicketController::class, 'getBus'])->name('ticket.fetch-bus');
     Route::post('/ticket/get/passengers', [TicketController::class, 'getPassenger'])->name('ticket.fetch-passengers');
@@ -469,6 +475,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/ticket/cancel/{id}', TicketCancelController::class)->name('ticket.cancel');
     Route::post('/ticket/update/{id}', TicketUpdateController::class)->name('ticket.update');
     Route::post('/ticket/email/{id}', [TicketController::class, 'passengerEmailSender'])->name('ticket.send-email');
+    Route::post('/ticket/register-payment', [TicketController::class, 'registerPayment'])->name('ticket.register-payment');
 
     Route::get('/city', [CityController::class, 'index'])->name('city.index');
     Route::get('/city/fetch', [CityController::class, 'fetch'])->name('city.fetch');
@@ -548,13 +555,21 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/route-main-driver/update/{id}', RouteAndMainDriverUpdateController::class)->name('route-main-driver.update');
     Route::post('/route-main-driver/destroy/{id}', RouteAndMainDriverDeleteController::class)->name('route-main-driver.destroy');
 
-    Route::get('/payment-document', [PaymentDocumentController::class, 'index'])->name('payment-document.index');
-    Route::get('/payment-document/fetch', [PaymentDocumentController::class, 'fetch'])->name('payment-document.fetch');
-    Route::get('/payment-document/create', [PaymentDocumentController::class, 'create'])->name('payment-document.create');
-    Route::post('/payment-document/store', PaymentDocumentCreateController::class)->name('payment-document.store');
-    Route::get('/payment-document/show/{id}', [PaymentDocumentController::class, 'show'])->name('payment-document.show');
-    Route::post('/payment-document/update/{id}', PaymentDocumentUpdateController::class)->name('payment-document.update');
-    Route::post('/payment-document/destroy/{id}', PaymentDocumentDeleteController::class)->name('payment-document.destroy');
+    Route::get('/account-payable', [AccountPayableController::class, 'index'])->name('account-payable.index');
+    Route::get('/account-payable/fetch', [AccountPayableController::class, 'fetch'])->name('account-payable.fetch');
+    Route::get('/account-payable/create', [AccountPayableController::class, 'create'])->name('account-payable.create');
+    Route::post('/account-payable/store', AccountPayableCreateController::class)->name('account-payable.store');
+    Route::get('/account-payable/show/{id}', [AccountPayableController::class, 'show'])->name('account-payable.show');
+    Route::post('/account-payable/update/{id}', AccountPayableUpdateController::class)->name('account-payable.update');
+    Route::post('/account-payable/destroy/{id}', AccountPayableDeleteController::class)->name('account-payable.destroy');
+
+    // Route::get('/payment-document', [PaymentDocumentController::class, 'index'])->name('payment-document.index');
+    // Route::get('/payment-document/fetch', [PaymentDocumentController::class, 'fetch'])->name('payment-document.fetch');
+    // Route::get('/payment-document/create', [PaymentDocumentController::class, 'create'])->name('payment-document.create');
+    // Route::post('/payment-document/store', PaymentDocumentCreateController::class)->name('payment-document.store');
+    // Route::get('/payment-document/show/{id}', [PaymentDocumentController::class, 'show'])->name('payment-document.show');
+    // Route::post('/payment-document/update/{id}', PaymentDocumentUpdateController::class)->name('payment-document.update');
+    // Route::post('/payment-document/destroy/{id}', PaymentDocumentDeleteController::class)->name('payment-document.destroy');
 
     Route::get('/account-receivable', [AccountReceivableController::class, 'index'])->name('account-receivable.index');
 
@@ -592,10 +607,10 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/receivable/print/{office_id?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printAccountReceivable'])->name('receivable.print');
     Route::get('/sales-by-agency', [ReportController::class, 'salesByAgency'])->name('sales-by-agency');
     Route::get('/sales-by-agency/print/{terminal_ids?}/{office_ids?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printSalesByAgency'])->name('sales-by-agency.print');
-    Route::get('/billing-by-tickets', [ReportController::class, 'billingByTickets'])->name('billing-by-tickets');
-    Route::get('/billing-by-tickets/print/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printBillingByTickets'])->name('billing-by-tickets.print');
-    Route::get('/billing-by-transactions', [ReportController::class, 'billingByTransaction'])->name('billing-by-transactions');
-    Route::get('/billing-by-transactions/print/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printBillingByTransaction'])->name('billing-by-transactions.print');
+    // Route::get('/billing-by-tickets', [ReportController::class, 'billingByTickets'])->name('billing-by-tickets');
+    // Route::get('/billing-by-tickets/print/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printBillingByTickets'])->name('billing-by-tickets.print');
+    // Route::get('/billing-by-transactions', [ReportController::class, 'billingByTransaction'])->name('billing-by-transactions');
+    // Route::get('/billing-by-transactions/print/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printBillingByTransaction'])->name('billing-by-transactions.print');
 
     Route::get('/passenger/print/{type?}/{trip_id?}/{route_id?}/{date_type?}/{start_date?}/{end_date?}', [PrintController::class, 'printPassenger'])->name('passenger.print');
 });

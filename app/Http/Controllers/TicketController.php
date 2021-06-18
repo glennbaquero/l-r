@@ -64,8 +64,18 @@ class TicketController extends Controller
      * 
      * @return Illuminate\Http\Response
      */
-    public function fetch()
+    public function fetch($office_id = null, $office_view = null)
     {
+
+        if($office_id) {
+            request()->request->add(['office_id' => $office_id]);
+        }
+
+        if($office_view) {
+            request()->request->add(['office_view' => true]);
+        } else {
+            request()->request->add(['office_view' => false]);
+        }
         return new TicketCollection($this->fetch->execute(request()->input()));
     }
 
@@ -85,8 +95,8 @@ class TicketController extends Controller
         $trips = [];
 
         foreach ($stops as $departure_stop) {
-            if($departure_stop->route->stops()->where('arrival_id', $arrival)->count()) {
-                $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->get();
+            if($departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', now())->whereTime('schedule_end', '<=', now())->count()) {
+                $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', now())->whereTime('schedule_end', '<=', now())->get();
                 foreach ($arrival_stops as $stop) {
                     if(!collect($trips)->contains('route', $stop->route)) {
                         $availableTrips = $stop->route->trips()->where('date', '>=', now());
@@ -373,6 +383,23 @@ class TicketController extends Controller
 
         return response()->json([
             'message' => 'sent successfully',
+            'success' => true
+        ]);
+    }
+
+    public function registerPayment(Request $request) 
+    {
+        $tickets = Ticket::whereIn('id', $request->ids)->get();
+
+        foreach($tickets as $ticket) {
+            $ticket->update([
+                'is_registered_payment' => true
+            ]);
+        }
+        
+
+        return response()->json([
+            'message' => 'Registered successfully',
             'success' => true
         ]);
     }

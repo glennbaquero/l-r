@@ -108,14 +108,41 @@
                     <canvas id="canvas" class="h-full w-full"></canvas>
                 </div>
             </chart>
-            <chart v-slot="{ changeHandler }" canvas-id="monthly_revenue" label="Per month revenue" :data="{{ $per_month_revenue }}" :fill="false" :labels="{{ $months }}" type="line" border-color="#001943" update-url="{{ route('update-line-graph') }}">
+            <chart v-slot="{ changeHandler, filter, filterChangeHandler, filter_value, dateRangeHandler }" canvas-id="monthly_revenue" label="Per month revenue" :data="{{ $per_month_revenue }}" :fill="false" :labels="{{ $months }}" type="line" border-color="#001943" update-url="{{ route('update-line-graph') }}">
                 <div class="col-md-1 sm:col-md-1">
-                    <select class="form-input w-2/5 mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" @change="changeHandler($event.target.value)">
-                        <option disabled selected>Select year</option>
-                        @foreach($years as $year)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endforeach
-                    </select>
+                    <toggle v-slot="{ display, toggled }">
+                        <div>
+                            <select class="form-input w-2/5 mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" @change="filterChangeHandler($event.target.value)">
+                                <option disabled selected>Select filter</option>
+                                <option value="date_rage">Date Range</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                            <select class="form-input mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" @change="changeHandler($event.target.value)" v-if="filter == 'yearly'">
+                                <option disabled selected>Select year</option>
+                                @foreach($years as $year)
+                                    <option value="{{ $year }}">{{ $year }}</option>
+                                @endforeach
+                            </select>
+                            <template  v-if="filter == 'date_rage'">
+                                <div class="grid grid-cols-4 gap-3">
+                                    <div class="col-md-1 sm:col-md-1">
+                                        <x-label class="font-semibold">From</x-label>
+                                        <input type="date" class="form-input mx-auto w-50 my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" v-model="filter_value.from">
+                                    </div>
+                                    <div class="col-md-1 sm:col-md-1">
+                                        <x-label class="font-semibold">To</x-label>
+                                        <input type="date" class="form-input mx-auto w-50 my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" v-model="filter_value.to">
+                                    </div>
+                                    <div class="col-md-1 sm:col-md-1 my-auto mx-auto">
+                                        <button type="submit" class="mt-5 inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36" @click="dateRangeHandler">
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </toggle>
+                        
                     <canvas id="monthly_revenue" class="h-full w-full"></canvas>
                 </div>
             </chart>

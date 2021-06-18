@@ -108,6 +108,12 @@
                                                 @endforeach
                                             </select>
                                         </td>
+                                        <td class="text-center border-b-2 border-gray-300 px-3 w-1/2">
+                                            <input type="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" v-model="stop.schedule_start">
+                                        </td>
+                                        <td class="text-center border-b-2 border-gray-300 px-3 w-1/2">
+                                            <input type="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" v-model="stop.schedule_end">
+                                        </td>
                                         <td class="text-center border-b-2 border-gray-300 px-3">
                                             <time-picker :stop="key" object-name="trip_length" :value="stop.trip_length"></time-picker>
                                             <input type="hidden" step="1" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" v-model="stop.trip_length" />
