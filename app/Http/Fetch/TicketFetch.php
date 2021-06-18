@@ -59,11 +59,13 @@ class TicketFetch
             } 
         }
 
-
-        if($params['date'] && $params['date'] != 'null') {
-            $this->ticket = $this->ticket->whereDate('purchase_date', $params['date']);
+        if($params['has_end_date'] && $params['has_end_date'] != 'null') {
+            $this->ticket = $this->ticket->where('purchase_date', '>=', $params['date'])->where('purchase_date', '<=', $params['end_date']);
+        } else {
+            if($params['date'] && $params['date'] != 'null') {
+                $this->ticket = $this->ticket->whereDate('purchase_date', $params['date']);
+            }
         }
-
 
         if($params['travel_date'] && $params['travel_date'] != 'null') {
             $trip_ids = $this->trip->whereDate('date', $params['travel_date'])->pluck('id');
@@ -87,11 +89,11 @@ class TicketFetch
 
         if($params['office_id'] && $params['office_id'] != 'null') {
             $office_id = $params['office_id'];
-            $seller_ids = $this->ticket->whereHas('seller', function($seller) use($office_id) {
-                $seller->where('office_id', $office_id);
-            })->pluck('id')->toArray();
-
+            $seller_ids = $this->office->where('id', $office_id)->first()->users()->pluck('id')->toArray();
             $this->ticket = $this->ticket->whereIn('seller_id', $seller_ids);
+        }
+        if($params['office_view']) {
+            $this->ticket = $this->ticket->where('is_registered_payment', true);
         }
 
         return $this->ticket->paginate(20);

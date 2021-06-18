@@ -174,12 +174,12 @@
             <x-header-sub-link link="{{route('account-receivable.index')}}" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">{{__('Accounts Receivable')}}</x-slot>
             </x-header-sub-link>
-            <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
+            <x-header-sub-link link="{{route('account-payable.index')}}" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">{{__('Accounts Payable')}}</x-slot>
             </x-header-sub-link>
-            <x-header-sub-link link="{{route('payment-document.index')}}" :caret="false" class="hover:bg-lightblue">
+            {{-- <x-header-sub-link link="{{route('payment-document.index')}}" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">{{__('Payment Document')}}</x-slot>
-            </x-header-sub-link>
+            </x-header-sub-link> --}}
             <x-header-sub-link link="#" :caret="false" class="hover:bg-lightblue">
                 <x-slot name="name">{{__('Authorize.net Transactions')}}</x-slot>
             </x-header-sub-link>
@@ -284,9 +284,9 @@
                         <x-header-sub-link link="{{route('passenger-report.index')}}" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">{{__('Passengers')}}</x-slot>
                         </x-header-sub-link>
-                        <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
+                        {{-- <x-header-sub-link link="#" :caret="false" class="hover:bg-lighterblue">
                             <x-slot name="name">{{__('Passengers Transferred')}}</x-slot>
-                        </x-header-sub-link>
+                        </x-header-sub-link> --}}
                     </x-header-absolute-link>
             </x-header-sub-link>
             <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lightblue">
@@ -303,7 +303,7 @@
                         </x-header-sub-link>
                     </x-header-absolute-link>
             </x-header-sub-link>
-            <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lightblue">
+            {{-- <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lightblue">
                 <x-slot name="name">{{__('Billings')}}</x-slot>
                     <x-header-absolute-link class="group-route-hover:block bg-lightblue">
                         <x-header-sub-link link="{{route('billing-by-transactions')}}" :caret="false" class="hover:bg-lighterblue">
@@ -313,7 +313,7 @@
                             <x-slot name="name">{{__('Billing by Tickets')}}</x-slot>
                         </x-header-sub-link>
                     </x-header-absolute-link>
-            </x-header-sub-link>
+            </x-header-sub-link> --}}
         </x-header-link>
 
         <toggle v-slot="{ display, toggled }">
@@ -374,7 +374,7 @@
 
                 </div>
 
-                <update-notification v-slot="{ updateNotificationHandler, unread }" url="{{ route('notification.read') }}" unread-count="{{ $notifications->whereNull('read_at')->count() }}">
+                <update-notification v-slot="{ updateNotificationHandler, unread }" url="{{ route('notification.read') }}" :unread-count="{{ $notifications->whereNull('read_at')->count() }}">
                     <div class="bg-darkblue col-span-1 group sm:col-span-1 text-center">
                         <a href="#" @click="toggled(); updateNotificationHandler()">Notifications (@{{ unread }})</a>
                     </div>
@@ -382,9 +382,9 @@
 
                 <div class="absolute bg-darkblue col-start-3 group-hover:block mt-10 w-full z-10" :class="display ? '' : 'hidden'">
                     <div class="bg-darkblue shadow-lg w-full">
-                        <div class="relative flex w-full px-4 py-2 text-base font-normal group-account hover:bg-lightblue">
-                            <div class="grid grid-cols-10 gap-2">
+                        <div class="relative w-full px-4 py-2 text-base font-normal group-account">
                             @foreach($notifications as $notification)
+                            <div class="grid grid-cols-10 gap-2 hover:bg-lightblue">
                                 <div class="col-span-1 sm:col-span-1">
                                     <img src="{{ $notification->data['sender_image'] }}" class="h-10 rounded-full w-10">
                                 </div>
@@ -399,7 +399,7 @@
                                     <p><b> {{ !$notification->data['is_reply'] ? '' : 'Reply to' }} {{ $notification->data['title'] }}</b></p>
                                     {{ $notification->data['message'] }}
                                 </div>
-                                <div class="col-span-full sm:col-span-full">
+                                <div class="col-span-full sm:col-span-full border-b">
                                     <x-modal :hasFooter="false" maxWidth="max-w-4xl text-black">
                                         <x-slot name="button">
                                             <a href="#" @click="toggled">{{__('Reply')}}</a>
@@ -432,8 +432,8 @@
 
                                     </x-modal>
                                 </div>
-                            @endforeach
                             </div>
+                            @endforeach
 
                         </div>
                     </div>

@@ -4,7 +4,7 @@
                 url="{{route('ticket.fetch')}}"
     >
 
-        <account-receivable-filter v-slot="{ list_office, search, field, office, show }" :get-offices="{{ $offices }}"> 
+        <account-receivable-filter v-slot="{ list_office, search, field, office, show, registerPaymentHandler, loading, modalMessage, modalTitle, showModal, closeModal }" :get-offices="{{ $offices }}" register-payment-url="{{ route('ticket.register-payment') }}"> 
             <div class="mx-auto sm:px-6 lg:px-8 py-6">
                 <div class="flex items-center">
                     <div class="text-base mr-auto">
@@ -28,10 +28,41 @@
                             {{-- <x-select :lists="list_office" name="office_id" selected="none"  @change="setParam('office_id', $event.target.value)"/> --}}
                         </div>
 
-                        <div class="col-span-1/4 sm:col-span-1/4">
-                            <x-label for="route" class="font-semibold">{{__('Select Date')}}</x-label>
-                            <input type="date" v-model="field.date" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" />
-                        </div>
+                        <toggle v-slot="{ display, toggled }">
+                            <div :class="display ? 'col-span-3 sm:col-span-3' : 'col-span-2 sm:col-span-2'">
+                                    <div class="col-span-2 sm:col-span-2 grid grid-cols-3 gap-3">
+                                        <div class="col-span-1 sm:col-span-1 mx-auto">
+                                            <x-label for="" class="font-semibold">Type</x-label>
+                                            <div class="flex items-center space-x-3 mt-3">
+                                                <span id="toggleLabel">
+                                                    <span class="text-sm leading-5 font-medium text-gray-900">Day </span>
+                                                </span>
+                                                <!-- On: "bg-green-500", Off: "bg-red-500" -->
+                                                <span  @click="toggled" role="checkbox" tabindex="0" aria-checked="false" aria-labelledby="toggleLabel" :class="display ? 'bg-green-500' : 'bg-red-500'" class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline">
+                                                    <!-- On: "translate-x-5", Off: "translate-x-0" -->
+                                                    <span aria-hidden="true" :class="display ? 'translate-x-5' : 'translate-x-0'" class="inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200"></span>
+                                                </span>
+
+                                                <span id="toggleLabel">
+                                                    <span class="text-sm leading-5 font-medium text-gray-900">Date Range  </span>
+                                                </span>
+                                                <input type="checkbox" id="type" :checked="display" class="hidden">
+                                            </div>
+                                        </div>
+                                        <div :class="display ? 'col-span-1 sm:col-span-1' : 'col-span-2 sm:col-span-2'">
+                                            <x-label for="start_date" class="font-semibold">Start Date</x-label>
+                                            <input type="date" v-model="field.date" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" />
+                                        </div>
+                                        <div class="col-span-1 sm:col-span-1" v-show="display">
+                                            <x-label for="end_date" class="font-semibold">End Date</x-label>
+                                            <input type="date" v-model="field.end_date" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" />
+                                        </div>
+                                    </div>
+                                {{-- <x-label for="route" class="font-semibold">{{__('Select Date')}}</x-label> --}}
+                                {{-- <input type="date" v-model="field.date" class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" /> --}}
+                            </div>
+                        </toggle>
+
 
                         <div class="col-span-1/4 sm:col-span-1/4 text-center">
                             <button type="button" class="bg-lightblue border-transparent h-1/2 hover:bg-lighterblue items-center mt-6 rounded-md text-base text-center text-white w-2/4" @click="search">{{__('Search')}}</button>
@@ -92,17 +123,17 @@
 
                                     <div class="col-start-2 sm:col-start-2">
                                         <div class="grid grid-cols-2 gap-2" >
-                                            <div class="col-span-full sm:col-span-full">
+                                            {{-- <div class="col-span-full sm:col-span-full">
                                                 <x-label for="payment_document_id" class="font-semibold">{{__('Payment Document')}}</x-label>
                                                 <multi-select :items="{{ $payment_documents }}" :multiple="false" label="payment_document" name="payment_document_id"></multi-select>
-                                            </div>
+                                            </div> --}}
 
-                                            <div class="col-span-1 sm:col-span-1 text-right">
+                                            {{-- <div class="col-span-1 sm:col-span-1 text-right">
                                                 <x-label class="font-semibold">{{__('Value of Payment Document')}}:</x-label>
                                             </div>
                                             <div class="col-span-1 sm:col-span-1">
                                                 <x-label class="font-semibold">0.00</x-label>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-span-1 sm:col-span-1 text-right">
                                                 <x-label class="font-semibold">{{__('Amount Paid')}}:</x-label>
                                             </div>
@@ -125,8 +156,22 @@
                                     </div>
 
                                 </div>
+
+                                <loading
+                                    :show="loading"
+                                ></loading>
+                                
+                                <x-modal  :hasFooter="false" maxWidth="max-w-screen-md">
+                                    <x-slot name="title">
+                                        @{{ modalTitle }}
+                                    </x-slot>
+                                    <x-slot name="body">
+                                        @{{ modalMessage }}
+                                    </x-slot>
+                                </x-modal>
+
                                 <div class="mt-5 text-center">
-                                    <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                    <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" @click="registerPaymentHandler">
                                         {{__('Register Payment')}}
                                     </button>
                                 </div>

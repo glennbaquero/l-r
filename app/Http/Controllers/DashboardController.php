@@ -98,11 +98,24 @@ class DashboardController extends Controller
             $month_name = date('F', mktime(0,0,0,$m, 1, date('Y')));
             $months[] = $month_name;
 
-            if($request->year != 'All') {
-                $revenue = Ticket::whereMonth('purchase_date', $m)->whereYear('purchase_date', $request->year)->sum('total_sale');
-            } else {
-                $revenue = Ticket::whereMonth('purchase_date', $m)->sum('total_sale');
+            switch ($request->type) {
+                case 'yearly':
+                    if($request->year != 'All') {
+                        $revenue = Ticket::whereMonth('purchase_date', $m)->whereYear('purchase_date', $request->year)->sum('total_sale');
+                    } else {
+                        $revenue = Ticket::whereMonth('purchase_date', $m)->sum('total_sale');
+                    }
+                    break;
+                
+                case 'date_range':
+                    $revenue = Ticket::whereBetween('purchase_date', [$request->from, $request->to])->whereMonth('purchase_date', $m)->sum('total_sale');
+                    break;
+                
+                default:
+                    // code...
+                    break;
             }
+            
 
             array_push($per_month_revenue, $revenue);
         }

@@ -50,7 +50,6 @@ class VoucherController extends Controller
         if(request()->input()['type_of_voucher'] == 'null') {
             request()->request->add(['type_of_voucher' => 'Amount']);
         }
-        
 
         return new VoucherCollection($this->fetch->execute(request()->input()));
     }

@@ -69,6 +69,8 @@ class RouteCreateOrUpdateAction
 						'departure_id' => $stop->departure_id,
 						'division_point' => $stop->division_point,
 						'show' => $stop->show,
+						'schedule_start' => $stop->schedule_start,
+						'schedule_end' => $stop->schedule_end,
 					]);
 				}
 			} else {
@@ -113,6 +115,9 @@ class RouteCreateOrUpdateAction
 							'departure_id' => $stop->departure_id,
 							'division_point' => $stop->division_point,
 							'show' => $stop->show,
+
+							'schedule_start' => $stop->schedule_start,
+							'schedule_end' => $stop->schedule_end,
 						]);
 					} else {
 						$existing_stop = Stop::withTrashed()->findOrFail($stop->id);
@@ -125,6 +130,9 @@ class RouteCreateOrUpdateAction
 							'departure_id' => $stop->departure_id,
 							'division_point' => $stop->division_point,
 							'show' => $stop->show,
+							
+							'schedule_start' => $stop->schedule_start,
+							'schedule_end' => $stop->schedule_end,
 						]);
 					}
 				}
