@@ -94,14 +94,14 @@ class TicketController extends Controller
 
         $trips = [];
 
-        $start_of_day = now()->startOfDay()->format('H:i');
-        $end_of_day = now()->endOfDay()->format('H:i');
+        $start_of_day = now()->startOfDay()->format('H:i:s');
+        $end_of_day = now()->endOfDay()->format('H:i:s');
 
         foreach ($stops as $departure_stop) {
             // if($departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', now())->whereTime('schedule_end', '<=', now())->count()) {
-            if($departure_stop->route->stops()->where('arrival_id', $arrival)->count()) {  // ->whereTime('schedule_start', '>=', $start_of_day)->whereTime('schedule_end', '<=', $end_of_day)
+            if($departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', $start_of_day)->whereTime('schedule_end', '<=', $end_of_day)->count()) {
                 // $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', now())->whereTime('schedule_end', '<=', now())->get();
-                $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->get(); // ->whereTime('schedule_start', '>=', $start_of_day)->whereTime('schedule_end', '<=', $end_of_day)
+                $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', $start_of_day)->whereTime('schedule_end', '<=', $end_of_day)->get();
                 foreach ($arrival_stops as $stop) {
                     if(!collect($trips)->contains('route', $stop->route)) {
                         $availableTrips = $stop->route->trips()->where('date', '>=', now());
@@ -314,7 +314,7 @@ class TicketController extends Controller
         if($ticket->arrival->offices()->where('office_type_id', 6)->count()) {
             $arrival = $ticket->arrival->offices()->where('office_type_id', 6)->first()->address_line_1;
         }
-        
+
         return view('pages.ticket.print', [
             'ticket' => $ticket,
             'departure' => $departure,
