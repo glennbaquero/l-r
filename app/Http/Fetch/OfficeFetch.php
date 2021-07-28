@@ -3,19 +3,22 @@
 namespace App\Http\Fetch;
 
 use App\Models\Office;
+use App\Models\OfficeType;
 
 class OfficeFetch
 {
     protected $office;
+    protected $type;
 
     /**
      * Create new fetch instance
      * 
      * @return void
      */
-    public function __construct(Office $office)
+    public function __construct(Office $office, OfficeType $type)
     {
         $this->office = $office;
+        $this->type = $type;
     }
 
     /**
@@ -33,6 +36,12 @@ class OfficeFetch
                         ->orWhereLike('phone_number', $params['phone_number'])
                         ->orWhereLike('city', $params['city'])
                         ->orWhereLike('state', $params['state']);
+
+
+        if($params['office_type'] && $params['office_type'] != 'null') {
+            $office_type_ids = $this->type->whereLike('name', $params['office_type'])->pluck('id')->toArray();
+            $this->office = $this->office->whereIn('office_type_id', $office_type_ids);
+        }
 
         return $this->office->paginate(20);
     }
