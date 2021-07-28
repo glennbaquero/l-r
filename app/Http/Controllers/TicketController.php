@@ -99,9 +99,9 @@ class TicketController extends Controller
 
         foreach ($stops as $departure_stop) {
             // if($departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', now())->whereTime('schedule_end', '<=', now())->count()) {
-            if($departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', $start_of_day)->whereTime('schedule_end', '<=', $end_of_day)->count()) {
+            if($departure_stop->route->stops()->where('arrival_id', $arrival)->count()) {  // ->whereTime('schedule_start', '>=', $start_of_day)->whereTime('schedule_end', '<=', $end_of_day)
                 // $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', now())->whereTime('schedule_end', '<=', now())->get();
-                $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', $start_of_day)->whereTime('schedule_end', '<=', $end_of_day)->get();
+                $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->get(); // ->whereTime('schedule_start', '>=', $start_of_day)->whereTime('schedule_end', '<=', $end_of_day)
                 foreach ($arrival_stops as $stop) {
                     if(!collect($trips)->contains('route', $stop->route)) {
                         $availableTrips = $stop->route->trips()->where('date', '>=', now());
