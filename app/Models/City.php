@@ -38,4 +38,14 @@ class City extends Model
     {
         return $this->hasMany(Price::class, 'arrival_id', 'id');
     }
+
+    /**
+     * City belongs to Price
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function offices()
+    {
+        return $this->hasMany(Office::class, 'departure_city_id', 'id');
+    }
 }

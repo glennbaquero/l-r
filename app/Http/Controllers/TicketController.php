@@ -94,9 +94,14 @@ class TicketController extends Controller
 
         $trips = [];
 
+        $start_of_day = now()->startOfDay()->format('H:i');
+        $end_of_day = now()->endOfDay()->format('H:i');
+
         foreach ($stops as $departure_stop) {
-            if($departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', now())->whereTime('schedule_end', '<=', now())->count()) {
-                $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', now())->whereTime('schedule_end', '<=', now())->get();
+            // if($departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', now())->whereTime('schedule_end', '<=', now())->count()) {
+            if($departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', $start_of_day)->whereTime('schedule_end', '<=', $end_of_day)->count()) {
+                // $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', now())->whereTime('schedule_end', '<=', now())->get();
+                $arrival_stops = $departure_stop->route->stops()->where('arrival_id', $arrival)->whereTime('schedule_start', '>=', $start_of_day)->whereTime('schedule_end', '<=', $end_of_day)->get();
                 foreach ($arrival_stops as $stop) {
                     if(!collect($trips)->contains('route', $stop->route)) {
                         $availableTrips = $stop->route->trips()->where('date', '>=', now());
@@ -299,9 +304,21 @@ class TicketController extends Controller
     public function printTicket($id, $passenger, $arrival, $departure) 
     {
         $ticket = Ticket::find($id);
+        $departure = $ticket->departure->name;
+        $arrival = $ticket->arrival->name;
 
+        if($ticket->departure->offices()->where('office_type_id', 6)->count()) {
+            $departure = $ticket->departure->offices()->where('office_type_id', 6)->first()->address_line_1;
+        }
+
+        if($ticket->arrival->offices()->where('office_type_id', 6)->count()) {
+            $arrival = $ticket->arrival->offices()->where('office_type_id', 6)->first()->address_line_1;
+        }
+        
         return view('pages.ticket.print', [
-            'ticket' => $ticket
+            'ticket' => $ticket,
+            'departure' => $departure,
+            'arrival' => $arrival,
         ]);
     }
 
