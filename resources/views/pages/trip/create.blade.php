@@ -128,10 +128,10 @@
                                         <input type="checkbox" class="form-input bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="show_on_web" id="show_on_web" />
                                         Show On Web
                                     </x-label>
-                                    <x-label for="express_trip" class="font-semibold">
+                                    {{-- <x-label for="express_trip" class="font-semibold">
                                         <input type="checkbox" class="form-input bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="express_trip" id="express_trip" />
                                         Express Trip
-                                    </x-label>
+                                    </x-label> --}}
                                 </div>
 
                             </div>

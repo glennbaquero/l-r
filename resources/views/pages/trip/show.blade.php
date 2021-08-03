@@ -32,7 +32,7 @@
 
                         <form action="{{ route('trip.update', $trip->id) }}" method="POST">
                             @csrf
-                            <div class="grid grid-cols-6 gap-6">
+                            <div class="grid grid-cols-6 gap-2">
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="route_id" class="font-semibold">Route</x-label>
@@ -75,31 +75,34 @@
                                     <x-select :lists="$buses" name="bus_id" :selected="$trip->bus_id"/>
                                 </div>
 
-                                <div class="col-span-2 sm:col-span-2">
+                                {{-- <div class="col-span-2 sm:col-span-2">
                                     <x-label for="crew_id" class="font-semibold">Crew</x-label>
                                     <x-select :lists="$crews" name="crew_id" :selected="$trip->crew_id"/>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="driver_id" class="font-semibold">Driver</x-label>
                                     <x-select :lists="$drivers" name="driver_id" display="fullname" :selected="$trip->driver_id"/>
                                 </div>
 
-                                <div class="col-span-2 sm:col-span-2">
+                                <div class="col-span-2 sm:col-span-2" v-if="item.has_main_co_driver">
                                     <x-label for="main_co_driver_id" class="font-semibold">Main Co-Driver</x-label>
                                     <x-select :lists="$drivers" name="main_co_driver_id" display="fullname" :selected="$trip->main_co_driver_id"/>
                                 </div>
 
-                                <div class="col-span-2 sm:col-span-2">
+                                {{-- <div class="col-span-2 sm:col-span-2">
                                     <template v-if="display">
                                         <x-label for="secondary_co_driver_id" class="font-semibold">Secondary Co-Driver</x-label>
                                         <x-select :lists="$drivers" name="secondary_co_driver_id" display="fullname" :selected="$trip->secondary_co_driver_id"/>
                                     </template>
-                                </div>
+                                </div> --}}
 
-                                <div class="col-span-2 sm:col-span-2">
+                                <div class="col-span-2 sm:col-span-2" v-if="item.has_assistant">
                                     <x-label for="assistant_id" class="font-semibold">Assistant</x-label>
                                     <x-select :lists="$assistants" name="assistant_id" :selected="$trip->assistant_id"/>
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-6">
                                 </div>
 
                                 <div class="col-span-2 sm:col-span-2">
@@ -118,10 +121,10 @@
                                         <input type="checkbox" class="form-input bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="show_on_web" id="show_on_web" {{ $trip->show_on_web ? 'checked' : '' }}/>
                                         Show On Web
                                     </x-label>
-                                    <x-label for="express_trip" class="font-semibold">
+                                    {{-- <x-label for="express_trip" class="font-semibold">
                                         <input type="checkbox" class="form-input bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="express_trip" id="express_trip" {{ $trip->express_trip ? 'checked' : '' }}/>
                                         Express Trip
-                                    </x-label>
+                                    </x-label> --}}
                                 </div>
 
                             </div>
