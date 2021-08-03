@@ -50,7 +50,8 @@
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="time" class="font-semibold">Time</x-label>
-                                    <x-datepicker name="time" type="time" format="hh:mm"/>
+                                    {{-- <x-datepicker name="time" type="time" format="hh:mm"/> --}}
+                                    <x-form-input type="time" name="time" oldValue="{{ old('time') }}" />
                                 </div>
 
                                 <div class="col-span-2 sm:col-span-2">

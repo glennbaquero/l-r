@@ -56,7 +56,8 @@
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="time" class="font-semibold">Time</x-label>
-                                    <x-datepicker name="time" type="time" format="hh:mm" :item="$trip"/>
+                                    {{-- <x-datepicker name="time" type="time" format="hh:mm" :item="$trip"/> --}}
+                                    <x-form-input type="time" name="time" value="{{ $trip->time }}" />
                                 </div>
 
                                 <div class="col-span-2 sm:col-span-2">
