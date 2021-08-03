@@ -70,7 +70,7 @@
                                 <x-switch label="Default Bus" name="default_bus"/>
                             </div>
                         </div>
-                        <div class="mt-5 text-right">
+                        <div class="mt-5 text-left">
                             <button type="submit" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36">
                                 Save
                             </button>

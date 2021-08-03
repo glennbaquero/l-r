@@ -4,6 +4,30 @@
             <div class="text-base mr-auto">
                 <span class="font-semibold mr-3">{{__('Ticket Management')}}</span>
             </div>
+            {{-- <div class="flex text-base items-center">
+                <x-modal :hasFooter="false" maxWidth="max-w-4xl">
+                    <x-slot name="button">
+                        <a href="#" class="inline-flex font-normal items-center px-4 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue transition ease-in-out duration-150" @click="toggled()">
+                            {{__('New Ticket')}}
+                        </a>
+                    </x-slot>
+
+                    <x-slot name="body">
+                        <ticket
+                            :cities="{{ $cities }}"
+                            :ticket_types="{{ $ticket_types }}"
+                            find-available-trip-url="{{ route('ticket.find-available-trip') }}"
+                            fetch-bus-url="{{ route('ticket.fetch-bus') }}"
+                            search-passenger-url="{{ route('ticket.fetch-passengers') }}"
+                            payment-form-url="{{ route('ticket.store') }}"
+                            voucher-validate-url="{{ route('ticket.voucher-validate') }}"
+                        ></ticket>
+                    </x-slot>
+
+                </x-modal>
+            </div>--}}
+        </div>
+        <div class="flex items-center mt-4">
             <div class="flex text-base items-center">
                 <x-modal :hasFooter="false" maxWidth="max-w-4xl">
                     <x-slot name="button">
