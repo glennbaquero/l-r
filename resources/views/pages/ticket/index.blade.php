@@ -45,6 +45,7 @@
                             search-passenger-url="{{ route('ticket.fetch-passengers') }}"
                             payment-form-url="{{ route('ticket.store') }}"
                             voucher-validate-url="{{ route('ticket.voucher-validate') }}"
+                            :office-id="{{ auth()->user()->office->departure->id }}"
                         ></ticket>
                     </x-slot>
 

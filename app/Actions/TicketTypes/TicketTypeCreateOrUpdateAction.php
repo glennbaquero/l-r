@@ -36,11 +36,11 @@ class TicketTypeCreateOrUpdateAction
 		$request['required_telephone'] = $request->filled('required_telephone');
 		$request['show_message'] = $request->filled('show_message');
 
-
 		$request['selectedIds'] = json_decode($request->selectedIds);
 		
 		DB::beginTransaction();
 			if(!$id) {
+				$request['office_id'] = auth()->user()->office->id;
 				$request['created_by'] = auth()->user()->id;
 				$this->ticket_type = $this->ticket_type->create($request->except(['selectedIds']));
 			} else {

@@ -49,6 +49,16 @@ class Ticket extends Model
     }
 
     /**
+     * Ticket belongs to office
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function office()
+    {
+        return $this->belongsTo(Office::class, 'office_id', 'id')->withTrashed();
+    }
+
+    /**
      * Ticket belongs to Departure (City)
      * 
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
