@@ -3,10 +3,12 @@
 		<div class="col-span-1 sm:col-span-1">
 		    <label for="departure" class="font-semibold">Departure</label>
 		    <v-select
+		    	v-if="canEdit"
 		    	class="my-3"
-		        v-model="item.departure" 
+		        v-model="item.departure_id" 
 		        :options="cities"
 		        label="name"
+		        :reduce="item => item.id"
 			    @input="selectedChanged"
 		        >
 		    </v-select>
@@ -15,7 +17,8 @@
 		    <label for="departure" class="font-semibold">Arrival</label>
 		    <v-select
 		    	class="my-3"
-		        v-model="item.arrival" 
+		        v-model="item.arrival_id" 
+		        :reduce="item => item.id"
 		        :options="cities"
 		        label="name"
 			    @input="selectedChanged"
@@ -55,7 +58,8 @@
 
 	export default {
 		props: {
-			cities: Array
+			cities: Array,
+			officeId: Number,
 		},
 
 		data() {
@@ -84,6 +88,18 @@
 			'item.arrival'(val) {
 				if(this.canEdit) {
 					this.item.arrival_id = val.id;
+				}
+			},
+
+			'item.departure_id'(val) {
+				if(this.canEdit) {
+					this.item.departure = _.find(this.cities, (city) => { return city.id === val })
+				}
+			},
+
+			'item.arrival_id'(val) {
+				if(this.canEdit) {
+					this.item.arrival = _.find(this.cities, (city) => { return city.id === val })
 				}
 			},
 
@@ -121,6 +137,11 @@
 			setTimeout(() => {
 				this.canEdit = true;
 			}, 500)
+
+			this.$nextTick(() => {
+				this.item.departure_id = this.officeId;
+				this.item.departure = _.find(this.cities, (city) => { return city.id === this.officeId })
+			})
 		},
 
 		methods: {

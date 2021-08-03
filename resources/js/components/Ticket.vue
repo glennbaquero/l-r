@@ -6,6 +6,7 @@
 			v-if="step === 1"
 			:cities="cities"
 			@nextStep="nextStep(...arguments)"
+			:office-id="officeId"
 		></form-step-one>
 
 		<form-step-two
@@ -98,6 +99,7 @@
 			voucherValidateUrl: String,
 			updateUrl: String,
 			selectedTicket: Object,
+			officeId: Number,
 
 			edit: {
 				type: Boolean,
