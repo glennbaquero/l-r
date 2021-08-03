@@ -13,29 +13,29 @@
                         <x-header-sub-link link="#" :caret="true" class="group-sales hover:bg-lighterblue">
                             <x-slot name="name">{{__('Sales Management')}}</x-slot>
                             <x-header-absolute-link class="group-sales group-sales-hover:block bg-lighterblue">
-                                <x-header-sub-link link="{{route('expense-income.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('expense-income.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Expenses & Income')}}</x-slot>
                                 </x-header-sub-link>
-                                {{-- <x-header-sub-link link="{{route('voucher.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                {{-- <x-header-sub-link link="{{route('voucher.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">Voucher Management</x-slot>
                                 </x-header-sub-link> --}}
-                                <x-header-sub-link link="{{route('coupon.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('coupon.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Coupon Management')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('discount.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('discount.index')}}" :caret="false" class="hover:bg-lightblue">
                                     {{-- <x-slot name="name">{{__('Expenses & Income')}}Promotions and Discounts</x-slot> --}}
                                     <x-slot name="name">{{__('Used Coupon')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('discount-option.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('discount-option.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Promotion Option')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('frequent-traveler.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('frequent-traveler.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Frequent Traveler Management')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('open-cash.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('open-cash.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Open / Close Till')}}</x-slot>
                                 </x-header-sub-link>
-                                {{-- <x-header-sub-link link="{{route('office.open-close')}}" :caret="false" class="hover:bg-lighterblue">
+                                {{-- <x-header-sub-link link="{{route('office.open-close')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Expenses & Income')}}Open / Close Office</x-slot>
                                 </x-header-sub-link> --}}
                             </x-header-absolute-link>
@@ -44,31 +44,31 @@
                         <x-header-sub-link link="#" :caret="true" class="group-route hover:bg-lighterblue">
                             <x-slot name="name">{{__('Route Management')}}</x-slot>
                             <x-header-absolute-link class="group-route group-route-hover:block bg-lighterblue">
-                                <x-header-sub-link link="{{route('route.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('route.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Route')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('multi-route.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('multi-route.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Multiple Route')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('price.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('price.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Prices')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('interline-price.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('interline-price.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Interline Price')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('trip.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('trip.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Itineraries')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('boarding.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('boarding.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Passenger Boarding')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('daily-itinerary.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('daily-itinerary.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Daily Itineraries')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('itinerary-update.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('itinerary-update.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Itineraries, Logs & Notifications')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('travel-expense.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('travel-expense.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Travel Expense')}}</x-slot>
                                 </x-header-sub-link>
                                 {{-- <x-header-sub-link link="{{route('route-main-driver.index')}}" :caret="false" class="hover:bg-lighterblue">
@@ -80,13 +80,13 @@
                         <x-header-sub-link link="#" :caret="true" class="group-bus hover:bg-lighterblue">
                             <x-slot name="name">{{__('Bus Management')}}</x-slot>
                             <x-header-absolute-link class="group-bus group-bus-hover:block bg-lighterblue">
-                                <x-header-sub-link link="{{route('cell.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('cell.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Type of Cell')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('bus-model.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('bus-model.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Bus Model')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('bus.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('bus.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Bus')}}</x-slot>
                                 </x-header-sub-link>
                             </x-header-absolute-link>
@@ -99,13 +99,13 @@
                         <x-header-sub-link link="#" :caret="true" class="group-groups hover:bg-lighterblue">
                             <x-slot name="name">{{__('Groups')}}</x-slot>
                             <x-header-absolute-link class="group-groups group-groups-hover:block bg-lighterblue">
-                                <x-header-sub-link link="{{route('group.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('group.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Group Management')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{ route('group-privilege.index') }}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{ route('group-privilege.index') }}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Grant or Restrict Previleges')}}</x-slot>
                                 </x-header-sub-link>
-                                <x-header-sub-link link="{{route('group-message.index')}}" :caret="false" class="hover:bg-lighterblue">
+                                <x-header-sub-link link="{{route('group-message.index')}}" :caret="false" class="hover:bg-lightblue">
                                     <x-slot name="name">{{__('Group Message')}}</x-slot>
                                 </x-header-sub-link>
                             </x-header-absolute-link>
