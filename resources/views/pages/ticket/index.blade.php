@@ -29,7 +29,7 @@
         </div>
         <div class="flex items-center mt-4">
             <div class="flex text-base items-center">
-                <x-modal :hasFooter="false" maxWidth="max-w-4xl">
+                <x-modal :hasFooter="false" maxWidth="max-w-4xl" :enableDisplay="true">
                     <x-slot name="button">
                         <a href="#" class="inline-flex font-normal items-center px-4 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue transition ease-in-out duration-150" @click="toggled()">
                             {{__('New Ticket')}}

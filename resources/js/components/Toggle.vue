@@ -10,6 +10,8 @@ export default {
             type: Number
         },
 
+        enableDisplay: String,
+
         toshowdata: {
             default: 0,
             type: Number
@@ -37,6 +39,10 @@ export default {
 
         if(this.hasparenttoggle && this.$parent && this.toshowdata && !_.isEmpty(this.item)) {
             this.$parent.display = this.item[this.toggleableData];
+        }
+
+        if(this.enableDisplay == '1') {
+            this.display = true;
         }
     },
 
