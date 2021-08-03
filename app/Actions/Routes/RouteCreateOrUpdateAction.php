@@ -30,6 +30,8 @@ class RouteCreateOrUpdateAction
 	public function execute($request, $id = null)
 	{
 		DB::beginTransaction();
+			$request['has_main_co_driver'] = $request->filled('has_main_co_driver');
+			$request['has_assistant'] = $request->filled('has_assistant');
 			if(!$id) {
 				$this->route = $this->route->create($request->except(['stops', 'division_point']));
 

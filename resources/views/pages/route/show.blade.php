@@ -52,7 +52,7 @@
                                     <x-form-input type="text" name="report_alias" id="report_alias" value="{{ $route->report_alias }}" />
                                 </div>
 
-                                <div class="col-span-3 sm:col-span-3">
+                                <div class="col-span-2 sm:col-span-2">
                                     <x-label for="departure_id" class="font-semibold">Departure</x-label>
                                     <select name="departure_id" class='form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent' @change="departureRouteChanged($event.target.value)">
                                         @foreach($cities as $city)
@@ -60,10 +60,19 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-span-3 sm:col-span-3">
+                                <div class="col-span-2 sm:col-span-2">
                                     <x-label for="type_of_route" class="font-semibold">Type Of Route</x-label>
                                     <x-select :lists="$typeOfRoutes" name="type_of_route" identifierValue="name" selected="{{ $route->type_of_route }}"/>
                                 </div>
+
+                                <div class="col-span-1 sm:col-span-1">
+                                    <x-switch label="Has Main Co-Driver" name="has_main_co_driver" :item="$route"/>
+                                </div>
+
+                                <div class="col-span-1 sm:col-span-1">
+                                    <x-switch label="Has Assistant" name="has_assistant" :item="$route"/>
+                                </div>
+                                
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="trip_length" class="font-semibold">Trip Length</x-label>
                                     <x-form-input type="text" name="trip_length" id="trip_length" v-model="tripLengthTotal" :readOnly="true"/>

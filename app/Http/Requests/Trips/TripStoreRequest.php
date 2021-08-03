@@ -31,7 +31,7 @@ class TripStoreRequest extends FormRequest
             'transport_type' => 'required',
             'bus_id' => 'required',
             'driver_id' => 'required',
-            'main_co_driver_id' => 'required',
+            // 'main_co_driver_id' => 'required',
         ];
     }
 
@@ -41,7 +41,7 @@ class TripStoreRequest extends FormRequest
             'route_id.required' => 'The route field is required.',
             'driver_id.required' => 'The driver field is required.',
             'bus_id.required' => 'The bus field is required.',
-            'main_co_driver_id.required' => 'The main co driver field is required.',
+            // 'main_co_driver_id.required' => 'The main co driver field is required.',
         ];
     }
 }

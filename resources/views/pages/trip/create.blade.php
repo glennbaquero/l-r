@@ -26,7 +26,7 @@
                     <toggle-select v-slot="{ display, conditionalFieldToDisplay, toggle, toggleFalse, selectChanged, item }">
                         <form action="{{ route('trip.store') }}" method="POST">
                             @csrf
-                            <div class="grid grid-cols-6 gap-6">
+                            <div class="grid grid-cols-6 gap-2">
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="route_id" class="font-semibold">Route</x-label>
@@ -79,9 +79,9 @@
                                     <x-select :lists="$drivers" name="driver_id" display="fullname"  oldValue="{{ old('driver_id') }}"/>
                                 </div>
 
-                                <div class="col-span-2 sm:col-span-2">
+                                <div class="col-span-2 sm:col-span-2" v-if="item.has_main_co_driver">
                                     <x-label for="main_co_driver_id" class="font-semibold">Main Co-Driver</x-label>
-                                    <x-select :lists="$drivers" name="main_co_driver_id" display="fullname"  oldValue="{{ old('main_co_driver_id') }}"/>
+                                    <x-select :lists="$drivers" name="main_co_driver_id" display="fullname"  oldValue="{{ old('main_co_driver_id') }}" />
                                 </div>
 
 
@@ -92,13 +92,25 @@
                                     </template>
                                 </div> --}}
 
-                                <div class="col-span-2 sm:col-span-2">
+                                <div class="col-span-2 sm:col-span-2" v-if="item.has_assistant">
                                     <x-label for="assistant_id" class="font-semibold">Assistant</x-label>
                                     <x-select :lists="$assistants" name="assistant_id" oldValue="{{ old('assistant_id') }}"/>
                                 </div>
                                 
-                                <div class="col-span-2 sm:col-span-2">
+                                <div class="col-span-6 sm:col-span-6">
                                 </div>
+                                
+                                {{-- <div class="col-span-4 sm:col-span-4" v-if="item.has_assistant || !item.has_main_co_driver">
+                                </div>
+                                
+                                <div class="col-span-4 sm:col-span-4" v-if="!item.has_assistant || item.has_main_co_driver">
+                                </div> --}}
+                                {{-- 
+                                <div class="col-span-2 sm:col-span-2" v-if="!item.has_assistant && !item.has_main_co_driver" >
+                                </div>
+                                
+                                <div class="col-span-2 sm:col-span-2" v-if="!item.has_assistant && !item.has_main_co_driver" >
+                                </div> --}}
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="discounted_tickets" class="font-semibold mt-2 mb-5">
