@@ -3,13 +3,13 @@
 		<div class="col-span-1 sm:col-span-1">
 		    <label for="departure" class="font-semibold">Departure</label>
 		    <v-select
-		    	v-if="canEdit"
+		    	v-if="showDepartureSelection"
 		    	class="my-3"
 		        v-model="item.departure_id" 
 		        :options="cities"
 		        label="name"
 		        :reduce="item => item.id"
-			    @input="selectedChanged"
+			    @input="selectedChanged('departure')"
 		        >
 		    </v-select>
 		</div>
@@ -26,7 +26,7 @@
 		    </v-select>
 		</div>
 
-		<div class="col-span-full sm:col-span-full">
+		<div class="col-span-full sm:col-span-full" v-if="showAvailableTrip">
 		    <label for="departure" class="font-semibold">Travel Date</label>
 		    <v-select
 		    	class="my-3"
@@ -70,7 +70,9 @@
 				trips: [],
 
 				canEdit: false,
-				disabled: false
+				disabled: false,
+				showAvailableTrip: true,
+				showDepartureSelection: false,
 			}
 		},
 
@@ -79,26 +81,26 @@
 		},
 
 		watch: {
-			'item.departure'(val) {
-				if(this.canEdit) {
-					this.item.departure_id = val.id;
-				}
-			},
+			// 'item.departure'(val) {
+			// 	if(this.canEdit) {
+			// 		this.item.departure_id = val.id;
+			// 	}
+			// },
 
-			'item.arrival'(val) {
-				if(this.canEdit) {
-					this.item.arrival_id = val.id;
-				}
-			},
+			// 'item.arrival'(val) {
+			// 	if(this.canEdit) {
+			// 		this.item.arrival_id = val.id;
+			// 	}
+			// },
 
 			'item.departure_id'(val) {
-				if(this.canEdit) {
+				if(this.showDepartureSelection) {
 					this.item.departure = _.find(this.cities, (city) => { return city.id === val })
 				}
 			},
 
 			'item.arrival_id'(val) {
-				if(this.canEdit) {
+				if(this.showDepartureSelection) {
 					this.item.arrival = _.find(this.cities, (city) => { return city.id === val })
 				}
 			},
@@ -135,13 +137,14 @@
 			}
 			
 			setTimeout(() => {
-				this.canEdit = true;
-			}, 500)
+				// this.canEdit = true;
 
-			this.$nextTick(() => {
-				this.item.departure_id = this.officeId;
-				this.item.departure = _.find(this.cities, (city) => { return city.id === this.officeId })
-			})
+				this.showDepartureSelection = true;
+				if(!this.$parent.edit) {
+					this.item.departure_id = this.officeId;
+					// this.item.departure = _.find(this.cities, (city) => { return city.id === this.officeId })
+				}
+			}, 500)
 		},
 
 		methods: {
@@ -197,8 +200,17 @@
 
 			},
 
-			selectedChanged() {
+			selectedChanged(type='arrival') {
 				this.$parent.loading = true;
+
+				if(type == 'departure') {
+					this.showDepartureSelection = false;
+
+					setTimeout(() => {
+						this.showDepartureSelection = true;
+					}, 500)
+				}
+
 				axios.post(this.$parent.findAvailableTripUrl, this.item)
 					.then(response => {
 						
@@ -206,6 +218,22 @@
 						this.$parent.availableTrip = response.data.trips;
 						this.$parent.price = response.data.price;
 						this.$parent.loading = false;
+
+						if(!_.isEmpty(this.trips)) {
+							this.showAvailableTrip = false;
+							this.$parent.loading = true;
+
+							setTimeout(() => {
+
+								this.showAvailableTrip = true;
+								
+								if(!this.$parent.edit) {
+									this.item.trip = this.availableTrips[0];
+								}
+								this.$parent.loading = false;
+							}, 500)
+						}
+
 						
 					}).catch(errors => {
 						this.$parent.loading = false;
