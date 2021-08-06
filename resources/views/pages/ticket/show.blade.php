@@ -1,61 +1,83 @@
-<x-app-layout>
-    <div class="mx-auto sm:px-6 lg:px-8 py-6">
-        <div class="flex items-center">
-            <div class="text-base mr-auto">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-                <x-breadcrumb currentModule="{{__('Service Management')}}" currentPage="Show" route="{{ route('service.index') }}"> 
-                    <svg class="flex-shrink-0 mx-2 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                    </svg>
-                    {{ $service->name }}
-                </x-breadcrumb>
-            </div>
-        </div>
-        @if(Session::has('success'))
-            <x-alert message="{{ Session::get('success') }}" />
-        @elseif(Session::has('errors'))
-            <x-alert message="Error encountered" type="error" >
-                @if ($errors->any())
-                    <ul class="list-inside list-disc text-sm">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                @endif
-            </x-alert>
+        <title>{{ config('app.name', 'L&R Transport') }}</title>
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+
+        @if (config('app.env') == 'production' || config('app.env') == 'staging')
+            <!-- Styles -->
+            <link rel="stylesheet" href="{{ asset(mix('css/app.css'), true) }}">
+            <!-- Scripts -->
+            <script src="{{ asset(mix('js/app.js'), true) }}" defer></script>
+        @else
+            <!-- Styles -->
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+            <!-- Scripts -->
+            <script src="{{ asset('js/app.js') }}" defer></script>
         @endif
+    </head>
+    <body class="font-sans antialiased">
+        <div id="app" class="min-h-screen bg-lightgray">
+            <!-- Page Content -->
+            <main>
+                <form-confirmation v-slot="{ result, actionHandler, loading, show_button }"
+                    url="{{ route('ticket.confirmed') }}"
+                    :payloads="{{ $payloads }}"
 
-        <div class="mt-12 mx-auto w-3/4">
-            <div class="bg-white shadow sm:rounded-lg">
-                <div class="px-4 py-5 sm:p-6">
-                    
-                    <form action="{{ route('service.update', $service->id) }}" method="POST">
-                        @csrf
-                
-                        <div class="grid grid-cols-6 gap-6">
-                            <div class="col-span-full sm:col-span-full">
-                                <x-label for="name" class="font-semibold">Name</x-label>
-                                <x-form-input type="text" name="name" id="name" value="{{ $service->name }}" />
-                            </div>
+                >
 
-                            <div class="col-span-full sm:col-span-full">
-                                <x-label for="description" class="font-semibold">Message</x-label>
-                                <x-text-area name="description" value="{{ $service->description }}"/>
-                            </div>
-
-                            <div class="col-span-1 sm:col-span-1">
-                                <x-switch label="Apply External Services" name="apply_external_services" :item="$service"/>
+                    <div class="bg-white shadow sm:rounded-lg h-screen">
+                        <loading :show="loading"></loading>
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="grid grid-cols-6 gap-3">
+                                <div class="col-span-6 sm:col-span-6 mx-auto">
+                                    <img src="{{ asset('login_bg_image.jpg') }}" class="w-full h-48">
+                                </div>
+                                <div class="col-span-6 sm:col-span-6 mx-auto text-center">                                
+                                    <x-label class="font-semibold">@{{ result }}</x-label>
+                                </div>
+                                <div class="col-span-3 sm:col-span-3">
+                                    <x-label>Name : </x-label>
+                                    <x-label class="font-semibold">{{ $ticket->passenger->fullname }}</x-label>
+                                </div>
+                                <div class="col-span-3 sm:col-span-3">
+                                    <x-label>Travel Date : </x-label>
+                                    <x-label class="font-semibold">{{ $ticket->formatted_travel_date }}</x-label>
+                                </div>
+                                <div class="col-span-3 sm:col-span-3">
+                                    <x-label>Departure : </x-label>
+                                    <x-label class="font-semibold">{{ $departure }} ({{ $ticket->departure->name }})</x-label>
+                                </div>
+                                <div class="col-span-3 sm:col-span-3">
+                                    <x-label>Arrival : </x-label>
+                                    <x-label class="font-semibold">{{ $arrival }} ({{ $ticket->arrival->name }})</x-label>
+                                </div>
+                                <div class="col-span-3 sm:col-span-3">
+                                    <x-label>Bus Seat No. : </x-label>
+                                    <x-label class="font-semibold">{{ $ticket->passenger->bus_model_column->label }}</x-label>
+                                </div>
+                                <div class="col-span-3 sm:col-span-3">
+                                    <x-label>Amount to be paid : </x-label>
+                                    <x-label class="font-semibold">$ {{ number_format($ticket->total_sale, 2, '.', ',') }}</x-label>
+                                </div>
+                                <div class="col-span-6 sm:col-span-6 mx-auto mt-5 w-full" v-if="show_button">
+                                    <button @click="actionHandler"  class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-full" >
+                                        Confirm
+                                    </button>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="mt-5 text-right">
-                            <button type="submit" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36">
-                                Save
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+                    </div>
+                </form-confirmation>
+            </main>
+        </div> 
+    </body>
+</html>

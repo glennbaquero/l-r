@@ -9,6 +9,7 @@ use App\Http\Fetch\TicketFetch;
 use Illuminate\Validation\ValidationException;
 
 use App\Notifications\NotifyPassenger;
+use App\Notifications\TicketNotifyPassenger;
 
 use App\Models\Ticket;
 use App\Models\TicketType;
@@ -20,8 +21,11 @@ use App\Models\Price;
 use App\Models\Coupon;
 use App\Models\Voucher;
 use App\Models\Route;
+use App\Models\PreprocessTicket;
 
 use Carbon\Carbon;
+use DB;
+use Session;
 
 class TicketController extends Controller
 {    
@@ -480,4 +484,81 @@ class TicketController extends Controller
     //     ]);
     // }
 
+
+    public function ticketConfirmation($id, $passenger, $arrival, $departure) 
+    {
+        $ticket = PreprocessTicket::find($id);
+        $departure = $ticket->departure->name;
+        $arrival = $ticket->arrival->name;
+
+        if($ticket->departure->offices()->where('office_type_id', 6)->count()) {
+            $departure = $ticket->departure->offices()->where('office_type_id', 6)->first()->address_line_1;
+        }
+
+        if($ticket->arrival->offices()->where('office_type_id', 6)->count()) {
+            $arrival = $ticket->arrival->offices()->where('office_type_id', 6)->first()->address_line_1;
+        }
+
+        $payloads['id'] = $ticket->id;
+
+        if($ticket->confirmed && $ticket->confirmation_date) {
+            return redirect()->route('ticket.verified');
+        }
+
+        return view('pages.ticket.show', [ 
+            'ticket' => $ticket, 
+            'departure' => $departure, 
+            'arrival' => $arrival,
+            'payloads' => collect($payloads),
+        ]);
+    }
+
+
+    public function confirmedTicket(Request $request) 
+    {
+        $ticket = PreprocessTicket::find($request->id);
+        DB::beginTransaction();
+            $ticket->update([
+                'confirmed' => true,
+                'confirmation_date' => now() 
+            ]);
+
+            $ticket = Ticket::create([
+                'passenger_id' => $ticket->passenger_id,
+                'seller_id' => $ticket->seller_id,
+                'arrival_id' => $ticket->arrival_id,
+                'departure_id' => $ticket->departure_id,
+                'trip_id' => $ticket->trip_id,
+                'bus_model_column_id' => $ticket->bus_model_column_id,
+                'number_of_ticket' => $ticket->number_of_ticket,
+                // 'reservation_code' => $ticket->reservation_code,
+                'reservation_date' => $ticket->reservation_date,
+                'purchase_date' => $ticket->purchase_date,
+                'voucher_code' => $ticket->voucher_code,
+                'payment_method' => $ticket->payment_method,
+                'total_sale' => $ticket->total_sale,
+                'boarding_status' => $ticket->boarding_status,
+                'payment_status' => $ticket->payment_status,
+                'is_cancelled' => $ticket->is_cancelled,
+                'new_seat_id' => $ticket->new_seat_id,
+                'is_registered_payment' => $ticket->is_registered_payment,
+                'office_id' => $ticket->office_id,
+            ]);
+
+            $route = route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]);
+            
+            $ticket->passenger->notify(new TicketNotifyPassenger('Your reservation is confirmed, you can download here the copy of your ticket.', $route));
+        DB::commit();
+
+
+        return response()->json([
+            'success' => true,
+            'header'=> 'Your reservation is confirmed, you can download the copy of your ticket in your email. Thank you!'
+        ]);
+    }
+
+    public function ticketVerified() 
+    {
+        return view('pages.ticket.verified');
+    }
 }

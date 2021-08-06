@@ -9,6 +9,12 @@ use App\Models\User;
 use App\Models\Group;
 use App\Models\City;
 
+use Aws\Sns\SnsClient;
+use App\Channels\SmsChannel;
+use Illuminate\Notifications\ChannelManager;
+use Illuminate\Support\Facades\Notification;
+use Aws\Credentials\Credentials;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -18,7 +24,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Notification::resolved(function (ChannelManager $service) {
+            $service->extend('sms', function ($app) {
+            return new SmsChannel(
+            new SnsClient([
+                'version' => '2010-03-31',
+                'credentials' => new Credentials(
+                    config('services.sns.key'),
+                    config('services.sns.secret')
+                ),
+                    'region' => config('services.sns.region'),
+                ])
+            );
+         });
+        });
+
     }
 
     /**
