@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
+use Illuminate\Notifications\Notification;
+
 use App\Traits\QueryLike;
 
 class Passenger extends Model
@@ -107,6 +109,18 @@ class Passenger extends Model
     public function getInfantFullnameAttribute()
     {
         return "{$this->infant_firstname} {$this->infant_lastname}";
+    }
+
+    /**
+     * Return the SMS notification routing information.
+     *
+     * @param \Illuminate\Notifications\Notification|null $notification
+     *
+     * @return mixed
+     */
+    public function routeNotificationForSms(?Notification $notication = null)
+    {
+        return $this->phone_number;
     }
 
 }

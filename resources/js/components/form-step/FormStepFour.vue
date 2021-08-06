@@ -30,8 +30,8 @@
 				</select>
 			</div>
 			<div class="col-span-1 sm:col-span-1">
-				<label for="phone_number" class="block font-medium font-semibold text-gray-500">Phone Number <b class="text-red-500">*</b></label>
-				<input type="text" name="phone_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" ref="phoneNumber" @input="handlePhoneFormat" v-model="passenger_info.phone_number">
+				<label for="cellphone_number" class="block font-medium font-semibold text-gray-500">Phone Number <b class="text-red-500">*</b></label>
+				<input type="text" name="cellphone_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" ref="phoneNumber" @input="handlePhoneFormat" v-model="passenger_info.cellphone_number">
 			</div>
 			<div class="col-span-1 sm:col-span-1">
 				<label for="email" class="block font-medium font-semibold text-gray-500">Email</label>
@@ -103,7 +103,7 @@
 					first_name: '',
 					last_name: '',
 					gender: 'Male',
-					phone_number: '',
+					cellphone_number: '',
 					email: '',
 					ticket_type: {},
 					no_of_bags: 0,
@@ -121,7 +121,7 @@
 
 		computed: {
 			disabledNextButton() {
-				if(!_.isEmpty(this.passenger_info.first_name) && !_.isEmpty(this.passenger_info.last_name) && !_.isEmpty(this.passenger_info.phone_number)
+				if(!_.isEmpty(this.passenger_info.first_name) && !_.isEmpty(this.passenger_info.last_name) && !_.isEmpty(this.passenger_info.cellphone_number)
 					&& !_.isEmpty(this.passenger_info.ticket_type)) {
 					return false;	
 				} 
@@ -144,7 +144,7 @@
 			handlePhoneFormat(e) {
 				var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
 				e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-				this.passenger_info.phone_number = e.target.value;
+				this.passenger_info.cellphone_number = e.target.value;
 			},
 
 			nextFormHandler() {
@@ -171,7 +171,7 @@
 				this.passenger_info.first_name = passenger.first_name;
 				this.passenger_info.last_name = passenger.last_name;
 				this.passenger_info.gender = passenger.gender;
-				this.passenger_info.phone_number = passenger.phone_number;
+				this.passenger_info.cellphone_number = passenger.cellphone_number;
 				this.passenger_info.email = passenger.email;
 				this.passenger_info.ticket_type = _.find(this.ticket_types, (type) => { return type.id == passenger.ticket_type_id}) ;
 				this.passenger_info.with_infant = passenger.with_infant;
@@ -179,7 +179,7 @@
 				this.passenger_info.infant_lastname = passenger.infant_lastname;
 				this.passenger_info.infant_gender = passenger.infant_gender;
 
-				this.$refs.phoneNumber.value = passenger.phone_number;
+				this.$refs.phoneNumber.value = passenger.cellphone_number;
 
 				this.passengers = [];
 			}

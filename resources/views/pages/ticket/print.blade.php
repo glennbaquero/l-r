@@ -89,7 +89,7 @@
 
 			                       <div class="col-span-1 sm:col-span-1 text-right">
 			                          <x-label>Seat</x-label>
-			                          <x-label class="font-semibold"></x-label>
+			                          <x-label class="font-semibold">{{ $ticket->passenger->bus_model_column->label }}</x-label>
 			                       </div>
 			                       <div class="col-span-2 sm:col-span-2 text-right">
 			                          <x-label>Time</x-label>

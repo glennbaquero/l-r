@@ -231,6 +231,9 @@ Route::get('/', function () { return redirect('/login'); });
 
 Route::get('/ticket/print/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'printTicket'])->name('ticket.print');
 Route::get('/ticket/scan-qr/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'scanTicketQR'])->name('ticket.scan-qr');
+Route::get('/ticket/confirmation/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'ticketConfirmation'])->name('ticket.confirmation');
+Route::get('/ticket/verified', [TicketController::class, 'ticketVerified'])->name('ticket.verified');
+Route::post('/ticket/confirmed', [TicketController::class, 'confirmedTicket'])->name('ticket.confirmed');
 
 Route::middleware(['auth'])->group(function() {
     Route::post('/locale', LocaleController::class)->name('locale');
