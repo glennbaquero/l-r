@@ -37,7 +37,7 @@ class TicketCreateOrUpdateAction
 
 		$request['purchase_date'] = now();
 		$request['seller_id'] = auth()->user()->id;
-		$request['office_id'] = auth()->user()->id;
+		$request['office_id'] = auth()->user()->office_id;
 
 		DB::beginTransaction();
 
