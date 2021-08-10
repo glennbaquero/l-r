@@ -65,15 +65,19 @@ class TicketCreateOrUpdateAction
 				$request['passenger_id'] = $passenger->id;
 
 
-				$this->ticket = $this->preprocess->create($request->except(['passenger', 'action', 'has_voucher']));
+				if($request->action === 'Yes') {
+					$this->ticket = $this->ticket->create($request->except(['passenger', 'action', 'has_voucher']));
+				} else {
+					$this->ticket = $this->preprocess->create($request->except(['passenger', 'action', 'has_voucher']));
+					$passenger->notify(new TicketConfirmationNotification($this->ticket));
+					
+				}
 
 				if($request->has_voucher) {
 					$coupon = Coupon::where('code', $request->voucher_code);
 					$coupon->increment('coupon_used');
 					$coupon->decrement('coupon_available');
 				}
-
-				$passenger->notify(new TicketConfirmationNotification($this->ticket));
 
 			} else {
 				$this->ticket = Ticket::withTrashed()->findOrFail($id);

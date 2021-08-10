@@ -7,7 +7,7 @@
 					<div class="col-span-full sm:col-span-full">
 						<label for="payment_method" class="block font-medium font-semibold text-gray-500">Do you want to print the Tickets sold?</label>
 						<select name="payment_method" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="action">
-							<option value="Yes">Yes, Print and Notify via SMS</option>
+							<option value="Yes">Yes, Print and Email the passenger</option>
 							<option value="NO">No, Notify via SMS the passenger</option>
 						</select>
 					</div>
