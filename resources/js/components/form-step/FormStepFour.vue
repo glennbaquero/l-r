@@ -47,10 +47,10 @@
 				<label for="no_of_bags" class="block font-medium font-semibold text-gray-500">No. of Bags <b class="text-red-500">*</b></label>
 				<input type="number" name="no_of_bags" v-model="passenger_info.no_of_bags" min="0" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
 			</div>
-			<div class="col-span-1 sm:col-span-1">
+			<!-- <div class="col-span-1 sm:col-span-1">
 				<label for="luggage_no" class="block font-medium font-semibold text-gray-500">Luggage No.</label>
 				<input type="number" name="luggage_no" v-model="passenger_info.luggage_no" min="0" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
-			</div>
+			</div> -->
 
 			<div class="col-span-full sm:col-span-full">
 				<label>
