@@ -31,6 +31,8 @@ class TripStoreRequest extends FormRequest
             'transport_type' => 'required',
             'bus_id' => 'required',
             'driver_id' => 'required',
+            'max_baggage' => 'required|numeric',
+            'additional_bag_fee' => 'required|numeric',
             // 'main_co_driver_id' => 'required',
         ];
     }
