@@ -125,10 +125,10 @@
                                             <x-select :lists="$routes" name="route_id" oldValue="{{ old('route_id') }}" @change="selectChanged({{$routes}}, $event.target.value, 'route')" selected="none"/>
                                         </div>
 
-                                        <div class="col-span-2 sm:col-span-2">
+                                        {{-- <div class="col-span-2 sm:col-span-2">
                                             <x-label for="company_id" class="font-semibold">Company Interline</x-label>
                                             <x-select :lists="$companies" name="company_id" oldValue="{{ old('company_id') }}"/>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-span-2 sm:col-span-2">
                                             <x-label for="alias_route" class="font-semibold">Alias Route</x-label>
@@ -163,6 +163,20 @@
                                         <div class="col-span-2 sm:col-span-2">
                                             <x-label for="end_date" class="font-semibold" :dateRange="0">End Date</x-label>
                                             <x-datepicker name="end_date"/>
+                                        </div>
+
+                                        <div class="col-span-full sm:col-span-full">
+                                            
+                                        </div>
+
+                                        <div class="col-span-3 sm:col-span-3">
+                                            <x-label for="alias_route" class="font-semibold">Max baggage</x-label>
+                                            <x-input type="number" min="0" name="max_baggage" id="max_baggage" oldValue="{{ old('max_baggage') }}"/>
+                                        </div>
+
+                                        <div class="col-span-3 sm:col-span-3">
+                                            <x-label for="alias_route" class="font-semibold">Additional fee for excess baggage</x-label>
+                                            <x-input type="number" min="0" name="additional_bag_fee" id="additional_bag_fee" oldValue="{{ old('additional_bag_fee') }}"/>
                                         </div>
 
                                         <div class="col-span-3 sm:col-span-3">
