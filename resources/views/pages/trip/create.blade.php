@@ -33,10 +33,10 @@
                                     <x-select :lists="$routes" name="route_id" oldValue="{{ old('route_id') }}" @change="selectChanged({{$routes}}, $event.target.value, 'route')" selected="none"/>
                                 </div>
 
-                                <div class="col-span-2 sm:col-span-2">
+                                {{-- <div class="col-span-2 sm:col-span-2">
                                     <x-label for="company_id" class="font-semibold">Company Interline</x-label>
                                     <x-select :lists="$companies" name="company_id" oldValue="{{ old('company_id') }}"/>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="alias_route" class="font-semibold">Alias Route</x-label>
