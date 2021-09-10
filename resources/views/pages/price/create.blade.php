@@ -40,13 +40,18 @@
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="currency_id" class="font-semibold">Currency</x-label>
-                                    <x-select :lists="$currencies" name="currency_id" oldValue="{{ old('currency_id') }}"/>
+                                    <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent disabled" name="currency_id" disabled>
+                                        @foreach($currencies as $currency)
+                                            <option value="{{ $currency->id }}" >{{ $currency->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    {{-- <x-select :lists="$currencies" name="currency_id" oldValue="{{ old('currency_id') }}" selected="{{ $currencies[0]->id }}"/> --}}
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-6">
+                                {{-- <div class="col-span-6 sm:col-span-6">
                                     <x-label for="price_per_mile" class="font-semibold">Price Per Mile</x-label>
                                      <x-form-input type="number" min="0" name="price_per_mile" id="price_per_mile" step="any" value="{{ old('price_per_mile') }}" @change="basePriceChangeHandler($event.target.value)"/>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="departure_price" class="font-semibold">Departure Price</x-label>
@@ -60,14 +65,14 @@
                                     <x-label for="round_trip_price" class="font-semibold">Round Trip Price</x-label>
                                     <x-form-input type="number" min="0" name="round_trip_price" id="round_trip_price" step="any" v-model="roundtripPrice" />
                                 </div>
-                                <div class="col-span-4 sm:col-span-3">
+                                {{-- <div class="col-span-4 sm:col-span-3">
                                     <x-label for="minimum_price" class="font-semibold">Minimum Price</x-label>
                                     <x-form-input type="number" min="0" name="minimum_price" id="minimum_price" step="any" value="{{ old('minimum_price') }}" />
-                                </div>
-                                <div class="col-span-4 sm:col-span-3">
+                                </div> --}}
+                                {{-- <div class="col-span-4 sm:col-span-3">
                                     <x-label for="maximum_price" class="font-semibold">Maximum Price</x-label>
                                     <x-form-input type="number" min="0" name="maximum_price" id="maximum_price" step="any" value="{{ old('maximum_price') }}" />
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="mt-5 text-left">
                                 <button type="submit" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36">

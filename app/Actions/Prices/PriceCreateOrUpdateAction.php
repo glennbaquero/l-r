@@ -5,6 +5,7 @@ namespace App\Actions\Prices;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Price;
+use App\Models\Currency;
 
 class PriceCreateOrUpdateAction 
 {
@@ -27,6 +28,7 @@ class PriceCreateOrUpdateAction
 	
 	public function execute($request, $id = null)
 	{
+		$request['currency_id'] = Currency::first()->id;
 		DB::beginTransaction();
 			if(!$id) {
 				$this->price = $this->price->create($request->all());

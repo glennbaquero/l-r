@@ -26,13 +26,13 @@ class PriceStoreRequest extends FormRequest
         return [
             'departure_id' => 'required',
             'arrival_id' => 'required',
-            'currency_id' => 'required',
-            'price_per_mile' => 'required|numeric',
+            // 'currency_id' => 'required',
+            // 'price_per_mile' => 'required|numeric',
             'arrival_price' => 'required|numeric',
             'departure_price' => 'required|numeric',
             'round_trip_price' => 'required|numeric',
-            'minimum_price' => 'required|numeric',
-            'maximum_price' => 'required|numeric',
+            // 'minimum_price' => 'required|numeric',
+            // 'maximum_price' => 'required|numeric',
         ];
     }
 
