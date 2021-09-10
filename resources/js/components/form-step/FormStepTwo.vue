@@ -23,6 +23,12 @@
 				</button>
 			</div>
 		</div>
+
+		<div class="grid grid-cols-3 gap-4">
+			<div class="col-span-full sm:col-span-full text-right">
+				<label for="departure" class="font-semibold">Price: {{ totalPrice }}</label>
+			</div>
+		</div>
 	</div>
 </template>
 <script type="text/javascript">
@@ -62,6 +68,18 @@
 				})
 
 				return trips;
+			},
+
+			totalPrice() {
+				if(!_.isEmpty(this.$parent.price.price)) {
+					let total = 0;
+
+					total = parseFloat(this.$parent.price.departure_price) + parseFloat(this.$parent.price.arrival_price);
+
+					return total.toFixed(2);
+				}
+
+				return "0.00";
 			}
 		},
 

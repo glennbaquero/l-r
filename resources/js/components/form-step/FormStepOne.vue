@@ -49,6 +49,12 @@
 				</button>
 			</div>
 		</div>
+
+		<div class="grid grid-cols-3 gap-4">
+			<div class="col-span-full sm:col-span-full text-right">
+				<label for="departure" class="font-semibold">Price: {{ totalPrice }}</label>
+			</div>
+		</div>
 		
 	</div>
 </template>
@@ -73,6 +79,7 @@
 				disabled: false,
 				showAvailableTrip: true,
 				showDepartureSelection: false,
+				price: 0
 			}
 		},
 
@@ -127,6 +134,18 @@
 				})
 
 				return trips;
+			},
+
+			totalPrice() {
+				if(!_.isEmpty(this.price)) {
+					let total = 0;
+
+					total = parseFloat(this.price.departure_price) + parseFloat(this.price.arrival_price);
+
+					return total.toFixed(2);
+				}
+
+				return "0.00";
 			}
 		},
 
@@ -217,6 +236,7 @@
 						this.trips = response.data.trips;
 						this.$parent.availableTrip = response.data.trips;
 						this.$parent.price = response.data.price;
+						this.price = response.data.price;
 						this.$parent.loading = false;
 
 						if(!_.isEmpty(this.trips)) {
