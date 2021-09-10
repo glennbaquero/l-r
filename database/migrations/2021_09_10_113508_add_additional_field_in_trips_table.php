@@ -14,6 +14,7 @@ class AddAdditionalFieldInTripsTable extends Migration
     public function up()
     {
         Schema::table('trips', function (Blueprint $table) {
+            $table->integer('max_baggage')->default(0);
             $table->decimal('additional_bag_fee', 9, 2)->default(0);
         });
     }
