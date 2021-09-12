@@ -92,7 +92,7 @@
 
 		<div class="grid grid-cols-3 gap-4">
 			<div class="col-span-full sm:col-span-full text-right">
-				<label for="departure" class="font-semibold">Price: {{ totalPrice }}</label>
+				<label class="font-semibold">Price: {{ totalPrice }} | Free Baggage Fee For: {{ freeBaggageFor }} | Extra Charge: {{ totalExtraCharge }}</label>
 			</div>
 		</div>
 	</div>
@@ -151,7 +151,27 @@
 				}
 
 				return "0.00";
+			},
+
+			totalExtraCharge() {
+
+				let total = 0;
+
+				// check if max baggage is exceed
+				
+				if(this.$parent.payloads.trip.max_baggage < this.passenger_info.no_of_bags) {
+					total = (this.passenger_info.no_of_bags - this.$parent.payloads.trip.max_baggage) * parseFloat(this.$parent.payloads.trip.additional_bag_fee);
+
+					return total.toFixed(2);
+				}
+
+				return "0.00";
+			},
+
+			freeBaggageFor() {
+				return this.$parent.payloads.trip.max_baggage;
 			}
+
 		},
 
 		mounted() {
