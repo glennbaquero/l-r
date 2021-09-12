@@ -2,15 +2,61 @@
     <div class="mx-auto sm:px-6 lg:px-8 py-6">
         <div class="flex items-center">
             <div class="text-base mr-auto">
-
                 <x-breadcrumb currentModule="{{__('Price Management')}}" currentPage="Show" route="{{ route('price.index') }}"> 
                     <svg class="flex-shrink-0 mx-2 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                     </svg>
                     {{ $price->departure->name }}
+                    
                 </x-breadcrumb>
+                <x-modal :hasFooter="false" maxWidth="max-w-screen-sm">
+                    <x-slot name="button">
+                        <button @click="toggled" type="button" class="bg-lightblue border-transparent h-9 hover:bg-lighterblue items-center rounded-md text-base text-center text-white w-44" >
+                            Duplicate Price
+                        </button>
+
+                    </x-slot>
+                    <x-slot name="title">
+                        Duplicate
+                    </x-slot>
+                    <x-slot name="body">
+                        <duplicate url="{{ route('price.duplicate', $price->id) }}" v-slot="{ actionHandler, loading, payload, modalMessage, modalTitle, showModal }">
+                            <form action="{{ route('price.duplicate', $price->id) }}" method="POST">
+                                <loading :show="loading"></loading>
+
+                                <modal
+                                    :body-message="modalMessage"
+                                    :header-title="modalTitle"
+                                    :show="showModal"
+                                    :blade-extended="true"
+                                ></modal>
+
+                                <div class="grid grid-cols-6 gap-6">
+                                    <div class="col-span-3 sm:col-span-3">
+                                        <x-label for="departure_id" class="font-semibold">Departure</x-label>
+                                        <x-select :lists="$cities" name="departure_id" id="departure_id" v-model="payload.departure_id"/>
+                                    </div>
+
+                                    <div class="col-span-3 sm:col-span-3">
+                                        <x-label for="arrival_id" class="font-semibold">Arrival</x-label>
+                                        <x-select :lists="$cities" name="arrival_id" id="arrival_id" v-model="payload.arrival_id"/>
+                                    </div>
+                                </div>
+                                <div class="mt-5 text-left">
+                                    <button type="button" @click="actionHandler" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36">
+                                        Duplicate
+                                    </button>
+                                </div>
+                            </form>
+                        </duplicate>
+                        
+                    </x-slot>
+                </x-modal>
             </div>
+
         </div>
+
+
         @if(Session::has('success'))
             <x-alert message="{{ Session::get('success') }}" />
         @elseif(Session::has('errors'))
@@ -28,6 +74,7 @@
         <div class="mt-12 mx-auto w-3/4">
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
+
                     <auto-compute :items="{{ $cities }}" v-slot="{ departurePrice, arrivalPrice, roundtripPrice, cityChange, basePrice, basePriceChangeHandler }" :item="{{ $price }}">
                         <form action="{{ route('price.update', $price->id) }}" method="POST">
                             @csrf

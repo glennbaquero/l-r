@@ -12,7 +12,8 @@ class PriceCollection extends ResourceCollection
      * @var array 
      */
     public static $headers = [
-       'Departure', 'Arrival', 'Currency', 'Arrival Price', 'Departure Price', 'Round Trip Price', 'Minimum Price', 'Maximum Price', 'Actions'
+       'Departure', 'Arrival', 'Currency', 'Arrival Price', 'Departure Price', 'Round Trip Price', 'Actions'
+       // 'Minimum Price', 'Maximum Price',
     ];
 
     /**

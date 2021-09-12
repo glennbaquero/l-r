@@ -17,8 +17,8 @@
                     </div>
 
 	                <!--body-->
-	                <div class="relative p-6 flex-auto">
-	                    {{ bodyMessage }}
+	                <div class="relative p-6 flex-auto" >
+	                	<p v-html="bodyMessage"></p>
 	                </div>
 
 	                <!--footer-->
@@ -48,6 +48,11 @@
 			show: {
 				type: Boolean,
 				default: false
+			},
+
+			bladeExtended: {
+				type: Boolean,
+				default: false
 			}
 		},
 
@@ -67,6 +72,10 @@
 			closeModal() {
 				this.$emit('closeModal');
 				this.display = false
+
+				if(this.bladeExtended) {
+					this.$parent.showModal = false;
+				}
 			}
 		}
 	}
