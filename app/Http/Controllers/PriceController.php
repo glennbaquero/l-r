@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\Prices\DuplicatePriceStoreRequest;
+
 use App\Http\Resources\PriceCollection;
 use App\Http\Fetch\PriceFetch;
 
@@ -91,6 +93,31 @@ class PriceController extends Controller
     {
         return view('pages.price.upload', [    
             //
+        ]);
+    }
+
+    /**
+     * Duplicate price 
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function duplicate(DuplicatePriceStoreRequest $request, $id)
+    {
+        $price = Price::withTrashed()->findOrFail($id);
+
+        $price = Price::create([
+            'departure_id' => $request->departure_id,
+            'arrival_id' => $request->arrival_id,
+            'currency_id' => $price->currency_id,
+            'arrival_price' => $price->arrival_price,
+            'departure_price' => $price->departure_price,
+            'round_trip_price' => $price->round_trip_price,
+            'price_per_mile' => $price->price_per_mile,
+        ]);
+        
+        return response()->json([
+            'message' => 'Price successfully duplicated!',
+            'title' => 'Duplicate success'
         ]);
     }
 

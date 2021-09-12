@@ -67,12 +67,12 @@
                                 <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                     @{{price.round_trip_price}}
                                 </td>
-                                <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                {{-- <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                     @{{price.minimum_price}}
                                 </td>
                                 <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                     @{{price.maximum_price}}
-                                </td>
+                                </td> --}}
                                
                                 <td class="px-6 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium text-gray-500 flex py-5">
                                     <delete-button :url="price.deleteUrl"></delete-button>
