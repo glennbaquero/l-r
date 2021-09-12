@@ -13,7 +13,7 @@
 					</div>
 					<div class="col-span-full sm:col-span-full">
 						<label for="cash" class="block font-medium font-semibold text-gray-500">Cash</label>
-						<input type="number" name="cash" v-model="payment.cash" min="0" step="any" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
+						<input type="number" name="cash" v-model="payment.cash" min="0" :max="totalSale" step="any" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
 					</div>
 					<div class="col-span-full sm:col-span-full">
 						<label for="cash" class="block font-medium font-semibold text-gray-500">Refunded Amount: {{ refundedAmount }}</label>
@@ -76,29 +76,42 @@
 			},
 
 			totalSale() {
-				var total = 0;
+				var totalDiscount = 0;
 				var price = this.$parent.price;
 				var ticket_type = this.$parent.passenger_info.ticket_type;
+				var totalSale = parseFloat(this.$parent.price.departure_price) + parseFloat(this.$parent.price.arrival_price);
+
 
 				if(ticket_type.discount_type == 'Percentage') {
-					total = parseFloat(ticket_type.discount) / 100;
-					total = this.payment.cash - total;
+					totalDiscount = parseFloat(ticket_type.discount) / 100;
+					// totalDiscount = this.payment.cash - totalDiscount;
 				} else {
-					total = this.payment.cash - parseFloat(ticket_type.discount);
+					totalDiscount = parseFloat(ticket_type.discount);
 				}
 
 				if(!_.isEmpty(this.voucher)) {
 					switch(this.voucher.coupon_type) {
 						case 'Percentage': 
-							total = this.discount * total;
+							totalDiscount = this.discount * totalDiscount;
 							break;
 						default: 
-							total = total - this.discount;
+							totalDiscount = totalDiscount - this.discount;
 							break;
 					}
 				}
 
-				return total;
+
+				// check if max baggage is exceed
+				
+				if(this.$parent.payloads.trip.max_baggage < this.$parent.passenger_info.no_of_bags) {
+					totalSale = totalSale + ((this.$parent.passenger_info.no_of_bags - this.$parent.payloads.trip.max_baggage) * parseFloat(this.$parent.payloads.trip.additional_bag_fee));
+				}
+					// console.log(totalSale - totalDiscount, totalSale, totalDiscount);
+
+				totalSale = totalSale - totalDiscount;
+
+
+				return totalSale.toFixed(2);
 			},
 
 			disabledNextButton() {
