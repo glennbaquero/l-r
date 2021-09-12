@@ -471,6 +471,7 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.index');
     Route::get('/ticket/fetch/{office_id?}/{office_view?}', [TicketController::class, 'fetch'])->name('ticket.fetch');
+    Route::get('/ticket-preprocess/fetch/{office_id?}/{office_view?}', [TicketController::class, 'fetchPreprocessTicket'])->name('ticket-preprocess.fetch');
     Route::post('/ticket/find/trip', [TicketController::class, 'findAvailableTrip'])->name('ticket.find-available-trip');
     Route::post('/ticket/get/bus', [TicketController::class, 'getBus'])->name('ticket.fetch-bus');
     Route::post('/ticket/get/passengers', [TicketController::class, 'getPassenger'])->name('ticket.fetch-passengers');

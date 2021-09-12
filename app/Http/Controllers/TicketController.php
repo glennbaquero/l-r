@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Resources\TicketCollection;
 use App\Http\Fetch\TicketFetch;
+
+use App\Http\Fetch\PreprocessTicketFetch;
+use App\Http\Resources\PreprocessTicketCollection;
+
 use Illuminate\Validation\ValidationException;
 
 use App\Notifications\NotifyPassenger;
@@ -30,15 +34,17 @@ use Session;
 class TicketController extends Controller
 {    
 	protected $fetch;
+    protected $preprocess_fetch;
 
     /**
      * Create new controller instance
      * 
      * @return void
      */
-    public function __construct(TicketFetch $fetch)
+    public function __construct(TicketFetch $fetch, PreprocessTicketFetch $preprocess_fetch)
     {
         $this->fetch = $fetch;
+        $this->preprocess_fetch = $preprocess_fetch;
     }
 
     /**
@@ -81,6 +87,26 @@ class TicketController extends Controller
             request()->request->add(['office_view' => false]);
         }
         return new TicketCollection($this->fetch->execute(request()->input()));
+    }
+
+    /**
+     * Fetch all users
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function fetchPreprocessTicket($office_id = null, $office_view = null)
+    {
+
+        if($office_id) {
+            request()->request->add(['office_id' => $office_id]);
+        }
+
+        if($office_view) {
+            request()->request->add(['office_view' => true]);
+        } else {
+            request()->request->add(['office_view' => false]);
+        }
+        return new PreprocessTicketCollection($this->preprocess_fetch->execute(request()->input()));
     }
 
     /**
