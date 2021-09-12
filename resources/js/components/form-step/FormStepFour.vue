@@ -141,6 +141,12 @@
 
 					total = parseFloat(this.$parent.price.departure_price) + parseFloat(this.$parent.price.arrival_price);
 
+					// check if max baggage is exceed
+					
+					if(this.$parent.payloads.trip.max_baggage < this.passenger_info.no_of_bags) {
+						total = total + ((this.passenger_info.no_of_bags - this.$parent.payloads.trip.max_baggage) * parseFloat(this.$parent.payloads.trip.additional_bag_fee));
+					}
+
 					return total.toFixed(2);
 				}
 
