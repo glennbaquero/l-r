@@ -9,6 +9,61 @@
                     </svg>
                     {{ $route->name }}
                 </x-breadcrumb>
+                <x-modal :hasFooter="false" maxWidth="max-w-screen-sm">
+                    <x-slot name="button">
+                        <button @click="toggled" type="button" class="bg-lightblue border-transparent h-9 hover:bg-lighterblue items-center rounded-md text-base text-center text-white w-44" >
+                            Copy & Reverse
+                        </button>
+
+                    </x-slot>
+                    <x-slot name="title">
+                        Copy & Reverse
+                    </x-slot>
+                    <x-slot name="body">
+                        <duplicate url="{{ route('route.copy-reverse', $route->id) }}" v-slot="{ actionHandler, loading, payload, modalMessage, modalTitle, showModal }">
+                            <form action="{{ route('route.copy-reverse', $route->id) }}" method="POST">
+                                <loading :show="loading"></loading>
+
+                                <modal
+                                    :body-message="modalMessage"
+                                    :header-title="modalTitle"
+                                    :show="showModal"
+                                    :blade-extended="true"
+                                ></modal>
+
+                                <div class="grid grid-cols-6 gap-6">
+                                    <div class="col-span-3 sm:col-span-3">
+                                        <x-label for="name" class="font-semibold">Name</x-label>
+                                        <x-form-input type="text" name="name" id="name" v-model="payload.name" />
+                                    </div>
+                                    <div class="col-span-3 sm:col-span-3">
+                                        <x-label for="alias" class="font-semibold">Alias</x-label>
+                                        <x-form-input type="text" name="alias" id="alias" v-model="payload.alias"  />
+                                    </div>
+                                    <div class="col-span-3 sm:col-span-3">
+                                        <x-label for="report_alias" class="font-semibold">Report Alias</x-label>
+                                        <x-form-input type="text" name="report_alias" id="report_alias" v-model="payload.report_alias"  />
+                                    </div>
+                                    <div class="col-span-3 sm:col-span-3">
+                                        <x-label for="type_of_route" class="font-semibold">Type Of Route</x-label>
+                                        <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="payload.type_of_route">
+                                            <option disabled selected>Select your option</option>
+                                            @foreach($typeOfRoutes as $type)
+                                                <option value="{{ $type['name'] }}">{{ $type['name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mt-5 text-left">
+                                    <button type="button" @click="actionHandler" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36">
+                                        Copy & Reverse
+                                    </button>
+                                </div>
+                            </form>
+                        </duplicate>
+                        
+                    </x-slot>
+                </x-modal>
             </div>
         </div>
         @if(Session::has('success'))
