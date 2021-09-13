@@ -370,6 +370,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/route/create', [RouteController::class, 'create'])->name('route.create');
     Route::post('/route/store', RouteCreateController::class)->name('route.store');
     Route::get('/route/show/{id}', [RouteController::class, 'show'])->name('route.show');
+    Route::post('/route/copy-reverse/{id}', [RouteController::class, 'copyReverse'])->name('route.copy-reverse');
     Route::post('/route/update/{id}', RouteUpdateController::class)->name('route.update');
     Route::post('/route/destroy/{id}', RouteDeleteController::class)->name('route.destroy');
 
