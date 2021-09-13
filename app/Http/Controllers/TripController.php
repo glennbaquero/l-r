@@ -7,6 +7,7 @@ use App\Http\Resources\TripCollection;
 use Illuminate\Http\Request;
 
 use App\Models\Trip;
+use App\Models\TripTime;
 use App\Models\City;
 use App\Models\Bus;
 use App\Models\Driver;
@@ -116,5 +117,19 @@ class TripController extends Controller
             'crews' => $crews,
             'assistants' => $assistants,
         ]);
+    }
+
+    /**
+     * Show trip view page
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function deleteTime($id)
+    {
+        $time = TripTime::find($id);
+
+        $time->delete();
+       
+        return true;
     }
 }

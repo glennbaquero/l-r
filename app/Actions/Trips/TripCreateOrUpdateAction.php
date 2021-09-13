@@ -5,6 +5,7 @@ namespace App\Actions\Trips;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Trip;
+use App\Models\TripTime;
 
 class TripCreateOrUpdateAction 
 {
@@ -34,10 +35,35 @@ class TripCreateOrUpdateAction
 
 		DB::beginTransaction();
 			if(!$id) {
-				$this->trip = $this->trip->create($request->all());
+				$this->trip = $this->trip->create($request->except(['driver_list', 'time_list']));
+
+				foreach($request->time_list as $key => $time) {
+					TripTime::create([
+						'trip_id' => $this->trip->id,
+						'time' => $time,
+						'driver_id' => $request->driver_list[$key]
+					]);
+				}
+				
 			} else {
 				$this->trip = Trip::withTrashed()->findOrFail($id);
-				$this->trip->update($request->all());
+				$this->trip->update($request->except(['new', 'driver_list', 'time_list', 'ids']));
+				foreach($request->time_list as $key => $time) {
+					if($request->new[$key] == 'true') {
+						TripTime::create([
+							'trip_id' => $this->trip->id,
+							'time' => $time,
+							'driver_id' => $request->driver_list[$key]
+						]);	
+					} else {
+						$existing = TripTime::find($request->ids[$key]);
+
+						$existing->update([
+							'time' => $time,
+							'driver_id' => $request->driver_list[$key]
+						]);
+					}
+				}
 			}
 		DB::commit();
 

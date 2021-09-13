@@ -128,6 +128,16 @@ class Trip extends Model
         return $this->hasMany(Passenger::class);
     }
 
+    /**
+     * Trip has many TripTime
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function times()
+    {
+        return $this->hasMany(TripTime::class);
+    }
+
 
     /**
      * Get display trip name
@@ -213,5 +223,19 @@ class Trip extends Model
         }
 
         return $available;
+    }
+
+    /**
+     * Get formatted time
+     */
+    
+    public function formattedTripTime()
+    {
+        $time = [];
+        foreach($this->times as $item) {
+            $time[] = Carbon::parse($item->time)->format('h:i A'). '('.$item->driver->full_name.')';
+        }
+
+        return implode(', ', $time);
     }
 }

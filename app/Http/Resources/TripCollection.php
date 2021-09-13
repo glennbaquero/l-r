@@ -14,7 +14,8 @@ class TripCollection extends ResourceCollection
      * @var array 
      */
     public static $headers = [
-       'ID', 'Route', 'Alias', 'Bus', 'Driver', 'Date', 'Departure', 'Arrival', 'Actions'
+        // Driver
+       'ID', 'Route', 'Alias', 'Bus', 'Date', 'Time', 'Departure', 'Arrival', 'Actions'
     ];
 
     public static $headers_report = [
@@ -49,8 +50,9 @@ class TripCollection extends ResourceCollection
                 'route' => $trip->route->name,
                 'alias' => $trip->route->alias,
                 'bus' => $trip->bus->name,
-                'driver' => $trip->driver->fullname,
+                // 'driver' => $trip->driver->fullname,
                 'date' => $date,
+                'time' => $trip->formattedTripTime(),
                 'departure' => $trip->route->departure->name,
                 'arrival' => $trip->route->stops()->latest()->orderby('id', 'desc')->first()->arrival->name,
                 'showUrl' => route('trip.show', $trip->id),
@@ -58,7 +60,7 @@ class TripCollection extends ResourceCollection
 
                 // Report 
                 
-                'departure_date' => $trip->formatted_date. ' '. $trip->formatted_time,
+                'departure_date' => $trip->formatted_date,
                 'route' => $trip->route->name,
                 'route_id' => $trip->route->id,
                 'bus' => $trip->bus->name,

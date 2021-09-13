@@ -59,23 +59,22 @@
                                     <x-input type="number" min="0" name="additional_bag_fee" id="additional_bag_fee" value="{{ $trip->additional_bag_fee }}"/>
                                 </div>
 
-                                <div class="col-span-1 sm:col-span-1">
+                                <div class="col-span-2 sm:col-span-2">
                                     <x-label for="date" class="font-semibold">Date</x-label>
                                     <x-datepicker name="date" :item="$trip"/>
                                 </div>
 
-                                <div class="col-span-1 sm:col-span-1">
+                                {{-- <div class="col-span-1 sm:col-span-1">
                                     <x-label for="time" class="font-semibold">Time</x-label>
-                                    {{-- <x-datepicker name="time" type="time" format="hh:mm" :item="$trip"/> --}}
                                     <x-form-input type="time" name="time" value="{{ $trip->time }}" />
-                                </div>
+                                </div> --}}
 
-                                <div class="col-span-1 sm:col-span-1">
+                                <div class="col-span-2 sm:col-span-2">
                                     <x-label for="service_id" class="font-semibold">Service</x-label>
                                     <x-select :lists="$services" name="service_id" :selected="$trip->service_id"/>
                                 </div>
 
-                                <div class="col-span-1 sm:col-span-1">
+                                <div class="col-span-2 sm:col-span-2">
                                     <x-label for="transport_type" class="font-semibold">Transport Type</x-label>
                                     <x-select :lists="$transport_types" name="transport_type" identifierValue="name" oldValue="{{ old('transport_type') }}" @change="selectChanged({{$routes}}, $event.target.value, 'transport_type')" :selected="$trip->transport_type"/>
                                 </div>
@@ -136,6 +135,40 @@
                                         Express Trip
                                     </x-label> --}}
                                 </div>
+
+                                <increment v-slot="{ removeHandler, addNewHandler, increment, array, selected }" :data="{{ $trip->times }}">
+                                    <div class="col-span-6 sm:col-span-6">
+                                        <x-label for="time" class="font-semibold">Time
+                                            <button type="button" @click="addNewHandler" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" >
+                                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                            </button>
+                                        </x-label>
+
+                                        <div class="grid grid-cols-3 gap-1">
+                                            <template v-for="(list,key) in array" >
+                                                <div class="col-span-1 sm:col-span-1">
+                                                    <x-form-input type="time" name="time_list[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.time"/>
+                                                    <input type="hidden" name="new[]" v-model="list.new">
+                                                    <input type="hidden" name="ids[]" v-model="list.id">
+                                                </div>
+                                                <div class="col-span-1 sm:col-span-1 my-auto">
+                                                    <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="driver_list[]" v-model="list.driver_id">
+                                                        <option disabled selected>Select driver</option>
+                                                        @foreach($drivers as $driver)
+                                                            <option value="{{ $driver->id }}">{{ $driver->fullname }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-span-1 sm:col-span-1 my-auto">
+                                                    <button type="button" @click="removeHandler(key, list)" v-if="key > 0" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-red-600 focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                                                    </button>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </increment>
+
 
                             </div>
                             <div class="mt-5 text-left">
