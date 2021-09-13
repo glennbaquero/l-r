@@ -404,6 +404,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/trip', [TripController::class, 'index'])->name('trip.index');
     Route::get('/trip/fetch', [TripController::class, 'fetch'])->name('trip.fetch');
     Route::get('/trip/create', [TripController::class, 'create'])->name('trip.create');
+    Route::get('/trip/time/destroy/{id}', [TripController::class, 'deleteTime'])->name('trip-time.destroy');
     Route::post('/trip/store', TripCreateController::class)->name('trip.store');
     Route::get('/trip/show/{id}', [TripController::class, 'show'])->name('trip.show');
     Route::post('/trip/update/{id}', TripUpdateController::class)->name('trip.update');

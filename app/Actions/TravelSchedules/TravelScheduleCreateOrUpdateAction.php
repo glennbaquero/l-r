@@ -5,6 +5,7 @@ namespace App\Actions\TravelSchedules;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Trip;
+use App\Models\TripTime;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 
@@ -29,6 +30,7 @@ class TravelScheduleCreateOrUpdateAction
 	
 	public function execute($request, $id = null)
 	{
+		// dd($request->all());
 		$request['discounted_tickets'] = $request->filled('discounted_tickets');
 		$request['show_on_web'] = $request->filled('show_on_web');
 		$request['additional_receipt'] = $request->filled('additional_receipt');
@@ -41,45 +43,107 @@ class TravelScheduleCreateOrUpdateAction
 
 			switch ($date->format('l')) {
 				case 'Monday':
-					$request['time'] = $request->filled('monday') ? Carbon::parse($request->monday_time) : null;
+					// $request['time'] = $request->filled('monday') ? Carbon::parse($request->monday_time) : null;
 					if($request->filled('monday')) {
 						$this->run($request, $id);
+
+						foreach($request->monday_time as $key => $time) {
+							$time = Carbon::parse($time);
+							TripTime::create([
+								'trip_id' => $this->trip->id,
+								'time' => $time,
+								'driver_id' => $request->monday_time_driver[$key]
+							]);
+						}
 					}
 					break;
 				case 'Tuesday':
-					$request['time'] = $request->filled('tuesday') ? Carbon::parse($request->tuesday_time) : null;
+					// $request['time'] = $request->filled('tuesday') ? Carbon::parse($request->tuesday_time) : null;
 					if($request->filled('tuesday')) {
 						$this->run($request, $id);
+
+						foreach($request->tuesday_time as $key => $time) {
+							$time = Carbon::parse($time);
+							TripTime::create([
+								'trip_id' => $this->trip->id,
+								'time' => $time,
+								'driver_id' => $request->tuesday_time_driver[$key]
+							]);
+						}
 					}
 					break;
 				case 'Wednesday':
-					$request['time'] = $request->filled('wednesday') ? Carbon::parse($request->wednesday_time) : null;
+					// $request['time'] = $request->filled('wednesday') ? Carbon::parse($request->wednesday_time) : null;
 					if($request->filled('wednesday')) {
 						$this->run($request, $id);
+
+						foreach($request->wednesday_time as $key => $time) {
+							$time = Carbon::parse($time);
+							TripTime::create([
+								'trip_id' => $this->trip->id,
+								'time' => $time,
+								'driver_id' => $request->wednesday_time_driver[$key]
+							]);
+						}
 					}
 					break;
 				case 'Thursday':
-					$request['time'] = $request->filled('thursday') ? Carbon::parse($request->thursday_time) : null;
 					if($request->filled('thursday')) {
 						$this->run($request, $id);
+
+						foreach($request->thursday_time as $key => $time) {
+							$time = Carbon::parse($time);
+							TripTime::create([
+								'trip_id' => $this->trip->id,
+								'time' => $time,
+								'driver_id' => $request->thursday_time_driver[$key]
+							]);
+						}
 					}
 					break;
 				case 'Friday':
-					$request['time'] = $request->filled('friday') ? Carbon::parse($request->friday_time) : null;
+					// $request['time'] = $request->filled('friday') ? Carbon::parse($request->friday_time) : null;
 					if($request->filled('friday')) {
 						$this->run($request, $id);
+
+						foreach($request->friday_time as $key => $time) {
+							$time = Carbon::parse($time);
+							TripTime::create([
+								'trip_id' => $this->trip->id,
+								'time' => $time,
+								'driver_id' => $request->friday_time_driver[$key]
+							]);
+						}
 					}
 					break;
 				case 'Saturday':
-					$request['time'] = $request->filled('saturday') ? Carbon::parse($request->saturday_time) : null;
+					// $request['time'] = $request->filled('saturday') ? Carbon::parse($request->saturday_time) : null;
 					if($request->filled('saturday')) {
 						$this->run($request, $id);
+
+						foreach($request->saturday_time as $key => $time) {
+							$time = Carbon::parse($time);
+							TripTime::create([
+								'trip_id' => $this->trip->id,
+								'time' => $time,
+								'driver_id' => $request->saturday_time_driver[$key]
+							]);
+						}
 					}
 					break;
 				case 'Sunday':
-					$request['time'] = $request->filled('sunday') ? Carbon::parse($request->sunday_time) : null;
+					// $request['time'] = $request->filled('sunday') ? Carbon::parse($request->sunday_time) : null;
 					if($request->filled('sunday')) {
 						$this->run($request, $id);
+
+						foreach($request->sunday_time as $key => $time) {
+							$time = Carbon::parse($time);
+							TripTime::create([
+								'trip_id' => $this->trip->id,
+								'time' => $time,
+								'driver_id' => $request->sunday_time_driver[$key]
+							]);
+						}
 					}
 					break;
 			}
@@ -97,10 +161,10 @@ class TravelScheduleCreateOrUpdateAction
 
 		DB::beginTransaction();
 			if(!$id) {
-				$this->trip = $this->trip->create($request->except(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'monday_time', 'tuesday_time', 'wednesday_time', 'thursday_time', 'friday_time', 'saturday_time', 'sunday_time', 'start_date', 'end_date']));
+				$this->trip = $this->trip->create($request->except(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'monday_time', 'tuesday_time', 'wednesday_time', 'thursday_time', 'friday_time', 'saturday_time', 'sunday_time', 'start_date', 'end_date', 'monday_time_driver', 'tuesday_time_driver', 'wednesday_time_driver', 'thursday_time_driver', 'friday_time_driver', 'saturday_time_driver', 'sunday_time_driver']));
 			} else {
 				$this->trip = Trip::withTrashed()->findOrFail($id);
-				$this->trip->update($request->except(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'monday_time', 'tuesday_time', 'wednesday_time', 'thursday_time', 'friday_time', 'saturday_time', 'sunday_time', 'start_date', 'end_date']));
+				$this->trip->update($request->except(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'monday_time', 'tuesday_time', 'wednesday_time', 'thursday_time', 'friday_time', 'saturday_time', 'sunday_time', 'start_date', 'end_date', 'monday_time_driver', 'tuesday_time_driver', 'wednesday_time_driver', 'thursday_time_driver', 'friday_time_driver', 'saturday_time_driver', 'sunday_time_driver']));
 			}
 		DB::commit();
 	}
