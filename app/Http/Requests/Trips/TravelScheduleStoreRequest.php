@@ -30,7 +30,7 @@ class TravelScheduleStoreRequest extends FormRequest
             'end_date' => 'required|date',
             'transport_type' => 'required',
             'bus_id' => 'required',
-            'driver_id' => 'required',
+            // 'driver_id' => 'required',
         ];
     }
 
@@ -38,7 +38,7 @@ class TravelScheduleStoreRequest extends FormRequest
     {
         return [
             'route_id.required' => 'The route field is required.',
-            'driver_id.required' => 'The driver field is required.',
+            // 'driver_id.required' => 'The driver field is required.',
             'bus_id.required' => 'The bus field is required.',
         ];
     }

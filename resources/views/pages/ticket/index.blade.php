@@ -45,6 +45,7 @@
                             search-passenger-url="{{ route('ticket.fetch-passengers') }}"
                             payment-form-url="{{ route('ticket.store') }}"
                             voucher-validate-url="{{ route('ticket.voucher-validate') }}"
+                            get-trip-time-url="{{ route('ticket.get-trip-time') }}"
                             :office-id="{{ auth()->user()->office->departure->id }}"
                         ></ticket>
                     </x-slot>
@@ -73,21 +74,6 @@
                             v-show="selected=='paid'"
                 >
                     <x-table :headers="$headers" canSelectMultiple="true">
-                        {{-- <x-slot name="filter">
-                            <tab v-slot="{ selected, menuChangedTicket }" default-selected="Paid">
-                                <div class="hidden sm:block mb-3 px-2">
-                                    <nav class="flex">
-                                        <a href="#" @click="menuChangedTicket('Paid')" class="ml-3 bg-white inline-flex items-center px-6 py-3 border border-darkblue text-base leading-6 font-medium rounded-md focus:outline-none focus:border-darkblue focus:shadow-outline-blue  transition ease-in-out duration-150  text-sm focus:outline-none" :class="selected === 'Paid' ? 'bg-darkblue bg-white text-gray-50' : ''">
-                                            Paid
-                                        </a>
-                                        <a href="#" @click="menuChangedTicket('pending')" class="ml-3 bg-white inline-flex items-center px-6 py-3 border border-darkblue text-base leading-6 font-medium rounded-md focus:outline-none focus:border-darkblue focus:shadow-outline-blue  transition ease-in-out duration-150  text-sm focus:outline-none" :class="selected === 'pending' ? 'bg-darkblue bg-white text-gray-50' : ''">
-                                            Pending
-                                        </a>
-                                    </nav>
-                                </div>
-                            </tab>
-                        </x-slot> --}}
-
                         <x-slot name="body">
                             <tr>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
@@ -156,6 +142,7 @@
                                                     search-passenger-url="{{ route('ticket.fetch-passengers') }}"
                                                     payment-form-url="{{ route('ticket.store') }}"
                                                     voucher-validate-url="{{ route('ticket.voucher-validate') }}"
+                                                    get-trip-time-url="{{ route('ticket.get-trip-time') }}"
                                                 ></ticket>
                                             </x-slot>
 
@@ -230,21 +217,6 @@
                             v-show="selected=='pending'"
                 >
                     <x-table :headers="$headers" canSelectMultiple="true">
-                        {{-- <x-slot name="filter">
-                            <tab v-slot="{ selected, menuChangedTicket }" default-selected="Paid">
-                                <div class="hidden sm:block mb-3 px-2">
-                                    <nav class="flex">
-                                        <a href="#" @click="menuChangedTicket('Paid')" class="ml-3 bg-white inline-flex items-center px-6 py-3 border border-darkblue text-base leading-6 font-medium rounded-md focus:outline-none focus:border-darkblue focus:shadow-outline-blue  transition ease-in-out duration-150  text-sm focus:outline-none" :class="selected === 'Paid' ? 'bg-darkblue bg-white text-gray-50' : ''">
-                                            Paid
-                                        </a>
-                                        <a href="#" @click="menuChangedTicket('pending')" class="ml-3 bg-white inline-flex items-center px-6 py-3 border border-darkblue text-base leading-6 font-medium rounded-md focus:outline-none focus:border-darkblue focus:shadow-outline-blue  transition ease-in-out duration-150  text-sm focus:outline-none" :class="selected === 'pending' ? 'bg-darkblue bg-white text-gray-50' : ''">
-                                            Pending
-                                        </a>
-                                    </nav>
-                                </div>
-                            </tab>
-                        </x-slot> --}}
-
                         <x-slot name="body">
                             <tr>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
@@ -313,6 +285,7 @@
                                                     search-passenger-url="{{ route('ticket.fetch-passengers') }}"
                                                     payment-form-url="{{ route('ticket.store') }}"
                                                     voucher-validate-url="{{ route('ticket.voucher-validate') }}"
+                                                    get-trip-time-url="{{ route('ticket.get-trip-time') }}"
                                                 ></ticket>
                                             </x-slot>
 

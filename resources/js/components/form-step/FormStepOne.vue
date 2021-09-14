@@ -26,15 +26,23 @@
 		    </v-select>
 		</div>
 
-		<div class="col-span-full sm:col-span-full" v-if="showAvailableTrip">
+		<div v-if="showAvailableTrip" :class="trip_times.length ? 'col-span-1 sm:col-span-1' : 'col-span-full sm:col-span-full'">
 		    <label for="departure" class="font-semibold">Travel Date</label>
-		    <v-select
+		    <input ref="datepicker" type="text" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.date" @change="travelDateChange" readonly>
+		    <!-- <v-select
 		    	class="my-3"
 		        v-model="item.trip" 
 		        :options="availableTrips"
 		        label="display_trip_name"
 		        >
-		    </v-select>
+		    </v-select> -->
+		</div>
+
+		<div class="col-span-1 sm:col-span-1" v-if="trip_times.length">
+		    <label for="departure" class="font-semibold">Time</label>
+		    <select name="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.time_id">
+		    	<option v-for="time in trip_times" :value="time.id">{{ time.formatted_time }}</option>
+		    </select>
 		</div>
 
 		<div class="grid grid-cols-3 gap-4">
@@ -61,6 +69,9 @@
 <script type="text/javascript">
 	import Vselect from "vue-select";
 	import "vue-select/dist/vue-select.css";
+	import flatpickr from 'flatpickr';
+	import 'flatpickr/dist/flatpickr.css';
+	import ArrayMixin from '../../mixins/array.js';
 
 	export default {
 		props: {
@@ -74,12 +85,15 @@
 					trip: {}
 				},
 				trips: [],
+				trip_times: [],
 
 				canEdit: false,
 				disabled: false,
 				showAvailableTrip: true,
 				showDepartureSelection: false,
-				price: 0
+				price: 0,
+
+				available_dates: [],
 			}
 		},
 
@@ -87,19 +101,9 @@
 		    'v-select' : Vselect,
 		},
 
+		mixins: [ ArrayMixin ],
+
 		watch: {
-			// 'item.departure'(val) {
-			// 	if(this.canEdit) {
-			// 		this.item.departure_id = val.id;
-			// 	}
-			// },
-
-			// 'item.arrival'(val) {
-			// 	if(this.canEdit) {
-			// 		this.item.arrival_id = val.id;
-			// 	}
-			// },
-
 			'item.departure_id'(val) {
 				if(this.showDepartureSelection) {
 					this.item.departure = _.find(this.cities, (city) => { return city.id === val })
@@ -115,6 +119,23 @@
 			'item.trip'(val) {
 				this.item.trip_id = val.id;
 			},
+
+			'item.time_id'(val) {
+				setTimeout(() => {
+					let time = _.find(this.trip_times, (time) => {
+						return time.id === val;
+					});
+
+					let trip = _.find(this.availableTrips, (trip) => {
+						return trip.id === time.trip_id;
+					});
+
+					this.item.time = time;
+					this.item.trip_id = time.trip_id;
+					this.item.trip = trip;
+				},1500)
+
+			}
 		},
 
 		computed: {
@@ -146,13 +167,18 @@
 				}
 
 				return "0.00";
-			}
+			},
 		},
 
 		mounted() {
+			
 			if(!_.isEmpty(this.$parent.selectedTicket)) {
 				this.item = this.$parent.selectedTicket
 				this.selectedChanged();
+
+				setTimeout(() => {
+					this.travelDateChange();
+				}, 1000)
 			}
 			
 			setTimeout(() => {
@@ -167,6 +193,14 @@
 		},
 
 		methods: {
+			setupFlatpickr() {
+				var $this = this;
+				flatpickr(this.$refs.datepicker, {
+					minDate: "today",
+					enable: $this.available_dates
+				});
+			},
+
 			closeModal() {
 				this.$parent.$parent.toggled();
 			},
@@ -191,7 +225,6 @@
 								this.$parent.payloads = this.item;
 								this.$parent.payloads.trip = this.item.trip;
 								this.$parent.payloads.trip_id = this.item.trip_id;
-
 								this.$emit('nextStep', 3);
 								this.$parent.loading = false;
 							}, 500)
@@ -237,6 +270,12 @@
 						this.$parent.availableTrip = response.data.trips;
 						this.$parent.price = response.data.price;
 						this.price = response.data.price;
+						this.available_dates = response.data.available_dates;
+
+						setTimeout(() => {
+							this.setupFlatpickr();
+						}, 1000)
+
 						this.$parent.loading = false;
 
 						if(!_.isEmpty(this.trips)) {
@@ -260,6 +299,32 @@
 						this.$parent.modalMessage = errors.response.data.errors.error[0];
 						this.$parent.modalTitle = 'Ooops! Something went wrong.';
 						this.$parent.showModal = true;
+					})
+			},
+
+			travelDateChange() {
+				this.$parent.loading = true;
+
+				let tripHasSameDate = [];
+
+				this.$nextTick(() => {
+					_.each(this.availableTrips, (trip) => {
+						if(trip.date == this.item.date) {
+							tripHasSameDate.push(trip.id);
+						}
+					})
+				})
+
+				let payloads = {
+					trip_ids: tripHasSameDate
+				}
+
+				axios.post(this.$parent.getTripTimeUrl, payloads)
+					.then(response => {
+						this.trip_times = response.data.time;
+						this.$parent.loading = false;
+					}).catch(errors => {
+						this.$parent.loading = false;
 					})
 			}
 		}

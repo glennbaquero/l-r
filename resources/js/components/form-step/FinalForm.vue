@@ -53,6 +53,9 @@
 					has_voucher: !_.isEmpty(this.$parent.voucher),
 					voucher_code: !_.isEmpty(this.$parent.voucher) ? this.$parent.voucher.code : this.$parent.voucher,
 					action: this.action,
+
+					trip_time_id: this.$parent.payloads.time_id,
+					driver_id: this.$parent.payloads.time.driver_id,
 				}
 
 				axios.post(this.$parent.paymentFormUrl, payloads)
