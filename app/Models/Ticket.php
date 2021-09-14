@@ -108,6 +108,26 @@ class Ticket extends Model
          return $this->belongsTo(Voucher::class, 'voucher_code', 'code')->withTrashed();
      }
 
+    /**
+     * Ticket belongsTo TripTime
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function trip_time()
+    {
+        return $this->belongsTo(TripTime::class);
+    }
+
+    /**
+     * Ticket belongsTo Driver
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class)->withTrashed();
+    }
+
 
 
     /**

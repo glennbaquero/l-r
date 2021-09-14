@@ -97,6 +97,7 @@
 			searchPassengerUrl: String,
 			paymentFormUrl: String,
 			voucherValidateUrl: String,
+			getTripTimeUrl: String,
 			updateUrl: String,
 			selectedTicket: Object,
 			officeId: Number,

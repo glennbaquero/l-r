@@ -89,15 +89,18 @@ class TicketCreateOrUpdateAction
 						'total_sale' => $request->total_sale,
 						'payment_method' => $request->payment_method,
 						'bus_model_column_id' => $request->seat_id,
+						'trip_time_id' => $request->trip_time_id,
+						'driver_id' => $request->driver_id,
 					]);
 
-					$this->ticket->passenger->update([
+					$passenger = Passenger::findOrFail($request->passenger_info['id']);
+					$passenger->update([
 						'trip_id' => $request->trip_id,
 						'arrival_city_id' => $request->arrival_id,
 						'first_name' => $request->passenger_info['first_name'],
 						'last_name' => $request->passenger_info['last_name'],
 						'email' => $request->passenger_info['email'],
-						'phone_number' => '+1'. str_replace(['(', ')', '-', ' '], '', $request->passenger['cellphone_number']),
+						'phone_number' => '+1'. str_replace(['(', ')', '-', ' '], '', $request->passenger_info['cellphone_number']),
 						'ticket_type_id' => $request->passenger_info['ticket_type_id'],
 						'no_of_bags' => $request->passenger_info['no_of_bags'],
 						'luggage_no' => $request->passenger_info['luggage_no'],
@@ -107,9 +110,8 @@ class TicketCreateOrUpdateAction
 						'infant_lastname' => $request->passenger_info['infant_lastname'],
 						'infant_gender' => $request->passenger_info['infant_gender'],
 						'bus_model_column_id' => $request->seat_id,
-						'cellphone_number' => $request->passenger['cellphone_number'],
+						'cellphone_number' => $request->passenger_info['cellphone_number'],
 					]);
-
 				} else {
 					$this->ticket->update([
 						'is_cancelled' => true

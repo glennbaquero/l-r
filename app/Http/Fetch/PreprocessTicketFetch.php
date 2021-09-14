@@ -38,7 +38,7 @@ class PreprocessTicketFetch
      */
     public function execute($params)
     {
-        $this->ticket = $this->ticket->where('confirmed', true)->where('is_cancelled', false);
+        $this->ticket = $this->ticket->where('payment_status', 'Reserved')->where('confirmed', false)->where('is_cancelled', false);
 
 
         if($params['trip'] && $params['trip'] != 'null') {

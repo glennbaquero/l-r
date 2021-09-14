@@ -13,7 +13,9 @@
 				array: [
 					{
 						id: 1,
-						value: null
+						value: null,
+						_id: 1,
+						new: true,
 					}
 				],
 				selected: {
@@ -39,8 +41,10 @@
 		},
 
 		mounted() {
-			this.array = this.data;
-			this.increment = this.data.length;
+			if(!_.isEmpty(this.data)) {
+				this.array = this.data;
+				this.increment = this.data.length;
+			}
 		},
 
 		methods: {

@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "chart.js": "^2.8.0",
+        "flatpickr": "^4.6.9",
         "haversine-distance": "^1.2.1",
         "swiper": "^6.4.15",
         "vue-select": "^3.11.2",

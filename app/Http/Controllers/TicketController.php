@@ -20,6 +20,7 @@ use App\Models\TicketType;
 use App\Models\City;
 use App\Models\Stop;
 use App\Models\Trip;
+use App\Models\TripTime;
 use App\Models\Passenger;
 use App\Models\Price;
 use App\Models\Coupon;
@@ -123,6 +124,7 @@ class TicketController extends Controller
         $stops = Stop::where('departure_id', $departure)->get();
 
         $trips = [];
+        $available_dates = [];
 
         $start_of_day = now()->startOfDay()->format('H:i:s');
         $end_of_day = now()->endOfDay()->format('H:i:s');
@@ -141,6 +143,8 @@ class TicketController extends Controller
                                     'route' => $stop->route,
                                     'trips' => $availableTrips->orderby('date', 'asc')->get(),
                                 ]);   
+
+                                $available_dates = $availableTrips->pluck('date');
                             }
 
                         }
@@ -162,9 +166,24 @@ class TicketController extends Controller
 
         return response()->json([
             'trips' => $trips,
-            'price' => $price
+            'price' => $price,
+            'available_dates' => $available_dates
         ]);
 
+    }
+
+    /**
+     * get all the trip time
+     *
+     * @return array $trips
+     */
+    
+    public function getTripTime(Request $request)
+    {
+        $time = TripTime::whereIn('trip_id', $request->trip_ids)->get();
+        return response()->json([
+            'time' => $time
+        ]);
     }
 
     /**
