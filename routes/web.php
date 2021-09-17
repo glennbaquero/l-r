@@ -234,7 +234,7 @@ Route::get('/', function () { return redirect('/login'); });
 Route::get('/payment/{id}/{passenger}/{arrival}/{departure}', [PaymentController::class, 'index'])->name('payment.form');
 Route::post('/payment/process/{id}/{passenger}/{arrival}/{departure}', [PaymentController::class, 'payment'])->name('payment.process');
 
-Route::get('/ticket/print/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'printTicket'])->name('ticket.print');
+Route::get('/ticket/print/{id}/{passenger}/{arrival}/{departure}/{preprocess?}', [TicketController::class, 'printTicket'])->name('ticket.print');
 Route::get('/ticket/scan-qr/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'scanTicketQR'])->name('ticket.scan-qr');
 Route::get('/ticket/confirmation/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'ticketConfirmation'])->name('ticket.confirmation');
 Route::get('/ticket/verified', [TicketController::class, 'ticketVerified'])->name('ticket.verified');

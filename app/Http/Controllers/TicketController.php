@@ -350,9 +350,15 @@ class TicketController extends Controller
 
     }
 
-    public function printTicket($id, $passenger, $arrival, $departure) 
+    public function printTicket($id, $passenger, $arrival, $departure, $preprocess=false) 
     {
-        $ticket = Ticket::find($id);
+        if($preprocess) {
+            $ticket = PreprocessTicket::find($id);
+        } else {
+            $ticket = Ticket::find($id);
+        }
+
+
         $departure = $ticket->departure->name;
         $arrival = $ticket->arrival->name;
 
