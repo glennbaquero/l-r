@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Omnipay\Omnipay;
 use App\Http\Requests\Payments\AuthorizeNetPaymentStoreRequest;
 
+use App\Notifications\TicketNotifyPassenger;
+
 use App\Models\PreprocessTicket;
 use App\Models\Ticket;
 use App\Models\AuthorizeNetPayment;
@@ -136,6 +138,10 @@ class PaymentController extends Controller
                     ]);
                 }
 
+                $print_route = route('ticket.print', [ $ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name ]);
+                $message = 'Your payment was successfuly paid your ticket, you can print the ticket information here';
+
+                $ticket->passenger->notify(new TicketNotifyPassenger($message, $print_route));
 
                 return response()->json([
                     'success' => true,

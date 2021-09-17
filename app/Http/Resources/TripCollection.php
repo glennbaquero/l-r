@@ -44,7 +44,7 @@ class TripCollection extends ResourceCollection
     public function toArray($request)
     {
         return $this->collection->map(function($trip) {
-            $date = Carbon::parse($trip->date.' '.$trip->time)->format('m-d-Y h:i A');
+            $date = $trip->times->count() ? Carbon::parse($trip->date)->format('m-d-Y') : Carbon::parse($trip->date.' '.$trip->time)->format('m-d-Y h:i A');
             return [
                 'id' => $trip->id,
                 'route' => $trip->route->name,
@@ -67,7 +67,7 @@ class TripCollection extends ResourceCollection
                 'service' => $trip->service->name,
                 'departure' => $trip->route->departure->name,
                 'arrival' => $trip->route->stops()->latest()->orderby('id', 'desc')->first()->arrival->name,
-                'driver' => $trip->driver->fullname,
+                'driver' => $trip->times->count() ? $trip->formattedTripTime() : $trip->driver->fullname,
                 'total' => $trip->bus->getTotalSeat(),
                 'free' => $trip->bus->getTotalSeat() - $trip->tickets()->count(),
                 'sold' => $trip->tickets()->where('payment_status', 'Paid')->get()->count(),

@@ -40,12 +40,23 @@ class TicketCreateController extends Controller
         $route = route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]);
 
 
-        if($request->action === 'Yes') {
-            $ticket->passenger->notify(new TicketNotifyPassenger('Your reservation is confirmed, you can download here the copy of your ticket.', $route));
+        if($request->action === 'Print and email') {
+            $ticket->passenger->notify(new TicketConfirmationNotification($ticket));
+
             return response()->json([
                 'print_url' => $route
             ]);
         } 
+        
+        if($request->action === 'Print only') {
+            return response()->json([
+                'print_url' => $route
+            ]);
+        } 
+
+        if($request->action === 'Confirmation only') {
+            $ticket->passenger->notify(new TicketConfirmationNotification($this->ticket));
+        }
 
         // $ticket->passenger->notify(new PassengerPaymentFormNotification($ticket));
 
