@@ -213,6 +213,8 @@ use App\Http\Controllers\Reports\PrintController;
 use App\Http\Controllers\PassengerReportController;
 use App\Http\Controllers\NotificationController;
 
+use App\Http\Controllers\PaymentController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -229,11 +231,15 @@ Route::auth();
 
 Route::get('/', function () { return redirect('/login'); });
 
+Route::get('/payment/{id}/{passenger}/{arrival}/{departure}', [PaymentController::class, 'index'])->name('payment.form');
+Route::post('/payment/process/{id}/{passenger}/{arrival}/{departure}', [PaymentController::class, 'payment'])->name('payment.process');
+
 Route::get('/ticket/print/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'printTicket'])->name('ticket.print');
 Route::get('/ticket/scan-qr/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'scanTicketQR'])->name('ticket.scan-qr');
 Route::get('/ticket/confirmation/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'ticketConfirmation'])->name('ticket.confirmation');
 Route::get('/ticket/verified', [TicketController::class, 'ticketVerified'])->name('ticket.verified');
 Route::post('/ticket/confirmed', [TicketController::class, 'confirmedTicket'])->name('ticket.confirmed');
+Route::get('/ticket/status/{ticket_status}/{id?}/{passenger?}/{arrival?}/{departure?}', [TicketController::class, 'ticketStatus'])->name('ticket.status');
 
 Route::middleware(['auth'])->group(function() {
     Route::post('/locale', LocaleController::class)->name('locale');
