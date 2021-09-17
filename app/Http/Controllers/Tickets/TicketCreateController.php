@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Actions\Tickets\TicketCreateOrUpdateAction;
 use App\Notifications\TicketNotifyPassenger;
+use App\Notifications\PassengerPaymentFormNotification;
 use Session;
 
 class TicketCreateController extends Controller
@@ -44,7 +45,9 @@ class TicketCreateController extends Controller
             return response()->json([
                 'print_url' => $route
             ]);
-        }
+        } 
+
+        // $ticket->passenger->notify(new PassengerPaymentFormNotification($ticket));
 
         return response()->json([
             'success' => true

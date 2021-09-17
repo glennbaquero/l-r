@@ -146,7 +146,7 @@ class Ticket extends Model
      */
     public function getFormattedTravelDateAttribute()
     {
-        return Carbon::parse($this->trip->date)->format('m-d-Y').' '.Carbon::parse($this->trip->time)->format('h:i A');
+        return Carbon::parse($this->trip->date)->format('F d, Y').' '.Carbon::parse($this->trip->time)->format('h:i A');
     }
     /**
      * Get passenger gender
