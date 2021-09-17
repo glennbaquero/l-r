@@ -39,6 +39,9 @@ class TicketCreateController extends Controller
 
         $route = route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]);
 
+        if($request->payment_method != 'Cash') {
+            $route = route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name, true]);
+        }
 
         if($request->action === 'Print and email') {
             $ticket->passenger->notify(new TicketConfirmationNotification($ticket));
@@ -47,7 +50,7 @@ class TicketCreateController extends Controller
                 'print_url' => $route
             ]);
         } 
-        
+
         if($request->action === 'Print only') {
             return response()->json([
                 'print_url' => $route
@@ -55,7 +58,7 @@ class TicketCreateController extends Controller
         } 
 
         if($request->action === 'Confirmation only') {
-            $ticket->passenger->notify(new TicketConfirmationNotification($this->ticket));
+            $ticket->passenger->notify(new TicketConfirmationNotification($ticket));
         }
 
         // $ticket->passenger->notify(new PassengerPaymentFormNotification($ticket));

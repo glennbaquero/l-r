@@ -58,7 +58,6 @@ class PreprocessTicketCollection extends ResourceCollection
                 'seat' => $ticket->passenger->bus_model_column->label,
                 'passenger' => $ticket->passenger ? $ticket->passenger->fullname : '---',
                 'type' => $ticket->passenger->ticketType ? $ticket->passenger->ticketType->name : '---',
-                'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
 
 
                 // ACcount Receivable 
@@ -93,7 +92,7 @@ class PreprocessTicketCollection extends ResourceCollection
 
                 'is_cancelled' => $ticket->is_cancelled,
 
-                'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
+                'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name, true]),
                 'cancelUrl' => route('ticket.cancel', $ticket->id),
                 'updateUrl' => route('ticket.update', $ticket->id),
                 'sendEmailUrl' => route('ticket.send-email', $ticket->passenger->id),
