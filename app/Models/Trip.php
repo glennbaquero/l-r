@@ -233,7 +233,7 @@ class Trip extends Model
     {
         $time = [];
         foreach($this->times as $item) {
-            $time[] = Carbon::parse($item->time)->format('h:i A'). '('.$item->driver->full_name.')';
+            $time[] = Carbon::parse($item->time)->format('h:i A'). '('.$item->driver->fullname.')';
         }
 
         return implode(', ', $time);

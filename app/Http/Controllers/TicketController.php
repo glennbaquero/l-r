@@ -546,6 +546,9 @@ class TicketController extends Controller
 
         $payloads['id'] = $ticket->id;
 
+        $trip_time = $ticket->trip_time ? $ticket->trip_time->formatted_time : now()->format('h:i A');
+        $travel_date = Carbon::parse($ticket->trip->date)->format('F d, Y').' '.$trip_time;
+
         if($ticket->confirmed && $ticket->confirmation_date) {
             return redirect()->route('ticket.verified');
         }
@@ -554,6 +557,7 @@ class TicketController extends Controller
             'ticket' => $ticket, 
             'departure' => $departure, 
             'arrival' => $arrival,
+            'travel_date' => $travel_date,
             'payloads' => collect($payloads),
         ]);
     }
@@ -609,17 +613,22 @@ class TicketController extends Controller
 
     public function ticketStatus($status, $id = null, $passenger = null, $arrival = null, $departure = null) 
     {
+        $ticket = null;
+        $travel_date = null;
+        $route = route('ticket.status', ['not yet been process']);
 
         if($status == 'paid') {
             $ticket = Ticket::find($id);
             $trip_time = $ticket->trip_time ? $ticket->trip_time->formatted_time : now()->format('h:i A');
             $travel_date = Carbon::parse($ticket->trip->date)->format('F d, Y').' '.$trip_time;
+            $route = $ticket->updateStatusUrl();
         }
 
         return view('pages.ticket.status', [
             'status' => $status,
             'ticket' => $ticket,
             'travel_date' => $travel_date,
+            'route' => $route,
         ]);
     }
 }

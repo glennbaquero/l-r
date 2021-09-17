@@ -89,10 +89,10 @@
                                     <x-select :lists="$crews" name="crew_id" :selected="$trip->crew_id"/>
                                 </div> --}}
 
-                                <div class="col-span-2 sm:col-span-2">
+                                {{-- <div class="col-span-2 sm:col-span-2">
                                     <x-label for="driver_id" class="font-semibold">Driver</x-label>
                                     <x-select :lists="$drivers" name="driver_id" display="fullname" :selected="$trip->driver_id"/>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-span-2 sm:col-span-2" v-if="item.has_main_co_driver">
                                     <x-label for="main_co_driver_id" class="font-semibold">Main Co-Driver</x-label>

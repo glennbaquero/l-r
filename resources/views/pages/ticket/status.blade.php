@@ -84,7 +84,7 @@
             var typeNumber = 10;
             var errorCorrectionLevel = 'L';
             var qr = qrcode(typeNumber, errorCorrectionLevel);
-            var route = '{{ $ticket->updateStatusUrl() }}';
+            var route = '{{ $route }}';
             qr.addData(route);
             qr.make();
             var qrHolder = document.getElementById('qrCodeHolder');

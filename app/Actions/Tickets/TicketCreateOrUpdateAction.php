@@ -64,14 +64,14 @@ class TicketCreateOrUpdateAction
 				
 				$request['passenger_id'] = $passenger->id;
 
-
-				if($request->action === 'Yes') {
-					$this->ticket = $this->ticket->create($request->except(['passenger', 'action', 'has_voucher']));
-				} else {
+				if($request->payment_method != 'Cash') {
 					$this->ticket = $this->preprocess->create($request->except(['passenger', 'action', 'has_voucher']));
-					$passenger->notify(new TicketConfirmationNotification($this->ticket));
-					
+				} 
+
+				if($request->payment_method == 'Cash') {
+					$this->ticket = $this->ticket->create($request->except(['passenger', 'action', 'has_voucher']));
 				}
+				
 
 				if($request->has_voucher) {
 					$coupon = Coupon::where('code', $request->voucher_code);

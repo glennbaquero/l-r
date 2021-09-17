@@ -165,6 +165,16 @@ class PreprocessTicket extends Model
      */
     public function updateStatusUrl()
     {
-        return route('ticket.scan-qr', [$this->id, $this->passenger->fullname, $this->arrival->name, $this->departure->name]);
+        return route('ticket.status', ['not yet been process']);
+    }
+
+    /**
+     * Get payment form url
+     * 
+     * @return string
+     */
+    public function paymentFormUrl()
+    {
+        return route('payment.form', [$this->id, $this->passenger->fullname, $this->arrival->name, $this->departure->name]);
     }
 }
