@@ -139,6 +139,7 @@
 					this.old_selected_seat.image_path = item.image_path;
 
 					this.selected_seat = item;
+					// item.image_path = 'icons/selected_seat.png';
 					item.image_path = 'icons/seat_selected.png';
 				}
 
