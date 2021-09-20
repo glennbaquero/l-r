@@ -22,7 +22,7 @@ class PriceCollection extends ResourceCollection
      * @var array
      */
     public static $searches = [
-        'departure', 'arrival', 'currency', 'arrival_price'
+        'departure', 'arrival', 'currency', 'arrival_price', 'departure_id'
     ];
 
     /**

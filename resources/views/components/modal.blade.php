@@ -1,7 +1,7 @@
 @props(['hasFooter' => true, 'maxWidth' => 'max-w-7xl', 'hasHeader' => true, 'enableDisplay' => false])
 
 <toggle v-slot="{ display, toggled, toggleFalse }" enable-display={{ $enableDisplay }}>
-    <div>
+    <div class="h-full">
         {{ $button ?? '' }}
         <div v-if="display" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
             <div class="max-h-screen {{ $maxWidth }} mx-auto my-6 relative w-full">

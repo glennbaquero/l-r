@@ -34,9 +34,11 @@ class PriceController extends Controller
      */
     public function index()
     {
+        $cities = City::get();
         return view('pages.price.index', [
             'headers' => PriceCollection::$headers,
             'searches' => PriceCollection::$searches,
+            'cities' => $cities,
         ]);
     }
 
@@ -116,9 +118,33 @@ class PriceController extends Controller
         ]);
         
         return response()->json([
-            'message' => 'Price successfully duplicated!',
+            'message' => 'Price successfully duplicate!',
             'title' => 'Duplicate success'
         ]);
+    }
+
+    /**
+     * copy all price from departure city
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function copyPrice(Request $request)
+    {
+        $prices = Price::where('departure_id', $request->departure_id)->get();
+
+        foreach($prices as $price) {
+            Price::create([
+                'departure_id' => $request->copy_departure_id,
+                'arrival_id' => $price->arrival_id,
+                'currency_id' => $price->currency_id,
+                'arrival_price' => $price->arrival_price,
+                'departure_price' => $price->departure_price,
+                'round_trip_price' => $price->round_trip_price,
+                'price_per_mile' => $price->price_per_mile,
+            ]);
+        }
+        
+        return redirect()->route('price.index');
     }
 
 }

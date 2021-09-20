@@ -12,6 +12,7 @@
 		render() {
 		    return this.$scopedSlots.default({
 		        search: this.search,
+		        searchWithoutDate: this.searchWithoutDate,
 		        ticketSupportSearch: this.ticketSupportSearch,
 		        display: this.display,
 		        toggledState: this.toggledState,
@@ -50,6 +51,11 @@
 			toggledState(state) {
 				this.display = state;
 			},
+
+			searchWithoutDate() {
+				this.$parent.params = this.field;
+				this.$parent.createUrl();
+			}
 		}
 	}
 </script>
