@@ -40,6 +40,10 @@ class PriceFetch
             $this->price = $this->price->whereIn('currency_id', $currencyId);
         }
 
+        if($params['departure_id'] && $params['departure_id'] != 'null') {
+            $this->price = $this->price->where('departure_id', $params['departure_id']);
+        }
+
         if($params['departure'] && $params['departure'] != 'null') {
             $cityId = $this->city->whereLike('name', $params['departure'])->pluck('id')->toArray();
             $this->price = $this->price->whereIn('departure_id', $cityId);

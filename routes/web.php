@@ -397,6 +397,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/price/update/{id}', PriceUpdateController::class)->name('price.update');
     Route::post('/price/destroy/{id}', PriceDeleteController::class)->name('price.destroy');
     Route::get('/price/upload',  [PriceController::class, 'upload'])->name('price.upload');
+    Route::post('/price/copy',  [PriceController::class, 'copyPrice'])->name('price.copy-price');
     Route::post('/price/batch/store', PriceBatchUploadController::class)->name('price.batch-store');
 
     Route::get('/interline-price', [InterlinePriceController::class, 'index'])->name('interline-price.index');
