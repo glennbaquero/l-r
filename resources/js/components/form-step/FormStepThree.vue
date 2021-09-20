@@ -6,7 +6,7 @@
 					<table class="w-full">
 						<tr v-for="row in bus_model">
 						    <td v-for="column in row" class=" bg-center bg-contain bg-no-repeat h-5 px-4 w-5" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)', cursor: column.label != '' ? 'pointer' : '' }" @click="selectedSeatHandler(column)">
-						    	<!-- <label class="bg-transparent border-transparent focus:border-blue-300 font-black px-0 py-0 rounded shadow-sm text-black text-center transition w-5">{{ column.label }}</label> -->
+						    	<label class="bg-transparent border-transparent focus:border-blue-300 font-black px-0 py-0 rounded shadow-sm text-black text-center transition w-5">{{ column.label }}</label>
 						    </td>
 						</tr>
 					</table>
