@@ -7,6 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
+use App\Channels\Messages\SmsMessage;
+
 use Carbon\Carbon;
 
 class PassengerPaymentFormNotification extends Notification
@@ -44,19 +46,19 @@ class PassengerPaymentFormNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
-        $trip_time = $this->ticket->trip_time ? $this->ticket->trip_time->formatted_time : now()->format('h:i A');
-        $travel_date = Carbon::parse($this->ticket->trip->date)->format('Y-m-d'). ' '. $trip_time;
-        return (new MailMessage)
-                    ->subject(config('app.name') . ': Payment Form')
-                    ->greeting('Hello ' . $notifiable->fullname . ',')
-                    ->line('Informing your payment via credit card.')
-                    ->line('Departure :'. $this->ticket->departure->name)
-                    ->line('Arrival :'. $this->ticket->arrival->name)
-                    ->line('Travel Date :'. $travel_date)
-                    ->action('Click Here', $this->route);
-    }
+    // public function toMail($notifiable)
+    // {
+    //     $trip_time = $this->ticket->trip_time ? $this->ticket->trip_time->formatted_time : now()->format('h:i A');
+    //     $travel_date = Carbon::parse($this->ticket->trip->date)->format('Y-m-d'). ' '. $trip_time;
+    //     return (new MailMessage)
+    //                 ->subject(config('app.name') . ': Payment Form')
+    //                 ->greeting('Hello ' . $notifiable->fullname . ',')
+    //                 ->line('Informing your payment via credit card.')
+    //                 ->line('Departure :'. $this->ticket->departure->name)
+    //                 ->line('Arrival :'. $this->ticket->arrival->name)
+    //                 ->line('Travel Date :'. $travel_date)
+    //                 ->action('Click Here', $this->route);
+    // }
 
 
     /**
@@ -66,23 +68,24 @@ class PassengerPaymentFormNotification extends Notification
      *
      * @return \App\Channels\Messages\SmsMessage
      */
-//     public function toSms($notifiable)
-//     {
-//         $appName = config('app.name');
-//         $notificationLink = route('payment.form', [$this->ticket->id, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
+    public function toSms($notifiable)
+    {
+        $appName = config('app.name');
+        $notificationLink = route('payment.form', [$this->ticket->id, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
+        $travel_date = Carbon::parse($this->ticket->trip->date)->format('Y-m-d'). ' '. $trip_time;
+        
+        $message = <<<EOT
+Ticket Payment :
+Informing your payment via credit card. Please click the link below
+Departure : {$this->ticket->departure->name}
+Arrival : {$this->ticket->arrival->name}
+Travel Date : {$travel_date}
 
-//         $message = <<<EOT
-// Ticket Payment :
-// Informing your payment via credit card. Please click the link below
-// Departure : {$this->ticket->departure->name}
-// Arrival : {$this->ticket->arrival->name}
-// Travel Date : {$travel_date}
+{$notificationLink}
+EOT;
 
-// {$notificationLink}
-// EOT;
-
-//         return (new SmsMessage)->content($message);
-//     }
+        return (new SmsMessage)->content($message);
+    }
 
     /**
      * Get the array representation of the notification.
