@@ -75,8 +75,8 @@
 
 						<div class="border px-4 py-4 col-span-full rounded-md w-full shadow-md">
 							<table class="w-full">
-								<tr v-for="row in bus.origin">
-								    <td v-for="column in row" class=" bg-center bg-contain bg-no-repeat h-5 px-4 w-5" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)', cursor: column.label != '' ? 'pointer' : '' }" @click="selectSeat('origin', column)">
+								<tr v-for="row in bus.origin" class="h-10">
+								    <td v-for="column in row" class=" bg-center bg-contain bg-no-repeat h-5 pr-10 w-5" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)', cursor: column.label != '' ? 'pointer' : '' }" @click="selectSeat('origin', column)">
 								    	<label :class="column.label != '' ? 'cursor-pointer' : ''" class="bg-transparent border-transparent focus:border-blue-300 font-black px-0 py-0 rounded shadow-sm text-black text-center transition w-5" @click="selectSeat('origin', column)">
 								    		{{ column.label }}
 								    	</label>
@@ -139,8 +139,8 @@
 
 						<div class="border px-4 py-4 col-span-full rounded-md w-full shadow-md">
 							<table class="w-full">
-								<tr v-for="row in bus.destination">
-								    <td v-for="column in row" class="bg-center bg-contain bg-no-repeat h-5 px-4 w-5" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)', cursor: column.label != '' ? 'pointer' : '' }" @click="selectSeat('destination', column)">
+								<tr v-for="row in bus.destination" class="h-10">
+								    <td v-for="column in row" class="bg-center bg-contain bg-no-repeat h-5 pr-10 w-5" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)', cursor: column.label != '' ? 'pointer' : '' }" @click="selectSeat('destination', column)">
 								    	<label :class="column.label != '' ? 'cursor-pointer' : ''" class="bg-transparent border-transparent focus:border-blue-300 font-black px-0 py-0 rounded shadow-sm text-black text-center transition w-5" @click="selectSeat('destination', column)">
 								    		{{ column.label }}
 								    	</label>

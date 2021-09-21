@@ -4,8 +4,8 @@
 			<div class="gap-4 grid grid-cols-3">
 				<div class="border px-4 py-4 col-span-2 rounded-md w-full shadow-md">
 					<table class="w-full">
-						<tr v-for="row in bus_model">
-						    <td v-for="column in row" class=" bg-center bg-contain bg-no-repeat h-5 px-4 w-5" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)', cursor: column.label != '' ? 'pointer' : '' }" @click="selectedSeatHandler(column)">
+						<tr v-for="row in bus_model" class="h-10">
+						    <td v-for="column in row" class=" bg-center bg-contain bg-no-repeat h-5 pr-10 w-5" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)', cursor: column.label != '' ? 'pointer' : '' }" @click="selectedSeatHandler(column)">
 						    	<label class="bg-transparent border-transparent focus:border-blue-300 font-black px-0 py-0 rounded shadow-sm text-black text-center transition w-5">{{ column.label }}</label>
 						    </td>
 						</tr>
@@ -139,8 +139,8 @@
 					this.old_selected_seat.image_path = item.image_path;
 
 					this.selected_seat = item;
-					// item.image_path = 'icons/selected_seat.png';
-					item.image_path = 'icons/seat_selected.png';
+					item.image_path = 'icons/selected_seat.png';
+					// item.image_path = 'icons/seat_selected.png';
 				}
 
 				if(!_.isEmpty(item.passenger)) {

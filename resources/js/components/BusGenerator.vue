@@ -209,6 +209,7 @@
 							} else {
 								cell.image_path = ''
 							}
+							cell.selected = false;
 						}
 					}) 
 				}) 
@@ -219,6 +220,8 @@
 					_.each(row, (cell) => {
 						if(cell.selected) {
 							cell.orientation = value;
+
+							cell.selected = false;
 						}
 					}) 
 				}) 
