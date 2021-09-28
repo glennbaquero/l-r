@@ -59,7 +59,7 @@ class RouteAndMainDriverController extends Controller
     {
         return view('pages.route-main-driver.create', [
             'drivers' => Driver::get(),
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             'types' => RouteAndMainDriver::getType()
         ]);
     }
@@ -76,7 +76,7 @@ class RouteAndMainDriverController extends Controller
         return view('pages.route-main-driver.show', [
             'item' => $item,
             'drivers' => Driver::get(),
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             'types' => RouteAndMainDriver::getType()
         ]);
     }

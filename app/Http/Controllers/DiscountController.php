@@ -63,7 +63,7 @@ class DiscountController extends Controller
     public function create()
     {
         $routes = Route::get();
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $services = Service::get();
         $ticket_types = TicketType::get();
         $multi_routes = MultiRoute::get();
@@ -98,7 +98,7 @@ class DiscountController extends Controller
         $array = [];
         $discount = Discount::withTrashed()->findOrFail($id);
         $routes = Route::get();
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $services = Service::get();
         $ticket_types = TicketType::get();
         $multi_routes = MultiRoute::get();

@@ -47,7 +47,7 @@ class ReportController extends Controller
     public function salesByDepartureArrival()
     {   
         $types = TicketType::get();
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $genders = Driver::getGenderTypes();
         return view('pages.reports.sales.sales-by-departure-arrival', [
             'types' => $types,
@@ -119,7 +119,7 @@ class ReportController extends Controller
     public function pricePerRoute()
     {   
         $types = TicketType::get();
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         return view('pages.reports.route.price-per-route', [
             'types' => $types,
             'cities' => $cities,

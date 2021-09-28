@@ -45,7 +45,7 @@ class ItineraryUpdateController extends Controller
             'searches' => ItineraryUpdateCollection::$searches,
             'passengerHeaders' => ItineraryUpdatePassengerCollection::$headers,
             'observationHeaders' => ObservationCollection::$headers,
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             'routes' => Route::get()
         ]);
     }

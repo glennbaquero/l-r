@@ -40,7 +40,7 @@ class TripController extends Controller
         return view('pages.trip.index', [
             'headers' => TripCollection::$headers,
             'searches' => TripCollection::$searches,
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             'routes' => Route::get()
         ]);
     }

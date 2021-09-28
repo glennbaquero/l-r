@@ -27,9 +27,13 @@
                         <form action="{{ route('city.store') }}" method="POST">
                             @csrf
                             <div class="grid grid-cols-6 gap-6">
-                                <div class="col-span-12 sm:col-span-12">
+                                <div class="col-span-3 sm:col-span-3">
                                     <x-label for="name" class="font-semibold">Name</x-label>
                                     <x-form-input type="text" name="name" id="autocomplete" v-model="address.city" />
+                                </div>
+                                <div class="col-span-3 sm:col-span-3">
+                                    <x-label for="name" class="font-semibold">Destination Zone <small>(for batch upload purposes)</small></x-label>
+                                    <x-form-input type="text" name="destination_zone" />
                                 </div>
                             </div>
 

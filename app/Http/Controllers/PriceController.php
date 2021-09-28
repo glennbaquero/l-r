@@ -34,7 +34,7 @@ class PriceController extends Controller
      */
     public function index()
     {
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         return view('pages.price.index', [
             'headers' => PriceCollection::$headers,
             'searches' => PriceCollection::$searches,
@@ -59,7 +59,7 @@ class PriceController extends Controller
      */
     public function create()
     {
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $currencies = Currency::get();
 
         return view('pages.price.create', [
@@ -76,7 +76,7 @@ class PriceController extends Controller
     public function show($id)
     {
         $price = Price::withTrashed()->findOrFail($id);
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $currencies = Currency::get();
         
         return view('pages.price.show', [
@@ -141,6 +141,12 @@ class PriceController extends Controller
                 'departure_price' => $price->departure_price,
                 'round_trip_price' => $price->round_trip_price,
                 'price_per_mile' => $price->price_per_mile,
+                'adult_one_way' => $price->adult_one_way,
+                'adult_roundtrip' => $price->adult_roundtrip,
+                'senior_one_way' => $price->senior_one_way,
+                'senior_roundtrip' => $price->senior_roundtrip,
+                'child_one_way' => $price->child_one_way,
+                'child_roundtrip' => $price->child_roundtrip,
             ]);
         }
         

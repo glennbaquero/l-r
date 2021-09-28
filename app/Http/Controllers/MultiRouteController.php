@@ -55,7 +55,7 @@ class MultiRouteController extends Controller
      */
     public function create()
     {
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $routes = Stop::with('route')->get();
 
         $headers = [
@@ -84,7 +84,7 @@ class MultiRouteController extends Controller
             $stop['route_per_stop'] = $stop->routes()->pluck('route_id');
         }
         // $route['route_per_stop'] = collect($route->getRoutePerStop());
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $routes = Stop::with('route')->get();
 
         $headers = [

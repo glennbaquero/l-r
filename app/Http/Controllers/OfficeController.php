@@ -63,7 +63,7 @@ class OfficeController extends Controller
 
         return view('pages.office.create', [
             'office_types' => OfficeType::get(),
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             'states' => UsState::get(),
             'terminals' => Terminal::get(),
             'agencies' => [],
@@ -80,7 +80,7 @@ class OfficeController extends Controller
         $office = Office::withTrashed()->find($id);
         return view('pages.office.show', [
             'office_types' => OfficeType::get(),
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             'states' => UsState::get(),
             'terminals' => Terminal::get(),
             'agencies' => [],

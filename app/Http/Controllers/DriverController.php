@@ -69,7 +69,7 @@ class DriverController extends Controller
         $genders = Driver::getGenderTypes();
 
         return view('pages.driver.create', [
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             'genders' => $genders,
             'document_types' => $document_types,
             'staff_types' => $staff_types,
@@ -89,7 +89,7 @@ class DriverController extends Controller
         $genders = Driver::getGenderTypes();
 
         return view('pages.driver.show', [
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             
             'genders' => $genders,
             'document_types' => $document_types,

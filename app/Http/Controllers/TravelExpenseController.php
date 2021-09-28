@@ -37,7 +37,7 @@ class TravelExpenseController extends Controller
         return view('pages.travel-expense.index', [
             'headers' => TravelExpenseCollection::$headers,
             'searches' => TravelExpenseCollection::$searches,
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             'routes' => Route::get()
         ]);
     }
