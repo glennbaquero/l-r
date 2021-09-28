@@ -59,7 +59,7 @@ class CouponController extends Controller
     public function create()
     {
         $routes = Route::get();
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $services = Service::get();
         $ticket_types = TicketType::get();
         $users = User::get();
@@ -98,7 +98,7 @@ class CouponController extends Controller
         $array = [];
         $coupon = Coupon::withTrashed()->findOrFail($id);
         $routes = Route::get();
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $services = Service::get();
         $ticket_types = TicketType::get();
         $users = User::get();

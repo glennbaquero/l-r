@@ -30,7 +30,7 @@
                         <div class="grid grid-cols-6 gap-6">
 
                             <div class="col-span-full sm:col-span-full">
-                                <a href="{{url('manifest/price_sample_manifest.xlsx')}}" class="text-blue-700 underline">Download sample manifest</a>
+                                <a href="{{url('manifest/sample_price_manifest.xlsx')}}" class="text-blue-700 underline">Download sample manifest</a>
                             </div>
 
                             <div class="col-span-full sm:col-span-full">

@@ -18,7 +18,7 @@
                 <a href="{{ route('price.create') }}" class="inline-flex font-normal items-center px-4 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue transition ease-in-out duration-150">
                     {{__('New Price')}}
                 </a> &nbsp;
-                <a href="{{ route('city.upload') }}" class="inline-flex font-normal items-center px-4 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue transition ease-in-out duration-150">
+                <a href="{{ route('price.upload') }}" class="inline-flex font-normal items-center px-4 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue transition ease-in-out duration-150">
                     {{__('Batch Upload')}}
                 </a>
             </div>
@@ -89,11 +89,11 @@
                                 <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('currency', $event.target.value)" name="currency" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
-                                <td class="text-center border-b-2 border-gray-300 px-3">
+                                {{-- <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('arrival_price', $event.target.value)" name="arrival_price" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
-                                </td>
+                                </td> --}}
                                 
-                                <td class="text-center border-b-2 border-gray-300 px-3" colspan="5"></td>
+                                <td class="text-center border-b-2 border-gray-300 px-3" colspan="10"></td>
                             </tr>
                             <template v-if="data.length > 0">
                                 <tr v-for="(price, key) in data" :key="key" class="hover:bg-gray-100 cursor-pointer">
@@ -115,6 +115,24 @@
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{price.round_trip_price}}
                                     </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{price.adult_one_way}}
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{price.adult_roundtrip}}
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{price.senior_one_way}}
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{price.senior_roundtrip}}
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{price.child_one_way}}
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{price.child_roundtrip}}
+                                    </td>
                                     {{-- <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{price.minimum_price}}
                                     </td>
@@ -135,7 +153,7 @@
                                     <td colspan="2" class="px-6 py-2 whitespace-no-wrap text-left border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         Showing @{{meta.from}} to @{{meta.to}} of @{{meta.total}}
                                     </td>
-                                    <td colspan="8" class="px-6 py-2 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    <td colspan="12" class="px-6 py-2 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         <button @click="prev" class="relative inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 disabled:opacity-50" :disabled="!links.prev">
                                             Previous
                                         </button>

@@ -65,7 +65,7 @@ class TicketController extends Controller
         return view('pages.ticket.index', [
             'headers' => TicketCollection::$headers,
             'searches' => TicketCollection::$searches,
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             'ticket_types' => TicketType::get(),
         ]);
     }

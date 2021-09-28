@@ -30,12 +30,14 @@
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="departure_id" class="font-semibold">Departure</x-label>
-                                    <x-select :lists="$cities" name="departure_id" id="departure_id" oldValue="{{ old('departure_id') }}" @change="cityChange($event.target.value, 'Departure')"/>
+                                    {{-- <x-select :lists="$cities" name="departure_id" id="departure_id" oldValue="{{ old('departure_id') }}" @change="cityChange($event.target.value, 'Departure')"/> --}}
+                                    <x-select :lists="$cities" name="departure_id" id="departure_id" oldValue="{{ old('departure_id') }}" />
                                 </div>
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="arrival_id" class="font-semibold">Arrival</x-label>
-                                    <x-select :lists="$cities" name="arrival_id" id="arrival_id" oldValue="{{ old('arrival_id') }}" @change="cityChange($event.target.value, 'Arrival')"/>
+                                    {{-- <x-select :lists="$cities" name="arrival_id" id="arrival_id" oldValue="{{ old('arrival_id') }}" @change="cityChange($event.target.value, 'Arrival')"/> --}}
+                                    <x-select :lists="$cities" name="arrival_id" id="arrival_id" oldValue="{{ old('arrival_id') }}"/>
                                 </div>
 
                                 <div class="col-span-2 sm:col-span-2">
@@ -48,6 +50,31 @@
                                     {{-- <x-select :lists="$currencies" name="currency_id" oldValue="{{ old('currency_id') }}" selected="{{ $currencies[0]->id }}"/> --}}
                                 </div>
 
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="adult_one_way" class="font-semibold">Adult One Way</x-label>
+                                    <x-form-input type="number" min="0" name="adult_one_way" id="adult_one_way" step="any" oldValue="{{ old('adult_one_way') }}" />
+                                </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="adult_roundtrip" class="font-semibold">Adult Round Trip</x-label>
+                                    <x-form-input type="number" min="0" name="adult_roundtrip" id="adult_roundtrip" step="any" oldValue="{{ old('adult_roundtrip') }}"/>
+                                </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="senior_one_way" class="font-semibold">Senior One Way</x-label>
+                                    <x-form-input type="number" min="0" name="senior_one_way" id="senior_one_way" step="any" oldValue="{{ old('senior_one_way') }}"/>
+                                </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="senior_roundtrip" class="font-semibold">Senior Round Trip</x-label>
+                                    <x-form-input type="number" min="0" name="senior_roundtrip" id="senior_roundtrip" step="any" oldValue="{{ old('senior_roundtrip') }}"/>
+                                </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="child_one_way" class="font-semibold">Child One Way</x-label>
+                                    <x-form-input type="number" min="0" name="child_one_way" id="child_one_way" step="any" oldValue="{{ old('child_one_way') }}"/>
+                                </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="child_roundtrip" class="font-semibold">Child Round Trip</x-label>
+                                    <x-form-input type="number" min="0" name="child_roundtrip" id="child_roundtrip" step="any" oldValue="{{ old('child_roundtrip') }}"/>
+                                </div>
+
                                 {{-- <div class="col-span-6 sm:col-span-6">
                                     <x-label for="price_per_mile" class="font-semibold">Price Per Mile</x-label>
                                      <x-form-input type="number" min="0" name="price_per_mile" id="price_per_mile" step="any" value="{{ old('price_per_mile') }}" @change="basePriceChangeHandler($event.target.value)"/>
@@ -55,15 +82,15 @@
 
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="departure_price" class="font-semibold">Departure Price</x-label>
-                                    <x-form-input type="number" min="0" name="departure_price" id="departure_price" step="any" v-model="departurePrice" />
+                                    <x-form-input type="number" min="0" name="departure_price" id="departure_price" step="any" oldValue="{{ old('departure_price') }}" />
                                 </div>
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="arrival_price" class="font-semibold">Arrival Price</x-label>
-                                    <x-form-input type="number" min="0" name="arrival_price" id="arrival_price" step="any" v-model="arrivalPrice" />
+                                    <x-form-input type="number" min="0" name="arrival_price" id="arrival_price" step="any" oldValue="{{ old('arrival_price') }}" />
                                 </div>
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="round_trip_price" class="font-semibold">Round Trip Price</x-label>
-                                    <x-form-input type="number" min="0" name="round_trip_price" id="round_trip_price" step="any" v-model="roundtripPrice" />
+                                    <x-form-input type="number" min="0" name="round_trip_price" id="round_trip_price" step="any" oldValue="{{ old('round_trip_price') }}" />
                                 </div>
                                 {{-- <div class="col-span-4 sm:col-span-3">
                                     <x-label for="minimum_price" class="font-semibold">Minimum Price</x-label>

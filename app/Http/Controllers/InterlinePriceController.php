@@ -56,7 +56,7 @@ class InterlinePriceController extends Controller
      */
     public function create()
     {
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $currencies = Currency::get();
         $companies = Company::get();
 
@@ -75,7 +75,7 @@ class InterlinePriceController extends Controller
     public function show($id)
     {
         $price = InterlinePrice::withTrashed()->findOrFail($id);
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $currencies = Currency::get();
         $companies = Company::get();
         

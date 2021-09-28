@@ -32,8 +32,8 @@ class PriceFetch
      */
     public function execute($params)
     {
-        $this->price = $this->price
-                    ->whereLike('arrival_price', $params['arrival_price']);
+        $this->price = $this->price;
+                    // ->whereLike('arrival_price', $params['arrival_price']);
 
         if($params['currency'] && $params['currency'] != 'null') {
             $currencyId = $this->currency->whereLike('name', $params['currency'])->pluck('id')->toArray();

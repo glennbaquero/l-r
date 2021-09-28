@@ -33,6 +33,12 @@ class PriceStoreRequest extends FormRequest
             'round_trip_price' => 'required|numeric',
             // 'minimum_price' => 'required|numeric',
             // 'maximum_price' => 'required|numeric',
+            'adult_one_way' => 'required|numeric',
+            'adult_roundtrip' => 'required|numeric',
+            'senior_one_way' => 'required|numeric',
+            'senior_roundtrip' => 'required|numeric',
+            'child_one_way' => 'required|numeric',
+            'child_roundtrip' => 'required|numeric',
         ];
     }
 

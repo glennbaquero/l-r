@@ -38,7 +38,7 @@ class BoardingManagementController extends Controller
         return view('pages.boarding-management.index', [
             'headers' => ItineraryUpdateCollection::$headers,
             'searches' => ItineraryUpdateCollection::$searches,
-            'cities' => City::get(),
+            'cities' => City::orderby('name', 'asc')->get(),
             'routes' => Route::get()
         ]);
     }

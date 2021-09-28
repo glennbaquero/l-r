@@ -38,7 +38,7 @@ class PriceBatchUploadController extends Controller
     public function __invoke(PriceBatchUploadRequest $request)
     {
         Excel::import(new PriceImport, $request->file('manifest'));
-        Session::flash('success', 'Successfully uploaded the list of price!');
+        Session::flash('success', 'Successfully uploaded the list of price! Please update your newly added city for their respective pin in the map.');
         return redirect()->back();
     }
 }

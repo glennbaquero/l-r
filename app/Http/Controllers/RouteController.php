@@ -57,7 +57,7 @@ class RouteController extends Controller
      */
     public function create()
     {
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $typeOfRoutes = [
             [
                 'name' => 'Carga',
@@ -86,7 +86,7 @@ class RouteController extends Controller
     public function show($id)
     {
         $route = Route::withTrashed()->findOrFail($id);
-        $cities = City::get();
+        $cities = City::orderby('name', 'asc')->get();
         $typeOfRoutes = [
             [
                 'name' => 'Carga',
