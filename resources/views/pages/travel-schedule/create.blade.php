@@ -209,7 +209,7 @@
                                 <div class="col-span-full sm:col-span-full mt-5">
                                     <div class="grid grid-cols-4 gap-2">
                                         <increment v-slot="{ removeHandler, addNewHandler, increment, array, selected }">
-                                            <div class="col-span-1 sm:col-span-1">
+                                            <div class="col-span-3 sm:col-span-3">
                                                 <x-label for="monday_time" class="font-semibold">
                                                     <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5 " name="monday" id="monday" v-model="selected.monday"/>Monday 
                                                     
@@ -220,9 +220,11 @@
                                                 <div class="grid grid-cols-3 gap-1">
                                                     <template v-if="selected.monday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="monday_time" class="font-semibold">Time</x-label>
                                                             <x-form-input type="time" name="monday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="monday_time" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="monday_time_driver[]" v-model="list.driver_id">
                                                                 <option disabled selected>Select driver</option>
                                                                 @foreach($drivers as $driver)
@@ -239,8 +241,10 @@
                                                 </div>
                                             </div>
                                         </increment>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-2">
                                         <increment v-slot="{ removeHandler, addNewHandler, increment, array, selected }">
-                                            <div class="col-span-1 sm:col-span-1">
+                                            <div class="col-span-3 sm:col-span-3">
                                                 <x-label for="tuesday_time" class="font-semibold">
                                                     <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5 " name="tuesday" id="tuesday" v-model="selected.tuesday"/>Tuesday
                                                     <button type="button" @click="addNewHandler" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" v-if="selected.tuesday">
@@ -250,9 +254,11 @@
                                                 <div class="grid grid-cols-3 gap-1">
                                                     <template v-if="selected.tuesday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="tuesday_time" class="font-semibold">Time</x-label>
                                                             <x-form-input type="time" name="tuesday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="tuesday_time" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="tuesday_time_driver[]" v-model="list.driver_id">
                                                                 <option disabled selected>Select driver</option>
                                                                 @foreach($drivers as $driver)
@@ -269,8 +275,10 @@
                                                 </div>
                                             </div>
                                         </increment>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-2">
                                         <increment v-slot="{ removeHandler, addNewHandler, increment, array, selected }">
-                                            <div class="col-span-1 sm:col-span-1">
+                                            <div class="col-span-3 sm:col-span-3">
                                                 <x-label for="tuesday_time" class="font-semibold">
                                                     <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5 " name="wednesday" id="wednesday" v-model="selected.wednesday"/>Wednesday
                                                     <button type="button" @click="addNewHandler" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" v-if="selected.wednesday">
@@ -280,9 +288,11 @@
                                                 <div class="grid grid-cols-3 gap-1">
                                                     <template v-if="selected.wednesday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="wednesday_time" class="font-semibold">Time</x-label>
                                                             <x-form-input type="time" name="wednesday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="wednesday_time_driver" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="wednesday_time_driver[]" v-model="list.driver_id">
                                                                 <option disabled selected>Select driver</option>
                                                                 @foreach($drivers as $driver)
@@ -299,8 +309,10 @@
                                                 </div>
                                             </div>
                                         </increment>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-2">
                                         <increment v-slot="{ removeHandler, addNewHandler, increment, array, selected }">
-                                            <div class="col-span-1 sm:col-span-1">
+                                            <div class="col-span-3 sm:col-span-3">
                                                 <x-label for="thursday_time" class="font-semibold">
                                                     <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5 " name="thursday" id="thursday" v-model="selected.thursday"/>Thursday
                                                     <button type="button" @click="addNewHandler" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" v-if="selected.thursday">
@@ -310,9 +322,11 @@
                                                 <div class="grid grid-cols-3 gap-1">
                                                     <template v-if="selected.thursday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="thursday_time" class="font-semibold">Time</x-label>
                                                             <x-form-input type="time" name="thursday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="thursday_time_driver" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="thursday_time_driver[]" v-model="list.driver_id">
                                                                 <option disabled selected>Select driver</option>
                                                                 @foreach($drivers as $driver)
@@ -329,8 +343,10 @@
                                                 </div>
                                             </div>
                                         </increment>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-2">
                                         <increment v-slot="{ removeHandler, addNewHandler, increment, array, selected }">
-                                            <div class="col-span-1 sm:col-span-1">
+                                            <div class="col-span-3 sm:col-span-3">
                                                 <x-label for="friday_time" class="font-semibold">
                                                     <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5 " name="friday" id="friday" v-model="selected.friday"/>Friday
                                                     <button type="button" @click="addNewHandler" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" v-if="selected.friday">
@@ -340,9 +356,11 @@
                                                 <div class="grid grid-cols-3 gap-1">
                                                     <template v-if="selected.friday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="friday_time" class="font-semibold">Time</x-label>
                                                             <x-form-input type="time" name="friday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="friday_time_driver" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="friday_time_driver[]" v-model="list.driver_id">
                                                                 <option disabled selected>Select driver</option>
                                                                 @foreach($drivers as $driver)
@@ -359,8 +377,10 @@
                                                 </div>
                                             </div>
                                         </increment>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-2">
                                         <increment v-slot="{ removeHandler, addNewHandler, increment, array, selected }">
-                                            <div class="col-span-1 sm:col-span-1">
+                                            <div class="col-span-3 sm:col-span-3">
                                                 <x-label for="saturday_time" class="font-semibold">
                                                     <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5 " name="saturday" id="saturday" v-model="selected.saturday"/>Saturday
                                                     <button type="button" @click="addNewHandler" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" v-if="selected.saturday">
@@ -370,9 +390,11 @@
                                                 <div class="grid grid-cols-3 gap-1">
                                                     <template v-if="selected.saturday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="saturday_time" class="font-semibold">Time</x-label>
                                                             <x-form-input type="time" name="saturday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="saturday_time_driver" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="saturday_time_driver[]" v-model="list.driver_id">
                                                                 <option disabled selected>Select driver</option>
                                                                 @foreach($drivers as $driver)
@@ -389,8 +411,10 @@
                                                 </div>
                                             </div>
                                         </increment>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-2">
                                         <increment v-slot="{ removeHandler, addNewHandler, increment, array, selected }">
-                                            <div class="col-span-1 sm:col-span-1">
+                                            <div class="col-span-3 sm:col-span-3">
                                                 <x-label for="sunday_time" class="font-semibold">
                                                     <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5 " name="sunday" id="sunday" v-model="selected.sunday"/>Sunday
                                                     <button type="button" @click="addNewHandler" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" v-if="selected.sunday">
@@ -400,9 +424,11 @@
                                                 <div class="grid grid-cols-3 gap-1">
                                                     <template v-if="selected.sunday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="sunday_time" class="font-semibold">Time</x-label>
                                                             <x-form-input type="time" name="sunday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="sunday_time_driver" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="sunday_time_driver[]" v-model="list.driver_id">
                                                                 <option disabled selected>Select driver</option>
                                                                 @foreach($drivers as $driver)
@@ -419,6 +445,7 @@
                                                 </div>
                                             </div>
                                         </increment>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

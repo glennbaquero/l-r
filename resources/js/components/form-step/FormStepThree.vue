@@ -5,8 +5,8 @@
 				<div class="border px-4 py-4 col-span-2 rounded-md w-full shadow-md">
 					<table class="w-full">
 						<tr v-for="row in bus_model" class="h-10">
-						    <td v-for="column in row" class=" bg-center bg-contain bg-no-repeat h-5 pr-10 w-5" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)', cursor: column.label != '' ? 'pointer' : '' }" @click="selectedSeatHandler(column)">
-						    	<label class="bg-transparent border-transparent focus:border-blue-300 font-black px-0 py-0 rounded shadow-sm text-black text-center transition w-5">{{ column.label }}</label>
+						    <td v-for="column in row" class=" bg-center bg-contain bg-no-repeat h-5 w-5" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)', cursor: column.label != '' ? 'pointer' : '' }" @click="selectedSeatHandler(column)">
+						    	<label class="bg-transparent border-transparent focus:border-blue-300 font-black px-0 py-0 rounded shadow-sm text-black text-center transition w-5 text-xs">{{ column.label }}</label>
 						    </td>
 						</tr>
 					</table>
@@ -50,7 +50,7 @@
 			</div>
 		</div>
 
-		<div class="grid grid-cols-3 gap-4">
+		<div class="grid grid-cols-3 gap-4  col-start-3 sm:col-start-3">
 			<div class="col-span-full sm:col-span-full text-right">
 				<label for="departure" class="font-semibold">Price: {{ totalPrice }}</label>
 			</div>
@@ -104,7 +104,19 @@
 				if(!_.isEmpty(this.$parent.price)) {
 					let total = 0;
 
-					total = parseFloat(this.$parent.price.departure_price) + parseFloat(this.$parent.price.arrival_price);
+					switch(this.$parent.payloads.type_of_ticket) {
+						case 'adult':
+							total = parseFloat(this.$parent.price.adult_one_way);
+							break;
+						case 'senior':
+							total = parseFloat(this.$parent.price.senior_one_way);
+							break;
+						case 'child':
+							total = parseFloat(this.$parent.price.child_one_way);
+							break;
+
+					}
+					// total = parseFloat(this.$parent.price.departure_price) + parseFloat(this.$parent.price.arrival_price);
 
 					return total.toFixed(2);
 				}

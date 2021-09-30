@@ -1,5 +1,5 @@
 <template>
-	<div class="grid grid-cols-2 gap-2">
+	<div class="grid grid-cols-3 gap-1">
 		<div class="col-span-1 sm:col-span-1">
 		    <label for="departure" class="font-semibold">Departure</label>
 		    <v-select
@@ -25,8 +25,16 @@
 		        >
 		    </v-select>
 		</div>
+		<div class="col-span-1 sm:col-span-1">
+			<label for="type_of_ticket" class="block font-medium font-semibold text-gray-500">Type of ticket</label>
+			<select name="type_of_ticket" v-model="item.type_of_ticket" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
+				<option value="adult">Adult</option>
+				<option value="senior">Senior</option>
+				<option value="child">Child</option>
+			</select>
+		</div>
 
-		<div v-if="showAvailableTrip" :class="trip_times.length ? 'col-span-1 sm:col-span-1' : 'col-span-full sm:col-span-full'">
+		<div v-if="showAvailableTrip" :class="trip_times.length ? 'col-span-2 sm:col-span-2' : 'col-span-full sm:col-span-full'">
 		    <label for="departure" class="font-semibold">Travel Date</label>
 		    <input ref="datepicker" type="text" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.date" @change="travelDateChange" readonly>
 		    <!-- <v-select
@@ -58,7 +66,7 @@
 			</div>
 		</div>
 
-		<div class="grid grid-cols-3 gap-4">
+		<div class="grid grid-cols-3 gap-4 col-start-3 sm:col-start-3">
 			<div class="col-span-full sm:col-span-full text-right">
 				<label for="departure" class="font-semibold">Price: {{ totalPrice }}</label>
 			</div>
@@ -82,7 +90,9 @@
 		data() {
 			return {
 				item: {
-					trip: {}
+					trip: {},
+					type_of_ticket: 'adult'
+
 				},
 				trips: [],
 				trip_times: [],
@@ -140,7 +150,7 @@
 
 		computed: {
 			disabledNextButton() {
-				if(!_.isEmpty(this.item) && this.item.arrival_id && this.item.departure_id && !_.isEmpty(this.item.trip)) return false;
+				if(!_.isEmpty(this.item) && this.item.arrival_id && this.item.departure_id && !_.isEmpty(this.item.trip) && !_.isEmpty(this.item.type_of_ticket) && !_.isEmpty(this.item.time) && !_.isEmpty(this.item.date)) return false;
 
 				return true;
 			},
@@ -161,7 +171,20 @@
 				if(!_.isEmpty(this.price)) {
 					let total = 0;
 
-					total = parseFloat(this.price.departure_price) + parseFloat(this.price.arrival_price);
+					switch(this.item.type_of_ticket) {
+						case 'adult':
+							total = parseFloat(this.price.adult_one_way);
+							break;
+						case 'senior':
+							total = parseFloat(this.price.senior_one_way);
+							break;
+						case 'child':
+							total = parseFloat(this.price.child_one_way);
+							break;
+
+					}
+
+					// total = parseFloat(this.price.departure_price) + parseFloat(this.price.arrival_price);
 
 					return total.toFixed(2);
 				}

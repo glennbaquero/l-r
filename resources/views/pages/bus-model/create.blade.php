@@ -63,7 +63,7 @@
                                     <div class="border px-4 py-4 rounded-md w-min">
                                         <table>
                                             <tr v-for="row in bus.columnsCellType" class="h-10">
-                                                <td v-for="column in row" class=" bg-center bg-contain bg-no-repeat h-5 pr-10 w-5" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)' }" @dblclick="showCellType(column)" >
+                                                <td v-for="column in row" class=" bg-center bg-contain bg-no-repeat h-5 w-5 p-5 text-center" :style="{ backgroundImage: 'url(' + column.image_path + ')', transform: 'rotate('+column.orientation+'deg)' }" @dblclick="showCellType(column)" >
 
                                                    {{--  <select class="bg-gray-200 border-transparent focus:border-blue-300 font-black form-input leading-none px-0 py-0 rounded shadow-sm text-black text-center transition w-5" @change="cellChange($event.target.value, column)" v-model="column.cell_id" v-if="column.showSelection">
                                                         <option></option>
@@ -74,7 +74,7 @@
 
                                                     <input type="checkbox" class="bg-transparent border focus:border-blue-300 font-black form-input leading-none px-0 py-0 rounded shadow-sm text-black text-center transition w-5" v-if="updateTypeCell == 'cell_type' || updateTypeCell == 'orientation'" v-model="column.selected">
 
-                                                    <input type="text" class="bg-transparent border-transparent focus:border-blue-300 font-black form-input leading-none px-0 py-0 rounded shadow-sm text-black text-center transition w-5" v-model="column.label" v-if="updateTypeCell == 'number_seats'">
+                                                    <input type="text" class="bg-transparent border-transparent focus:border-blue-300 font-black form-input leading-none px-0 py-0 rounded shadow-sm text-black text-center transition w-5 text-xs" v-model="column.label" v-if="updateTypeCell == 'number_seats'">
                                                 </td>
                                             </tr>
                                         </table>

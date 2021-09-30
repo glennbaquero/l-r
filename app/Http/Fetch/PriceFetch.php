@@ -49,8 +49,18 @@ class PriceFetch
             $this->price = $this->price->whereIn('departure_id', $cityId);
         }
 
+        if($params['departure_zone'] && $params['departure_zone'] != 'null') {
+            $cityId = $this->city->where('destination_zone', $params['departure_zone'])->pluck('id')->toArray();
+            $this->price = $this->price->whereIn('departure_id', $cityId);
+        }
+
         if($params['arrival'] && $params['arrival'] != 'null') {
             $cityId = $this->city->whereLike('name', $params['arrival'])->pluck('id')->toArray();
+            $this->price = $this->price->whereIn('arrival_id', $cityId);
+        }
+
+        if($params['destination_zone'] && $params['destination_zone'] != 'null') {
+            $cityId = $this->city->where('destination_zone', $params['destination_zone'])->pluck('id')->toArray();
             $this->price = $this->price->whereIn('arrival_id', $cityId);
         }
 

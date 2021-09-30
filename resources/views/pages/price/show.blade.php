@@ -132,7 +132,7 @@
                                 </div>
 
 
-                                <div class="col-span-2 sm:col-span-2">
+                                {{-- <div class="col-span-2 sm:col-span-2">
                                     <x-label for="departure_price" class="font-semibold">Departure Price</x-label>
                                     <x-form-input type="number" min="0" name="departure_price" id="departure_price" step="any" value="{{ $price->departure_price }}" />
                                 </div>
@@ -143,7 +143,7 @@
                                 <div class="col-span-2 sm:col-span-2">
                                     <x-label for="round_trip_price" class="font-semibold">Round Trip Price</x-label>
                                     <x-form-input type="number" min="0" name="round_trip_price" id="round_trip_price" step="any" value="{{ $price->round_trip_price }}" />
-                                </div>
+                                </div> --}}
                                 {{-- <div class="col-span-4 sm:col-span-3">
                                     <x-label for="minimum_price" class="font-semibold">Minimum Price</x-label>
                                     <x-form-input type="number" min="0" name="minimum_price" id="minimum_price" step="any" value="{{ $price->minimum_price }}" />

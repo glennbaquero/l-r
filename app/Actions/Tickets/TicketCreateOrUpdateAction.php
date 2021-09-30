@@ -91,6 +91,7 @@ class TicketCreateOrUpdateAction
 						'bus_model_column_id' => $request->seat_id,
 						'trip_time_id' => $request->trip_time_id,
 						'driver_id' => $request->driver_id,
+						'type_of_ticket' => $request->type_of_ticket,
 					]);
 
 					$passenger = Passenger::findOrFail($request->passenger_info['id']);

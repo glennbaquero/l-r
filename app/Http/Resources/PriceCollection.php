@@ -13,7 +13,7 @@ class PriceCollection extends ResourceCollection
      */
     public static $headers = [
        // 'Departure', 'Arrival', 'Currency', 'Arrival Price', 'Departure Price', 'Round Trip Price', 'Actions'
-       'Departure', 'Arrival', 'Currency', 'Arrival Price', 'Departure Price', 'Round Trip Price', 'Adult One Way', 'Adult Round Trip', 'Senior One Way', 'Senior Round Trip', 'Child One Way', 'Child Round Trip', 'Actions'
+       'Departure Zone', 'Destination Zone', 'Departure', 'Arrival', 'Currency', 'Adult One Way', 'Adult Round Trip', 'Senior One Way', 'Senior Round Trip', 'Child One Way', 'Child Round Trip', 'Actions'
        // 'Minimum Price', 'Maximum Price',
     ];
 
@@ -24,7 +24,7 @@ class PriceCollection extends ResourceCollection
      */
     public static $searches = [
         // 'departure', 'arrival', 'currency', 'arrival_price', 'departure_id'
-        'departure', 'arrival', 'currency', 'departure_id'
+        'departure', 'arrival', 'currency', 'departure_id', 'destination_zone', 'departure_zone'
     ];
 
     /**
@@ -39,6 +39,10 @@ class PriceCollection extends ResourceCollection
             return [
                 'departure' => $price->departure->name,
                 'arrival' => $price->arrival->name,
+                'departure_zone' => $price->departure->destination_zone,
+                'destination_zone' => $price->arrival->destination_zone,
+
+
                 'currency' => $price->currency->name,
                 'arrival_price' => number_format($price->arrival_price, 2, '.', ','),
                 'departure_price' => number_format($price->departure_price, 2, '.', ','),

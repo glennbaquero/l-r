@@ -70,10 +70,7 @@ class PriceImport implements ToModel, WithHeadingRow
                     'child_one_way' => $row['child_ow'],
                     'child_roundtrip' => $row['child_rt'],
                     
-                    'currency_id' => Currency::where('symbol', '$')->first()->id,
-                    'arrival_price' => $row['arrival_price'] ?? 0,
-                    'departure_price' => $row['departure_price'] ?? 0,
-                    'round_trip_price' => $row['round_trip_price'] ?? 0,
+                    'currency_id' => Currency::where('symbol', '$')->first() ? Currency::where('symbol', '$')->first()->id : Currency::first()->id,
                 ]);
             }
         }
