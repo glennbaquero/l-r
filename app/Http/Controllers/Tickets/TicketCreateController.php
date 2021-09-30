@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Actions\Tickets\TicketCreateOrUpdateAction;
 use App\Notifications\TicketNotifyPassenger;
 use App\Notifications\PassengerPaymentFormNotification;
+use App\Notifications\TicketConfirmationNotification;
 use Session;
 
 class TicketCreateController extends Controller

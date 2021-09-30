@@ -57,6 +57,7 @@
 
 					trip_time_id: this.$parent.payloads.time_id,
 					driver_id: this.$parent.payloads.time.driver_id,
+					type_of_ticket: this.$parent.payloads.type_of_ticket,
 				}
 
 				axios.post(this.$parent.paymentFormUrl, payloads)

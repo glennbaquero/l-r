@@ -139,7 +139,20 @@
 				if(!_.isEmpty(this.$parent.price)) {
 					let total = 0;
 
-					total = parseFloat(this.$parent.price.departure_price) + parseFloat(this.$parent.price.arrival_price);
+					switch(this.$parent.payloads.type_of_ticket) {
+						case 'adult':
+							total = parseFloat(this.$parent.price.adult_one_way);
+							break;
+						case 'senior':
+							total = parseFloat(this.$parent.price.senior_one_way);
+							break;
+						case 'child':
+							total = parseFloat(this.$parent.price.child_one_way);
+							break;
+
+					}
+
+					// total = parseFloat(this.$parent.price.departure_price) + parseFloat(this.$parent.price.arrival_price);
 
 					// check if max baggage is exceed
 					

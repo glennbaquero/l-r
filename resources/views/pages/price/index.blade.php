@@ -81,6 +81,12 @@
                         <x-slot name="body">
                             <tr>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
+                                    <input @input="setParam('departure_zone', $event.target.value)" name="departure_zone" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
+                                </td>
+                                <td class="text-center border-b-2 border-gray-300 px-3">
+                                    <input @input="setParam('destination_zone', $event.target.value)" name="destination_zone" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
+                                </td>
+                                <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('departure', $event.target.value)" name="departure" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
@@ -93,10 +99,16 @@
                                     <input @input="setParam('arrival_price', $event.target.value)" name="arrival_price" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td> --}}
                                 
-                                <td class="text-center border-b-2 border-gray-300 px-3" colspan="10"></td>
+                                <td class="text-center border-b-2 border-gray-300 px-3" colspan="7"></td>
                             </tr>
                             <template v-if="data.length > 0">
                                 <tr v-for="(price, key) in data" :key="key" class="hover:bg-gray-100 cursor-pointer">
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{price.departure_zone}}
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{price.destination_zone}}
+                                    </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{price.departure}}
                                     </td>
@@ -106,7 +118,7 @@
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{price.currency}}
                                     </td>
-                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                    {{-- <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{price.arrival_price}}
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
@@ -114,7 +126,7 @@
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{price.round_trip_price}}
-                                    </td>
+                                    </td> --}}
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{price.adult_one_way}}
                                     </td>

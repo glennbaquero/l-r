@@ -138,20 +138,20 @@
 
                                 <increment v-slot="{ removeHandler, addNewHandler, increment, array, selected }" :data="{{ $trip->times }}">
                                     <div class="col-span-6 sm:col-span-6">
-                                        <x-label for="time" class="font-semibold">Time
-                                            <button type="button" @click="addNewHandler" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" >
-                                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                            </button>
-                                        </x-label>
+                                        <button type="button" @click="addNewHandler" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" >
+                                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                        </button>
 
                                         <div class="grid grid-cols-3 gap-1">
                                             <template v-for="(list,key) in array" >
                                                 <div class="col-span-1 sm:col-span-1">
+                                                    <x-label for="time" class="font-semibold">Time</x-label>
                                                     <x-form-input type="time" name="time_list[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.time"/>
                                                     <input type="hidden" name="new[]" v-model="list.new">
                                                     <input type="hidden" name="ids[]" v-model="list.id">
                                                 </div>
                                                 <div class="col-span-1 sm:col-span-1 my-auto">
+                                                    <x-label for="driver_list" class="font-semibold">Driver</x-label>
                                                     <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="driver_list[]" v-model="list.driver_id">
                                                         <option disabled selected>Select driver</option>
                                                         @foreach($drivers as $driver)
