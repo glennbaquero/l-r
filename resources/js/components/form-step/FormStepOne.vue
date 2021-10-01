@@ -136,14 +136,19 @@
 						return time.id === val;
 					});
 
-					let trip = _.find(this.availableTrips, (trip) => {
-						return trip.id === time.trip_id;
-					});
+
 
 					this.item.time = time;
 					this.item.trip_id = time.trip_id;
-					this.item.trip = trip;
 				},1500)
+
+				setTimeout(() => {
+					let trip = _.find(this.availableTrips, (trip) => {
+						return trip.id === time.trip_id;
+					});
+					this.item.trip = trip;
+				}, 1600);
+						
 
 			}
 		},
@@ -332,7 +337,7 @@
 
 				this.$nextTick(() => {
 					this.$parent.loading = true;
-					
+
 					_.each(this.availableTrips, (trip) => {
 						if(trip.date == this.item.date) {
 							tripHasSameDate.push(trip.id);
