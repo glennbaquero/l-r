@@ -331,15 +331,14 @@
 				let tripHasSameDate = [];
 
 				this.$nextTick(() => {
+					this.$parent.loading = true;
+					
 					_.each(this.availableTrips, (trip) => {
 						if(trip.date == this.item.date) {
 							tripHasSameDate.push(trip.id);
 						}
 					})
-				})
 
-				setTimeout(() => {
-					this.$parent.loading = true;
 					let payloads = {
 						trip_ids: tripHasSameDate
 					}
@@ -351,8 +350,8 @@
 						}).catch(errors => {
 							this.$parent.loading = false;
 						})
-					}, 500)
-				
+				})
+
 			}
 		}
 	}
