@@ -319,10 +319,10 @@
 			travelDateChange() {
 				// this.$parent.loading = true;
 
-				let tripHasSameDate = [];
-
+				
 				this.$nextTick(() => {
 					this.$parent.loading = true;
+					let tripHasSameDate = [];
 
 					_.each(this.availableTrips, (trip) => {
 						if(trip.date == this.item.date) {
