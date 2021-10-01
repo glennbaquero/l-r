@@ -192,7 +192,7 @@
 
 				setTimeout(() => {
 					this.travelDateChange();
-				}, 1000)
+				}, 1500)
 			}
 			
 			setTimeout(() => {
