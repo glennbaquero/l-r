@@ -131,31 +131,17 @@
 			},
 
 			'item.time_id'(val) {
-				setTimeout(() => {
-					let time = _.find(this.trip_times, (time) => {
-						return time.id === val;
-					});
+				let time = _.find(this.trip_times, (time) => {
+					return time.id === val;
+				});
 
-					this.item.time = time;
-					
-					if(!_.isEmpty(this.$parent.selectedTicket)) {
-						let trip = _.find(this.availableTrips, (trip) => {
-							return trip.id === time.trip_id;
-						});
-
-						this.item.trip_id = time.trip_id;
-						this.item.trip = trip;
-					}
-					
-
-				},1500)
-
+				this.item.time = time;
 			}
 		},
 
 		computed: {
 			disabledNextButton() {
-				if(!_.isEmpty(this.item) && this.item.arrival_id && this.item.departure_id && !_.isEmpty(this.item.trip) && !_.isEmpty(this.item.type_of_ticket) && !_.isEmpty(this.item.time) && !_.isEmpty(this.item.date)) return false;
+				if(!_.isEmpty(this.item) && this.item.arrival_id && this.item.departure_id && !_.isEmpty(this.item.trip) && !_.isEmpty(this.item.type_of_ticket) && this.item.time_id && !_.isEmpty(this.item.date)) return false;
 
 				return true;
 			},
