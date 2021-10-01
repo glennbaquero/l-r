@@ -25,8 +25,12 @@
 		},
 
 		methods: {
-			menuChanged(menu) {
+			menuChanged(menu, fetch=false, table_num=null) {
 				this.selected = menu;
+
+				if(fetch) {
+					this.$children[table_num].fetch();
+				}
 			},
 
 			menuChangedVoucherTable(menu) {

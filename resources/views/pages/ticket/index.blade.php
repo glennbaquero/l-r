@@ -58,10 +58,10 @@
             <div class="mt-12 mx-auto">
                 <div class="hidden sm:block mb-3 px-2">
                     <nav class="flex">
-                        <a href="#" @click="menuChanged('paid')" class="ml-3 bg-white inline-flex items-center px-6 py-3 border border-darkblue text-base leading-6 font-medium rounded-md focus:outline-none focus:border-darkblue focus:shadow-outline-blue  transition ease-in-out duration-150  text-sm focus:outline-none" :class="selected === 'paid' ? 'bg-darkblue bg-white text-gray-50' : ''">
+                        <a href="#" @click="menuChanged('paid', true, 0);" class="ml-3 bg-white inline-flex items-center px-6 py-3 border border-darkblue text-base leading-6 font-medium rounded-md focus:outline-none focus:border-darkblue focus:shadow-outline-blue  transition ease-in-out duration-150  text-sm focus:outline-none" :class="selected === 'paid' ? 'bg-darkblue bg-white text-gray-50' : ''">
                             Paid
                         </a>
-                        <a href="#" @click="menuChanged('pending')" class="ml-3 bg-white inline-flex items-center px-6 py-3 border border-darkblue text-base leading-6 font-medium rounded-md focus:outline-none focus:border-darkblue focus:shadow-outline-blue  transition ease-in-out duration-150  text-sm focus:outline-none" :class="selected === 'pending' ? 'bg-darkblue bg-white text-gray-50' : ''">
+                        <a href="#" @click="menuChanged('pending', true, 1);" class="ml-3 bg-white inline-flex items-center px-6 py-3 border border-darkblue text-base leading-6 font-medium rounded-md focus:outline-none focus:border-darkblue focus:shadow-outline-blue  transition ease-in-out duration-150  text-sm focus:outline-none" :class="selected === 'pending' ? 'bg-darkblue bg-white text-gray-50' : ''">
                             Pending
                         </a>
                     </nav>
@@ -72,11 +72,15 @@
                             :searches="{{json_encode($searches)}}"
                             url="{{route('ticket.fetch')}}"
                             v-show="selected=='paid'"
+                            ref="datatable-paid"
                 >
                     <x-table :headers="$headers" canSelectMultiple="true">
                         <x-slot name="body">
                             <tr>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
+                                </td>
+                                <td class="text-center border-b-2 border-gray-300 px-3">
+                                    <input @input="setParam('id', $event.target.value)" name="id" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('departure', $event.target.value)" name="departure" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
@@ -97,6 +101,9 @@
                                 <tr v-for="(ticket, key) in data" :key="key" class="hover:bg-gray-100 cursor-pointer">
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         <input type="checkbox" class="inline-flex duration-150 ease-in-out focus:border-blue-300 focus:outline-none focus:shadow-outline-blue form-input leading-none mx-auto my-3 rounded shadow-sm transition" v-model="ticket.is_selected">
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{ticket.id}}
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{ticket.departure}}
@@ -215,11 +222,15 @@
                             :searches="{{json_encode($searches)}}"
                             url="{{route('ticket-preprocess.fetch')}}"
                             v-show="selected=='pending'"
+                            ref="datatable-pending"
                 >
                     <x-table :headers="$headers" canSelectMultiple="true">
                         <x-slot name="body">
                             <tr>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
+                                </td>
+                                <td class="text-center border-b-2 border-gray-300 px-3">
+                                    <input @input="setParam('id', $event.target.value)" name="id" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('departure', $event.target.value)" name="departure" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
@@ -240,6 +251,9 @@
                                 <tr v-for="(ticket, key) in data" :key="key" class="hover:bg-gray-100 cursor-pointer">
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         <input type="checkbox" class="inline-flex duration-150 ease-in-out focus:border-blue-300 focus:outline-none focus:shadow-outline-blue form-input leading-none mx-auto my-3 rounded shadow-sm transition" v-model="ticket.is_selected">
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{ticket.id}}
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{ticket.departure}}

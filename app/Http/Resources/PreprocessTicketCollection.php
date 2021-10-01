@@ -14,7 +14,7 @@ class PreprocessTicketCollection extends ResourceCollection
      * @var array 
      */
     public static $headers = [
-       'Departure', 'Arrival', 'Travel Date', 'Seat', 'Passenger', 'Type', 'Price', 'Actions'
+       'ID', 'Departure', 'Arrival', 'Travel Date', 'Seat', 'Passenger', 'Type', 'Price', 'Actions'
     ];
 
     /**
@@ -32,7 +32,7 @@ class PreprocessTicketCollection extends ResourceCollection
      * @var array
      */
     public static $searches = [
-        'departure', 'arrival', 'passenger', 'office_id', 'date', 'trip', 'type', 'travel_date', 'end_date', 'has_end_date', 'office_view'
+        'departure', 'arrival', 'passenger', 'office_id', 'date', 'trip', 'type', 'travel_date', 'end_date', 'has_end_date', 'office_view', 'id'
     ];
 
     /**
@@ -91,6 +91,7 @@ class PreprocessTicketCollection extends ResourceCollection
                 'time' => $ticket->trip_time,
 
                 'is_cancelled' => $ticket->is_cancelled,
+                'type_of_ticket' => $ticket->type_of_ticket,
 
                 'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name, true]),
                 'cancelUrl' => route('ticket.cancel', $ticket->id),
