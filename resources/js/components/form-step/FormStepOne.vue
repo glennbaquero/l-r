@@ -326,7 +326,7 @@
 			},
 
 			travelDateChange() {
-				this.$parent.loading = true;
+				// this.$parent.loading = true;
 
 				let tripHasSameDate = [];
 
@@ -338,17 +338,21 @@
 					})
 				})
 
-				let payloads = {
-					trip_ids: tripHasSameDate
-				}
+				setTimeout(() => {
+					this.$parent.loading = true;
+					let payloads = {
+						trip_ids: tripHasSameDate
+					}
 
-				axios.post(this.$parent.getTripTimeUrl, payloads)
-					.then(response => {
-						this.trip_times = response.data.time;
-						this.$parent.loading = false;
-					}).catch(errors => {
-						this.$parent.loading = false;
-					})
+					axios.post(this.$parent.getTripTimeUrl, payloads)
+						.then(response => {
+							this.trip_times = response.data.time;
+							this.$parent.loading = false;
+						}).catch(errors => {
+							this.$parent.loading = false;
+						})
+					}, 500)
+				
 			}
 		}
 	}
