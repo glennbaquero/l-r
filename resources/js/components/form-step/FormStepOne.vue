@@ -326,6 +326,8 @@
 
 					_.each(this.availableTrips, (trip) => {
 						if(trip.date == this.item.date) {
+							this.item.trip = trip;
+							this.item.trip_id = trip.id;
 							tripHasSameDate.push(trip.id);
 						}
 					})
