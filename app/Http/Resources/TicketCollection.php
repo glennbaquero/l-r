@@ -89,6 +89,7 @@ class TicketCollection extends ResourceCollection
                 'seat_id' => $ticket->bus_model_column_id,
                 'time_id' => $ticket->trip_time_id,
                 'time' => $ticket->trip_time,
+                'bus_id' => $ticket->trip->bus_id,
 
                 'is_cancelled' => $ticket->is_cancelled,
 

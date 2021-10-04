@@ -34,7 +34,7 @@
 			</select>
 		</div>
 
-		<div v-if="showAvailableTrip" :class="trip_times.length ? 'col-span-2 sm:col-span-2' : 'col-span-full sm:col-span-full'">
+		<div v-if="showAvailableTrip" class="col-span-1 sm:col-span-1">
 		    <label for="departure" class="font-semibold">Travel Date</label>
 		    <input ref="datepicker" type="text" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.date" @change="travelDateChange" readonly>
 		    <!-- <v-select
@@ -46,9 +46,16 @@
 		    </v-select> -->
 		</div>
 
-		<div class="col-span-1 sm:col-span-1" v-if="trip_times.length">
+		<div class="col-span-1 sm:col-span-1">
+		    <label for="departure" class="font-semibold">Bus</label>
+		    <select name="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.bus_id" :disabled="!buses.length" @change="busChangeHandler">
+		    	<option v-for="bus in buses" :value="bus.id">{{ bus.name }} | {{ bus.plate }}</option>
+		    </select>
+		</div>
+
+		<div class="col-span-1 sm:col-span-1">
 		    <label for="departure" class="font-semibold">Time</label>
-		    <select name="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.time_id">
+		    <select name="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.time_id" :disabled="!buses.length">
 		    	<option v-for="time in trip_times" :value="time.id">{{ time.formatted_time }}</option>
 		    </select>
 		</div>
@@ -104,6 +111,7 @@
 				price: 0,
 
 				available_dates: [],
+				buses: [],
 			}
 		},
 
@@ -225,6 +233,8 @@
 					trip_id: this.item.trip.id,
 					departure_id: this.item.departure_id,
 					arrival_id: this.item.arrival_id,
+					bus_id: this.item.bus_id,
+					time_id: this.item.time_id,
 				}
 
 				// if(_.isEmpty(this.$parent.selectedTicket)) {
@@ -285,6 +295,7 @@
 						this.$parent.price = response.data.price;
 						this.price = response.data.price;
 						this.available_dates = response.data.available_dates;
+						this.buses = response.data.buses;
 
 						setTimeout(() => {
 							this.setupFlatpickr();
@@ -333,7 +344,8 @@
 					})
 
 					let payloads = {
-						trip_ids: tripHasSameDate
+						trip_ids: tripHasSameDate,
+						bus_id: this.item.bus_id
 					}
 
 					axios.post(this.$parent.getTripTimeUrl, payloads)
@@ -345,6 +357,10 @@
 						})
 				})
 
+			},
+
+			busChangeHandler() {
+				this.travelDateChange();
 			}
 		}
 	}
