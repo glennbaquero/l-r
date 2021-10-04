@@ -98,6 +98,7 @@
 			paymentFormUrl: String,
 			voucherValidateUrl: String,
 			getTripTimeUrl: String,
+			getAvailableBusUrl: String,
 			updateUrl: String,
 			selectedTicket: Object,
 			officeId: Number,

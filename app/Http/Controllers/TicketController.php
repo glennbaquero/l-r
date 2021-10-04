@@ -147,7 +147,7 @@ class TicketController extends Controller
                                 ]);   
 
                                 $available_dates = $availableTrips->pluck('date');
-                                $buses = $availableTrips->pluck('bus_id')->toArray();
+                                // $buses = $availableTrips->pluck('bus_id')->toArray();
                             }
 
                         }
@@ -169,7 +169,7 @@ class TicketController extends Controller
         return response()->json([
             'trips' => $trips,
             'price' => $price,
-            'buses' => Bus::whereIn('id', $buses)->get(),
+            // 'buses' => Bus::whereIn('id', $buses)->get(),
             'available_dates' => $available_dates
         ]);
 
@@ -187,6 +187,15 @@ class TicketController extends Controller
         $time = TripTime::whereIn('trip_id', $trips)->get();
         return response()->json([
             'time' => $time
+        ]);
+    }
+
+    public function getAvailableBus(Request $request)
+    {
+        $bus_ids = Trip::whereIn('id', $request->trip_ids)->pluck('bus_id');
+        $buses = Bus::whereIn('id', $bus_ids)->get();
+        return response()->json([
+            'buses' => $buses
         ]);
     }
 

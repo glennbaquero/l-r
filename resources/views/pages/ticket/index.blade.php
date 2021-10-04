@@ -46,6 +46,7 @@
                             payment-form-url="{{ route('ticket.store') }}"
                             voucher-validate-url="{{ route('ticket.voucher-validate') }}"
                             get-trip-time-url="{{ route('ticket.get-trip-time') }}"
+                            get-available-bus-url="{{ route('ticket.get-available-bus') }}"
                             :office-id="{{ auth()->user()->office->departure->id }}"
                         ></ticket>
                     </x-slot>
@@ -150,6 +151,7 @@
                                                     payment-form-url="{{ route('ticket.store') }}"
                                                     voucher-validate-url="{{ route('ticket.voucher-validate') }}"
                                                     get-trip-time-url="{{ route('ticket.get-trip-time') }}"
+                                                    get-available-bus-url="{{ route('ticket.get-available-bus') }}"
                                                 ></ticket>
                                             </x-slot>
 
@@ -300,6 +302,7 @@
                                                     payment-form-url="{{ route('ticket.store') }}"
                                                     voucher-validate-url="{{ route('ticket.voucher-validate') }}"
                                                     get-trip-time-url="{{ route('ticket.get-trip-time') }}"
+                                                    get-available-bus-url="{{ route('ticket.get-available-bus') }}"
                                                 ></ticket>
                                             </x-slot>
 

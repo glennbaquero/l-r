@@ -48,14 +48,14 @@
 
 		<div class="col-span-1 sm:col-span-1">
 		    <label for="departure" class="font-semibold">Bus</label>
-		    <select name="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.bus_id" :disabled="!buses.length" @change="busChangeHandler">
+		    <select name="bus" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.bus_id" :disabled="!buses" @change="busChangeHandler">
 		    	<option v-for="bus in buses" :value="bus.id">{{ bus.name }} | {{ bus.plate }}</option>
 		    </select>
 		</div>
 
 		<div class="col-span-1 sm:col-span-1">
 		    <label for="departure" class="font-semibold">Time</label>
-		    <select name="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.time_id" :disabled="!buses.length">
+		    <select name="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.time_id" :disabled="!trip_times">
 		    	<option v-for="time in trip_times" :value="time.id">{{ time.formatted_time }}</option>
 		    </select>
 		</div>
@@ -98,7 +98,9 @@
 			return {
 				item: {
 					trip: {},
-					type_of_ticket: 'adult'
+					type_of_ticket: 'adult',
+					date: null,
+					time_id: null,
 
 				},
 				trips: [],
@@ -140,11 +142,11 @@
 
 			'item.time_id'(val) {
 				let time = _.find(this.trip_times, (time) => {
-					return time.id === val;
+					return time.id == val;
 				});
 
 				this.item.time = time;
-			}
+			},
 		},
 
 		computed: {
@@ -200,6 +202,7 @@
 
 				setTimeout(() => {
 					this.travelDateChange();
+					this.busChangeHandler();
 				}, 1500)
 			}
 			
@@ -329,8 +332,46 @@
 
 			travelDateChange() {
 				// this.$parent.loading = true;
-
 				
+				if(this.canEdit) {
+					this.item.bus_id = null;
+					this.item.time_id = null;
+				} 
+
+				if(!this.canEdit) {
+					this.canEdit = true;
+				}
+
+
+				this.$nextTick(() => {
+					this.$parent.loading = true;
+					let tripHasSameDate = [];
+
+					_.each(this.availableTrips, (trip) => {
+						if(trip.date == this.item.date) {
+							this.item.trip = trip;
+							this.item.trip_id = trip.id;
+							tripHasSameDate.push(trip.id);
+						}
+					})
+
+					let payloads = {
+						trip_ids: tripHasSameDate,
+					}
+
+					axios.post(this.$parent.getAvailableBusUrl, payloads)
+						.then(response => {
+							this.buses = response.data.buses;
+							this.$parent.loading = false;
+						}).catch(errors => {
+							this.$parent.loading = false;
+						})
+				})
+
+			},
+
+			busChangeHandler() {
+				// this.travelDateChange();
 				this.$nextTick(() => {
 					this.$parent.loading = true;
 					let tripHasSameDate = [];
@@ -356,11 +397,6 @@
 							this.$parent.loading = false;
 						})
 				})
-
-			},
-
-			busChangeHandler() {
-				this.travelDateChange();
 			}
 		}
 	}
