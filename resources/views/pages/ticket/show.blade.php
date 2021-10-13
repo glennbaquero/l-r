@@ -46,6 +46,7 @@
                             <div class="bg-white mx-auto p-10 rounded-md shadow-md w-1/2">
                                 <div class="col-span-6 sm:col-span-6 mx-auto text-center">    
                                     <h4 class="text-3xl text-gray-700 mb-5">Your ticket info</h4>
+                                    <h3 class="text-2xl text-gray-700 mb-5">Price : $ {{ number_format($ticket->total_sale, 2, '.', ',') }}</h3>
                                     <div class="mb-6 flex flex-wrap -mx-3w-full">
                                         <div class="w-1/2 px-3">
                                             <label class="block mb-3 text-gray-600">Ticket ID: {{ $ticket->id }}</label>
@@ -68,14 +69,18 @@
                                         <div class="w-screen px-3">
                                             <div id="qrCodeHolder"></div>
                                         </div>
+                                        @if($ticket->payment_method === 'Credit Card')
                                         <div class="w-screen px-3">
                                             <label class="block mb-3 text-gray-600">Please pay to process your ticket.</label>
                                         </div>
+                                        @endif
+                                        @if($ticket->payment_method === 'Credit Card')
                                         <div class="w-screen px-3">
                                             <a href="{{ $ticket->paymentFormUrl() }}" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-full" >
                                                 Go to payment form
                                             </a>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

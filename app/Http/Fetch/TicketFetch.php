@@ -41,6 +41,10 @@ class TicketFetch
         $this->ticket = $this->ticket;
 
 
+        if($params['id'] && $params['id'] != 'null') {
+            $this->ticket = $this->ticket->where('id', $params['id']);
+        }
+        
         if($params['trip'] && $params['trip'] != 'null') {
             $this->ticket = $this->ticket->where('trip_id', $params['trip']);
         }

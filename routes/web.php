@@ -484,6 +484,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/ticket/find/trip', [TicketController::class, 'findAvailableTrip'])->name('ticket.find-available-trip');
     Route::post('/ticket/get/trip/time', [TicketController::class, 'getTripTime'])->name('ticket.get-trip-time');
     Route::post('/ticket/get/bus', [TicketController::class, 'getBus'])->name('ticket.fetch-bus');
+    Route::post('/ticket/get-available-bus', [TicketController::class, 'getAvailableBus'])->name('ticket.get-available-bus');
     Route::post('/ticket/get/passengers', [TicketController::class, 'getPassenger'])->name('ticket.fetch-passengers');
     Route::post('/ticket/voucher/validate', [TicketController::class, 'couponValidate'])->name('ticket.voucher-validate');
     Route::post('/ticket/store', TicketCreateController::class)->name('ticket.store');

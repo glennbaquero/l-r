@@ -27,6 +27,7 @@ use App\Models\Coupon;
 use App\Models\Voucher;
 use App\Models\Route;
 use App\Models\PreprocessTicket;
+use App\Models\Bus;
 
 use Carbon\Carbon;
 use DB;
@@ -125,6 +126,7 @@ class TicketController extends Controller
 
         $trips = [];
         $available_dates = [];
+        $buses = [];
 
         $start_of_day = now()->startOfDay()->format('H:i:s');
         $end_of_day = now()->endOfDay()->format('H:i:s');
@@ -145,16 +147,16 @@ class TicketController extends Controller
                                 ]);   
 
                                 $available_dates = $availableTrips->pluck('date');
+                                // $buses = $availableTrips->pluck('bus_id')->toArray();
                             }
 
                         }
                     }
                 }
             }
-            
-            
         }
 
+        $buses = array_unique($buses);
 
         $price = Price::where('departure_id', $departure)->where('arrival_id', $arrival)->first();
 
@@ -167,6 +169,7 @@ class TicketController extends Controller
         return response()->json([
             'trips' => $trips,
             'price' => $price,
+            // 'buses' => Bus::whereIn('id', $buses)->get(),
             'available_dates' => $available_dates
         ]);
 
@@ -180,9 +183,19 @@ class TicketController extends Controller
     
     public function getTripTime(Request $request)
     {
-        $time = TripTime::whereIn('trip_id', $request->trip_ids)->get();
+        $trips = Trip::whereIn('id', $request->trip_ids)->where('bus_id', $request->bus_id)->pluck('id');
+        $time = TripTime::whereIn('trip_id', $trips)->get();
         return response()->json([
             'time' => $time
+        ]);
+    }
+
+    public function getAvailableBus(Request $request)
+    {
+        $bus_ids = Trip::whereIn('id', $request->trip_ids)->pluck('bus_id');
+        $buses = Bus::whereIn('id', $bus_ids)->get();
+        return response()->json([
+            'buses' => $buses
         ]);
     }
 
@@ -194,8 +207,8 @@ class TicketController extends Controller
     
     public function getBus(Request $request)
     {
-
-        $trip = Trip::find($request->trip_id);
+        $time = TripTime::find($request->time_id);
+        $trip = Trip::find($time->trip_id);
         $rows = $trip->bus->bus_model->bus_rows;
         $bus_model = [];
 
