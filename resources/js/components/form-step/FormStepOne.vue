@@ -46,14 +46,14 @@
 		    </v-select> -->
 		</div>
 
-		<div class="col-span-1 sm:col-span-1">
+		<!-- <div class="col-span-1 sm:col-span-1">
 		    <label for="departure" class="font-semibold">Bus</label>
 		    <select name="bus" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.bus_id" :disabled="!buses" @change="busChangeHandler">
 		    	<option v-for="bus in buses" :value="bus.id">{{ bus.name }} | {{ bus.plate }}</option>
 		    </select>
 		</div>
-
-		<div class="col-span-1 sm:col-span-1">
+ -->
+		<div class="col-span-2 sm:col-span-2">
 		    <label for="departure" class="font-semibold">Time</label>
 		    <select name="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.time_id" :disabled="!trip_times">
 		    	<option v-for="time in trip_times" :value="time.id">{{ time.formatted_time }}</option>
@@ -195,7 +195,15 @@
 		},
 
 		mounted() {
-			
+
+			if(!_.isEmpty(this.$parent.payloads.arrival) && !_.isEmpty(this.$parent.payloads.departure)) {
+				this.item = this.$parent.payloads;
+				this.selectedChanged();
+				setTimeout(() => {
+					this.travelDateChange();
+				}, 1500);
+			}
+
 			if(!_.isEmpty(this.$parent.selectedTicket)) {
 				this.item = this.$parent.selectedTicket
 				this.selectedChanged();
@@ -247,6 +255,7 @@
 					axios.post(this.$parent.fetchBusUrl, bus_finder_payloads)
 						.then(response => {
 							this.$parent.bus = response.data.bus_model;
+							this.$parent.bus_info = response.data.bus;
 
 							setTimeout(() => {
 								this.$parent.payloads = this.item;
@@ -359,9 +368,9 @@
 						trip_ids: tripHasSameDate,
 					}
 
-					axios.post(this.$parent.getAvailableBusUrl, payloads)
+					axios.post(this.$parent.getTripTimeUrl, payloads)
 						.then(response => {
-							this.buses = response.data.buses;
+							this.trip_times = response.data.time;
 							this.$parent.loading = false;
 						}).catch(errors => {
 							this.$parent.loading = false;

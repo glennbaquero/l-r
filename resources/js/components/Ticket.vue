@@ -76,6 +76,7 @@
 
 				availableTrip: [],
 				bus: [],
+				bus_info: [],
 				seat_selected: {},
 				passenger_info: {},
 

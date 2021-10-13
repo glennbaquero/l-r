@@ -45,6 +45,16 @@ class TripTime extends Model
     {
         return $this->belongsTo(Driver::class)->withTrashed();
     }
+    
+    /**
+     * TripTime belongs to bus
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function bus()
+    {
+        return $this->belongsTo(Bus::class, 'bus_id', 'id');
+    }
 
     /**
      * append formatted time

@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<div class="mt-5 px-4 py-4 rounded-md text-center">
+		<div class="text-center">
+			<label>{{ bus_info }}</label>
+		</div>
+		<div class="px-4 py-4 rounded-md text-center">
 			<div class="gap-4 grid grid-cols-3">
 				<div class="border px-4 py-4 col-span-2 rounded-md w-full shadow-md">
 					<table class="w-full">
@@ -152,6 +155,10 @@
 				}
 
 				return "0.00";
+			},
+
+			bus_info() {
+				return this.$parent.bus_info.name + "|" + this.$parent.bus_info.plate;
 			}
 		},
 
