@@ -70,9 +70,19 @@
                                             <x-select :lists="$transport_types" name="transport_type" identifierValue="name" oldValue="{{ old('transport_type') }}"/>
                                         </div>
 
-                                        <div class="col-span-2 sm:col-span-2">
+                                        {{-- <div class="col-span-2 sm:col-span-2">
                                             <x-label for="bus_id" class="font-semibold">Bus</x-label>
                                             <x-select :lists="$buses" name="bus_id"  oldValue="{{ old('bus_id') }}"/>
+                                        </div> --}}
+
+                                        <div class="col-span-2 sm:col-span-2">
+                                            <x-label for="alias_route" class="font-semibold">Max baggage</x-label>
+                                            <x-input type="number" min="0" name="max_baggage" id="max_baggage" oldValue="{{ old('max_baggage') }}"/>
+                                        </div>
+
+                                        <div class="col-span-2 sm:col-span-2">
+                                            <x-label for="alias_route" class="font-semibold">Additional fee for excess baggage</x-label>
+                                            <x-input type="number" min="0" name="additional_bag_fee" id="additional_bag_fee" oldValue="{{ old('additional_bag_fee') }}"/>
                                         </div>
 
                                         {{-- <div class="col-span-2 sm:col-span-2">
@@ -80,19 +90,9 @@
                                             <x-select :lists="$drivers" name="driver_id" display="fullname"  oldValue="{{ old('driver_id') }}"/>
                                         </div> --}}
 
-                                        <div class="col-span-full sm:col-span-full">
+                                        {{-- <div class="col-span-full sm:col-span-full">
                                             
-                                        </div>
-
-                                        <div class="col-span-3 sm:col-span-3">
-                                            <x-label for="alias_route" class="font-semibold">Max baggage</x-label>
-                                            <x-input type="number" min="0" name="max_baggage" id="max_baggage" oldValue="{{ old('max_baggage') }}"/>
-                                        </div>
-
-                                        <div class="col-span-3 sm:col-span-3">
-                                            <x-label for="alias_route" class="font-semibold">Additional fee for excess baggage</x-label>
-                                            <x-input type="number" min="0" name="additional_bag_fee" id="additional_bag_fee" oldValue="{{ old('additional_bag_fee') }}"/>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-span-3 sm:col-span-3">
                                             <x-label for="discounted_tickets" class="font-semibold mt-2 mb-5">
@@ -217,21 +217,35 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-3 gap-1">
+                                                <div class="grid grid-cols-4 gap-1">
                                                     <template v-if="selected.monday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-label for="monday_time" class="font-semibold">Time</x-label>
+                                                            <x-label for="monday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="monday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="monday_arrival_time" class="font-semibold">Arrival Time</x-label>
+                                                            <x-form-input type="time" name="monday_arrival_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.arrival_time"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
                                                             <x-label for="monday_time" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="monday_time_driver[]" v-model="list.driver_id">
-                                                                <option disabled selected>Select driver</option>
+                                                                <option value="">Pending driver</option>
                                                                 @foreach($drivers as $driver)
                                                                     <option value="{{ $driver->id }}">{{ $driver->fullname }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
+                                                        <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="bus_id" class="font-semibold">Bus</x-label>
+                                                            <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="monday_time_bus[]" v-model="list.bus_id">
+                                                                <option value="">Pending Bus</option>
+                                                                @foreach($buses as $bus)
+                                                                    <option value="{{ $bus->id }}">{{ $bus->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
                                                             <button type="button" @click="removeHandler(key)" v-if="key > 0" class="inline-flex items-center justify-center border border-transparent font-medium rounded-md text-white bg-red-600 focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                                                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
@@ -251,18 +265,31 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-3 gap-1">
+                                                <div class="grid grid-cols-4 gap-1">
                                                     <template v-if="selected.tuesday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-label for="tuesday_time" class="font-semibold">Time</x-label>
+                                                            <x-label for="tuesday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="tuesday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="tuesday_arrival_time" class="font-semibold">Arrival Time</x-label>
+                                                            <x-form-input type="time" name="tuesday_arrival_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.arrival_time"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
                                                             <x-label for="tuesday_time" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="tuesday_time_driver[]" v-model="list.driver_id">
-                                                                <option disabled selected>Select driver</option>
+                                                                <option value="">Pending driver</option>
                                                                 @foreach($drivers as $driver)
                                                                     <option value="{{ $driver->id }}">{{ $driver->fullname }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="bus_id" class="font-semibold">Bus</x-label>
+                                                            <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="tuesday_time_bus[]" v-model="list.bus_id">
+                                                                <option value="">Pending Bus</option>
+                                                                @foreach($buses as $bus)
+                                                                    <option value="{{ $bus->id }}">{{ $bus->name }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -285,18 +312,31 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-3 gap-1">
+                                                <div class="grid grid-cols-4 gap-1">
                                                     <template v-if="selected.wednesday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-label for="wednesday_time" class="font-semibold">Time</x-label>
+                                                            <x-label for="wednesday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="wednesday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="wednesday_arrival_time" class="font-semibold">Arrival Time</x-label>
+                                                            <x-form-input type="time" name="wednesday_arrival_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.arrival_time"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
                                                             <x-label for="wednesday_time_driver" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="wednesday_time_driver[]" v-model="list.driver_id">
-                                                                <option disabled selected>Select driver</option>
+                                                                <option value="">Pending driver</option>
                                                                 @foreach($drivers as $driver)
                                                                     <option value="{{ $driver->id }}">{{ $driver->fullname }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="bus_id" class="font-semibold">Bus</x-label>
+                                                            <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="wednesday_time_bus[]" v-model="list.bus_id">
+                                                                <option value="">Pending Bus</option>
+                                                                @foreach($buses as $bus)
+                                                                    <option value="{{ $bus->id }}">{{ $bus->name }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -319,11 +359,15 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-3 gap-1">
+                                                <div class="grid grid-cols-4 gap-1">
                                                     <template v-if="selected.thursday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-label for="thursday_time" class="font-semibold">Time</x-label>
+                                                            <x-label for="thursday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="thursday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="thursday_arrival_time" class="font-semibold">Arrival Time</x-label>
+                                                            <x-form-input type="time" name="thursday_arrival_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.arrival_time"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
                                                             <x-label for="thursday_time_driver" class="font-semibold">Driver</x-label>
@@ -331,6 +375,15 @@
                                                                 <option disabled selected>Select driver</option>
                                                                 @foreach($drivers as $driver)
                                                                     <option value="{{ $driver->id }}">{{ $driver->fullname }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="bus_id" class="font-semibold">Bus</x-label>
+                                                            <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="thursday_time_bus[]" v-model="list.bus_id">
+                                                                <option value="">Pending Bus</option>
+                                                                @foreach($buses as $bus)
+                                                                    <option value="{{ $bus->id }}">{{ $bus->name }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -353,18 +406,31 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-3 gap-1">
+                                                <div class="grid grid-cols-4 gap-1">
                                                     <template v-if="selected.friday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-label for="friday_time" class="font-semibold">Time</x-label>
+                                                            <x-label for="friday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="friday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="friday_arrival_time" class="font-semibold">Arrival Time</x-label>
+                                                            <x-form-input type="time" name="friday_arrival_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.arrival_time"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
                                                             <x-label for="friday_time_driver" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="friday_time_driver[]" v-model="list.driver_id">
-                                                                <option disabled selected>Select driver</option>
+                                                                <option value="">Pending driver</option>
                                                                 @foreach($drivers as $driver)
                                                                     <option value="{{ $driver->id }}">{{ $driver->fullname }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="bus_id" class="font-semibold">Bus</x-label>
+                                                            <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="friday_time_bus[]" v-model="list.bus_id">
+                                                                <option value="">Pending Bus</option>
+                                                                @foreach($buses as $bus)
+                                                                    <option value="{{ $bus->id }}">{{ $bus->name }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -387,18 +453,31 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-3 gap-1">
+                                                <div class="grid grid-cols-4 gap-1">
                                                     <template v-if="selected.saturday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-label for="saturday_time" class="font-semibold">Time</x-label>
+                                                            <x-label for="saturday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="saturday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="saturday_arrival_time" class="font-semibold">Arrival Time</x-label>
+                                                            <x-form-input type="time" name="saturday_arrival_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.arrival_time"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
                                                             <x-label for="saturday_time_driver" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="saturday_time_driver[]" v-model="list.driver_id">
-                                                                <option disabled selected>Select driver</option>
+                                                                <option value="">Pending driver</option>
                                                                 @foreach($drivers as $driver)
                                                                     <option value="{{ $driver->id }}">{{ $driver->fullname }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="bus_id" class="font-semibold">Bus</x-label>
+                                                            <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="saturday_time_bus[]" v-model="list.bus_id">
+                                                                <option value="">Pending Bus</option>
+                                                                @foreach($buses as $bus)
+                                                                    <option value="{{ $bus->id }}">{{ $bus->name }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -421,18 +500,31 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-3 gap-1">
+                                                <div class="grid grid-cols-4 gap-1">
                                                     <template v-if="selected.sunday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
-                                                            <x-label for="sunday_time" class="font-semibold">Time</x-label>
+                                                            <x-label for="sunday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="sunday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="sunday_arrival_time" class="font-semibold">Arrival Time</x-label>
+                                                            <x-form-input type="time" name="sunday_arrival_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.arrival_time"/>
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1 my-auto">
                                                             <x-label for="sunday_time_driver" class="font-semibold">Driver</x-label>
                                                             <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="sunday_time_driver[]" v-model="list.driver_id">
-                                                                <option disabled selected>Select driver</option>
+                                                                <option value="">Pending driver</option>
                                                                 @foreach($drivers as $driver)
                                                                     <option value="{{ $driver->id }}">{{ $driver->fullname }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1 my-auto">
+                                                            <x-label for="bus_id" class="font-semibold">Bus</x-label>
+                                                            <select class="form-input w-full mx-auto my-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" name="sunday_time_bus[]" v-model="list.bus_id">
+                                                                <option value="">Pending Bus</option>
+                                                                @foreach($buses as $bus)
+                                                                    <option value="{{ $bus->id }}">{{ $bus->name }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
