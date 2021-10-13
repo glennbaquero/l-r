@@ -34,7 +34,7 @@
 			</select>
 		</div>
 
-		<div v-if="showAvailableTrip" :class="trip_times.length ? 'col-span-2 sm:col-span-2' : 'col-span-full sm:col-span-full'">
+		<div v-if="showAvailableTrip" class="col-span-1 sm:col-span-1">
 		    <label for="departure" class="font-semibold">Travel Date</label>
 		    <input ref="datepicker" type="text" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.date" @change="travelDateChange" readonly>
 		    <!-- <v-select
@@ -46,9 +46,16 @@
 		    </v-select> -->
 		</div>
 
-		<div class="col-span-1 sm:col-span-1" v-if="trip_times.length">
+		<div class="col-span-1 sm:col-span-1">
+		    <label for="departure" class="font-semibold">Bus</label>
+		    <select name="bus" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.bus_id" :disabled="!buses" @change="busChangeHandler">
+		    	<option v-for="bus in buses" :value="bus.id">{{ bus.name }} | {{ bus.plate }}</option>
+		    </select>
+		</div>
+
+		<div class="col-span-1 sm:col-span-1">
 		    <label for="departure" class="font-semibold">Time</label>
-		    <select name="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.time_id">
+		    <select name="time" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="item.time_id" :disabled="!trip_times">
 		    	<option v-for="time in trip_times" :value="time.id">{{ time.formatted_time }}</option>
 		    </select>
 		</div>
@@ -91,7 +98,9 @@
 			return {
 				item: {
 					trip: {},
-					type_of_ticket: 'adult'
+					type_of_ticket: 'adult',
+					date: null,
+					time_id: null,
 
 				},
 				trips: [],
@@ -104,6 +113,7 @@
 				price: 0,
 
 				available_dates: [],
+				buses: [],
 			}
 		},
 
@@ -131,26 +141,17 @@
 			},
 
 			'item.time_id'(val) {
-				setTimeout(() => {
-					let time = _.find(this.trip_times, (time) => {
-						return time.id === val;
-					});
+				let time = _.find(this.trip_times, (time) => {
+					return time.id == val;
+				});
 
-					let trip = _.find(this.availableTrips, (trip) => {
-						return trip.id === time.trip_id;
-					});
-
-					this.item.time = time;
-					this.item.trip_id = time.trip_id;
-					this.item.trip = trip;
-				},1500)
-
-			}
+				this.item.time = time;
+			},
 		},
 
 		computed: {
 			disabledNextButton() {
-				if(!_.isEmpty(this.item) && this.item.arrival_id && this.item.departure_id && !_.isEmpty(this.item.trip) && !_.isEmpty(this.item.type_of_ticket) && !_.isEmpty(this.item.time) && !_.isEmpty(this.item.date)) return false;
+				if(!_.isEmpty(this.item) && this.item.arrival_id && this.item.departure_id && !_.isEmpty(this.item.trip) && !_.isEmpty(this.item.type_of_ticket) && this.item.time_id && !_.isEmpty(this.item.date)) return false;
 
 				return true;
 			},
@@ -201,7 +202,8 @@
 
 				setTimeout(() => {
 					this.travelDateChange();
-				}, 1000)
+					this.busChangeHandler();
+				}, 1500)
 			}
 			
 			setTimeout(() => {
@@ -234,6 +236,8 @@
 					trip_id: this.item.trip.id,
 					departure_id: this.item.departure_id,
 					arrival_id: this.item.arrival_id,
+					bus_id: this.item.bus_id,
+					time_id: this.item.time_id,
 				}
 
 				// if(_.isEmpty(this.$parent.selectedTicket)) {
@@ -294,6 +298,7 @@
 						this.$parent.price = response.data.price;
 						this.price = response.data.price;
 						this.available_dates = response.data.available_dates;
+						this.buses = response.data.buses;
 
 						setTimeout(() => {
 							this.setupFlatpickr();
@@ -326,29 +331,72 @@
 			},
 
 			travelDateChange() {
-				this.$parent.loading = true;
+				// this.$parent.loading = true;
+				
+				if(this.canEdit) {
+					this.item.bus_id = null;
+					this.item.time_id = null;
+				} 
 
-				let tripHasSameDate = [];
+				if(!this.canEdit) {
+					this.canEdit = true;
+				}
+
 
 				this.$nextTick(() => {
+					this.$parent.loading = true;
+					let tripHasSameDate = [];
+
 					_.each(this.availableTrips, (trip) => {
 						if(trip.date == this.item.date) {
+							this.item.trip = trip;
+							this.item.trip_id = trip.id;
 							tripHasSameDate.push(trip.id);
 						}
 					})
+
+					let payloads = {
+						trip_ids: tripHasSameDate,
+					}
+
+					axios.post(this.$parent.getAvailableBusUrl, payloads)
+						.then(response => {
+							this.buses = response.data.buses;
+							this.$parent.loading = false;
+						}).catch(errors => {
+							this.$parent.loading = false;
+						})
 				})
 
-				let payloads = {
-					trip_ids: tripHasSameDate
-				}
+			},
 
-				axios.post(this.$parent.getTripTimeUrl, payloads)
-					.then(response => {
-						this.trip_times = response.data.time;
-						this.$parent.loading = false;
-					}).catch(errors => {
-						this.$parent.loading = false;
+			busChangeHandler() {
+				// this.travelDateChange();
+				this.$nextTick(() => {
+					this.$parent.loading = true;
+					let tripHasSameDate = [];
+
+					_.each(this.availableTrips, (trip) => {
+						if(trip.date == this.item.date) {
+							this.item.trip = trip;
+							this.item.trip_id = trip.id;
+							tripHasSameDate.push(trip.id);
+						}
 					})
+
+					let payloads = {
+						trip_ids: tripHasSameDate,
+						bus_id: this.item.bus_id
+					}
+
+					axios.post(this.$parent.getTripTimeUrl, payloads)
+						.then(response => {
+							this.trip_times = response.data.time;
+							this.$parent.loading = false;
+						}).catch(errors => {
+							this.$parent.loading = false;
+						})
+				})
 			}
 		}
 	}
