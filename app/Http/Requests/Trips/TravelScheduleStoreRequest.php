@@ -29,7 +29,7 @@ class TravelScheduleStoreRequest extends FormRequest
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'transport_type' => 'required',
-            'bus_id' => 'required',
+            // 'bus_id' => 'required',
             // 'driver_id' => 'required',
         ];
     }

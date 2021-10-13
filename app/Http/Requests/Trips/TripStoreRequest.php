@@ -29,8 +29,10 @@ class TripStoreRequest extends FormRequest
             'date' => 'required|date',
             'time_list' => 'required',
             'transport_type' => 'required',
-            'bus_id' => 'required',
+            // 'bus_id' => 'required',
             'driver_list' => 'required',
+            'bus_list' => 'required',
+            'arrival_time' => 'required',
             'max_baggage' => 'required|numeric',
             'additional_bag_fee' => 'required|numeric',
             // 'main_co_driver_id' => 'required',
@@ -42,9 +44,11 @@ class TripStoreRequest extends FormRequest
         return [
             'route_id.required' => 'The route field is required.',
             // 'driver_id.required' => 'The driver field is required.',
-            'bus_id.required' => 'The bus field is required.',
+            // 'bus_id.required' => 'The bus field is required.',
             'time_list.required' => 'The time field is required. Please add atleast one.',
             'driver_list.required' => 'The driver field is required.',
+            'bus_list.required' => 'The bus field is required.',
+            'arrival_time.required' => 'The arrival time field is required.',
             // 'main_co_driver_id.required' => 'The main co driver field is required.',
         ];
     }
