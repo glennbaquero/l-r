@@ -209,7 +209,8 @@ class TicketController extends Controller
     {
         $time = TripTime::find($request->time_id);
         $trip = Trip::find($time->trip_id);
-        $rows = $trip->bus->bus_model->bus_rows;
+        // $rows = $trip->bus->bus_model->bus_rows;
+        $rows = $time->bus->bus_model->bus_rows;
         $bus_model = [];
 
         foreach ($rows as $row) {
@@ -218,7 +219,8 @@ class TicketController extends Controller
 
         }
         return response()->json([
-            'bus_model' => $bus_model
+            'bus_model' => $bus_model,
+            'bus' => $time->bus
         ]);
 
     }
