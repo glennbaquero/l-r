@@ -54,12 +54,17 @@ class TicketCreateController extends Controller
 
         if($request->action === 'Print only') {
             return response()->json([
-                'print_url' => $route
+                'print_url' => $route,
             ]);
         } 
 
         if($request->action === 'Confirmation only') {
             $ticket->passenger->notify(new TicketConfirmationNotification($ticket));
+
+            return response()->json([
+                'print_url' => $route,
+                'ticket_info_url' => route('ticket.status', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
+            ]);
         }
 
         // $ticket->passenger->notify(new PassengerPaymentFormNotification($ticket));
