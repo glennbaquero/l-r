@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
 
-                                <div class="bg-white mx-auto p-10 rounded-md shadow-md w-1/2">
+                                <div class="bg-white mx-auto p-10 rounded-md shadow-md w-full">
                                     <h4 class="text-3xl text-gray-700 mb-5">Payment information</h4>
                                     <div class="mb-6">
                                         <label class="block mb-3 text-gray-600">Card holder name</label>
@@ -59,10 +59,10 @@
                                         <input type="tel" class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest" v-model="payload.cc_number"/>
                                     </div>
                                     <div class="mb-6 flex flex-wrap -mx-3w-full">
-                                        <div class="w-2/3 px-3">
+                                        <div class="w-2/3 ">
                                             <label class="block mb-3 text-gray-600">Expiration date</label>
                                             <div class="flex">
-                                                <select class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest mr-6" v-model="payload.expiry_month">
+                                                <select class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest mr-3" v-model="payload.expiry_month">
                                                     <option selected disabled>Month</option>
                                                     <option value="01">01</option>
                                                     <option value="02">02</option>
@@ -85,7 +85,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="w-1/3 px-3">
+                                        <div class="w-1/3 pl-3">
                                             <label class="block mb-3 text-gray-600">CVV</label>
                                             <input type="tel" class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest" v-model="payload.cvv"/>
                                         </div>
