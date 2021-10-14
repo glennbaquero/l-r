@@ -7,7 +7,7 @@
 					<div class="col-span-full sm:col-span-full">
 						<label for="payment_method" class="block font-medium font-semibold text-gray-500">Do you want to print the Tickets sold?</label>
 						<select name="payment_method" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="action">
-							<option value="Print and email">Print and email</option>
+							<option value="Print and email">Print and email/SMS</option>
 							<option value="Print only">Print only</option>
 							<option value="Confirmation only">Confirmation only</option>
 						</select>
@@ -63,9 +63,14 @@
 				axios.post(this.$parent.paymentFormUrl, payloads)
 					.then(response => {
 
+						if(response.data.ticket_info_url) {
+							window.open(response.data.ticket_info_url,'_blank');
+						}
+						
 						if(response.data.print_url) {
 							window.open(response.data.print_url,'_blank');
 						}
+
 						this.$parent.$parent.toggled();
 						this.$parent.$parent.$parent.$children[3].fetch();
 					}).catch(errors => {

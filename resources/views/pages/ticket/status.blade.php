@@ -38,7 +38,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-white mx-auto p-10 rounded-md shadow-md w-1/2">
+                        <div class="bg-white mx-auto p-10 rounded-md shadow-md w-full">
                             <div class="col-span-6 sm:col-span-6 mx-auto text-center">    
                                 @if($status == 'paid')                        
                                     <h4 class="text-3xl text-gray-700 mb-5">Your ticket is already paid. Thank you!</h4>

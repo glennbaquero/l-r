@@ -11,17 +11,20 @@
 							<option value="Reservation">Reservation</option>
 						</select>
 					</div>
-					<div class="col-span-full sm:col-span-full">
-						<label for="cash" class="block font-medium font-semibold text-gray-500">Cash</label>
-						<input type="number" name="cash" v-model="payment.cash" min="0" :max="totalSale" step="any" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
-					</div>
-					<div class="col-span-full sm:col-span-full">
-						<label for="cash" class="block font-medium font-semibold text-gray-500">Refunded Amount: {{ refundedAmount }}</label>
-					</div>
+					<template v-if="payment.payment_method == 'Cash'">
+						<div class="col-span-full sm:col-span-full">
+							<label for="cash" class="block font-medium font-semibold text-gray-500">Cash</label>
+							<input type="number" name="cash" v-model="payment.cash" min="0" :min="totalSale" step="any" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
+						</div>
+						<div class="col-span-full sm:col-span-full">
+							<label for="cash" class="block font-medium font-semibold text-gray-500">Refunded Amount: {{ refundedAmount }}</label>
+						</div>
+					</template>
+					
 				</div>
 			</div>
 
-			<div class="bg-gradient-to-r col-span-1 from-darkblue ml-20 rounded-lg sm:col-span-1 text-center to-darkblue via-lightblue w-8/12">
+			<div class="bg-gradient-to-r col-span-1 from-darkblue ml-20 rounded-lg sm:col-span-1 text-center to-darkblue via-lightblue w-8/12 h-48">
 				<p class="font-medium mt-5 mx-auto text-2xl text-white">Total Sale</p>
 				<p class="font-bold text-5xl text-white">$ {{ totalSale }}</p>
 
@@ -44,7 +47,7 @@
 				    Back
 				</button>
 			</div>
-			<div class="col-span-1 sm:col-span-1">
+			<div class="col-span-1 sm:col-span-1" v-if="disabledNextButton">
 				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="nextFormHandler">
 				    {{ edit ? 'Save' : 'Pay' }}
 				</button>
@@ -72,7 +75,7 @@
 
 		computed: {
 			refundedAmount() {
-				return 0;
+				return this.payment.cash - this.totalSale;
 			},
 
 			totalSale() {
@@ -130,6 +133,11 @@
 			},
 
 			disabledNextButton() {
+
+				if(this.payment.cash <= this.totalSale) {
+					return false;
+				}
+
 				return true;
 			}
 		},
