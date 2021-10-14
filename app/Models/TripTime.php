@@ -24,7 +24,7 @@ class TripTime extends Model
      * 
      * @var array
      */
-    protected $appends = ['formatted_time', 'deleteUrl', 'new'];
+    protected $appends = ['formatted_time', 'formatted_arrival_time', 'deleteUrl', 'new'];
 
     /**
      * TripTime belongs to Trip
@@ -64,6 +64,16 @@ class TripTime extends Model
     public function getFormattedTimeAttribute()
     {
         return Carbon::parse($this->time)->format('h:i A');
+    }
+
+    /**
+     * append formatted time
+     * 
+     * @return string
+     */
+    public function getFormattedArrivalTimeAttribute()
+    {
+        return Carbon::parse($this->arrival_time)->format('h:i A');
     }
 
     /**
