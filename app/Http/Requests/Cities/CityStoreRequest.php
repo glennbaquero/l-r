@@ -25,6 +25,14 @@ class CityStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|',
+            'address_line_1' => 'required|',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'address_line_1.required' => 'The address field is required'
         ];
     }
 }
