@@ -47,9 +47,9 @@
 				    Back
 				</button>
 			</div>
-			<div class="col-span-1 sm:col-span-1" v-if="disabledNextButton">
+			<div class="col-span-1 sm:col-span-1" v-if="!disabledNextButton">
 				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="nextFormHandler">
-				    {{ edit ? 'Save' : 'Pay' }}
+				    {{ btnLabel }}
 				</button>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 			return {
 				payment: {
 					payment_method: 'Cash',
-					cash: this.$parent.price.arrival_price,
+					cash: 0,
 				},
 				code: null,
 
@@ -128,17 +128,29 @@
 
 				totalSale = totalSale - totalDiscount;
 
-
+				this.payment.cash = totalSale;
 				return totalSale.toFixed(2);
 			},
 
 			disabledNextButton() {
 
-				if(this.payment.cash <= this.totalSale) {
+				if(parseInt(this.payment.cash) >= parseInt(this.totalSale) && this.payment.payment_method == 'Cash') {
 					return false;
 				}
 
 				return true;
+			},
+
+			btnLabel() {
+				if(this.edit) {
+					return 'Save';
+				}
+
+				if(this.payment.payment_method == 'Cash' && this.payment.payment_method == 'Credit Card') {
+					return 'Next';
+				} else {
+					return 'Pay';
+				}
 			}
 		},
 
@@ -158,7 +170,41 @@
 					this.$parent.totalSale = this.totalSale;
 					this.$parent.voucher = this.voucher;
 					
-					this.$emit('nextStep', 6);
+
+					if(this.payment.payment_method == 'Reservation') {
+						this.$parent.loading = true;
+
+						var payloads = {
+							passenger: this.$parent.passenger_info,
+							bus_model_column_id: this.$parent.seat_selected.id,
+							trip_id: this.$parent.payloads.trip_id,
+							arrival_id: this.$parent.payloads.arrival_id,
+							departure_id: this.$parent.payloads.departure_id,
+							payment_method: this.$parent.payment.payment_method,
+							total_sale: this.$parent.totalSale,
+							has_voucher: !_.isEmpty(this.$parent.voucher),
+							voucher_code: !_.isEmpty(this.$parent.voucher) ? this.$parent.voucher.code : this.$parent.voucher,
+							action: 'Confirmation only',
+
+							trip_time_id: this.$parent.payloads.time_id,
+							driver_id: this.$parent.payloads.time.driver_id,
+							type_of_ticket: this.$parent.payloads.type_of_ticket,
+						}
+
+						axios.post(this.$parent.paymentFormUrl, payloads)
+							.then(response => {
+								this.$parent.modalMessage = 'Link sent to customer';
+								this.$parent.modalTitle = 'Reservation success.';
+								this.$parent.showModal = true;
+								this.$parent.$parent.toggled();
+								this.$parent.$parent.$parent.$children[3].fetch();
+								this.$parent.loading = false;
+							}).catch(errors => {
+								this.$parent.loading = false;
+							})
+					} else {
+						this.$emit('nextStep', 6);
+					}
 				} else {
 					axios.post(this.$parent.updateUrl, this.$parent.selectedTicket)
 						.then(response => {

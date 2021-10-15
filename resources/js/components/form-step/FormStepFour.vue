@@ -44,7 +44,7 @@
 				</select>
 			</div>
 			<div class="col-span-1 sm:col-span-1">
-				<label for="no_of_bags" class="block font-medium font-semibold text-gray-500">No. of Bags <b class="text-red-500">*</b></label>
+				<label for="no_of_bags" class="block font-medium font-semibold text-gray-500">No. of Bags</label>
 				<input type="number" name="no_of_bags" v-model="passenger_info.no_of_bags" min="0" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
 			</div>
 			<!-- <div class="col-span-1 sm:col-span-1">
@@ -83,8 +83,8 @@
 				    Back
 				</button>
 			</div>
-			<div class="col-span-1 sm:col-span-1">
-				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" :disabled="disabledNextButton" @click="nextFormHandler">
+			<div class="col-span-1 sm:col-span-1" v-if="!disabledNextButton">
+				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="nextFormHandler">
 				    Next
 				</button>
 			</div>
@@ -194,8 +194,10 @@
 				// setTimeout(() => {
 				// 	this.canEdit = true;
 				// }, 500)
+			} else {
+				this.passenger_info = this.$parent.passenger_info;
 			}
-		},
+ 		},
 
 		methods: {
 			handlePhoneFormat(e) {
