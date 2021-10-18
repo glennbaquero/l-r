@@ -195,7 +195,7 @@
 				// 	this.canEdit = true;
 				// }, 500)
 			} else {
-				this.passenger_info = this.$parent.passenger_info;
+				this.passenger_info = !_.isEmpty(this.$parent.passenger_info) ? this.$parent.passenger_info : this.passenger_info;
 			}
  		},
 

@@ -58,20 +58,25 @@ class TicketCreateOrUpdateAction
 					'infant_lastname' => $request->passenger['infant_lastname'],
 					'infant_gender' => $request->passenger['infant_gender'],
 					'no_of_bags' => $request->passenger['no_of_bags'],
-					'luggage_no' => $request->passenger['luggage_no'],
+					// 'luggage_no' => $request->passenger['luggage_no'],
 					'cellphone_number' => $request->passenger['cellphone_number'],
 				]);
 				
 				$request['passenger_id'] = $passenger->id;
 
-				if($request->payment_method != 'Cash') {
+				if($request->payment_method != 'Cash' && $request->payment_method != 'External Credit Card') {
 					$this->ticket = $this->preprocess->create($request->except(['passenger', 'action', 'has_voucher']));
 				} 
 
-				if($request->payment_method == 'Cash') {
+				if($request->payment_method == 'Cash' || $request->payment_method == 'External Credit Card') {
 					$this->ticket = $this->ticket->create($request->except(['passenger', 'action', 'has_voucher']));
 				}
-				
+
+				if($request->payment_method == 'External Credit Card') {
+					$this->ticket->update([
+						'payment_status' => 'Paid'
+					]);
+				}
 
 				if($request->has_voucher) {
 					$coupon = Coupon::where('code', $request->voucher_code);
@@ -104,7 +109,7 @@ class TicketCreateOrUpdateAction
 						'phone_number' => '+1'. str_replace(['(', ')', '-', ' '], '', $request->passenger_info['cellphone_number']),
 						'ticket_type_id' => $request->passenger_info['ticket_type_id'],
 						'no_of_bags' => $request->passenger_info['no_of_bags'],
-						'luggage_no' => $request->passenger_info['luggage_no'],
+						// 'luggage_no' => $request->passenger_info['luggage_no'],
 						'gender' => $request->passenger_info['gender'],
 						'with_infant' => $request->passenger_info['with_infant'],
 						'infant_firstname' => $request->passenger_info['infant_firstname'],

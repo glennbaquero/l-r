@@ -9,17 +9,20 @@
 							<option value="Cash">Cash</option>
 							<option value="Credit Card">Credit Card</option>
 							<option value="Reservation">Reservation</option>
+							<option value="External Credit Card">External Credit Card</option>
 						</select>
 					</div>
-					<template v-if="payment.payment_method == 'Cash'">
-						<div class="col-span-full sm:col-span-full">
-							<label for="cash" class="block font-medium font-semibold text-gray-500">Cash</label>
-							<input type="number" name="cash" v-model="payment.cash" min="0" :min="totalSale" step="any" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
-						</div>
-						<div class="col-span-full sm:col-span-full">
-							<label for="cash" class="block font-medium font-semibold text-gray-500">Refunded Amount: {{ refundedAmount }}</label>
-						</div>
-					</template>
+					<div class="col-span-full sm:col-span-full"  v-if="payment.payment_method == 'Cash'">
+						<label for="cash" class="block font-medium font-semibold text-gray-500">Cash</label>
+						<input type="number" name="cash" v-model="payment.cash" min="0" :min="totalSale" step="any" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
+					</div>
+					<div class="col-span-full sm:col-span-full"  v-if="payment.payment_method == 'External Credit Card'">
+						<label for="cash" class="block font-medium font-semibold text-gray-500">Transaction Number/Reference Number</label>
+						<input type="text" name="transaction_no" v-model="payment.transaction_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
+					</div>
+					<div class="col-span-full sm:col-span-full"  v-if="payment.payment_method == 'Cash'">
+						<label for="cash" class="block font-medium font-semibold text-gray-500">Refunded Amount: {{ refundedAmount }}</label>
+					</div>
 					
 				</div>
 			</div>
@@ -138,6 +141,14 @@
 					return false;
 				}
 
+				if(this.payment.payment_method == 'External Credit Card' && this.payment.transaction_number) {
+					return false;
+				}
+
+				if(this.payment.payment_method == 'Credit Card' || this.payment.payment_method == 'Reservation') {
+					return false;
+				}
+
 				return true;
 			},
 
@@ -158,6 +169,9 @@
 			if(this.$parent.edit) {
 				this.payment = this.$parent.selectedTicket;
 				this.code = this.$parent.selectedTicket.code;
+			} else {
+				this.payment = !_.isEmpty(this.$parent.payment) ? this.$parent.payment : this.payment; 
+				this.voucher = !_.isEmpty(this.$parent.voucher) ? this.$parent.voucher : this.voucher;
 			}
 		},
 
@@ -171,7 +185,7 @@
 					this.$parent.voucher = this.voucher;
 					
 
-					if(this.payment.payment_method == 'Reservation') {
+					if(this.payment.payment_method == 'Reservation' || this.payment.payment_method == 'External Credit Card') {
 						this.$parent.loading = true;
 
 						var payloads = {
@@ -184,19 +198,31 @@
 							total_sale: this.$parent.totalSale,
 							has_voucher: !_.isEmpty(this.$parent.voucher),
 							voucher_code: !_.isEmpty(this.$parent.voucher) ? this.$parent.voucher.code : this.$parent.voucher,
-							action: 'Confirmation only',
+							action: this.payment.payment_method,
 
 							trip_time_id: this.$parent.payloads.time_id,
 							driver_id: this.$parent.payloads.time.driver_id,
 							type_of_ticket: this.$parent.payloads.type_of_ticket,
+							transaction_number: this.payment.transaction_number,
 						}
 
 						axios.post(this.$parent.paymentFormUrl, payloads)
 							.then(response => {
+								this.$parent.showModal = true;
 								this.$parent.modalMessage = 'Link sent to customer';
 								this.$parent.modalTitle = 'Reservation success.';
-								this.$parent.showModal = true;
-								this.$parent.$parent.toggled();
+								// this.$parent.$parent.toggled();
+								this.$parent.step = 1;
+								this.$parent.payloads = {};
+								this.$parent.price = {};
+								this.$parent.availableTrip = {};
+								this.$parent.bus = [];
+								this.$parent.seat_selected = {};
+								this.$parent.passenger_info = {};
+								this.$parent.payment = {};
+								this.$parent.voucher = null;
+								this.$parent.totalSale = 0;
+								this.$parent.bus_info = [];
 								this.$parent.$parent.$parent.$children[3].fetch();
 								this.$parent.loading = false;
 							}).catch(errors => {
