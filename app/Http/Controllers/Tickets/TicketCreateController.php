@@ -10,6 +10,7 @@ use App\Actions\Tickets\TicketCreateOrUpdateAction;
 use App\Notifications\TicketNotifyPassenger;
 use App\Notifications\PassengerPaymentFormNotification;
 use App\Notifications\TicketConfirmationNotification;
+use App\Notifications\TicketInformationNotification;
 use Session;
 
 class TicketCreateController extends Controller
@@ -42,6 +43,10 @@ class TicketCreateController extends Controller
 
         if($request->payment_method != 'Cash') {
             $route = route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name, true]);
+        }
+
+        if($request->payment_method == 'External Credit Card') {
+            // $ticket->passenger->notify(new TicketInformationNotification($ticket));
         }
 
         if($request->action === 'Print and email') {

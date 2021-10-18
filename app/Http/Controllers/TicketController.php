@@ -298,7 +298,7 @@ class TicketController extends Controller
                     if($ticket->bus_model_column_id == $column->id) {
                         $column['passenger'] = $ticket->passenger;
 
-                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card') {
+                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card' || $ticket->payment_method == 'External Credit Card' ) {
                             // $column->image_path = url('icons/seat_sold.png');
                              $column->image_path = url('icons/sold_seat.png');
                         } elseif ($ticket->payment_method == 'Reservation') {
@@ -312,7 +312,7 @@ class TicketController extends Controller
                     if($ticket->bus_model_column_id == $column->id) {
                         $column['passenger'] = $ticket->passenger;
 
-                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card') {
+                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card' || $ticket->payment_method == 'External Credit Card') {
                             // $column->image_path = url('icons/seat_sold.png');
                             $column->image_path = url('icons/sold_seat.png');
                         } elseif ($ticket->payment_method == 'Reservation') {
@@ -328,7 +328,7 @@ class TicketController extends Controller
                     if($ticket->bus_model_column_id == $column->id) {
                         $column['passenger'] = $ticket->passenger;
 
-                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card') {
+                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card' || $ticket->payment_method == 'External Credit Card') {
                             // $column->image_path = url('icons/seat_sold.png');
                             $column->image_path = url('icons/sold_seat.png');
                         } elseif ($ticket->payment_method == 'Reservation') {
