@@ -65,6 +65,9 @@
                                             <div id="qrCodeHolder"></div>
                                         </div>
                                         <div class="w-screen px-3">
+                                            @if($ticket->transaction_number)
+                                            <label class="block mb-3 text-gray-600"><b>{{ $ticket->transaction_number }}</b></label>
+                                            @endif
                                             <label class="block mb-3 text-gray-600">Please show this to your driver.</label>
                                         </div>
                                     </div>
