@@ -21,6 +21,7 @@ class BaggageController extends Controller
      */
     public function __construct(BaggageFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\BaggageMiddleware');
         $this->fetch = $fetch;
     }
 

@@ -22,6 +22,7 @@ class RouteAndMainDriverController extends Controller
      */
     public function __construct(RouteAndMainDriverFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\RouteAndMainDriverMiddleware');
         $this->fetch = $fetch;
     }
 

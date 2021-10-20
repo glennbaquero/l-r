@@ -236,12 +236,17 @@ Route::post('/payment/process/{id}/{passenger}/{arrival}/{departure}', [PaymentC
 
 Route::get('/ticket/print/{id}/{passenger}/{arrival}/{departure}/{preprocess?}', [TicketController::class, 'printTicket'])->name('ticket.print');
 Route::get('/ticket/scan-qr/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'scanTicketQR'])->name('ticket.scan-qr');
+Route::get('/driver/transaction-number', [TicketController::class, 'transactionNumberPage'])->name('driver.transaction-number');
+Route::post('/driver/transaction-number/validate', [TicketController::class, 'validateTransactionNumber'])->name('driver.validate-transaction-number');
 Route::get('/ticket/confirmation/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'ticketConfirmation'])->name('ticket.confirmation');
 Route::get('/ticket/verified', [TicketController::class, 'ticketVerified'])->name('ticket.verified');
 Route::post('/ticket/confirmed', [TicketController::class, 'confirmedTicket'])->name('ticket.confirmed');
 Route::get('/ticket/status/{ticket_status}/{id?}/{passenger?}/{arrival?}/{departure?}', [TicketController::class, 'ticketStatus'])->name('ticket.status');
 
 Route::middleware(['auth'])->group(function() {
+
+    Route::get('/scanner', [DashboardController::class, 'scanQR'])->name('scanner');
+
     Route::post('/locale', LocaleController::class)->name('locale');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

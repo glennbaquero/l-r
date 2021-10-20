@@ -23,6 +23,7 @@ class PassengerReportController extends Controller
      */
     public function __construct(TripFetch $fetch, TicketFetch $ticket)
     {
+        $this->middleware('App\Http\Middleware\PassengerReportMiddleware');
         $this->fetch = $fetch;
         $this->ticket = $ticket;
     }

@@ -24,6 +24,7 @@ class TerminalController extends Controller
      */
     public function __construct(TerminalFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\TerminalMiddleware');
         $this->fetch = $fetch;
     }
 

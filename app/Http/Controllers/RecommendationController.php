@@ -20,6 +20,7 @@ class RecommendationController extends Controller
      */
     public function __construct(RecommendationFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\RecommendationMiddleware');
         $this->fetch = $fetch;
     }
 

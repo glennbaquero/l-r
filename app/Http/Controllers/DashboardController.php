@@ -11,6 +11,12 @@ use App\Models\Ticket;
 
 class DashboardController extends Controller
 {
+
+    public function __construct() 
+    {
+        $this->middleware('App\Http\Middleware\DashboardMiddleware', ['only' => ['index']]);
+    }
+
     /**
      * Show dasboard page
      * 
@@ -61,6 +67,18 @@ class DashboardController extends Controller
             'months' => collect($months),
             'per_month_revenue' => collect($per_month_revenue),
             'years' => collect($years),
+        ]);
+    }
+
+    /**
+     * Show scanning of QR
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function scanQR()
+    {
+        return view('pages.qr.scanner', [
+           //
         ]);
     }
 

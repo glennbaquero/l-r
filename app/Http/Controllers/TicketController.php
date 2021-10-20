@@ -45,6 +45,7 @@ class TicketController extends Controller
      */
     public function __construct(TicketFetch $fetch, PreprocessTicketFetch $preprocess_fetch)
     {
+        $this->middleware('App\Http\Middleware\TicketMiddleware', ['only' => ['index', 'printTicket']]);
         $this->fetch = $fetch;
         $this->preprocess_fetch = $preprocess_fetch;
     }
@@ -407,7 +408,9 @@ class TicketController extends Controller
             'payment_status' => 'Paid',
         ]);
 
-        return redirect()->route('dashboard');
+        return response()->json([
+            'success' => true
+        ]);
     }
 
 
@@ -657,6 +660,25 @@ class TicketController extends Controller
             'ticket' => $ticket,
             'travel_date' => $travel_date,
             'route' => $route,
+        ]);
+    }
+
+    public function transactionNumberPage()
+    {
+        return view('pages.qr.enter-transaction');
+    }
+
+    public function validateTransactionNumber(Request $request)
+    {
+        $ticket = Ticket::where('transaction_number', $request->transaction_number)->first();
+        
+        $ticket->update([
+            'boarding_status' => 'On Board',
+            'payment_status' => 'Paid',
+        ]);
+
+        return response()->json([
+            'success' => true
         ]);
     }
 }

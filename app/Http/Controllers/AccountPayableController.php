@@ -20,6 +20,7 @@ class AccountPayableController extends Controller
      */
     public function __construct(AccountPayableFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\AccountPayableMiddleware');
         $this->fetch = $fetch;
     }
 

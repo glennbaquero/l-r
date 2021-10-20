@@ -19,6 +19,7 @@ class DailyItineraryController extends Controller
      */
     public function __construct(DailyItineraryFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\DailyItineraryMiddleware');
         $this->fetch = $fetch;
     }
 

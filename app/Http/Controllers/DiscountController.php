@@ -29,6 +29,7 @@ class DiscountController extends Controller
      */
     public function __construct(MostUsedCouponFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\DiscountMiddleware');
         $this->fetch = $fetch;
     }
 

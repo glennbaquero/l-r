@@ -20,6 +20,7 @@ class ServiceController extends Controller
      */
     public function __construct(ServiceFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\ServiceMiddleware');
         $this->fetch = $fetch;
     }
 

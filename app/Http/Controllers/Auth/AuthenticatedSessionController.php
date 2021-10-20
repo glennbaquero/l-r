@@ -31,8 +31,14 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        
+        $route = RouteServiceProvider::HOME;
 
-        return redirect(RouteServiceProvider::HOME);
+        if($request->user()->group->name != 'Administrator') {
+            $route = route('scanner');
+        }
+
+        return redirect($route);
     }
 
     /**

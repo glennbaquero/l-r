@@ -12,6 +12,17 @@ use App\Models\Stop;
 
 class SeatTransferController extends Controller
 {
+
+    /**
+     * Create new controller instance
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('App\Http\Middleware\SeatTransferMiddleware');
+    }
+    
     /**
      * Show users index page
      * 

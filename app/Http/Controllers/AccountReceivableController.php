@@ -21,6 +21,7 @@ class AccountReceivableController extends Controller
      */
     public function __construct(TicketFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\AccountReceivableMiddleware');
         $this->fetch = $fetch;
     }
 

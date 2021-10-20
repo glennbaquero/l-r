@@ -26,6 +26,7 @@ class TripController extends Controller
      */
     public function __construct(TripFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\TripMiddleware');
         $this->fetch = $fetch;
     }
 

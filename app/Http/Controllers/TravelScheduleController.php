@@ -15,6 +15,15 @@ use App\Models\Company;
 class TravelScheduleController extends Controller
 {
 
+    /**
+     * Create new controller instance
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('App\Http\Middleware\TravelScheduleMiddleware');
+    }
 
     /**
      * Show Travel Schedule create page

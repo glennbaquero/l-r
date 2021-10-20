@@ -19,6 +19,7 @@ class DiscountOptionController extends Controller
      */
     public function __construct(DiscountOptionFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\DiscountOptionMiddleware');
         $this->fetch = $fetch;
     }
 

@@ -21,6 +21,7 @@ class TicketSupportController extends Controller
      */
     public function __construct(TicketSupportFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\TicketSupportMiddleware');
         $this->fetch = $fetch;
     }
 

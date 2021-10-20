@@ -24,6 +24,7 @@ class BoardingManagementController extends Controller
      */
     public function __construct(ItineraryUpdateFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\BoardingManagementMiddleware');
         $this->fetch = $fetch;
     }
 

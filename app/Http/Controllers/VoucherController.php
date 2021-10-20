@@ -21,6 +21,7 @@ class VoucherController extends Controller
      */
     public function __construct(VoucherFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\VoucherMiddleware');
         $this->fetch = $fetch;
     }
 
