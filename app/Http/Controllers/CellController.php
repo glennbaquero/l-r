@@ -21,6 +21,7 @@ class CellController extends Controller
      */
     public function __construct(CellFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\CellMiddleware');
         $this->fetch = $fetch;
     }
 

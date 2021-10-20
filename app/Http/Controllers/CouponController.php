@@ -25,6 +25,7 @@ class CouponController extends Controller
      */
     public function __construct(CouponFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\CouponMiddleware');
         $this->fetch = $fetch;
     }
 

@@ -23,6 +23,7 @@ class TravelExpenseController extends Controller
      */
     public function __construct(TravelExpenseFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\TravelExpenseMiddleware');
         $this->fetch = $fetch;
     }
 

@@ -20,6 +20,7 @@ class CompanyController extends Controller
      */
     public function __construct(CompanyFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\CompanyMiddleware');
         $this->fetch = $fetch;
     }
 

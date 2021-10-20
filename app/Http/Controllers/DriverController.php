@@ -20,6 +20,7 @@ class DriverController extends Controller
      */
     public function __construct(DriverFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\DriverMiddleware');
         $this->fetch = $fetch;
     }
 

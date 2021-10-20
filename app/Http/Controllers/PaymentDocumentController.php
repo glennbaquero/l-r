@@ -21,6 +21,7 @@ class PaymentDocumentController extends Controller
      */
     public function __construct(PaymentDocumentFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\PaymentDocumentMiddleware');
         $this->fetch = $fetch;
     }
 

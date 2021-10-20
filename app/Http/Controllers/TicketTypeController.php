@@ -22,6 +22,7 @@ class TicketTypeController extends Controller
      */
     public function __construct(TicketTypeFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\TicketTypeMiddleware');
         $this->fetch = $fetch;
     }
 

@@ -21,6 +21,7 @@ class ExpenseIncomeController extends Controller
      */
     public function __construct(ExpenseIncomeFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\ExpenseIncomeMiddleware');
         $this->fetch = $fetch;
     }
 

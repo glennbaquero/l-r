@@ -21,6 +21,7 @@ class CurrencyController extends Controller
      */
     public function __construct(CurrencyFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\CurrencyMiddleware');
         $this->fetch = $fetch;
     }
 

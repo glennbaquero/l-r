@@ -23,6 +23,7 @@ class UserController extends Controller
      */
     public function __construct(UserFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\UserMiddleware');
         $this->fetch = $fetch;
     }
 

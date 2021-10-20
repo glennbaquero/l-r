@@ -21,6 +21,7 @@ class PrinterController extends Controller
      */
     public function __construct(PrinterFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\PrinterMiddleware');
         $this->fetch = $fetch;
     }
 

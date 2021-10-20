@@ -20,6 +20,7 @@ class OpenCashController extends Controller
      */
     public function __construct(OpenCashFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\OpenCashMiddleware');
         $this->fetch = $fetch;
     }
 

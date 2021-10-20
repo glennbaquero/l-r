@@ -20,6 +20,7 @@ class GroupEmailController extends Controller
      */
     public function __construct(GroupEmailFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\GroupEmailMiddleware');
         $this->fetch = $fetch;
     }
 

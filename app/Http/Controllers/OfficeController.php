@@ -27,6 +27,7 @@ class OfficeController extends Controller
      */
     public function __construct(OfficeFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\OfficeMiddleware');
         $this->fetch = $fetch;
     }
 

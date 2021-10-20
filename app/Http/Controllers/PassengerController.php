@@ -19,6 +19,7 @@ class PassengerController extends Controller
      */
     public function __construct(PassengerFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\PassengerMiddleware');
         $this->fetch = $fetch;
     }
 

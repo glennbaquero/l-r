@@ -24,6 +24,7 @@ class PriceController extends Controller
      */
     public function __construct(PriceFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\PriceMiddleware');
         $this->fetch = $fetch;
     }
 

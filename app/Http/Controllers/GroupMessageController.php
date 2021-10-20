@@ -21,6 +21,7 @@ class GroupMessageController extends Controller
      */
     public function __construct(GroupMessageFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\GroupMessagelMiddleware');
         $this->fetch = $fetch;
     }
 
