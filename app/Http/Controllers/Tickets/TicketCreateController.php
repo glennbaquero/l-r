@@ -46,7 +46,15 @@ class TicketCreateController extends Controller
         }
 
         if($request->payment_method == 'External Credit Card') {
-            // $ticket->passenger->notify(new TicketInformationNotification($ticket));
+            $ticket->passenger->notify(new TicketInformationNotification($ticket));
+        }
+
+        if($request->payment_method == 'Credit Card') {
+            $ticket->passenger->notify(new TicketConfirmationNotification($ticket));
+            
+            return response()->json([
+                'ticket' => $ticket
+            ]);
         }
 
         if($request->action === 'Print and email') {

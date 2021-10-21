@@ -9,7 +9,7 @@
 						<select name="payment_method" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="action">
 							<option value="Print and email">Print and email/SMS</option>
 							<option value="Print only">Print only</option>
-							<option value="Confirmation only">Confirmation only</option>
+							<option value="Confirmation only" v-if="$parent.payment.payment_method != 'Credit Card'">Confirmation only</option>
 						</select>
 					</div>
 				</div>
@@ -17,12 +17,12 @@
 		</div>
 		<div class="gap-4 grid grid-cols-6 pl-4 mt-5">
 			<div class="col-span-1 sm:col-span-1">
-				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-lighterblue text-sm font-medium rounded text-black bg-transparent hover:bg-lighterblue hover:text-white focus:outline-none focus:border-transparent focus:shadow-outline-transparent active:bg-transparent focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="$emit('backToForm', 5)">
+				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-lighterblue text-sm font-medium rounded text-black bg-transparent hover:bg-lighterblue hover:text-white focus:outline-none focus:border-transparent focus:shadow-outline-transparent active:bg-transparent focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="$emit('backToForm', 5)" v-if="$parent.payment.payment_method != 'Credit Card'">
 				    Back
 				</button>
 			</div>
 			<div class="col-span-1 sm:col-span-1">
-				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="paymentFormHandler">
+				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="confirmationHandler">
 				    Confirm
 				</button>
 			</div>
@@ -40,7 +40,7 @@
 		},
 
 		methods: {
-			paymentFormHandler() {
+			confirmationHandler() {
 				this.$parent.loading = true;
 
 				var payloads = {
@@ -60,7 +60,19 @@
 					type_of_ticket: this.$parent.payloads.type_of_ticket,
 				}
 
-				axios.post(this.$parent.paymentFormUrl, payloads)
+				var url = this.$parent.paymentFormUrl;
+
+				if(this.$parent.payment.payment_method == 'Credit Card') {
+					payloads = {
+						id: this.$parent.paidTicket.id,
+						action: this.action
+					}
+
+					url = this.$parent.notifyPassengerUrl;
+				}
+
+
+				axios.post(url, payloads)
 					.then(response => {
 
 						if(response.data.ticket_info_url) {
@@ -76,6 +88,8 @@
 					}).catch(errors => {
 						this.$parent.loading = false;
 					})
+
+				
 			}
 		}
 	}

@@ -185,7 +185,7 @@
 					this.$parent.voucher = this.voucher;
 					
 
-					if(this.payment.payment_method == 'Reservation' || this.payment.payment_method == 'External Credit Card') {
+					if(this.payment.payment_method == 'Reservation' || this.payment.payment_method == 'External Credit Card' || this.payment.payment_method == 'Credit Card') {
 						this.$parent.loading = true;
 
 						var payloads = {
@@ -210,20 +210,42 @@
 							.then(response => {
 								this.$parent.showModal = true;
 								this.$parent.modalMessage = 'Link sent to customer';
-								this.$parent.modalTitle = 'Reservation success.';
-								// this.$parent.$parent.toggled();
-								this.$parent.step = 1;
-								this.$parent.payloads = {};
-								this.$parent.price = {};
-								this.$parent.availableTrip = {};
-								this.$parent.bus = [];
-								this.$parent.seat_selected = {};
-								this.$parent.passenger_info = {};
-								this.$parent.payment = {};
-								this.$parent.voucher = null;
-								this.$parent.totalSale = 0;
-								this.$parent.bus_info = [];
-								this.$parent.$parent.$parent.$children[3].fetch();
+
+								if(this.payment.payment_method != 'Credit Card') {
+									this.$parent.modalTitle = 'Reservation success.';
+									// this.$parent.$parent.toggled();
+									this.$parent.step = 1;
+									this.$parent.payloads = {};
+									this.$parent.price = {};
+									this.$parent.availableTrip = {};
+									this.$parent.bus = [];
+									this.$parent.seat_selected = {};
+									this.$parent.passenger_info = {};
+									this.$parent.payment = {};
+									this.$parent.voucher = null;
+									this.$parent.totalSale = 0;
+									this.$parent.bus_info = [];
+									this.$parent.$parent.$parent.$children[3].fetch();
+								} else {
+									var $this = this;
+									
+									this.$parent.modalTitle = 'Payment link sent success.';
+									this.$parent.channel = this.$parent.pusher.subscribe('ticketPayment-'+ response.data.ticket.id);
+
+									this.$parent.channel.bind('paidEvent', function(data) {
+									  	console.log('payment success')
+
+									  	if(data.success) {
+								  			$this.$parent.showModal = true;
+								  			$this.$parent.modalMessage = 'Passenger ticket is now paid.';
+								  			$this.$parent.modalTitle = 'Ticket paid';
+								  			$this.$parent.paidTicket = data.ticket;
+
+								  		  	$this.$emit('nextStep', 6);
+									  	}
+									});
+								}
+
 								this.$parent.loading = false;
 							}).catch(errors => {
 								this.$parent.loading = false;
@@ -235,7 +257,7 @@
 					axios.post(this.$parent.updateUrl, this.$parent.selectedTicket)
 						.then(response => {
 							this.$parent.$parent.toggled();
-							this.$parent.$parent.$parent.fetch();
+							// this.$parent.$parent.$parent.fetch();
 						}).catch(errors => {
 							
 						})

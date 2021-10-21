@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use App\Events\TicketPaymentEvent;
+
 use Omnipay\Omnipay;
 use App\Http\Requests\Payments\AuthorizeNetPaymentStoreRequest;
 
@@ -142,6 +145,8 @@ class PaymentController extends Controller
                 $message = 'Your payment was successfuly paid your ticket, you can print the ticket information here';
 
                 $ticket->passenger->notify(new TicketNotifyPassenger($message, $print_route));
+
+                event(new TicketPaymentEvent('Ticket paid', $preprocess_ticket->id, $ticket));
 
                 return response()->json([
                     'success' => true,
