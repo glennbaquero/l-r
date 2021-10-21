@@ -497,6 +497,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/ticket/update/{id}', TicketUpdateController::class)->name('ticket.update');
     Route::post('/ticket/email/{id}', [TicketController::class, 'passengerEmailSender'])->name('ticket.send-email');
     Route::post('/ticket/register-payment', [TicketController::class, 'registerPayment'])->name('ticket.register-payment');
+    Route::post('/ticket/paid/notify/passenger', [TicketController::class, 'notifyPassenger'])->name('ticket.paid.notify-passenger');
 
     Route::get('/city', [CityController::class, 'index'])->name('city.index');
     Route::get('/city/fetch', [CityController::class, 'fetch'])->name('city.fetch');

@@ -93,7 +93,7 @@
 			                       </div>
 			                       <div class="col-span-2 sm:col-span-2 text-right">
 			                          <x-label>Departure Time</x-label>
-			                          <x-label class="font-semibold">{{ $ticket->trip->formatted_time }}</x-label>
+			                          <x-label class="font-semibold">{{ $ticket->trip_time->formatted_time }}</x-label>
 			                          <x-label>Arrival Time</x-label>
 			                          <x-label class="font-semibold">{{ $ticket->trip_time->formatted_arrival_time }}</x-label>
 			                       </div>

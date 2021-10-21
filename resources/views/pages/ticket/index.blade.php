@@ -47,6 +47,7 @@
                             voucher-validate-url="{{ route('ticket.voucher-validate') }}"
                             get-trip-time-url="{{ route('ticket.get-trip-time') }}"
                             get-available-bus-url="{{ route('ticket.get-available-bus') }}"
+                            notify-passenger-url="{{ route('ticket.paid.notify-passenger') }}"
                             :office-id="{{ auth()->user()->office->departure->id }}"
                         ></ticket>
                     </x-slot>

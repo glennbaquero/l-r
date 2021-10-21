@@ -18,7 +18,10 @@
 				loading: false,
 				modalMessage: null,
 				modalTitle: null,
-				showModal: false
+				showModal: false,
+
+				pusher: null,
+				channel: null
 			}
 		},
 		
@@ -44,12 +47,13 @@
 		mounted() {
 			this.$nextTick(() => {
 				this.payload.amount = this.data.total_sale;
-			})
+			});
 		},
 
 		methods: {
 			actionHandler() {
 				this.loading = true;
+
 				axios.post(this.url, this.payload) 
 					.then(response => {
 						// this.result = response.data.result;
@@ -58,6 +62,7 @@
 						this.modalMessage = response.data.message;
 						this.modalTitle = response.data.title;
 						this.showModal = true;
+
 					}).catch(error => {
 						this.showModal = true;
 						this.modalMessage = this.parseResponse(error);

@@ -14,6 +14,7 @@ use Illuminate\Validation\ValidationException;
 
 use App\Notifications\NotifyPassenger;
 use App\Notifications\TicketNotifyPassenger;
+use App\Notifications\ThankYouNotification;
 
 use App\Models\Ticket;
 use App\Models\TicketType;
@@ -704,6 +705,21 @@ class TicketController extends Controller
 
         return response()->json([
             'success' => true
+        ]);
+    }
+
+    public function notifyPassenger(Request $request)
+    {
+        $ticket = Ticket::find($request->id);
+        
+        if($request->action != 'Print only') {
+            $ticket->passenger->notify(new ThankYouNotification($ticket));
+        }
+
+        $route = route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]);
+
+        return response()->json([
+            'print_url' => $route
         ]);
     }
 }
