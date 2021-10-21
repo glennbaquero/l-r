@@ -46,6 +46,7 @@ class TicketController extends Controller
     public function __construct(TicketFetch $fetch, PreprocessTicketFetch $preprocess_fetch)
     {
         $this->middleware('App\Http\Middleware\TicketMiddleware', ['only' => ['index', 'printTicket']]);
+        $this->middleware('App\Http\Middleware\DriverAuthMiddleware', ['only' => ['validateTransactionNumber', 'transactionNumberPage', 'scanTicketQR']]);
         $this->fetch = $fetch;
         $this->preprocess_fetch = $preprocess_fetch;
     }
@@ -647,12 +648,34 @@ class TicketController extends Controller
         $ticket = null;
         $travel_date = null;
         $route = route('ticket.status', ['not yet been process']);
+        $stops = [];
 
         if($status == 'paid') {
             $ticket = Ticket::find($id);
             $trip_time = $ticket->trip_time ? $ticket->trip_time->formatted_time : now()->format('h:i A');
             $travel_date = Carbon::parse($ticket->trip->date)->format('F d, Y').' '.$trip_time;
             $route = $ticket->updateStatusUrl();
+
+            $stops = $ticket->trip->route->stops;
+            $route_name = $ticket->trip->route->name;
+
+            $per_stop_name = [];
+
+            foreach($stops as $stop) {
+                if($stop->arrival->id == $ticket->arrival_id) {
+                    $per_stop_name[] = [
+                        'departure' => $stop->departure->name,
+                        'arrival' => $stop->arrival->name,
+                    ];
+                    break;
+                } else {
+                    $per_stop_name[] = [
+                        'departure' => $stop->departure->name,
+                        'arrival' => $stop->arrival->name,
+                    ];
+                }
+            }
+
         }
 
         return view('pages.ticket.status', [
@@ -660,6 +683,8 @@ class TicketController extends Controller
             'ticket' => $ticket,
             'travel_date' => $travel_date,
             'route' => $route,
+            'stops' => $per_stop_name,
+            'route_name' => $route_name,
         ]);
     }
 

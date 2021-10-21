@@ -61,6 +61,17 @@
                                         <div class="w-1/2 px-3">
                                             <label class="block mb-3 text-gray-600">Arrival: {{ $ticket->arrival->name }}</label>
                                         </div>
+                                        <div class="w-full px-3">
+                                            <label class="block mb-3 text-gray-600">Route: {{ $route_name }}</label>
+                                        </div>
+                                        <div class="w-full px-3">
+                                            <label class="block mb-3 text-gray-600">Trip stops</label>
+                                        </div>
+                                        @foreach($stops as $stop)
+                                        <div class="w-full px-3">
+                                            <label class="block mb-3 text-gray-600">{{ $stop['departure'] }} - {{ $stop['arrival'] }}</label>
+                                        </div>
+                                        @endforeach
                                         <div class="w-screen px-3">
                                             <div id="qrCodeHolder"></div>
                                         </div>

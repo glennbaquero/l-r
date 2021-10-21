@@ -15,6 +15,7 @@ class DashboardController extends Controller
     public function __construct() 
     {
         $this->middleware('App\Http\Middleware\DashboardMiddleware', ['only' => ['index']]);
+        $this->middleware('App\Http\Middleware\DriverAuthMiddleware', ['only' => ['scanQR']]);
     }
 
     /**
