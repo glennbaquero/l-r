@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<div class="mt-5 px-4 py-4 rounded-md text-center">
+		<div class="text-center">
+			<label>{{ bus_info }}</label>
+		</div>
+		<div class="px-4 py-4 rounded-md text-center">
 			<div class="gap-4 grid grid-cols-3">
 				<div class="border px-4 py-4 col-span-2 rounded-md w-full shadow-md">
 					<table class="w-full">
@@ -63,12 +66,37 @@
 			:ticket_types="ticket_types"
 			@closeModal="showModal = false"
 		></passenger-info-modal>
+
+		<confirmation-modal
+			:bodyMessage="confirmationModalMessage"
+			:headerTitle="confirmationModalTitle"
+			:show="showConfirmationModal"
+			@closeModal="showConfirmationModal = false"
+			:has-footer="true"
+		>
+			<template v-slot:footerButton>
+				<div class="gap-2 grid grid-cols-2 pl-4">
+					<div class="col-span-1 sm:col-span-1">
+						<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-lighterblue text-sm font-medium rounded text-black bg-transparent hover:bg-lighterblue hover:text-white focus:outline-none focus:border-transparent focus:shadow-outline-transparent active:bg-transparent focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="showConfirmationModal = false">
+						    No
+						</button>
+					</div>
+					<div class="col-span-1 sm:col-span-1">
+						<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" :disabled="disabledNextButton" @click="processSeat">
+						    Yes
+						</button>
+					</div>
+				</div>
+			</template>
+			
+		</confirmation-modal>
 	</div>
 
 </template>
 <script type="text/javascript">
 
 	import PassengerInfoModal from './PassengerInfoModal.vue'
+	import ConfirmationModal from '../Modal.vue';
 	
 	export default {
 		props: {
@@ -84,7 +112,12 @@
 				old_selected_seat: {},
 				passenger: {},
 				showModal: false,
-				ticket_types: []
+				ticket_types: [],
+				confirmationModalMessage: '',
+				confirmationModalTitle: '',
+				showConfirmationModal: false,
+
+				item: null
 			}
 		},
 
@@ -122,12 +155,17 @@
 				}
 
 				return "0.00";
+			},
+
+			bus_info() {
+				return this.$parent.bus_info.name + "|" + this.$parent.bus_info.plate;
 			}
 		},
 
 
 		components: {
 			PassengerInfoModal,
+			ConfirmationModal
 		},
 
 		mounted() {
@@ -136,22 +174,29 @@
 
 		methods: {
 			selectedSeatHandler(item) {
+				this.item = item;
 
 				if(item.label != '' && !item.is_reserved) {
 					_.each(this.bus_model, (row) => {
 						_.each(row, (column) => {
 							if(!_.isEmpty(this.old_selected_seat) && this.old_selected_seat.id === column.id) {
-								console.log(column.image_path);
 								column.image_path = this.old_selected_seat.image_path;
 							}
 						})
 					})
 
-					this.old_selected_seat.id = item.id;
-					this.old_selected_seat.image_path = item.image_path;
 
-					this.selected_seat = item;
-					item.image_path = 'icons/selected_seat.png';
+					if(!item.image_path.includes('icons/handicap.png')) {
+						this.old_selected_seat.id = item.id;
+						this.old_selected_seat.image_path = item.image_path;
+
+						this.selected_seat = item;
+						item.image_path = 'icons/selected_seat.png';
+					} else {
+						this.showConfirmationModal = true;
+						this.confirmationModalMessage = 'Are you sure you want to select a handicap seat?';
+						this.confirmationModalTitle = 'Confirmation';
+					}
 					// item.image_path = 'icons/seat_selected.png';
 				}
 
@@ -161,6 +206,16 @@
 					this.ticket_types = this.$parent.ticket_types
 				}
 				
+			},
+
+			processSeat() {
+				this.showConfirmationModal = false;
+
+				this.old_selected_seat.id = this.item.id;
+				this.old_selected_seat.image_path = this.item.image_path;
+
+				this.selected_seat = this.item;
+				this.item.image_path = 'icons/selected_seat.png';
 			},
 
 			nextFormHandler() {

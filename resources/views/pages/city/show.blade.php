@@ -29,18 +29,32 @@
             <div class="bg-white shadow sm:rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
 
-                    <google-auto-complete v-slot="{ address }" :item="{{$city}}" :modified="true">
+                    <google-auto-complete v-slot="{ address }" :item="{{$city}}">
                         <form action="{{ route('city.update', $city->id) }}" method="POST">
                             @csrf
                     
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-3 sm:col-span-3">
-                                    <x-label for="name" class="font-semibold">Name</x-label>
-                                    <x-form-input type="text" name="name" id="autocomplete" v-model="address.city" />
+                                    <x-label for="name" class="font-semibold">Address</x-label>
+                                    <x-form-input type="text" name="address_line_1" id="autocomplete" v-model="address.address_line_1" />
                                 </div>
                                 <div class="col-span-3 sm:col-span-3">
                                     <x-label for="name" class="font-semibold">Destination Zone <small>(for batch upload purposes)</small></x-label>
                                     <x-form-input type="text" name="destination_zone" value="{{ $city->destination_zone }}" />
+                                </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="name" class="font-semibold">City</x-label>
+                                    <x-form-input type="text" name="name" v-model="address.city" readonly/>
+                                    {{-- <x-form-input type="text" name="city" v-model="address.city" /> --}}
+                                </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="name" class="font-semibold">Postal Code</x-label>
+                                    <x-form-input type="text" name="postal_code" v-model="address.postal_code" readonly/>
+                                </div>
+                                <div class="col-span-2 sm:col-span-2">
+                                    <x-label for="name" class="font-semibold">State</x-label>
+                                    <x-form-input type="text" name="state_name" v-model="address.state_name" readonly/>
+                                    <x-form-input type="hidden" name="state" v-model="address.state" readonly/>
                                 </div>
                             </div>
 

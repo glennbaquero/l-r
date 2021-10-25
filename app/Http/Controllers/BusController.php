@@ -21,6 +21,7 @@ class BusController extends Controller
      */
     public function __construct(BusFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\BusMiddleware');
         $this->fetch = $fetch;
     }
 

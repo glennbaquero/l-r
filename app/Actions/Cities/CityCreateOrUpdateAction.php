@@ -27,6 +27,7 @@ class CityCreateOrUpdateAction
 	
 	public function execute($request, $id = null)
 	{
+		$request['city'] = $request->name;
 		DB::beginTransaction();
 			if(!$id) {
 				$this->city = $this->city->create($request->all());

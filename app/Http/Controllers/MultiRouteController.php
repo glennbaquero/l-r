@@ -22,6 +22,7 @@ class MultiRouteController extends Controller
      */
     public function __construct(MultiRouteFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\MultiRouteMiddleware');
         $this->fetch = $fetch;
     }
 

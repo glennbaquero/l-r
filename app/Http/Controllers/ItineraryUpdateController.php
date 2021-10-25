@@ -27,6 +27,7 @@ class ItineraryUpdateController extends Controller
      */
     public function __construct(ItineraryUpdateFetch $fetch, ItineraryUpdatePassengerFetch $passenger, ObservationFetch $observation)
     {
+        $this->middleware('App\Http\Middleware\ItineraryUpdateMiddleware');
         $this->fetch = $fetch;
         $this->passenger = $passenger;
         $this->observation = $observation;

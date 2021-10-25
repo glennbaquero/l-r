@@ -22,6 +22,7 @@ class PromotionController extends Controller
      */
     public function __construct(PromotionFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\PromotionMiddleware');
         $this->fetch = $fetch;
     }
 

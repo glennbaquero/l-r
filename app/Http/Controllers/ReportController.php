@@ -24,6 +24,17 @@ use Storage;
 
 class ReportController extends Controller
 {
+
+    /**
+     * Create new controller instance
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('App\Http\Middleware\ReportMiddleware');
+    }
+
     /**
      * Show sales by user index page
      * 

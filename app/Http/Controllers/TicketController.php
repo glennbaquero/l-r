@@ -14,6 +14,7 @@ use Illuminate\Validation\ValidationException;
 
 use App\Notifications\NotifyPassenger;
 use App\Notifications\TicketNotifyPassenger;
+use App\Notifications\ThankYouNotification;
 
 use App\Models\Ticket;
 use App\Models\TicketType;
@@ -45,6 +46,8 @@ class TicketController extends Controller
      */
     public function __construct(TicketFetch $fetch, PreprocessTicketFetch $preprocess_fetch)
     {
+        $this->middleware('App\Http\Middleware\TicketMiddleware', ['only' => ['index']]);
+        $this->middleware('App\Http\Middleware\DriverAuthMiddleware', ['only' => ['validateTransactionNumber', 'transactionNumberPage', 'scanTicketQR']]);
         $this->fetch = $fetch;
         $this->preprocess_fetch = $preprocess_fetch;
     }
@@ -209,7 +212,9 @@ class TicketController extends Controller
     {
         $time = TripTime::find($request->time_id);
         $trip = Trip::find($time->trip_id);
-        $rows = $trip->bus->bus_model->bus_rows;
+
+        // $rows = $trip->bus->bus_model->bus_rows;
+        $rows = $time->bus->bus_model->bus_rows;
         $bus_model = [];
 
         foreach ($rows as $row) {
@@ -218,7 +223,8 @@ class TicketController extends Controller
 
         }
         return response()->json([
-            'bus_model' => $bus_model
+            'bus_model' => $bus_model,
+            'bus' => $time->bus
         ]);
 
     }
@@ -296,7 +302,7 @@ class TicketController extends Controller
                     if($ticket->bus_model_column_id == $column->id) {
                         $column['passenger'] = $ticket->passenger;
 
-                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card') {
+                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card' || $ticket->payment_method == 'External Credit Card' ) {
                             // $column->image_path = url('icons/seat_sold.png');
                              $column->image_path = url('icons/sold_seat.png');
                         } elseif ($ticket->payment_method == 'Reservation') {
@@ -310,7 +316,7 @@ class TicketController extends Controller
                     if($ticket->bus_model_column_id == $column->id) {
                         $column['passenger'] = $ticket->passenger;
 
-                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card') {
+                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card' || $ticket->payment_method == 'External Credit Card') {
                             // $column->image_path = url('icons/seat_sold.png');
                             $column->image_path = url('icons/sold_seat.png');
                         } elseif ($ticket->payment_method == 'Reservation') {
@@ -326,7 +332,7 @@ class TicketController extends Controller
                     if($ticket->bus_model_column_id == $column->id) {
                         $column['passenger'] = $ticket->passenger;
 
-                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card') {
+                        if($ticket->payment_method == 'Cash' || $ticket->payment_method == 'Credit Card' || $ticket->payment_method == 'External Credit Card') {
                             // $column->image_path = url('icons/seat_sold.png');
                             $column->image_path = url('icons/sold_seat.png');
                         } elseif ($ticket->payment_method == 'Reservation') {
@@ -373,9 +379,9 @@ class TicketController extends Controller
     public function printTicket($id, $passenger, $arrival, $departure, $preprocess=false) 
     {
         if($preprocess) {
-            $ticket = PreprocessTicket::find($id);
+            $ticket = PreprocessTicket::where('ticket_number', $id)->first();
         } else {
-            $ticket = Ticket::find($id);
+            $ticket = Ticket::where('ticket_number', $id)->first();
         }
 
 
@@ -399,13 +405,15 @@ class TicketController extends Controller
 
     public function scanTicketQR($id, $passenger, $arrival, $departure) 
     {
-        $ticket = Ticket::find($id);
+        $ticket = Ticket::where('ticket_number', $id)->first();
         $ticket->update([
             'boarding_status' => 'On Board',
             'payment_status' => 'Paid',
         ]);
 
-        return redirect()->route('dashboard');
+        return response()->json([
+            'success' => true
+        ]);
     }
 
 
@@ -558,7 +566,7 @@ class TicketController extends Controller
 
     public function ticketConfirmation($id, $passenger, $arrival, $departure) 
     {
-        $ticket = PreprocessTicket::find($id);
+        $ticket = PreprocessTicket::where('ticket_number', $id)->first();
         $departure = $ticket->departure->name;
         $arrival = $ticket->arrival->name;
 
@@ -591,7 +599,7 @@ class TicketController extends Controller
 
     public function confirmedTicket(Request $request) 
     {
-        $ticket = PreprocessTicket::find($request->id);
+        $ticket = PreprocessTicket::where('ticket_number', $id)->first();
         DB::beginTransaction();
             $ticket->update([
                 'confirmed' => true,
@@ -642,12 +650,34 @@ class TicketController extends Controller
         $ticket = null;
         $travel_date = null;
         $route = route('ticket.status', ['not yet been process']);
+        $stops = [];
 
         if($status == 'paid') {
-            $ticket = Ticket::find($id);
+            $ticket = Ticket::where('ticket_number', $id)->first();
             $trip_time = $ticket->trip_time ? $ticket->trip_time->formatted_time : now()->format('h:i A');
             $travel_date = Carbon::parse($ticket->trip->date)->format('F d, Y').' '.$trip_time;
             $route = $ticket->updateStatusUrl();
+
+            $stops = $ticket->trip->route->stops;
+            $route_name = $ticket->trip->route->name;
+
+            $per_stop_name = [];
+
+            foreach($stops as $stop) {
+                if($stop->arrival->id == $ticket->arrival_id) {
+                    $per_stop_name[] = [
+                        'departure' => $stop->departure->name,
+                        'arrival' => $stop->arrival->name,
+                    ];
+                    break;
+                } else {
+                    $per_stop_name[] = [
+                        'departure' => $stop->departure->name,
+                        'arrival' => $stop->arrival->name,
+                    ];
+                }
+            }
+
         }
 
         return view('pages.ticket.status', [
@@ -655,6 +685,42 @@ class TicketController extends Controller
             'ticket' => $ticket,
             'travel_date' => $travel_date,
             'route' => $route,
+            'stops' => $per_stop_name,
+            'route_name' => $route_name,
+        ]);
+    }
+
+    public function transactionNumberPage()
+    {
+        return view('pages.qr.enter-transaction');
+    }
+
+    public function validateTransactionNumber(Request $request)
+    {
+        $ticket = Ticket::where('transaction_number', $request->transaction_number)->first();
+        
+        $ticket->update([
+            'boarding_status' => 'On Board',
+            'payment_status' => 'Paid',
+        ]);
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    public function notifyPassenger(Request $request)
+    {
+        $ticket = Ticket::find($request->id);
+        
+        if($request->action != 'Print only') {
+            $ticket->passenger->notify(new ThankYouNotification($ticket));
+        }
+
+        $route = route('ticket.print', [$ticket->ticket_number, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]);
+
+        return response()->json([
+            'print_url' => $route
         ]);
     }
 }

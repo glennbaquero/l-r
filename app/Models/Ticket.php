@@ -165,6 +165,6 @@ class Ticket extends Model
      */
     public function updateStatusUrl()
     {
-        return route('ticket.scan-qr', [$this->id, $this->passenger->fullname, $this->arrival->name, $this->departure->name]);
+        return route('ticket.scan-qr', [$this->ticket_number, $this->passenger->fullname, $this->arrival->name, $this->departure->name]);
     }
 }

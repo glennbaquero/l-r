@@ -231,11 +231,12 @@ class Trip extends Model
     
     public function formattedTripTime()
     {
-        $time = [];
-        foreach($this->times as $item) {
-            $time[] = Carbon::parse($item->time)->format('h:i A'). '('.$item->driver->fullname.')';
-        }
+        // $time = [];
+        // foreach($this->times as $item) {
+        //     $time[] = Carbon::parse($item->time)->format('h:i A'). '('.$item->driver->fullname.')';
+        // }
 
-        return implode(', ', $time);
+        // return implode(', ', $time);
+        return null;
     }
 }

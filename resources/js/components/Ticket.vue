@@ -76,6 +76,7 @@
 
 				availableTrip: [],
 				bus: [],
+				bus_info: [],
 				seat_selected: {},
 				passenger_info: {},
 
@@ -86,6 +87,11 @@
 				modalMessage: '',
 				modalTitle: '',
 				showModal: false,
+
+				pusher: null,
+				channel: null,
+
+				paidTicket: {},
 			}
 		},
 
@@ -99,6 +105,7 @@
 			voucherValidateUrl: String,
 			getTripTimeUrl: String,
 			getAvailableBusUrl: String,
+			notifyPassengerUrl: String,
 			updateUrl: String,
 			selectedTicket: Object,
 			officeId: Number,
@@ -125,6 +132,12 @@
 			Stepper,
 			Loading,
 		    Modal,
+		},
+
+		mounted() {
+			this.pusher = new Pusher('a31ead8c74664bc1acb9', {
+		      cluster: 'ap1'
+		    });
 		},
 
 		methods: {

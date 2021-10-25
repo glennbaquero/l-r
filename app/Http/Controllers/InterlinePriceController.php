@@ -23,6 +23,7 @@ class InterlinePriceController extends Controller
      */
     public function __construct(InterlinePriceFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\InterlinePriceMiddleware');
         $this->fetch = $fetch;
     }
 

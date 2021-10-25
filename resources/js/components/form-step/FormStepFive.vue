@@ -9,19 +9,25 @@
 							<option value="Cash">Cash</option>
 							<option value="Credit Card">Credit Card</option>
 							<option value="Reservation">Reservation</option>
+							<option value="External Credit Card">External Credit Card</option>
 						</select>
 					</div>
-					<div class="col-span-full sm:col-span-full">
+					<div class="col-span-full sm:col-span-full"  v-if="payment.payment_method == 'Cash'">
 						<label for="cash" class="block font-medium font-semibold text-gray-500">Cash</label>
-						<input type="number" name="cash" v-model="payment.cash" min="0" :max="totalSale" step="any" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
+						<input type="number" name="cash" v-model="payment.cash" min="0" :min="totalSale" step="any" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
 					</div>
-					<div class="col-span-full sm:col-span-full">
+					<div class="col-span-full sm:col-span-full"  v-if="payment.payment_method == 'External Credit Card'">
+						<label for="cash" class="block font-medium font-semibold text-gray-500">Transaction Number/Reference Number</label>
+						<input type="text" name="transaction_no" v-model="payment.transaction_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent">
+					</div>
+					<div class="col-span-full sm:col-span-full"  v-if="payment.payment_method == 'Cash'">
 						<label for="cash" class="block font-medium font-semibold text-gray-500">Refunded Amount: {{ refundedAmount }}</label>
 					</div>
+					
 				</div>
 			</div>
 
-			<div class="bg-gradient-to-r col-span-1 from-darkblue ml-20 rounded-lg sm:col-span-1 text-center to-darkblue via-lightblue w-8/12">
+			<div class="bg-gradient-to-r col-span-1 from-darkblue ml-20 rounded-lg sm:col-span-1 text-center to-darkblue via-lightblue w-8/12 h-48">
 				<p class="font-medium mt-5 mx-auto text-2xl text-white">Total Sale</p>
 				<p class="font-bold text-5xl text-white">$ {{ totalSale }}</p>
 
@@ -44,9 +50,9 @@
 				    Back
 				</button>
 			</div>
-			<div class="col-span-1 sm:col-span-1">
+			<div class="col-span-1 sm:col-span-1" v-if="!disabledNextButton">
 				<button tabindex="3" type="button" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-lightblue hover:bg-lighterblue focus:outline-none focus:border-lighterblue focus:shadow-outline-lighterblue active:bg-lighterblue focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition duration-150 ease-in-out sm:leading-8" @click="nextFormHandler">
-				    {{ edit ? 'Save' : 'Pay' }}
+				    {{ btnLabel }}
 				</button>
 			</div>
 		</div>
@@ -59,7 +65,7 @@
 			return {
 				payment: {
 					payment_method: 'Cash',
-					cash: this.$parent.price.arrival_price,
+					cash: 0,
 				},
 				code: null,
 
@@ -72,7 +78,7 @@
 
 		computed: {
 			refundedAmount() {
-				return 0;
+				return this.payment.cash - this.totalSale;
 			},
 
 			totalSale() {
@@ -125,12 +131,37 @@
 
 				totalSale = totalSale - totalDiscount;
 
-
+				this.payment.cash = totalSale;
 				return totalSale.toFixed(2);
 			},
 
 			disabledNextButton() {
+
+				if(parseInt(this.payment.cash) >= parseInt(this.totalSale) && this.payment.payment_method == 'Cash') {
+					return false;
+				}
+
+				if(this.payment.payment_method == 'External Credit Card' && this.payment.transaction_number) {
+					return false;
+				}
+
+				if(this.payment.payment_method == 'Credit Card' || this.payment.payment_method == 'Reservation') {
+					return false;
+				}
+
 				return true;
+			},
+
+			btnLabel() {
+				if(this.edit) {
+					return 'Save';
+				}
+
+				if(this.payment.payment_method == 'Cash' && this.payment.payment_method == 'Credit Card') {
+					return 'Next';
+				} else {
+					return 'Pay';
+				}
 			}
 		},
 
@@ -138,6 +169,9 @@
 			if(this.$parent.edit) {
 				this.payment = this.$parent.selectedTicket;
 				this.code = this.$parent.selectedTicket.code;
+			} else {
+				this.payment = !_.isEmpty(this.$parent.payment) ? this.$parent.payment : this.payment; 
+				this.voucher = !_.isEmpty(this.$parent.voucher) ? this.$parent.voucher : this.voucher;
 			}
 		},
 
@@ -150,12 +184,80 @@
 					this.$parent.totalSale = this.totalSale;
 					this.$parent.voucher = this.voucher;
 					
-					this.$emit('nextStep', 6);
+
+					if(this.payment.payment_method == 'Reservation' || this.payment.payment_method == 'External Credit Card' || this.payment.payment_method == 'Credit Card') {
+						this.$parent.loading = true;
+
+						var payloads = {
+							passenger: this.$parent.passenger_info,
+							bus_model_column_id: this.$parent.seat_selected.id,
+							trip_id: this.$parent.payloads.trip_id,
+							arrival_id: this.$parent.payloads.arrival_id,
+							departure_id: this.$parent.payloads.departure_id,
+							payment_method: this.$parent.payment.payment_method,
+							total_sale: this.$parent.totalSale,
+							has_voucher: !_.isEmpty(this.$parent.voucher),
+							voucher_code: !_.isEmpty(this.$parent.voucher) ? this.$parent.voucher.code : this.$parent.voucher,
+							action: this.payment.payment_method,
+
+							trip_time_id: this.$parent.payloads.time_id,
+							driver_id: this.$parent.payloads.time.driver_id,
+							type_of_ticket: this.$parent.payloads.type_of_ticket,
+							transaction_number: this.payment.transaction_number,
+						}
+
+						axios.post(this.$parent.paymentFormUrl, payloads)
+							.then(response => {
+								this.$parent.showModal = true;
+								this.$parent.modalMessage = 'Link sent to customer';
+
+								if(this.payment.payment_method != 'Credit Card') {
+									this.$parent.modalTitle = 'Reservation success.';
+									// this.$parent.$parent.toggled();
+									this.$parent.step = 1;
+									this.$parent.payloads = {};
+									this.$parent.price = {};
+									this.$parent.availableTrip = {};
+									this.$parent.bus = [];
+									this.$parent.seat_selected = {};
+									this.$parent.passenger_info = {};
+									this.$parent.payment = {};
+									this.$parent.voucher = null;
+									this.$parent.totalSale = 0;
+									this.$parent.bus_info = [];
+									this.$parent.$parent.$parent.$children[3].fetch();
+								} else {
+									var $this = this;
+									
+									this.$parent.modalTitle = 'Payment link sent success.';
+									this.$parent.channel = this.$parent.pusher.subscribe('ticketPayment-'+ response.data.ticket.id);
+
+									this.$parent.channel.bind('paidEvent', function(data) {
+									  	console.log('payment success')
+
+									  	if(data.success) {
+								  			$this.$parent.showModal = true;
+								  			$this.$parent.modalMessage = 'Passenger ticket is now paid.';
+								  			$this.$parent.modalTitle = 'Ticket paid';
+								  			$this.$parent.paidTicket = data.ticket;
+
+								  		  	$this.$emit('nextStep', 6);
+									  	}
+									});
+								}
+
+								this.$parent.loading = false;
+							}).catch(errors => {
+								this.$parent.loading = false;
+							})
+					} else {
+						this.$emit('nextStep', 6);
+					}
 				} else {
 					axios.post(this.$parent.updateUrl, this.$parent.selectedTicket)
 						.then(response => {
 							this.$parent.$parent.toggled();
-							this.$parent.$parent.$parent.fetch();
+							// this.$parent.$parent.$parent.fetch();
 						}).catch(errors => {
 							
 						})

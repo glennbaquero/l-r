@@ -24,6 +24,7 @@ class RouteController extends Controller
      */
     public function __construct(RouteFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\RouteMiddleware');
         $this->fetch = $fetch;
     }
 

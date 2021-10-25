@@ -20,6 +20,7 @@ class GroupController extends Controller
      */
     public function __construct(GroupFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\GroupMiddleware');
         $this->fetch = $fetch;
     }
 

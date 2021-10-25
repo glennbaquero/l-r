@@ -15,7 +15,8 @@ class TripCollection extends ResourceCollection
      */
     public static $headers = [
         // Driver
-       'ID', 'Route', 'Alias', 'Bus', 'Date', 'Time', 'Departure', 'Arrival', 'Actions'
+       // 'ID', 'Route', 'Alias', 'Bus', 'Date', 'Time', 'Departure', 'Arrival', 'Actions'
+       'ID', 'Route', 'Alias', 'Date', 'Departure', 'Arrival', 'Actions'
     ];
 
     public static $headers_report = [
@@ -49,7 +50,7 @@ class TripCollection extends ResourceCollection
                 'id' => $trip->id,
                 'route' => $trip->route->name,
                 'alias' => $trip->route->alias,
-                'bus' => $trip->bus->name,
+                // 'bus' => $trip->bus->name,
                 // 'driver' => $trip->driver->fullname,
                 'date' => $date,
                 'time' => $trip->formattedTripTime(),
@@ -63,13 +64,17 @@ class TripCollection extends ResourceCollection
                 'departure_date' => $trip->formatted_date,
                 'route' => $trip->route->name,
                 'route_id' => $trip->route->id,
-                'bus' => $trip->bus->name,
+                // 'bus' => $trip->bus->name,
+                'bus' => '',
                 'service' => $trip->service->name,
                 'departure' => $trip->route->departure->name,
                 'arrival' => $trip->route->stops()->latest()->orderby('id', 'desc')->first()->arrival->name,
-                'driver' => $trip->times->count() ? $trip->formattedTripTime() : $trip->driver->fullname,
-                'total' => $trip->bus->getTotalSeat(),
-                'free' => $trip->bus->getTotalSeat() - $trip->tickets()->count(),
+                // 'driver' => $trip->times->count() ? $trip->formattedTripTime() : $trip->driver->fullname,
+                'driver' => '',
+                // 'total' => $trip->bus->getTotalSeat(),
+                'total' => '',
+                // 'free' => $trip->bus->getTotalSeat() - $trip->tickets()->count(),
+                'free' => '',
                 'sold' => $trip->tickets()->where('payment_status', 'Paid')->get()->count(),
                 'boarded' => $trip->tickets()->where('boarding_status', 'Boarded')->get()->count(),
                 'reserved' => $trip->tickets()->where('payment_status', 'Reserved')->where('boarding_status', 'Not Boarding Yet')->get()->count(),

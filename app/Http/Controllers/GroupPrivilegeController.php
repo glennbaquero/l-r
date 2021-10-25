@@ -21,6 +21,7 @@ class GroupPrivilegeController extends Controller
      */
     public function __construct(GroupPrivilegeFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\GroupPrivilegeMiddleware');
         $this->fetch = $fetch;
     }
 

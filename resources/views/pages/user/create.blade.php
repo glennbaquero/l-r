@@ -117,15 +117,78 @@
                                     <x-switch label="Can print ticket on express sale" name="can_print_ticket" />
                                 </div>
 
-                                <div class="col-span-2 sm:col-span-2">
-                                    <x-switch label="Auto create driver" name="auto_create_driver" />
-                                </div>
-
                                 <div class="col-span-1 sm:col-span-1">
                                     <x-switch label="Restrict hours" name="restrict_hours" />
                                 </div>
 
                             </div>
+
+                            <toggle :item="{{ auth()->user() }}" :hasParentToggle="0" v-slot="{ display, toggled }">
+
+                                <div class="grid grid-cols-6 gap-2 mt-6">
+                                    <div class="col-span-2 sm:col-span-2">
+                                        {{-- <x-switch label="Auto create driver" name="auto_create_driver" /> --}}
+
+                                        <div class="col-span-2 sm:col-span-2">
+                                            <x-label for="" class="font-semibold">Auto create driver</x-label>
+                                            <div class="flex items-center space-x-3 mt-3">
+                                                <span id="toggleLabel">
+                                                    <span class="text-sm leading-5 font-medium text-gray-900">No </span>
+                                                </span>
+                                                <!-- On: "bg-green-500", Off: "bg-red-500" -->
+                                                <span  @click="toggled" role="checkbox" tabindex="0" aria-checked="false" aria-labelledby="toggleLabel" :class="display ? 'bg-green-500' : 'bg-red-500'" class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline">
+                                                    <!-- On: "translate-x-5", Off: "translate-x-0" -->
+                                                    <span aria-hidden="true" :class="display ? 'translate-x-5' : 'translate-x-0'" class="inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200"></span>
+                                                </span>
+
+                                                <span id="toggleLabel">
+                                                    <span class="text-sm leading-5 font-medium text-gray-900">Yes  </span>
+                                                </span>
+                                                <input type="checkbox" name="auto_create_driver" :checked="display" class="hidden">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <template v-if="display">
+
+                                        <div class="col-span-6 sm:col-span-6">
+                                        </div>
+                                        <div class="col-span-3 sm:col-span-3">
+                                            <x-label for="document_no" class="font-semibold">Commercial Driver License</x-label>
+                                            <x-form-input type="text" name="document_no" id="document_no" value="{{ old('document_no') }}" />
+                                        </div>
+                                        <div class="col-span-3 sm:col-span-3">
+                                            <x-label for="commission" class="font-semibold">Commission %</x-label>
+                                            <x-form-input type="commission" name="commission" value="{{ old('commission') }}" />
+                                        </div>
+
+                                        <div class="col-span-3 sm:col-span-3">
+                                            <x-label for="license_type" class="font-semibold">License Type</x-label>
+                                            <x-form-input type="license_type" name="license_type" value="{{ old('license_type') }}" />
+                                        </div>
+
+                                        <div class="col-span-3 sm:col-span-3">
+                                            <x-label for="license_no" class="font-semibold">License Number</x-label>
+                                            <x-form-input type="license_no" name="license_no" value="{{ old('license_no') }}" />
+                                        </div>
+
+                                        <div class="col-span-3 sm:col-span-3">
+                                            <x-label for="license_expiration_date" class="font-semibold">License Expiration Date</x-label>
+                                            <x-datepicker name="license_expiration_date" />
+                                        </div>
+
+                                        <div class="col-span-3 sm:col-span-3">
+                                            <x-label for="last_medical_test_date" class="font-semibold">Last Medical Test Date</x-label>
+                                            <x-datepicker name="last_medical_test_date" />
+                                        </div>
+                                        
+                                        <div class="col-span-3 sm:col-span-3">
+                                            <x-label for="next_medical_test_date" class="font-semibold">Next Medical Test Date</x-label>
+                                            <x-datepicker name="next_medical_test_date" />
+                                        </div>
+                                    </template>
+                                </div>
+                            </toggle>
                             <div class="mt-5 text-left">
                                 <button type="submit" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-darkblue focus:outline-none focus:border-red-300 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5 w-36">
                                     Save

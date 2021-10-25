@@ -20,6 +20,7 @@ class CityController extends Controller
      */
     public function __construct(CityFetch $fetch)
     {
+        $this->middleware('App\Http\Middleware\CityMiddleware');
         $this->fetch = $fetch;
     }
 

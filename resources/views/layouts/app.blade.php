@@ -26,15 +26,26 @@
     </head>
     <body class="font-sans antialiased">
         <div id="app" class="min-h-screen bg-lightgray">
-            @include('layouts.navigation')
 
-            @include('layouts.header')
+            @if(auth()->user()->group->name == 'Administrator')
+                @include('layouts.navigation')
+                @include('layouts.header')
+                <!-- Page Content -->
+                <main>
+                    {{ $slot }}
+                </main>
+            @else
+                <main >
+                    <div class="md:flex flex-col md:flex-row md:min-h-screen w-full">
+                        @include('layouts.sidebar')
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                        {{ $slot }}
+                    </div>
+                </main>
+            @endif
+
         </div> 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPLv-AF_sX_-ZKx-NAAx3uP_MJYtAzwII&libraries=places,geometry"></script>
+        {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script> --}}
     </body>
 </html>

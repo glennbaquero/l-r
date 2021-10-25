@@ -38,7 +38,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-white mx-auto p-10 rounded-md shadow-md w-1/2">
+                        <div class="bg-white mx-auto p-10 rounded-md shadow-md w-full">
                             <div class="col-span-6 sm:col-span-6 mx-auto text-center">    
                                 @if($status == 'paid')                        
                                     <h4 class="text-3xl text-gray-700 mb-5">Your ticket is already paid. Thank you!</h4>
@@ -61,10 +61,24 @@
                                         <div class="w-1/2 px-3">
                                             <label class="block mb-3 text-gray-600">Arrival: {{ $ticket->arrival->name }}</label>
                                         </div>
+                                        <div class="w-full px-3">
+                                            <label class="block mb-3 text-gray-600">Route: {{ $route_name }}</label>
+                                        </div>
+                                        <div class="w-full px-3">
+                                            <label class="block mb-3 text-gray-600">Trip stops</label>
+                                        </div>
+                                        @foreach($stops as $stop)
+                                        <div class="w-full px-3">
+                                            <label class="block mb-3 text-gray-600">{{ $stop['departure'] }} - {{ $stop['arrival'] }}</label>
+                                        </div>
+                                        @endforeach
                                         <div class="w-screen px-3">
                                             <div id="qrCodeHolder"></div>
                                         </div>
                                         <div class="w-screen px-3">
+                                            @if($ticket->transaction_number)
+                                            <label class="block mb-3 text-gray-600"><b>{{ $ticket->transaction_number }}</b></label>
+                                            @endif
                                             <label class="block mb-3 text-gray-600">Please show this to your driver.</label>
                                         </div>
                                     </div>

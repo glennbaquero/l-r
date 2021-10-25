@@ -175,6 +175,6 @@ class PreprocessTicket extends Model
      */
     public function paymentFormUrl()
     {
-        return route('payment.form', [$this->id, $this->passenger->fullname, $this->arrival->name, $this->departure->name]);
+        return route('payment.form', [$this->ticket_number, $this->passenger->fullname, $this->arrival->name, $this->departure->name]);
     }
 }

@@ -24,7 +24,7 @@ class TripTime extends Model
      * 
      * @var array
      */
-    protected $appends = ['formatted_time', 'deleteUrl', 'new'];
+    protected $appends = ['formatted_time', 'formatted_arrival_time', 'deleteUrl', 'new'];
 
     /**
      * TripTime belongs to Trip
@@ -45,6 +45,16 @@ class TripTime extends Model
     {
         return $this->belongsTo(Driver::class)->withTrashed();
     }
+    
+    /**
+     * TripTime belongs to bus
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function bus()
+    {
+        return $this->belongsTo(Bus::class, 'bus_id', 'id');
+    }
 
     /**
      * append formatted time
@@ -54,6 +64,16 @@ class TripTime extends Model
     public function getFormattedTimeAttribute()
     {
         return Carbon::parse($this->time)->format('h:i A');
+    }
+
+    /**
+     * append formatted time
+     * 
+     * @return string
+     */
+    public function getFormattedArrivalTimeAttribute()
+    {
+        return Carbon::parse($this->arrival_time)->format('h:i A');
     }
 
     /**
