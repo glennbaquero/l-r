@@ -235,7 +235,7 @@ Route::get('/payment/{id}/{passenger}/{arrival}/{departure}', [PaymentController
 Route::post('/payment/process/{id}/{passenger}/{arrival}/{departure}', [PaymentController::class, 'payment'])->name('payment.process');
 
 Route::get('/ticket/print/{id}/{passenger}/{arrival}/{departure}/{preprocess?}', [TicketController::class, 'printTicket'])->name('ticket.print');
-Route::get('/ticket/scan-qr/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'scanTicketQR'])->name('ticket.scan-qr');
+
 Route::get('/driver/transaction-number', [TicketController::class, 'transactionNumberPage'])->name('driver.transaction-number');
 Route::post('/driver/transaction-number/validate', [TicketController::class, 'validateTransactionNumber'])->name('driver.validate-transaction-number');
 Route::get('/ticket/confirmation/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'ticketConfirmation'])->name('ticket.confirmation');
@@ -498,6 +498,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/ticket/email/{id}', [TicketController::class, 'passengerEmailSender'])->name('ticket.send-email');
     Route::post('/ticket/register-payment', [TicketController::class, 'registerPayment'])->name('ticket.register-payment');
     Route::post('/ticket/paid/notify/passenger', [TicketController::class, 'notifyPassenger'])->name('ticket.paid.notify-passenger');
+    Route::get('/ticket/scan-qr/{id}/{passenger}/{arrival}/{departure}', [TicketController::class, 'scanTicketQR'])->name('ticket.scan-qr');
 
     Route::get('/city', [CityController::class, 'index'])->name('city.index');
     Route::get('/city/fetch', [CityController::class, 'fetch'])->name('city.fetch');

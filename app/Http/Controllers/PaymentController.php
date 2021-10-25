@@ -33,7 +33,7 @@ class PaymentController extends Controller
 
     public function index($id, $passenger, $arrival, $departure)
     {
-        $ticket = PreprocessTicket::find($id);
+        $ticket = PreprocessTicket::where('ticket_number', $id)->first();
 
         if($ticket->payment_status === 'Paid') {
             return redirect()->route('ticket.status', [ 'paid' ]);
@@ -64,7 +64,7 @@ class PaymentController extends Controller
     {
         Log::info('Payment Running...');
         try {   
-            $preprocess_ticket = PreprocessTicket::find($id);
+            $preprocess_ticket = PreprocessTicket::where('ticket_number', $id)->first();
 
             $credit_card = new \Omnipay\Common\CreditCard([
                 'number' => $request->cc_number,
@@ -122,7 +122,8 @@ class PaymentController extends Controller
                     'is_registered_payment' => $preprocess_ticket->is_registered_payment,
                     'office_id' => $preprocess_ticket->office_id,
                     'trip_time_id' => $preprocess_ticket->trip_time_id,
-                    'driver_id' => $preprocess_ticket->driver_id
+                    'driver_id' => $preprocess_ticket->driver_id,
+                    'ticket_number' => $preprocess_ticket->ticket_number,
                 ]);
 
                 $amount = $request->amount;
@@ -141,7 +142,7 @@ class PaymentController extends Controller
                     ]);
                 }
 
-                $print_route = route('ticket.print', [ $ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name ]);
+                $print_route = route('ticket.print', [ $ticket->ticket_number, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name ]);
                 $message = 'Your payment was successfuly paid your ticket, you can print the ticket information here';
 
                 $ticket->passenger->notify(new TicketNotifyPassenger($message, $print_route));
@@ -152,7 +153,7 @@ class PaymentController extends Controller
                     'success' => true,
                     'message' => 'Payment successful. Thank you!',
                     'title' => 'Success.',
-                    'redirect' => route('ticket.status', [ 'paid', $ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name ])
+                    'redirect' => route('ticket.status', [ 'paid', $ticket->ticket_number, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name ])
                 ]);
             } else {
                 Log::info('Failed Response : '. $response->getMessage());

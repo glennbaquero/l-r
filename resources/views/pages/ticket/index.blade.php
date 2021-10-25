@@ -82,7 +82,7 @@
                                 <td class="text-center border-b-2 border-gray-300 px-3">
                                 </td>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
-                                    <input @input="setParam('id', $event.target.value)" name="id" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
+                                    <input @input="setParam('ticket_number', $event.target.value)" name="ticket_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('departure', $event.target.value)" name="departure" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
@@ -105,7 +105,7 @@
                                         <input type="checkbox" class="inline-flex duration-150 ease-in-out focus:border-blue-300 focus:outline-none focus:shadow-outline-blue form-input leading-none mx-auto my-3 rounded shadow-sm transition" v-model="ticket.is_selected">
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                                        @{{ticket.id}}
+                                        @{{ticket.ticket_number}}
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{ticket.departure}}
@@ -233,7 +233,7 @@
                                 <td class="text-center border-b-2 border-gray-300 px-3">
                                 </td>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
-                                    <input @input="setParam('id', $event.target.value)" name="id" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
+                                    <input @input="setParam('ticket_number', $event.target.value)" name="ticket_number" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
                                 <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('departure', $event.target.value)" name="departure" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
@@ -256,7 +256,7 @@
                                         <input type="checkbox" class="inline-flex duration-150 ease-in-out focus:border-blue-300 focus:outline-none focus:shadow-outline-blue form-input leading-none mx-auto my-3 rounded shadow-sm transition" v-model="ticket.is_selected">
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                                        @{{ticket.id}}
+                                        @{{ticket.ticket_number}}
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{ticket.departure}}

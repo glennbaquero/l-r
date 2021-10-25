@@ -47,7 +47,7 @@
 
 	    methods : {
 	        orderMarker() {
-	            new google.maps.Marker({position: this.destination, map: this.map});
+	            new google.maps.Marker({position: this.destination, map: this.map, draggable:true,});
 	        },
 
 	        /**

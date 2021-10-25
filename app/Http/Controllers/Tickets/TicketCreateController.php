@@ -39,10 +39,10 @@ class TicketCreateController extends Controller
     {
     	$ticket = $this->action->execute($request);
 
-        $route = route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]);
+        $route = route('ticket.print', [$ticket->ticket_number, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]);
 
         if($request->payment_method != 'Cash') {
-            $route = route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name, true]);
+            $route = route('ticket.print', [$ticket->ticket_number, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name, true]);
         }
 
         if($request->payment_method == 'External Credit Card') {
@@ -76,7 +76,7 @@ class TicketCreateController extends Controller
 
             return response()->json([
                 'print_url' => $route,
-                'ticket_info_url' => route('ticket.status', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
+                'ticket_info_url' => route('ticket.status', [$ticket->ticket_number, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
             ]);
         }
 

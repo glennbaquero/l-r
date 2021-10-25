@@ -39,9 +39,11 @@ class TicketCreateOrUpdateAction
 		$request['seller_id'] = auth()->user()->id;
 		$request['office_id'] = auth()->user()->office_id;
 
+
 		DB::beginTransaction();
 
 			if(!$id) {
+				$request['ticket_number'] = 'Ticket-'.uniqid().'-'.now()->timestamp;
 
 				$passenger = Passenger::create([
 					'trip_id' => $request->trip_id,

@@ -26,7 +26,7 @@ class PassengerPaymentFormNotification extends Notification
     public function __construct($ticket)
     {
         $this->ticket = $ticket;
-        $this->route = route('payment.form', [$this->ticket->id, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
+        $this->route = route('payment.form', [$this->ticket->ticket_number, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
     }
 
     /**
@@ -71,7 +71,7 @@ class PassengerPaymentFormNotification extends Notification
     public function toSms($notifiable)
     {
         $appName = config('app.name');
-        $notificationLink = route('payment.form', [$this->ticket->id, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
+        $notificationLink = route('payment.form', [$this->ticket->ticket_number, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
         $travel_date = Carbon::parse($this->ticket->trip->date)->format('Y-m-d'). ' '. $trip_time;
         
         $message = <<<EOT
