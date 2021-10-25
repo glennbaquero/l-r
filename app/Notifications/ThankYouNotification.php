@@ -46,7 +46,7 @@ class ThankYouNotification extends Notification
     public function toSms($notifiable)
     {
         $appName = config('app.name');
-        $notificationLink = route('ticket.status', ['paid', $this->ticket->id, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
+        $notificationLink = route('ticket.status', ['paid', $this->ticket->ticket_number, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
 
         $message = <<<EOT
 Thank you for paying the ticket, you can check your ticket information in the link below.

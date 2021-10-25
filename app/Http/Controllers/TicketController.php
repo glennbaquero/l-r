@@ -46,7 +46,7 @@ class TicketController extends Controller
      */
     public function __construct(TicketFetch $fetch, PreprocessTicketFetch $preprocess_fetch)
     {
-        $this->middleware('App\Http\Middleware\TicketMiddleware', ['only' => ['index', 'printTicket']]);
+        $this->middleware('App\Http\Middleware\TicketMiddleware', ['only' => ['index']]);
         $this->middleware('App\Http\Middleware\DriverAuthMiddleware', ['only' => ['validateTransactionNumber', 'transactionNumberPage', 'scanTicketQR']]);
         $this->fetch = $fetch;
         $this->preprocess_fetch = $preprocess_fetch;
@@ -378,9 +378,9 @@ class TicketController extends Controller
     public function printTicket($id, $passenger, $arrival, $departure, $preprocess=false) 
     {
         if($preprocess) {
-            $ticket = PreprocessTicket::find($id);
+            $ticket = PreprocessTicket::where('ticket_number', $id)->first();
         } else {
-            $ticket = Ticket::find($id);
+            $ticket = Ticket::where('ticket_number', $id)->first();
         }
 
 
@@ -404,7 +404,7 @@ class TicketController extends Controller
 
     public function scanTicketQR($id, $passenger, $arrival, $departure) 
     {
-        $ticket = Ticket::find($id);
+        $ticket = Ticket::where('ticket_number', $id)->first();
         $ticket->update([
             'boarding_status' => 'On Board',
             'payment_status' => 'Paid',
@@ -565,7 +565,7 @@ class TicketController extends Controller
 
     public function ticketConfirmation($id, $passenger, $arrival, $departure) 
     {
-        $ticket = PreprocessTicket::find($id);
+        $ticket = PreprocessTicket::where('ticket_number', $id)->first();
         $departure = $ticket->departure->name;
         $arrival = $ticket->arrival->name;
 
@@ -598,7 +598,7 @@ class TicketController extends Controller
 
     public function confirmedTicket(Request $request) 
     {
-        $ticket = PreprocessTicket::find($request->id);
+        $ticket = PreprocessTicket::where('ticket_number', $id)->first();
         DB::beginTransaction();
             $ticket->update([
                 'confirmed' => true,
@@ -652,7 +652,7 @@ class TicketController extends Controller
         $stops = [];
 
         if($status == 'paid') {
-            $ticket = Ticket::find($id);
+            $ticket = Ticket::where('ticket_number', $id)->first();
             $trip_time = $ticket->trip_time ? $ticket->trip_time->formatted_time : now()->format('h:i A');
             $travel_date = Carbon::parse($ticket->trip->date)->format('F d, Y').' '.$trip_time;
             $route = $ticket->updateStatusUrl();
@@ -716,7 +716,7 @@ class TicketController extends Controller
             $ticket->passenger->notify(new ThankYouNotification($ticket));
         }
 
-        $route = route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]);
+        $route = route('ticket.print', [$ticket->ticket_number, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]);
 
         return response()->json([
             'print_url' => $route

@@ -63,7 +63,7 @@ class TicketConfirmationNotification extends Notification
     public function toSms($notifiable)
     {
         $appName = config('app.name');
-        $notificationLink = route('ticket.confirmation', [$this->ticket->id, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
+        $notificationLink = route('ticket.confirmation', [$this->ticket->ticket_number, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
 
         $message = <<<EOT
 Ticket Information :

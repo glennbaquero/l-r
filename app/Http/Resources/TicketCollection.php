@@ -32,7 +32,7 @@ class TicketCollection extends ResourceCollection
      * @var array
      */
     public static $searches = [
-        'departure', 'arrival', 'passenger', 'office_id', 'date', 'trip', 'type', 'travel_date', 'end_date', 'has_end_date', 'office_view', 'id'
+        'departure', 'arrival', 'passenger', 'office_id', 'date', 'trip', 'type', 'travel_date', 'end_date', 'has_end_date', 'office_view', 'ticket_number'
     ];
 
     /**
@@ -48,6 +48,7 @@ class TicketCollection extends ResourceCollection
             
             return [
                 'id' => $ticket->id,
+                'ticket_number' => $ticket->ticket_number,
 
                 'is_selected' => false, 
                 'departure' => $ticket->departure ? $ticket->departure->name : '---',
@@ -95,7 +96,7 @@ class TicketCollection extends ResourceCollection
 
                 'type_of_ticket' => $ticket->type_of_ticket,
 
-                'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
+                'printUrl' => route('ticket.print', [$ticket->ticket_number, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
                 'cancelUrl' => route('ticket.cancel', $ticket->id),
                 'updateUrl' => route('ticket.update', $ticket->id),
                 'sendEmailUrl' => route('ticket.send-email', $ticket->passenger->id),

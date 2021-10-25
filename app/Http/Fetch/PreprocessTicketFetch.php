@@ -41,8 +41,8 @@ class PreprocessTicketFetch
         $this->ticket = $this->ticket->where('payment_status', 'Reserved')->where('confirmed', false)->whereNull('confirmation_date')->where('is_cancelled', false);
 
 
-        if($params['id'] && $params['id'] != 'null') {
-            $this->ticket = $this->ticket->where('id', $params['id']);
+        if($params['ticket_number'] && $params['ticket_number'] != 'null') {
+            $this->ticket = $this->ticket->whereLike('ticket_number', $params['ticket_number']);
         }
 
         if($params['trip'] && $params['trip'] != 'null') {

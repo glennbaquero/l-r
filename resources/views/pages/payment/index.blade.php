@@ -31,7 +31,7 @@
 
                 <div class="bg-white shadow sm:rounded-lg h-screen">
                     <div class="px-4 py-5 sm:p-6">
-                        <payment-form url="{{ route('payment.process', [ $ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name ]) }}" v-slot="{ actionHandler, loading, payload, modalMessage, modalTitle, showModal }" :data="{{ $ticket }}">
+                        <payment-form url="{{ route('payment.process', [ $ticket->ticket_number, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name ]) }}" v-slot="{ actionHandler, loading, payload, modalMessage, modalTitle, showModal }" :data="{{ $ticket }}">
                             <div class="col-span-1 lg:col-span-6">
                                  <loading :show="loading"></loading>
 

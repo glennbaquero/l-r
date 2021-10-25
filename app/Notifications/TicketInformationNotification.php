@@ -26,7 +26,7 @@ class TicketInformationNotification extends Notification
     public function __construct($ticket)
     {
         $this->ticket = $ticket;
-        $this->route = route('ticket.status', ['paid', $this->ticket->id, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
+        $this->route = route('ticket.status', ['paid', $this->ticket->ticket_number, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
     }
 
     /**
