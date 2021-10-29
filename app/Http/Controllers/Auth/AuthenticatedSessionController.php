@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
         $route = RouteServiceProvider::HOME;
 
         if($request->user()->group->name != 'Administrator') {
-            $route = route('scanner');
+            $route = route('payment.process');
         }
 
         return redirect($route);
