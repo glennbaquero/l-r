@@ -246,6 +246,7 @@ Route::get('/ticket/status/{ticket_status}/{id?}/{passenger?}/{arrival?}/{depart
 Route::middleware(['auth'])->group(function() {
 
     Route::get('/scanner', [DashboardController::class, 'scanQR'])->name('scanner');
+    Route::get('/driver/dashboard', [DashboardController::class, 'driverDashboard'])->name('driver-dashboard');
 
     Route::post('/locale', LocaleController::class)->name('locale');
 

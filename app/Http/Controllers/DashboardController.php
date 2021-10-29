@@ -9,13 +9,15 @@ use App\Models\Office;
 use App\Models\Route;
 use App\Models\Ticket;
 
+use App\Http\Resources\TicketCollection;
+
 class DashboardController extends Controller
 {
 
     public function __construct() 
     {
         $this->middleware('App\Http\Middleware\DashboardMiddleware', ['only' => ['index']]);
-        $this->middleware('App\Http\Middleware\DriverAuthMiddleware', ['only' => ['scanQR']]);
+        $this->middleware('App\Http\Middleware\DriverAuthMiddleware', ['only' => ['scanQR', 'driverDashboard']]);
     }
 
     /**
@@ -79,7 +81,20 @@ class DashboardController extends Controller
     public function scanQR()
     {
         return view('pages.qr.scanner', [
-           //
+            //
+        ]);
+    }
+
+    /**
+     * Show scanning of QR
+     * 
+     * @return Illuminate\Http\Response
+     */
+    public function driverDashboard()
+    {
+        return view('pages.qr.driver-dashboard', [
+            'headers' => TicketCollection::$driver_passenger_list,
+            'searches' => TicketCollection::$searches,
         ]);
     }
 

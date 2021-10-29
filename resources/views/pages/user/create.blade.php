@@ -159,17 +159,17 @@
                                         </div>
                                         <div class="col-span-3 sm:col-span-3">
                                             <x-label for="commission" class="font-semibold">Commission %</x-label>
-                                            <x-form-input type="commission" name="commission" value="{{ old('commission') }}" />
+                                            <x-form-input type="number" name="commission" value="{{ old('commission') }}" />
                                         </div>
 
                                         <div class="col-span-3 sm:col-span-3">
                                             <x-label for="license_type" class="font-semibold">License Type</x-label>
-                                            <x-form-input type="license_type" name="license_type" value="{{ old('license_type') }}" />
+                                            <x-form-input type="text" name="license_type" value="{{ old('license_type') }}" />
                                         </div>
 
                                         <div class="col-span-3 sm:col-span-3">
                                             <x-label for="license_no" class="font-semibold">License Number</x-label>
-                                            <x-form-input type="license_no" name="license_no" value="{{ old('license_no') }}" />
+                                            <x-form-input type="text" name="license_no" value="{{ old('license_no') }}" />
                                         </div>
 
                                         <div class="col-span-3 sm:col-span-3">

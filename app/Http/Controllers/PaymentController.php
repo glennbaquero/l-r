@@ -34,9 +34,9 @@ class PaymentController extends Controller
     public function index($id, $passenger, $arrival, $departure)
     {
         $ticket = PreprocessTicket::where('ticket_number', $id)->first();
-
-        if($ticket->payment_status === 'Paid') {
-            return redirect()->route('ticket.status', [ 'paid' ]);
+        
+        if($ticket->payment_status == 'Paid') {
+            return redirect()->route('ticket.status', [ 'paid', $ticket->ticket_number, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name ]);
         }
 
         if($ticket->is_cancelled) {

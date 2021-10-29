@@ -38,12 +38,14 @@ class TicketCreateOrUpdateAction
 		$request['purchase_date'] = now();
 		$request['seller_id'] = auth()->user()->id;
 		$request['office_id'] = auth()->user()->office_id;
-
+		$permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$rand_char = substr(str_shuffle($permitted_chars), 0, 6);
 
 		DB::beginTransaction();
 
 			if(!$id) {
-				$request['ticket_number'] = 'Ticket-'.uniqid().'-'.now()->timestamp;
+				$request['boarding_status'] = 'Not Boarded';
+				$request['ticket_number'] = 'FDN-'.$rand_char;
 
 				$passenger = Passenger::create([
 					'trip_id' => $request->trip_id,

@@ -14,7 +14,7 @@ class TicketCollection extends ResourceCollection
      * @var array 
      */
     public static $headers = [
-       'ID', 'Departure', 'Arrival', 'Travel Date', 'Seat', 'Passenger', 'Type', 'Price', 'Actions'
+       'ID', 'Departure', 'Arrival', 'Travel Date', 'Seat', 'Passenger', 'Type', 'Price', 'Status', 'Actions'
     ];
 
     /**
@@ -24,6 +24,15 @@ class TicketCollection extends ResourceCollection
      */
     public static $account_receivable_headers = [
        'Ticket', 'Purchase Date', 'Departure City', 'Arrival City', 'Travel Date', 'Passenger', 'Office', 'Amount', 'Commission', 'Amount Receivable', 'Amount Paid', 'Balance'
+    ];
+
+    /**
+     * Fields that are used for table headers
+     * 
+     * @var array 
+     */
+    public static $driver_passenger_list = [
+       'Ticket', 'Passenger', 'Departure', 'Arrival', 'Seat', 'Status', 
     ];
 
     /**
@@ -59,6 +68,7 @@ class TicketCollection extends ResourceCollection
                 'passenger' => $ticket->passenger ? $ticket->passenger->fullname : '---',
                 'type' => $ticket->passenger->ticketType ? $ticket->passenger->ticketType->name : '---',
                 'printUrl' => route('ticket.print', [$ticket->id, $ticket->passenger->fullname, $ticket->arrival->name, $ticket->departure->name]),
+                'status' => $ticket->payment_status. ' - '.$ticket->boarding_status, 
 
 
                 // ACcount Receivable 
