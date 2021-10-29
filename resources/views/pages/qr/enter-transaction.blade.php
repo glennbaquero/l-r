@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="mx-auto sm:px-6 lg:px-8 py-6 text-sm">
+    <div class="mx-auto sm:px-6 lg:px-8 py-6 text-sm p-6">
         <div class="flex items-center">
             <div class="text-base mr-auto">
                 <span class="">{{__('Welcome')}}</span>

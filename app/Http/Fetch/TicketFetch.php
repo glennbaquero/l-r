@@ -7,6 +7,7 @@ use App\Models\Passenger;
 use App\Models\City;
 use App\Models\Office;
 use App\Models\Trip;
+use App\Models\Driver;
 
 class TicketFetch
 {
@@ -98,6 +99,12 @@ class TicketFetch
         }
         if($params['office_view']) {
             $this->ticket = $this->ticket->where('is_registered_payment', true);
+        }
+
+        if(auth()->user()->group->name == 'Driver') {
+            $this->ticket = $this->ticket->whereHas('trip', function($q) {
+                $q->whereDate('date', now());
+            });
         }
 
         return $this->ticket->paginate(20);

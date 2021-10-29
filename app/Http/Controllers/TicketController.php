@@ -229,65 +229,6 @@ class TicketController extends Controller
 
     }
 
-    // public function renderBusModel($row, $trip, $request) {
-
-    //     $response = [];
-
-    //     foreach ($row->bus_columns as $column) {
-    //         foreach($trip->passengers as $key => $passenger) {
-    //             $last_stop = $trip->route->stops()->latest()->orderby('id', 'desc')->first();
-
-    //             if($last_stop->arrival_id === $passenger->arrival_city_id) {
-    //                 if($passenger->bus_model_column_id == $column->id) {
-    //                     $column['passenger'] = $passenger;
-
-    //                     if($passenger->ticket->payment_method == 'Cash' || $passenger->ticket->payment_method == 'Credit Card') {
-    //                         $column->image_path = url('icons/seat_sold.png');
-    //                     } elseif ($passenger->ticket->payment_method == 'Reservation') {
-    //                         $column->image_path = url('icons/seat_reserve.png');
-    //                     }
-
-    //                     // $seat = $passenger->bus_model_column_id;
-    //                     // $checker = $trip->passengers()->where('bus_model_column_id', $seat)->whereNoIn('arrival_city_id', [$request->arrival_id])->count();
-
-    //                     // if($checker) {
-    //                     //     $column->image_path = url('icons/seat_available.png');
-    //                     // }
-                    
-    //                     $column->is_reserved = true;
-    //                 }
-    //             } elseif ($passenger->arrival_city_id == $request->arrival_id) {
-    //                 if($passenger->bus_model_column_id == $column->id) {
-    //                     $column['passenger'] = $passenger;
-
-    //                     if($passenger->ticket->payment_method == 'Cash' || $passenger->ticket->payment_method == 'Credit Card') {
-    //                         $column->image_path = url('icons/seat_sold.png');
-    //                     } elseif ($passenger->ticket->payment_method == 'Reservation') {
-    //                         $column->image_path = url('icons/seat_reserve.png');
-    //                     }
-    //                     $column->is_reserved = true;
-    //                 }
-    //             }
-
-
-    //             if($passenger->ticket->departure_id == $request->departure_id && $passenger->arrival_city_id == $request->arrival_id) {
-    //                 if($passenger->bus_model_column_id == $column->id) {
-    //                     $column['passenger'] = $passenger;
-
-    //                     if($passenger->ticket->payment_method == 'Cash' || $passenger->ticket->payment_method == 'Credit Card') {
-    //                         $column->image_path = url('icons/seat_sold.png');
-    //                     } elseif ($passenger->ticket->payment_method == 'Reservation') {
-    //                         $column->image_path = url('icons/seat_reserve.png');
-    //                     }
-    //                     $column->is_reserved = true;
-    //                 }
-    //             } 
-    //         }
-    //     }
-
-    //     return true;
-    // }
-
     public function renderBusModel($row, $trip, $request) {
 
         $response = [];
@@ -367,7 +308,7 @@ class TicketController extends Controller
     {
         $passengers = [];
         if($request->filled('search')) {
-            $passengers = Passenger::whereLike('phone_number', $request->search)->orWhereLike('last_name', $request->search)->orWhereLike('first_name', $request->search)->get();
+            $passengers = Passenger::select(['phone_number', 'first_name', 'last_name', 'gender', 'cellphone_number', 'email', 'ticket_type_id', 'with_infant', 'infant_firstname', 'infant_lastname', 'infant_gender', 'cellphone_number'])->whereLike('phone_number', $request->search)->orWhereLike('last_name', $request->search)->orWhereLike('first_name', $request->search)->distinct('phone_number')->get();
         }
 
         return response()->json([
@@ -697,7 +638,7 @@ class TicketController extends Controller
 
     public function validateTransactionNumber(Request $request)
     {
-        $ticket = Ticket::where('transaction_number', $request->transaction_number)->first();
+        $ticket = Ticket::where('transaction_number', $request->transaction_number)->orWhere('ticket_number', $request->transaction_number)->first();
         
         $ticket->update([
             'boarding_status' => 'On Board',
