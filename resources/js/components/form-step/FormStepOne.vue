@@ -145,6 +145,8 @@
 				});
 
 				this.item.time = time;
+				this.item.driver_id = time.driver_id;
+				this.item.bus_id = time.bus_id;
 			},
 		},
 
@@ -238,6 +240,15 @@
 			},
 
 			nextForm() {
+
+				if(!this.item.bus_id || !this.item.driver_id) {
+					this.$parent.showModal = true;
+					this.$parent.modalTitle = 'Ooops';
+					this.$parent.modalMessage = 'There is no bus assigned or driver in the selected time. Please update the trip in the selected date and time. Thank you!';
+
+					return;
+				}
+
 				var bus_finder_payloads = {
 					trip: this.item.trip,
 					trip_id: this.item.trip.id,
@@ -260,6 +271,8 @@
 								this.$parent.payloads = this.item;
 								this.$parent.payloads.trip = this.item.trip;
 								this.$parent.payloads.trip_id = this.item.trip_id;
+								this.$parent.payloads.driver_id = !_.isEmpty(this.item.time) ? this.item.time.driver_id : this.$parent.payloads.driver_id;
+								this.$parent.payloads.bus_id = !_.isEmpty(this.item.time) ? this.item.time.bus_id : this.$parent.payloads.bus_id;
 								this.$emit('nextStep', 3);
 								this.$parent.loading = false;
 							}, 500)

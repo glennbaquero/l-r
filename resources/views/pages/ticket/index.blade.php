@@ -97,7 +97,7 @@
                                 <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('passenger', $event.target.value)" name="passenger" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
-                                <td colspan="3" class="text-center border-b-2 border-gray-300 px-3"></td>
+                                <td colspan="4" class="text-center border-b-2 border-gray-300 px-3"></td>
                             </tr>
                             <template v-if="data.length > 0">
                                 <tr v-for="(ticket, key) in data" :key="key" class="hover:bg-gray-100 cursor-pointer">
@@ -127,6 +127,9 @@
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{ticket.price}}
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        @{{ticket.status}}
                                     </td>
                                     <td class="px-6 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium text-gray-500 flex py-5">
                                         <a title="Print Ticket" :href="ticket.printUrl" target="_blank" class="focus:outline-none focus:shadow-outline inline-flex">
@@ -248,7 +251,7 @@
                                 <td class="text-center border-b-2 border-gray-300 px-3">
                                     <input @input="setParam('passenger', $event.target.value)" name="passenger" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none" />
                                 </td>
-                                <td colspan="3" class="text-center border-b-2 border-gray-300 px-3"></td>
+                                <td colspan="4" class="text-center border-b-2 border-gray-300 px-3"></td>
                             </tr>
                             <template v-if="data.length > 0">
                                 <tr v-for="(ticket, key) in data" :key="key" class="hover:bg-gray-100 cursor-pointer">
@@ -278,6 +281,9 @@
                                     </td>
                                     <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
                                         @{{ticket.price}}
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+                                        Pending
                                     </td>
                                     <td class="px-6 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium text-gray-500 flex py-5">
                                         <a title="Print Ticket" :href="ticket.printUrl" target="_blank" class="focus:outline-none focus:shadow-outline inline-flex">

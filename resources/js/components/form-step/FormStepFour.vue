@@ -5,7 +5,7 @@
 				<input type="text" name="search_passenger" class="border-l-0 border-r-0 border-t-0 duration-150 ease-in-out leading-none mx-auto my-3 px-3 py-2 shadow-sm text-center transition w-full" placeholder="Search Passenger" @input="searchPassengerHandler($event.target.value)" autocomplete="off">
 				<div class="absolute bg-white mb-1 py-2 rounded shadow-lg text-base text-left w-5/12 w-auto z-50" :class="!passengers.length ? 'hidden' : 'block'"> <!-- hidden -->
 		          <div class="bg-transparent block cursor-pointer font-normal hover:bg-blue-400 hover:text-white px-4 py-2 text-sm w-full whitespace-nowrap" v-for="passenger in passengers" @click="selectedPassenger(passenger)">
-		            {{ passenger.fullname }}
+		            {{ passenger.first_name }} {{ passenger.last_name }}
 		          </div>
 		        </div>
 			</div>

@@ -1,11 +1,14 @@
 <template>
-	<div class="mt-12 mx-auto w-3/4">
+	<div class="mx-auto w-full">
 	    <div class="bg-white shadow sm:rounded-lg">
 	        <div class="px-4 py-5 sm:p-6">
                 <div class="grid grid-cols-6 gap-6">
-                    <div class="col-span-full sm:col-span-full">
-                        <label for="senior_roundtrip" class="font-semibold">Transaction Number/Reference Number</label>
-                        <input type="text" name="" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="payloads.transaction_number">
+                    <div class="col-span-full sm:col-span-full text-center">
+                        <p>Enter</p>
+                        <label for="senior_roundtrip" class="font-semibold">Transaction Number/Reference Number </label>
+                        <p>or</p>
+                        <label for="senior_roundtrip" class="font-semibold">Ticket Number</label>
+                        <input type="text" name="" class="form-input w-full mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" placeholder="---" v-model="payloads.transaction_number">
                     </div>
                 </div>
                 <div class="mt-5 text-left">

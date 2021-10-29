@@ -66,8 +66,7 @@ class TicketConfirmationNotification extends Notification
         $notificationLink = route('ticket.confirmation', [$this->ticket->ticket_number, $this->ticket->passenger->fullname, $this->ticket->arrival->name, $this->ticket->departure->name]);
 
         $message = <<<EOT
-Ticket Information :
-Please check your ticket in the link below
+Your ticket is not yet confirmed, please pay below.
 
 {$notificationLink}
 EOT;

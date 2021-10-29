@@ -49,7 +49,7 @@ class TicketCreateController extends Controller
             $ticket->passenger->notify(new TicketInformationNotification($ticket));
         }
 
-        if($request->payment_method == 'Credit Card') {
+        if($request->payment_method == 'Credit Card' || $request->payment_method == 'Reservation') {
             $ticket->passenger->notify(new TicketConfirmationNotification($ticket));
             
             return response()->json([

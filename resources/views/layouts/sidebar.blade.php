@@ -12,6 +12,9 @@
 	  </div>
 	  <nav :class="{'block': open, 'hidden': !open}" class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
 	    <p class="block px-4 py-2 text-sm font-semibold text-white rounded-lg dark-mode:bg-gray-700 mb-4" href="#">Hi, {{ auth()->user()->fullname }}</p>
+	    <a class="block dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 focus:outline-none focus:shadow-outline focus:text-white font-semibold hover:bg-white hover:text-darkblue mt-2 px-4 py-2 rounded-lg text-sm text-white" href="{{ route('driver-dashboard') }}" >
+	    	Dashboard
+	    </a>
 	    <a class="block dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 focus:outline-none focus:shadow-outline focus:text-white font-semibold hover:bg-white hover:text-darkblue mt-2 px-4 py-2 rounded-lg text-sm text-white" href="{{ route('scanner') }}" >
 	    	Scan QR
 	    </a>
