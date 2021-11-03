@@ -119,93 +119,6 @@
                                     
                                 </div>
 
-                                {{-- <div class="col-span-full sm:col-span-full">
-                                    <div class="col-span-2 sm:col-span-2">
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <div class="col-span-1/2 sm:col-span-1/2 mt-5">
-                                                <x-label for="monday_time" class="font-semibold">
-                                                    <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5 " name="monday" id="monday" />Monday
-                                                </x-label>
-                                            </div>
-                                            <div class="col-span-1/2 sm:col-span-1/2">
-                                                <x-form-input type="time" name="monday_time" oldValue="{{ old('monday_time') }}"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-2">
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <div class="col-span-1/2 sm:col-span-1/2 mt-5">
-                                                <x-label for="tuesday_time" class="font-semibold">
-                                                    <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5" name="tuesday" id="tuesday" />Tuesday
-                                                </x-label>
-                                            </div>
-                                            <div class="col-span-1/2 sm:col-span-1/2">
-                                                <x-form-input type="time" name="tuesday_time" oldValue="{{ old('tuesday_time') }}" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-2">
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <div class="col-span-1/2 sm:col-span-1/2 mt-5">
-                                                <x-label for="wednesday_time" class="font-semibold">
-                                                    <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5" name="wednesday" id="wednesday" />Wednesday
-                                                </x-label>
-                                            </div>
-                                            <div class="col-span-1/2 sm:col-span-1/2">
-                                                <x-form-input type="time" name="wednesday_time" oldValue="{{ old('wednesday_time') }}" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-2">
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <div class="col-span-1/2 sm:col-span-1/2 mt-5">
-                                                <x-label for="thursday_time" class="font-semibold">
-                                                    <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5" name="thursday" id="thursday" />Thursday
-                                                </x-label>
-                                            </div>
-                                            <div class="col-span-1/2 sm:col-span-1/2">
-                                                <x-form-input type="time" name="thursday_time" oldValue="{{ old('thursday_time') }}" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-2">
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <div class="col-span-1/2 sm:col-span-1/2 mt-5">
-                                                <x-label for="friday_time" class="font-semibold">
-                                                    <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5" name="friday" id="friday" />Friday
-                                                </x-label>
-                                            </div>
-                                            <div class="col-span-1/2 sm:col-span-1/2">
-                                                <x-form-input type="time" name="friday_time" oldValue="{{ old('friday_time') }}" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-2">
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <div class="col-span-1/2 sm:col-span-1/2 mt-5">
-                                                <x-label for="saturday_time" class="font-semibold">
-                                                    <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5" name="saturday" id="saturday" />Saturday
-                                                </x-label>
-                                            </div>
-                                            <div class="col-span-1/2 sm:col-span-1/2">
-                                                <x-form-input type="time" name="saturday_time" oldValue="{{ old('saturday_time') }}" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-2">
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <div class="col-span-1/2 sm:col-span-1/2 mt-5">
-                                                <x-label for="sunday_time" class="font-semibold">
-                                                    <input type="checkbox" class="form-input h-5 leading-none mr-2 rounded shadow-sm w-5" name="sunday" id="sunday" />Sunday
-                                                </x-label>
-                                            </div>
-                                            <div class="col-span-1/2 sm:col-span-1/2">
-                                                <x-form-input type="time" name="sunday_time" oldValue="{{ old('sunday_time') }}" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
                                 <div class="col-span-full sm:col-span-full mt-5">
                                     <div class="grid grid-cols-4 gap-2">
                                         <increment v-slot="{ removeHandler, addNewHandler, increment, array, selected }">
@@ -217,11 +130,15 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-4 gap-1">
+                                                <div class="grid grid-cols-6 gap-1">
                                                     <template v-if="selected.monday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="monday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="monday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="monday_arrival_date" class="font-semibold">Arrival Date</x-label>
+                                                            <x-form-input type="date" name="monday_arrival_date[]" v-model="list.arrival_date" />
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="monday_arrival_time" class="font-semibold">Arrival Time</x-label>
@@ -265,11 +182,15 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-4 gap-1">
+                                                <div class="grid grid-cols-6 gap-1">
                                                     <template v-if="selected.tuesday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="tuesday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="tuesday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="tuesday_arrival_date" class="font-semibold">Arrival Date</x-label>
+                                                            <x-form-input type="date" name="tuesday_arrival_date[]" v-model="list.arrival_date" />
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="tuesday_arrival_time" class="font-semibold">Arrival Time</x-label>
@@ -312,11 +233,15 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-4 gap-1">
+                                                <div class="grid grid-cols-6 gap-1">
                                                     <template v-if="selected.wednesday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="wednesday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="wednesday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="wednesday_arrival_date" class="font-semibold">Arrival Date</x-label>
+                                                            <x-form-input type="date" name="wednesday_arrival_date[]" v-model="list.arrival_date" />
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="wednesday_arrival_time" class="font-semibold">Arrival Time</x-label>
@@ -359,11 +284,15 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-4 gap-1">
+                                                <div class="grid grid-cols-6 gap-1">
                                                     <template v-if="selected.thursday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="thursday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="thursday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="thursday_arrival_date" class="font-semibold">Arrival Date</x-label>
+                                                            <x-form-input type="date" name="thursday_arrival_date[]" v-model="list.arrival_date" />
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="thursday_arrival_time" class="font-semibold">Arrival Time</x-label>
@@ -406,11 +335,15 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-4 gap-1">
+                                                <div class="grid grid-cols-6 gap-1">
                                                     <template v-if="selected.friday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="friday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="friday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="friday_arrival_date" class="font-semibold">Arrival Date</x-label>
+                                                            <x-form-input type="date" name="friday_arrival_date[]" v-model="list.arrival_date" />
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="friday_arrival_time" class="font-semibold">Arrival Time</x-label>
@@ -453,11 +386,15 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-4 gap-1">
+                                                <div class="grid grid-cols-6 gap-1">
                                                     <template v-if="selected.saturday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="saturday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="saturday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="saturday_arrival_date" class="font-semibold">Arrival Date</x-label>
+                                                            <x-form-input type="date" name="saturday_arrival_date[]" v-model="list.arrival_date" />
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="saturday_arrival_time" class="font-semibold">Arrival Time</x-label>
@@ -500,11 +437,15 @@
                                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                                     </button>
                                                 </x-label>
-                                                <div class="grid grid-cols-4 gap-1">
+                                                <div class="grid grid-cols-6 gap-1">
                                                     <template v-if="selected.sunday" v-for="(list,key) in array" >
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="sunday_time" class="font-semibold">Departure Time</x-label>
                                                             <x-form-input type="time" name="sunday_time[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                        </div>
+                                                        <div class="col-span-1 sm:col-span-1">
+                                                            <x-label for="sunday_arrival_date" class="font-semibold">Arrival Date</x-label>
+                                                            <x-form-input type="date" name="sunday_arrival_date[]" v-model="list.arrival_date" />
                                                         </div>
                                                         <div class="col-span-1 sm:col-span-1">
                                                             <x-label for="sunday_arrival_time" class="font-semibold">Arrival Time</x-label>

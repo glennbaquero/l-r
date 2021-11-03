@@ -67,7 +67,7 @@
 			       <div class="border border-black">
 			           <div class="bg-white">
 			               <div class="p-2">
-			                   <div class="border-b border-gray-200 gap-0 grid grid-cols-5">
+			                   <div class="border-b border-gray-200 gap-0 grid grid-cols-6">
 			                       <div class="col-span-2 sm:col-span-2">
 			                          <x-label>From</x-label>
 			                          <x-label class="font-semibold">{{ $ticket->departure->address_line_1 }} ({{ $ticket->departure->name }})</x-label>
@@ -78,8 +78,12 @@
 			                          <x-label class="font-semibold"></x-label>
 			                       </div>
 			                       <div class="col-span-2 sm:col-span-2 text-right">
-			                          <x-label>Departure</x-label>
+			                          <x-label>Departure Date</x-label>
 			                          <x-label class="font-semibold">{{ $ticket->trip->formatted_date }}</x-label>
+			                       </div>
+			                       <div class="col-span-1 sm:col-span-1 text-right">
+			                          <x-label>Arrival Date</x-label>
+			                          <x-label class="font-semibold">{{ $ticket->trip_time->formatted_arrival_date }}</x-label>
 			                       </div>
 
 			                       <div class="col-span-2 sm:col-span-2">
@@ -91,9 +95,13 @@
 			                          <x-label>Seat</x-label>
 			                          <x-label class="font-semibold">{{ $ticket->passenger->bus_model_column->label }}</x-label>
 			                       </div>
+
+
 			                       <div class="col-span-2 sm:col-span-2 text-right">
 			                          <x-label>Departure Time</x-label>
 			                          <x-label class="font-semibold">{{ $ticket->trip_time->formatted_time }}</x-label>
+			                       </div>
+			                       <div class="col-span-1 sm:col-span-1 text-right">
 			                          <x-label>Arrival Time</x-label>
 			                          <x-label class="font-semibold">{{ $ticket->trip_time->formatted_arrival_time }}</x-label>
 			                       </div>
@@ -156,7 +164,7 @@
 			       	<div class="border border-black">
 			           	<div class="bg-white">
 			               	<div class="p-2">
-			                   	<div class="border-b border-gray-200 gap-0 grid grid-cols-5">
+			                   	<div class="border-b border-gray-200 gap-0 grid grid-cols-6">
 			                       	<div class="col-span-2 sm:col-span-2">
 			                          	<x-label>From</x-label>
 			                          	<x-label class="font-semibold">{{ $ticket->departure->name }}</x-label>
@@ -167,8 +175,12 @@
 			                          	<x-label class="font-semibold">{{ $ticket->trip->alias_route }}</x-label>
 			                       	</div>
 			                       	<div class="col-span-2 sm:col-span-2 text-right">
-			                          	<x-label>Departure</x-label>
+			                          	<x-label>Departure Date</x-label>
 			                          	<x-label class="font-semibold">{{ $ticket->trip->formatted_date }}</x-label>
+			                       	</div>
+			                       	<div class="col-span-1 sm:col-span-1 text-right">
+			                          	<x-label>Arrival Date</x-label>
+			                          	<x-label class="font-semibold">{{ $ticket->trip_time->formatted_arrival_date }}</x-label>
 			                       	</div>
 
 			                       	<div class="col-span-2 sm:col-span-2">
@@ -183,9 +195,11 @@
 			                       	<div class="col-span-2 sm:col-span-2 text-right">
 			                          	<x-label>Departure Time</x-label>
 			                          	<x-label class="font-semibold">{{ $ticket->trip->formatted_time }}</x-label>
-				                        <x-label>Arrival Time</x-label>
-				                        <x-label class="font-semibold">{{ $ticket->trip_time->formatted_arrival_time }}</x-label>
 			                       	</div>
+			                       <div class="col-span-1 sm:col-span-1 text-right">
+			                          	<x-label>Arrival Time</x-label>
+			                          	<x-label class="font-semibold">{{ $ticket->trip_time->formatted_arrival_time }}</x-label>
+			                       </div>
 			                   	</div>
 
 			                   	<div class="border-b border-gray-200 gap-0 grid grid-cols-2">

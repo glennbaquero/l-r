@@ -156,11 +156,15 @@
                                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                         </button>
 
-                                        <div class="grid grid-cols-5 gap-1">
+                                        <div class="grid grid-cols-6 gap-1">
                                             <template v-for="(list,key) in array" >
                                                 <div class="col-span-1 sm:col-span-1">
                                                     <x-label for="time" class="font-semibold">Departure Time</x-label>
                                                     <x-form-input type="time" name="time_list[]" classAttrib="w-full form-input mx-auto my-3 py-2 px-3 bg-gray-200 rounded shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out leading-none border-transparent" v-model="list.value"/>
+                                                </div>
+                                                <div class="col-span-1 sm:col-span-1">
+                                                    <x-label for="arrival_date" class="font-semibold">Arrival Date</x-label>
+                                                    <x-form-input type="date" name="arrival_date[]" v-model="list.arrival_date" />
                                                 </div>
                                                 <div class="col-span-1 sm:col-span-1">
                                                     <x-label for="arrival_time" class="font-semibold">Arrival Time</x-label>

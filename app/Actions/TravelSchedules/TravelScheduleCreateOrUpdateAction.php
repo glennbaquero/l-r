@@ -30,7 +30,6 @@ class TravelScheduleCreateOrUpdateAction
 	
 	public function execute($request, $id = null)
 	{
-		// dd($request->all());
 		$request['discounted_tickets'] = $request->filled('discounted_tickets');
 		$request['show_on_web'] = $request->filled('show_on_web');
 		$request['additional_receipt'] = $request->filled('additional_receipt');
@@ -55,6 +54,7 @@ class TravelScheduleCreateOrUpdateAction
 								'driver_id' => $request->monday_time_driver[$key],
 								'bus_id' => $request->monday_time_bus[$key],
 								'arrival_time' => $request->monday_arrival_time[$key],
+								'arrival_date' => $request->monday_arrival_date[$key],
 							]);
 						}
 					}
@@ -72,6 +72,7 @@ class TravelScheduleCreateOrUpdateAction
 								'driver_id' => $request->tuesday_time_driver[$key],
 								'bus_id' => $request->tuesday_time_bus[$key],
 								'arrival_time' => $request->tuesday_arrival_time[$key],
+								'arrival_date' => $request->tuesday_arrival_date[$key],
 							]);
 						}
 					}
@@ -89,6 +90,7 @@ class TravelScheduleCreateOrUpdateAction
 								'driver_id' => $request->wednesday_time_driver[$key],
 								'bus_id' => $request->wednesday_time_bus[$key],
 								'arrival_time' => $request->wednesday_arrival_time[$key],
+								'arrival_date' => $request->wednesday_arrival_date[$key],
 							]);
 						}
 					}
@@ -105,6 +107,7 @@ class TravelScheduleCreateOrUpdateAction
 								'driver_id' => $request->thursday_time_driver[$key],
 								'thursday_id' => $request->thursday_time_thursday[$key],
 								'arrival_time' => $request->thursday_arrival_time[$key],
+								'arrival_date' => $request->thursday_arrival_date[$key],
 							]);
 						}
 					}
@@ -122,6 +125,7 @@ class TravelScheduleCreateOrUpdateAction
 								'driver_id' => $request->friday_time_driver[$key],
 								'bus_id' => $request->friday_time_bus[$key],
 								'arrival_time' => $request->friday_arrival_time[$key],
+								'arrival_date' => $request->friday_arrival_date[$key],
 							]);
 						}
 					}
@@ -139,6 +143,7 @@ class TravelScheduleCreateOrUpdateAction
 								'driver_id' => $request->saturday_time_driver[$key],
 								'bus_id' => $request->saturday_time_bus[$key],
 								'arrival_time' => $request->saturday_arrival_time[$key],
+								'arrival_date' => $request->saturday_arrival_date[$key],
 							]);
 						}
 					}
@@ -156,6 +161,7 @@ class TravelScheduleCreateOrUpdateAction
 								'driver_id' => $request->sunday_time_driver[$key],
 								'bus_id' => $request->sunday_time_bus[$key],
 								'arrival_time' => $request->sunday_arrival_time[$key],
+								'arrival_date' => $request->saturday_arrival_date[$key],
 							]);
 						}
 					}
@@ -175,10 +181,10 @@ class TravelScheduleCreateOrUpdateAction
 
 		DB::beginTransaction();
 			if(!$id) {
-				$this->trip = $this->trip->create($request->except(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'monday_time', 'tuesday_time', 'wednesday_time', 'thursday_time', 'friday_time', 'saturday_time', 'sunday_time', 'start_date', 'end_date', 'monday_time_driver', 'tuesday_time_driver', 'wednesday_time_driver', 'thursday_time_driver', 'friday_time_driver', 'saturday_time_driver', 'sunday_time_driver', 'monday_time_bus', 'tuesday_time_bus', 'wednesday_time_bus', 'thursday_time_bus', 'friday_time_bus', 'saturday_time_bus', 'sunday_time_bus', 'monday_arrival_time', 'tuesday_arrival_time', 'wednesday_arrival_time', 'thursday_arrival_time', 'friday_arrival_time', 'saturday_arrival_time', 'sunday_arrival_time']));
+				$this->trip = $this->trip->create($request->except(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'monday_time', 'tuesday_time', 'wednesday_time', 'thursday_time', 'friday_time', 'saturday_time', 'sunday_time', 'start_date', 'end_date', 'monday_time_driver', 'tuesday_time_driver', 'wednesday_time_driver', 'thursday_time_driver', 'friday_time_driver', 'saturday_time_driver', 'sunday_time_driver', 'monday_time_bus', 'tuesday_time_bus', 'wednesday_time_bus', 'thursday_time_bus', 'friday_time_bus', 'saturday_time_bus', 'sunday_time_bus', 'monday_arrival_time', 'tuesday_arrival_time', 'wednesday_arrival_time', 'thursday_arrival_time', 'friday_arrival_time', 'saturday_arrival_time', 'sunday_arrival_time', 'monday_arrival_date', 'tuesday_arrival_date', 'wednesday_arrival_date', 'thursday_arrival_date', 'friday_arrival_date', 'saturday_arrival_date', 'sunday_arrival_date']));
 			} else {
 				$this->trip = Trip::withTrashed()->findOrFail($id);
-				$this->trip->update($request->except(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'monday_time', 'tuesday_time', 'wednesday_time', 'thursday_time', 'friday_time', 'saturday_time', 'sunday_time', 'start_date', 'end_date', 'monday_time_driver', 'tuesday_time_driver', 'wednesday_time_driver', 'thursday_time_driver', 'friday_time_driver', 'saturday_time_driver', 'sunday_time_driver', 'monday_time_bus', 'tuesday_time_bus', 'wednesday_time_bus', 'thursday_time_bus', 'friday_time_bus', 'saturday_time_bus', 'sunday_time_bus', 'monday_arrival_time', 'tuesday_arrival_time', 'wednesday_arrival_time', 'thursday_arrival_time', 'friday_arrival_time', 'saturday_arrival_time', 'sunday_arrival_time']));
+				$this->trip->update($request->except(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'monday_time', 'tuesday_time', 'wednesday_time', 'thursday_time', 'friday_time', 'saturday_time', 'sunday_time', 'start_date', 'end_date', 'monday_time_driver', 'tuesday_time_driver', 'wednesday_time_driver', 'thursday_time_driver', 'friday_time_driver', 'saturday_time_driver', 'sunday_time_driver', 'monday_time_bus', 'tuesday_time_bus', 'wednesday_time_bus', 'thursday_time_bus', 'friday_time_bus', 'saturday_time_bus', 'sunday_time_bus', 'monday_arrival_time', 'tuesday_arrival_time', 'wednesday_arrival_time', 'thursday_arrival_time', 'friday_arrival_time', 'saturday_arrival_time', 'sunday_arrival_time', 'monday_arrival_date', 'tuesday_arrival_date', 'wednesday_arrival_date', 'thursday_arrival_date', 'friday_arrival_date', 'saturday_arrival_date', 'sunday_arrival_date']));
 			}
 		DB::commit();
 	}

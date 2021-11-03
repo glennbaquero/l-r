@@ -35,7 +35,7 @@ class TripCreateOrUpdateAction
 
 		DB::beginTransaction();
 			if(!$id) {
-				$this->trip = $this->trip->create($request->except(['driver_list', 'time_list', 'arrival_time', 'bus_list']));
+				$this->trip = $this->trip->create($request->except(['driver_list', 'time_list', 'arrival_time', 'bus_list', 'arrival_date']));
 
 				foreach($request->time_list as $key => $time) {
 					TripTime::create([
@@ -44,12 +44,13 @@ class TripCreateOrUpdateAction
 						'driver_id' => $request->driver_list[$key],
 						'bus_id' => $request->bus_list[$key],
 						'arrival_time' => $request->arrival_time[$key],
+						'arrival_date' => $request->arrival_date[$key],
 					]);
 				}
 				
 			} else {
 				$this->trip = Trip::withTrashed()->findOrFail($id);
-				$this->trip->update($request->except(['new', 'driver_list', 'time_list', 'ids', 'arrival_time', 'bus_list']));
+				$this->trip->update($request->except(['new', 'driver_list', 'time_list', 'ids', 'arrival_time', 'bus_list', 'arrival_date']));
 				foreach($request->time_list as $key => $time) {
 					if($request->new[$key] == 'true') {
 						TripTime::create([
@@ -58,6 +59,7 @@ class TripCreateOrUpdateAction
 							'driver_id' => $request->driver_list[$key] == 'null' ? null : $request->driver_list[$key],
 							'bus_id' => $request->bus_list[$key] == 'null' ? null : $request->bus_list[$key],
 							'arrival_time' => $request->arrival_time[$key],
+							'arrival_date' => $request->arrival_date[$key],
 						]);	
 					} else {
 						$existing = TripTime::find($request->ids[$key]);
@@ -67,6 +69,7 @@ class TripCreateOrUpdateAction
 							'driver_id' => $request->driver_list[$key] == 'null' ? null : $request->driver_list[$key],
 							'bus_id' => $request->bus_list[$key] == 'null' ? null : $request->bus_list[$key],
 							'arrival_time' => $request->arrival_time[$key],
+							'arrival_date' => $request->arrival_date[$key],
 						]);
 					}
 				}
