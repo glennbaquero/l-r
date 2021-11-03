@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
         $route = RouteServiceProvider::HOME;
 
         if($request->user()->group->name != 'Administrator') {
-            $route = route('payment.process');
+            $route = route('driver-dashboard');
         }
 
         return redirect($route);
