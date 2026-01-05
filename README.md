@@ -4,9 +4,6 @@ This repository is provided **for project viewing and portfolio demonstration pu
 
 The application is built using **Laravel** and **Vue.js**, showcasing real-world full-stack development, including backend APIs, frontend integration, and database management.
 
-🌐 **Live Demo:**  
-https://lrtransport.diversifiedrobotic.com/travel
-
 📦 **Source Code:**  
 https://github.com/glennbaquero/l-r
 
